@@ -1,1226 +1,268 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PMP Exam Simulator</title>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg: #0a0e1a;
-  --surface: #111827;
-  --surface2: #1a2235;
-  --surface3: #1f2d45;
-  --border: rgba(99,179,237,0.12);
-  --accent: #3b82f6;
-  --accent2: #06b6d4;
-  --gold: #f59e0b;
-  --green: #10b981;
-  --red: #ef4444;
-  --text: #e2e8f0;
-  --text2: #94a3b8;
-  --text3: #64748b;
-  --danger: #dc2626;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Sora', sans-serif;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-/* BACKGROUND GRID */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: 
-    linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
-  pointer-events: none;
-  z-index: 0;
-}
-.container { position: relative; z-index: 1; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PMP Simulator Pro</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f8f9fa; display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; padding: 20px; color: #333; }
+        .container { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); max-width: 900px; width: 95%; text-align: center; }
+        
+        h1 { color: #4285f4; font-size: 3rem; font-weight: 800; margin-bottom: 10px; }
+        .subtitle { color: #666; font-size: 1.4rem; margin-bottom: 40px; }
+        .info-box { background-color: #f8f9fa; border-left: 6px solid #4285f4; border-radius: 12px; padding: 30px; text-align: left; margin-bottom: 40px; }
+        .info-box h2 { color: #4285f4; margin-top: 0; font-size: 1.6rem; margin-bottom: 20px; }
+        .info-box ul { list-style: none; padding: 0; margin: 0; }
+        .info-box li { margin-bottom: 12px; font-size: 1.2rem; color: #444; position: relative; padding-left: 25px; }
+        .info-box li::before { content: "•"; position: absolute; left: 0; font-weight: bold; }
+        
+        .grid-menu { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .btn-menu { background: white; border: 2px solid #e0e0e0; border-radius: 15px; padding: 25px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.2s; color: #444; }
+        .btn-menu:hover { border-color: #4285f4; background-color: #f1f3f4; }
+        .btn-primary { background-color: #3b71db; color: white; border: none; }
+        .btn-primary:hover { background-color: #2d5abd; }
 
-/* === SCREENS === */
-.screen { display: none; min-height: 100vh; }
-.screen.active { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .header-info { background: #1c1c2e; color: white; padding: 15px 25px; border-radius: 50px; display: none; gap: 20px; margin-bottom: 20px; align-items: center; }
+        .btn-cancel { background: #fce8e6; color: #d93025; border: 1px solid #f5c6cb; padding: 5px 15px; border-radius: 20px; cursor: pointer; margin-left: 15px; font-size: 0.8rem; }
+        .btn-pause { background: #34a853; color: white; border: none; padding: 5px 15px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; margin-left: 10px; display: none; }
+        
+        #quiz-section, #resultados-section { display: none; text-align: left; }
+        .chip { display: inline-block; padding: 4px 10px; border-radius: 5px; font-size: 0.75rem; font-weight: bold; margin-bottom: 10px; text-transform: uppercase; background: #e8f0fe; color: #1a73e8; }
+        .opcion-btn { display: block; width: 100%; padding: 15px; margin: 10px 0; border: 1px solid #dadce0; border-radius: 8px; background: white; text-align: left; cursor: pointer; font-size: 1rem; }
+        .opcion-btn.selected { background-color: #e8f0fe; border-color: #1a73e8; }
 
-/* === LOGIN SCREEN === */
-#loginScreen {
-  background: radial-gradient(ellipse at 50% 0%, rgba(59,130,246,0.15) 0%, transparent 70%);
-}
-.login-box {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  padding: 48px;
-  width: 420px;
-  max-width: 95vw;
-  box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(59,130,246,0.1) inset;
-  position: relative;
-  overflow: hidden;
-}
-.login-box::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-}
-.logo {
-  text-align: center;
-  margin-bottom: 32px;
-}
-.logo-icon {
-  width: 64px;
-  height: 64px;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  border-radius: 16px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28px;
-  margin-bottom: 16px;
-  box-shadow: 0 8px 24px rgba(59,130,246,0.3);
-}
-.logo h1 { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
-.logo h1 span { color: var(--accent2); }
-.logo p { color: var(--text2); font-size: 13px; margin-top: 4px; }
-
-.form-group { margin-bottom: 20px; }
-.form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--text2); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
-.form-group input {
-  width: 100%;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 14px 16px;
-  color: var(--text);
-  font-family: inherit;
-  font-size: 15px;
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-.form-group input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
-}
-.btn-login {
-  width: 100%;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  border: none;
-  border-radius: 10px;
-  padding: 14px;
-  color: white;
-  font-family: inherit;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: opacity 0.2s, transform 0.15s;
-  letter-spacing: 0.3px;
-}
-.btn-login:hover { opacity: 0.9; transform: translateY(-1px); }
-.btn-login:active { transform: translateY(0); }
-.login-error { color: var(--red); font-size: 13px; margin-top: 12px; text-align: center; display: none; }
-
-/* === MENU SCREEN === */
-#menuScreen {
-  background: radial-gradient(ellipse at 70% 30%, rgba(6,182,212,0.08) 0%, transparent 60%);
-  padding: 40px 20px;
-}
-.menu-header {
-  text-align: center;
-  margin-bottom: 48px;
-}
-.menu-header .welcome { color: var(--accent2); font-size: 14px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
-.menu-header h2 { font-size: 36px; font-weight: 800; margin-top: 8px; letter-spacing: -1px; }
-.menu-header h2 span { background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.menu-header p { color: var(--text2); margin-top: 10px; font-size: 15px; }
-
-.exam-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 820px; width: 100%; }
-@media(max-width: 600px) { .exam-grid { grid-template-columns: 1fr; } }
-
-.exam-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 28px;
-  cursor: pointer;
-  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
-  position: relative;
-  overflow: hidden;
-}
-.exam-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-.exam-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); border-color: var(--accent); }
-.exam-card:hover::after { opacity: 0.05; }
-
-.card-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 5px 12px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text2);
-  margin-bottom: 16px;
-  font-family: 'JetBrains Mono', monospace;
-}
-.card-badge.easy { color: var(--green); border-color: rgba(16,185,129,0.3); }
-.card-badge.medium { color: var(--gold); border-color: rgba(245,158,11,0.3); }
-.card-badge.hard { color: #f97316; border-color: rgba(249,115,22,0.3); }
-.card-badge.expert { color: var(--red); border-color: rgba(239,68,68,0.3); }
-
-.card-questions { font-size: 42px; font-weight: 800; letter-spacing: -2px; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.card-label { font-size: 14px; color: var(--text2); margin-top: 2px; }
-.card-time { display: flex; align-items: center; gap: 6px; margin-top: 16px; font-size: 13px; color: var(--text3); }
-.card-time .dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
-
-.stats-bar {
-  max-width: 820px;
-  width: 100%;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 20px 28px;
-  display: flex;
-  justify-content: space-around;
-  margin-top: 24px;
-}
-.stat { text-align: center; }
-.stat-num { font-size: 24px; font-weight: 800; color: var(--accent); font-family: 'JetBrains Mono', monospace; }
-.stat-label { font-size: 12px; color: var(--text3); margin-top: 3px; }
-
-.btn-logout {
-  position: fixed;
-  top: 20px; right: 20px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 10px 18px;
-  color: var(--text2);
-  font-family: inherit;
-  font-size: 13px;
-  cursor: pointer;
-  transition: all 0.2s;
-  z-index: 100;
-}
-.btn-logout:hover { border-color: var(--accent); color: var(--text); }
-
-/* === TEST SCREEN === */
-#testScreen { padding: 0; }
-.test-layout { display: grid; grid-template-columns: 1fr 320px; min-height: 100vh; width: 100%; }
-@media(max-width: 900px) { .test-layout { grid-template-columns: 1fr; } }
-
-.test-main { padding: 32px; display: flex; flex-direction: column; }
-.test-topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 32px;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-.test-info { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-.test-badge {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 6px 14px;
-  font-size: 13px;
-  font-weight: 600;
-  font-family: 'JetBrains Mono', monospace;
-}
-.progress-wrap { flex: 1; max-width: 300px; }
-.progress-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--text3); margin-bottom: 6px; }
-.progress-bar { height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
-.progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 3px; transition: width 0.3s; }
-
-.question-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 36px;
-  flex: 1;
-  position: relative;
-  overflow: hidden;
-}
-.question-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-}
-.q-number {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: 16px;
-  font-family: 'JetBrains Mono', monospace;
-}
-.q-text {
-  font-size: 17px;
-  line-height: 1.7;
-  margin-bottom: 32px;
-  font-weight: 400;
-}
-.options { display: flex; flex-direction: column; gap: 10px; }
-.option {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 16px 20px;
-  cursor: pointer;
-  transition: all 0.18s;
-  text-align: left;
-}
-.option:hover:not(.selected):not(.correct):not(.incorrect) {
-  border-color: var(--accent);
-  background: var(--surface3);
-}
-.option.selected { border-color: var(--accent); background: rgba(59,130,246,0.12); }
-.option.correct { border-color: var(--green); background: rgba(16,185,129,0.1); }
-.option.incorrect { border-color: var(--red); background: rgba(239,68,68,0.1); }
-
-.option-letter {
-  min-width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  font-weight: 700;
-  font-family: 'JetBrains Mono', monospace;
-  color: var(--text2);
-  transition: all 0.18s;
-  flex-shrink: 0;
-}
-.option.selected .option-letter { background: var(--accent); border-color: var(--accent); color: white; }
-.option.correct .option-letter { background: var(--green); border-color: var(--green); color: white; }
-.option.incorrect .option-letter { background: var(--red); border-color: var(--red); color: white; }
-.option-text { font-size: 15px; line-height: 1.5; padding-top: 3px; }
-
-.explanation-box {
-  margin-top: 20px;
-  background: var(--surface2);
-  border: 1px solid rgba(6,182,212,0.2);
-  border-radius: 12px;
-  padding: 16px 20px;
-  font-size: 14px;
-  color: var(--text2);
-  line-height: 1.6;
-  display: none;
-}
-.explanation-box.show { display: flex; gap: 12px; align-items: flex-start; }
-.explanation-box .exp-icon { font-size: 18px; flex-shrink: 0; }
-
-.q-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 24px;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-.btn-nav {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 12px 24px;
-  color: var(--text);
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.18s;
-}
-.btn-nav:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
-.btn-nav:disabled { opacity: 0.3; cursor: default; }
-.btn-nav.primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); border: none; color: white; }
-.btn-nav.primary:hover { opacity: 0.9; }
-.btn-nav.danger { background: var(--surface); border-color: rgba(239,68,68,0.3); color: var(--red); }
-.btn-nav.danger:hover { border-color: var(--red); background: rgba(239,68,68,0.08); }
-
-/* SIDEBAR */
-.test-sidebar {
-  background: var(--surface);
-  border-left: 1px solid var(--border);
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-@media(max-width: 900px) { .test-sidebar { border-left: none; border-top: 1px solid var(--border); } }
-
-.timer-display {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 20px;
-  text-align: center;
-}
-.timer-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text3); margin-bottom: 8px; }
-.timer-value {
-  font-size: 40px;
-  font-weight: 800;
-  font-family: 'JetBrains Mono', monospace;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  line-height: 1;
-}
-.timer-value.warning { background: linear-gradient(135deg, var(--gold), #ef4444); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.timer-elapsed { font-size: 12px; color: var(--text3); margin-top: 6px; font-family: 'JetBrains Mono', monospace; }
-.timer-bar { height: 4px; background: var(--surface); border-radius: 2px; margin-top: 12px; overflow: hidden; }
-.timer-fill { height: 100%; background: linear-gradient(90deg, var(--green), var(--accent)); border-radius: 2px; transition: width 1s linear; }
-.timer-fill.half { background: linear-gradient(90deg, var(--gold), #f97316); }
-.timer-fill.low { background: linear-gradient(90deg, #f97316, var(--red)); }
-
-.minimap {
-  flex: 1;
-}
-.minimap-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); margin-bottom: 12px; }
-.minimap-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(32px, 1fr));
-  gap: 5px;
-  max-height: 300px;
-  overflow-y: auto;
-}
-.minimap-grid::-webkit-scrollbar { width: 4px; }
-.minimap-grid::-webkit-scrollbar-track { background: var(--surface2); }
-.minimap-grid::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-.mini-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-  background: var(--surface2);
-  color: var(--text3);
-  font-size: 11px;
-  font-weight: 700;
-  cursor: pointer;
-  font-family: 'JetBrains Mono', monospace;
-  transition: all 0.1s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.mini-btn:hover { border-color: var(--accent); color: var(--text); }
-.mini-btn.answered { background: rgba(59,130,246,0.2); border-color: var(--accent); color: var(--accent); }
-.mini-btn.current { background: var(--accent); border-color: var(--accent); color: white; }
-.mini-btn.flagged { background: rgba(245,158,11,0.2); border-color: var(--gold); color: var(--gold); }
-
-.sidebar-actions { display: flex; flex-direction: column; gap: 8px; }
-.btn-sm {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 10px 14px;
-  color: var(--text2);
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.18s;
-  text-align: left;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.btn-sm:hover { border-color: var(--accent); color: var(--text); }
-.btn-sm.gold { border-color: rgba(245,158,11,0.3); color: var(--gold); }
-.btn-sm.gold:hover { border-color: var(--gold); }
-.btn-sm.red { border-color: rgba(239,68,68,0.3); color: var(--red); }
-.btn-sm.red:hover { border-color: var(--red); }
-
-/* === RESULTS SCREEN === */
-#resultsScreen {
-  background: radial-gradient(ellipse at 50% -20%, rgba(59,130,246,0.12) 0%, transparent 60%);
-  padding: 40px 20px;
-  align-items: stretch;
-}
-.results-inner {
-  max-width: 900px;
-  width: 100%;
-  margin: 0 auto;
-}
-.results-hero {
-  text-align: center;
-  margin-bottom: 40px;
-}
-.result-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--surface);
-  border: 2px solid;
-  border-radius: 100px;
-  padding: 12px 28px;
-  font-size: 18px;
-  font-weight: 800;
-  margin-bottom: 24px;
-}
-.result-badge.pass { border-color: var(--green); color: var(--green); }
-.result-badge.fail { border-color: var(--red); color: var(--red); }
-.results-hero h2 { font-size: 48px; font-weight: 800; letter-spacing: -2px; }
-.results-hero .score-pct { font-size: 80px; font-weight: 800; letter-spacing: -4px; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-.results-stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-bottom: 32px;
-}
-@media(max-width: 640px) { .results-stats { grid-template-columns: repeat(2, 1fr); } }
-.r-stat {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 20px;
-  text-align: center;
-}
-.r-stat-num { font-size: 28px; font-weight: 800; font-family: 'JetBrains Mono', monospace; }
-.r-stat-num.green { color: var(--green); }
-.r-stat-num.red { color: var(--red); }
-.r-stat-num.blue { color: var(--accent); }
-.r-stat-num.gold { color: var(--gold); }
-.r-stat-label { font-size: 12px; color: var(--text3); margin-top: 4px; }
-
-.results-tabs {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 20px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 4px;
-}
-.tab-btn {
-  flex: 1;
-  background: none;
-  border: none;
-  border-radius: 8px;
-  padding: 10px;
-  color: var(--text2);
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.tab-btn.active { background: var(--surface2); color: var(--text); }
-
-.review-list { display: flex; flex-direction: column; gap: 12px; max-height: 500px; overflow-y: auto; padding-right: 4px; }
-.review-list::-webkit-scrollbar { width: 6px; }
-.review-list::-webkit-scrollbar-track { background: var(--surface); }
-.review-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-
-.review-item {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 20px;
-  position: relative;
-  overflow: hidden;
-}
-.review-item::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 4px;
-}
-.review-item.correct-item::before { background: var(--green); }
-.review-item.incorrect-item::before { background: var(--red); }
-.review-item-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
-.review-q-num { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); font-family: 'JetBrains Mono', monospace; }
-.review-status { font-size: 12px; font-weight: 700; }
-.review-status.c { color: var(--green); }
-.review-status.w { color: var(--red); }
-.review-q-text { font-size: 14px; line-height: 1.5; margin-bottom: 12px; }
-.review-answers { display: flex; flex-direction: column; gap: 6px; font-size: 13px; }
-.review-answers .your { color: var(--text2); }
-.review-answers .correct { color: var(--green); }
-.review-answers .exp { color: var(--text3); font-style: italic; margin-top: 4px; }
-
-.results-actions {
-  display: flex;
-  gap: 12px;
-  margin-top: 24px;
-  flex-wrap: wrap;
-}
-.btn-result {
-  flex: 1;
-  min-width: 150px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 14px;
-  color: var(--text);
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.18s;
-  text-align: center;
-}
-.btn-result:hover { border-color: var(--accent); }
-.btn-result.primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); border: none; }
-.btn-result.primary:hover { opacity: 0.9; }
-
-/* CONFETTI */
-.confetti-piece {
-  position: fixed;
-  width: 10px;
-  height: 10px;
-  border-radius: 2px;
-  animation: confettiFall linear forwards;
-  z-index: 9999;
-  pointer-events: none;
-}
-@keyframes confettiFall {
-  0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
-}
-
-/* TOAST */
-.toast {
-  position: fixed;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%) translateY(100px);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 12px 24px;
-  font-size: 14px;
-  font-weight: 600;
-  z-index: 999;
-  transition: transform 0.3s;
-  white-space: nowrap;
-}
-.toast.show { transform: translateX(-50%) translateY(0); }
-
-/* MODAL */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.7);
-  z-index: 9998;
-  display: none;
-  align-items: center;
-  justify-content: center;
-}
-.modal-overlay.show { display: flex; }
-.modal {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 36px;
-  max-width: 440px;
-  width: 90%;
-  text-align: center;
-}
-.modal h3 { font-size: 20px; font-weight: 800; margin-bottom: 12px; }
-.modal p { color: var(--text2); font-size: 15px; line-height: 1.6; margin-bottom: 24px; }
-.modal-actions { display: flex; gap: 12px; }
-.modal-actions button { flex: 1; padding: 12px; border-radius: 10px; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.18s; }
-.modal-cancel { background: var(--surface2); border: 1px solid var(--border); color: var(--text); }
-.modal-cancel:hover { border-color: var(--accent); }
-.modal-confirm { background: linear-gradient(135deg, #ef4444, #dc2626); border: none; color: white; }
-.modal-confirm:hover { opacity: 0.9; }
-
-/* Time up overlay */
-.timeup-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-  z-index: 9997;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 16px;
-}
-.timeup-overlay.show { display: flex; }
-.timeup-icon { font-size: 64px; animation: pulse 1s infinite; }
-@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-.timeup-title { font-size: 36px; font-weight: 800; color: var(--red); }
-.timeup-sub { color: var(--text2); font-size: 16px; }
-</style>
+        .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 25px 0; }
+        .dash-card { background: #f8f9fa; padding: 15px; border-radius: 12px; border: 1px solid #eee; }
+        .dash-card h4 { margin: 0 0 10px 0; font-size: 0.9rem; color: #1a73e8; text-transform: uppercase; }
+        .bar-outer { background: #eee; height: 10px; border-radius: 5px; margin-top: 4px; overflow: hidden; }
+        .bar-inner { height: 100%; transition: width 0.5s; }
+        .explicacion-box { background: #fff9c4; padding: 15px; border-radius: 8px; margin-top: 10px; font-size: 0.9rem; border-left: 5px solid #fbc02d; }
+        .reporte-pregunta { border-bottom: 1px solid #eee; padding: 20px 0; }
+        #pause-overlay { display: none; padding: 50px; text-align: center; background: #fff; border-radius: 15px; border: 2px dashed #4285f4; margin: 20px 0; }
+    </style>
 </head>
 <body>
 
-<!-- LOGIN -->
-<div id="loginScreen" class="screen active container">
-  <div class="login-box">
-    <div class="logo">
-      <div class="logo-icon">📋</div>
-      <h1>PMP <span>Simulator</span></h1>
-      <p>Preparación no oficial para la certificación</p>
-    </div>
-    <div class="form-group">
-      <label>Usuario</label>
-      <input type="text" id="loginUser" placeholder="Ingresa tu nombre" autocomplete="off">
-    </div>
-    <div class="form-group">
-      <label>Contraseña</label>
-      <input type="password" id="loginPass" placeholder="••••••••">
-    </div>
-    <button class="btn-login" onclick="doLogin()">Iniciar sesión →</button>
-    <div class="login-error" id="loginError">Usuario o contraseña incorrectos</div>
-    <div style="margin-top:16px;font-size:12px;color:var(--text3);text-align:center">
-      Usuario: <strong style="color:var(--text2)">admin</strong> &nbsp;|&nbsp; Contraseña: <strong style="color:var(--text2)">pmp2025</strong>
-    </div>
-  </div>
+<div id="header" class="header-info">
+    <span>⏳ <span id="reloj">00:00</span></span>
+    <button id="pause-btn" class="btn-pause" onclick="pausarExamen()">☕ Tomar Descanso (10 min)</button>
+    <span>📋 Pregunta: <span id="progreso-txt">0/0</span></span>
+    <button class="btn-cancel" onclick="location.reload()">✕ Cancelar</button>
 </div>
 
-<!-- MENU -->
-<div id="menuScreen" class="screen container">
-  <button class="btn-logout" onclick="logout()">Salir</button>
-  <div class="menu-header">
-    <div class="welcome">¡Bienvenido/a, <span id="userName"></span>!</div>
-    <h2>Selecciona tu <span>Simulacro</span></h2>
-    <p>216 preguntas reales · Aprobado con ≥85% · Tiempo cronometrado</p>
-  </div>
-  <div class="exam-grid">
-    <div class="exam-card" onclick="startExam(20, 25)">
-      <div class="card-badge easy">◉ BÁSICO</div>
-      <div class="card-questions">20</div>
-      <div class="card-label">Preguntas</div>
-      <div class="card-time"><div class="dot"></div>25 minutos · ~75 seg/pregunta</div>
+<div class="container">
+    <div id="inicio">
+        <h1>PMP Simulator Pro</h1>
+        <p class="subtitle">Las preguntas se generan de manera aleatoria</p>
+        <div class="info-box">
+            <h2>Cómo funciona:</h2>
+            <ul>
+                <li>Selecciona la cantidad de preguntas.</li>
+                <li><b>Simulacro Real:</b> Feedback detallado solo al finalizar.</li>
+                <li><b>Pausas Reglamentarias:</b> Disponibles tras la pregunta 60 y 120 en el examen completo.</li>
+                <li><b>Exigencia PMP:</b> El veredicto final se basa en una exigencia mínima del 70%.</li>
+            </ul>
+        </div>
+        <div class="grid-menu">
+            <button class="btn-menu" onclick="iniciarExamen(20)">20 preguntas</button>
+            <button class="btn-menu" onclick="iniciarExamen(40)">40 preguntas</button>
+            <button class="btn-menu" onclick="iniciarExamen(60)">60 preguntas</button>
+            <button class="btn-menu" onclick="iniciarExamen(80)">80 preguntas</button>
+            <button class="btn-menu" onclick="iniciarExamen(100)">100 preguntas</button>
+            <button class="btn-menu" onclick="iniciarExamen(120)">120 preguntas</button>
+            <button class="btn-menu" onclick="iniciarExamen(140)">140 preguntas</button>
+            <button class="btn-menu btn-primary" onclick="iniciarExamen(180)">Examen Completo (180 p.)</button>
+        </div>
     </div>
-    <div class="exam-card" onclick="startExam(40, 45)">
-      <div class="card-badge medium">◉ INTERMEDIO</div>
-      <div class="card-questions">40</div>
-      <div class="card-label">Preguntas</div>
-      <div class="card-time"><div class="dot"></div>45 minutos · ~67 seg/pregunta</div>
-    </div>
-    <div class="exam-card" onclick="startExam(60, 65)">
-      <div class="card-badge hard">◉ AVANZADO</div>
-      <div class="card-questions">60</div>
-      <div class="card-label">Preguntas</div>
-      <div class="card-time"><div class="dot"></div>65 minutos · ~65 seg/pregunta</div>
-    </div>
-    <div class="exam-card" onclick="startExam(80, 80)">
-      <div class="card-badge expert">◉ EXPERTO</div>
-      <div class="card-questions">80</div>
-      <div class="card-label">Preguntas</div>
-      <div class="card-time"><div class="dot"></div>80 minutos · 60 seg/pregunta</div>
-    </div>
-  </div>
-  <div class="stats-bar" id="statsBar">
-    <div class="stat"><div class="stat-num" id="statTotal">0</div><div class="stat-label">Tests completados</div></div>
-    <div class="stat"><div class="stat-num" id="statBest">—</div><div class="stat-label">Mejor puntaje</div></div>
-    <div class="stat"><div class="stat-num" id="statAvg">—</div><div class="stat-label">Puntaje promedio</div></div>
-    <div class="stat"><div class="stat-num" id="statPassed">0</div><div class="stat-label">Aprobados</div></div>
-  </div>
-</div>
 
-<!-- TEST -->
-<div id="testScreen" class="screen">
-  <div class="test-layout">
-    <div class="test-main">
-      <div class="test-topbar">
-        <div class="test-info">
-          <div class="test-badge" id="testBadge">Test • 0/0</div>
-          <div class="progress-wrap">
-            <div class="progress-label">
-              <span id="progLabel">Progreso</span>
-              <span id="progPct">0%</span>
+    <div id="quiz-section">
+        <div id="pause-overlay">
+            <h2 style="color:#4285f4;">Descanso en Progreso</h2>
+            <p>Has completado un bloque. El cronómetro está detenido.</p>
+            <button class="btn-menu btn-primary" onclick="reanudarExamen()">Reanudar y Continuar</button>
+        </div>
+        <div id="quiz-content">
+            <div id="meta-info"></div>
+            <div id="enunciado" style="font-size: 1.2rem; margin-bottom: 20px; font-weight: 500;"></div>
+            <div id="opciones-container"></div>
+            <div style="display: flex; justify-content: space-between; margin-top: 30px;">
+                <button onclick="previaPregunta()" style="padding: 12px 25px; border-radius: 8px; border: 1px solid #ccc; cursor: pointer;">Anterior</button>
+                <button id="next-btn" onclick="siguientePregunta()" style="padding: 12px 25px; border-radius: 8px; background: #4285f4; color: white; border: none; cursor: pointer;">Siguiente</button>
+                <button id="finish-btn" onclick="mostrarResultados()" style="display:none; padding: 12px 25px; border-radius: 8px; background: #34a853; color: white; border: none; cursor: pointer;">Finalizar</button>
             </div>
-            <div class="progress-bar"><div class="progress-fill" id="progFill" style="width:0%"></div></div>
-          </div>
         </div>
-      </div>
-      <div class="question-card" id="questionCard">
-        <div class="q-number" id="qNumber">PREGUNTA 1 DE 20</div>
-        <div class="q-text" id="qText">Cargando...</div>
-        <div class="options" id="optionsContainer"></div>
-        <div class="explanation-box" id="explanationBox">
-          <div class="exp-icon">💡</div>
-          <div id="explanationText"></div>
+    </div>
+
+    <div id="resultados-section">
+        <h2 id="score-final" style="text-align:center; color:#1a73e8; font-size: 2rem;"></h2>
+        <div class="dashboard-grid">
+            <div class="dash-card">
+                <h4>📊 Por Dominio ECO</h4>
+                <div id="dash-dominios"></div>
+            </div>
+            <div class="dash-card">
+                <h4>⚡ Por Enfoque</h4>
+                <div id="dash-enfoques"></div>
+            </div>
         </div>
-      </div>
-      <div class="q-nav">
-        <button class="btn-nav" id="prevBtn" onclick="navigate(-1)">← Anterior</button>
-        <div style="display:flex;gap:8px">
-          <button class="btn-nav gold" id="flagBtn" onclick="toggleFlag()">🚩 Marcar</button>
-          <button class="btn-nav" id="nextBtn" onclick="navigate(1)">Siguiente →</button>
-          <button class="btn-nav primary" id="finishBtn" onclick="confirmFinish()" style="display:none">Finalizar examen</button>
-        </div>
-      </div>
+        <hr>
+        <h3>Análisis de Fallos y Mindset:</h3>
+        <div id="lista-revision"></div>
+        <button onclick="location.reload()" style="width:100%; padding:15px; margin-top:20px; background:#4285f4; color:white; border:none; border-radius:10px; cursor:pointer; font-weight:bold;">Volver al Inicio</button>
     </div>
-    <div class="test-sidebar">
-      <div class="timer-display">
-        <div class="timer-label">⏱ Tiempo restante</div>
-        <div class="timer-value" id="timerValue">00:00</div>
-        <div class="timer-elapsed" id="timerElapsed">Transcurrido: 00:00</div>
-        <div class="timer-bar"><div class="timer-fill" id="timerFill" style="width:100%"></div></div>
-      </div>
-      <div class="minimap">
-        <div class="minimap-title">Mapa de preguntas</div>
-        <div class="minimap-grid" id="minimapGrid"></div>
-      </div>
-      <div class="sidebar-actions">
-        <button class="btn-sm gold" onclick="toggleFlag()">🚩 Marcar pregunta</button>
-        <button class="btn-sm red" onclick="confirmAbandon()">✖ Abandonar test</button>
-      </div>
-    </div>
-  </div>
 </div>
 
-<!-- RESULTS -->
-<div id="resultsScreen" class="screen">
-  <div class="results-inner">
-    <div class="results-hero">
-      <div class="result-badge" id="resultBadge">— RESULTADO —</div>
-      <div class="score-pct" id="scorePct">0%</div>
-      <h2 id="resultTitle">Resultado</h2>
-      <p id="resultSub" style="color:var(--text2);margin-top:8px"></p>
-    </div>
-    <div class="results-stats">
-      <div class="r-stat"><div class="r-stat-num green" id="rCorrect">0</div><div class="r-stat-label">✅ Correctas</div></div>
-      <div class="r-stat"><div class="r-stat-num red" id="rIncorrect">0</div><div class="r-stat-label">❌ Incorrectas</div></div>
-      <div class="r-stat"><div class="r-stat-num blue" id="rSkipped">0</div><div class="r-stat-label">⬜ Sin responder</div></div>
-      <div class="r-stat"><div class="r-stat-num gold" id="rTime">0:00</div><div class="r-stat-label">⏱ Tiempo usado</div></div>
-    </div>
-    <div class="results-tabs">
-      <button class="tab-btn active" onclick="showTab('all')">Todas</button>
-      <button class="tab-btn" onclick="showTab('correct')">✅ Correctas</button>
-      <button class="tab-btn" onclick="showTab('incorrect')">❌ Incorrectas</button>
-      <button class="tab-btn" onclick="showTab('skipped')">⬜ Sin responder</button>
-    </div>
-    <div class="review-list" id="reviewList"></div>
-    <div class="results-actions">
-      <button class="btn-result" onclick="goMenu()">← Menú principal</button>
-      <button class="btn-result primary" onclick="retryExam()">↺ Repetir examen</button>
-    </div>
-  </div>
-</div>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-<!-- MODAL -->
-<div class="modal-overlay" id="confirmModal">
-  <div class="modal">
-    <h3 id="modalTitle">¿Finalizar examen?</h3>
-    <p id="modalMsg">Aún tienes preguntas sin responder. ¿Deseas finalizar y ver tus resultados?</p>
-    <div class="modal-actions">
-      <button class="modal-cancel" onclick="closeModal()">Cancelar</button>
-      <button class="modal-confirm" id="modalConfirmBtn">Finalizar</button>
-    </div>
-  </div>
-</div>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCIjxMJ1837p-rN7Husua5jgVLr9MRi_Fg",
+      authDomain: "pmp-simulator-pro-c656a.firebaseapp.com",
+      projectId: "pmp-simulator-pro-c656a",
+      storageBucket: "pmp-simulator-pro-c656a.firebasestorage.app",
+      messagingSenderId: "574994878534",
+      appId: "1:574994878534:web:e9a98ac2d9e0ec85c73a47"
+    };
 
-<!-- TIME UP -->
-<div class="timeup-overlay" id="timeupOverlay">
-  <div class="timeup-icon">⏰</div>
-  <div class="timeup-title">¡Tiempo agotado!</div>
-  <div class="timeup-sub">El examen ha finalizado automáticamente</div>
-  <button class="btn-nav primary" onclick="finishExam()" style="margin-top:16px">Ver resultados →</button>
-</div>
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-<!-- TOAST -->
-<div class="toast" id="toast"></div>
+    let totalPreguntas, indexActual = 0, listaIds = [], respuestasUsuario = [], tiempoRestante, cronometro, cachePreguntas = {};
 
-<script>
-const QUESTIONS = [{"id": 2, "q": "¿Cuál es el propósito principal de un registro de interesados?", "opts": {"A": "Documentar los entregables del proyecto", "B": "Listar los recursos humanos asignados", "C": "Identificar y clasificar a los interesados", "D": "Planificar la calidad del proyecto"}, "ans": "C", "exp": "Permite comprender las necesidades e influencias de los interesados."}, {"id": 3, "q": "Durante una reunión de retrospectiva, el equipo identifica una mejora para el próximo sprint. ¿Cuál es el siguiente paso?", "opts": {"A": "Agregarlo al backlog de producto", "B": "Aplicar el cambio inmediatamente", "C": "Documentarlo en el acta de constitución", "D": "Incluirlo en el plan de gestión de riesgos"}, "ans": "A", "exp": "Las mejoras identificadas deben gestionarse dentro del backlog."}, {"id": 4, "q": "¿Cuál es la diferencia entre el cronograma y la línea base del cronograma?", "opts": {"A": "No hay diferencia", "B": "La línea base del cronograma incluye las reservas de gestión", "C": "El cronograma muestra el trabajo planeado y real, la línea base sólo el planeado", "D": "El cronograma es un plan preliminar, la línea base es final"}, "ans": "C", "exp": "El cronograma evoluciona, la línea base se usa para comparar el rendimiento."}, {"id": 5, "q": "¿Qué técnica se utiliza para evaluar el impacto cualitativo de un riesgo?", "opts": {"A": "Análisis Monte Carlo", "B": "Análisis PERT", "C": "Matriz de probabilidad e impacto", "D": "Simulación de eventos"}, "ans": "C", "exp": "Es la herramienta estándar para análisis cualitativo de riesgos."}, {"id": 6, "q": "¿Cuál es el rol del patrocinador en un proyecto?", "opts": {"A": "Controlar la calidad del producto", "B": "Monitorear los cronogramas", "C": "Proporcionar recursos y apoyo", "D": "Gestionar al equipo del proyecto"}, "ans": "C", "exp": "El patrocinador apoya con recursos y decisiones clave."}, {"id": 8, "q": "¿Qué proceso asegura que el trabajo del proyecto cumple con los estándares de calidad?", "opts": {"A": "Controlar la calidad", "B": "Planificar la calidad", "C": "Validar el alcance", "D": "Auditar procesos"}, "ans": "A", "exp": "Evalúa si los entregables cumplen con los requisitos."}, {"id": 9, "q": "¿Cuál de los siguientes es un artefacto ágil?", "opts": {"A": "Estructura de desglose del trabajo (EDT)", "B": "Product backlog", "C": "Plan de gestión de adquisiciones", "D": "Acta de constitución"}, "ans": "B", "exp": "Es la fuente de requerimientos priorizados en Scrum."}, {"id": 10, "q": "¿Cuál es el objetivo del proceso \"Desarrollar el acta de constitución del proyecto\"?", "opts": {"A": "Definir las actividades del cronograma", "B": "Obtener la aprobación formal para iniciar el proyecto", "C": "Desarrollar el enunciado del alcance", "D": "Contratar al equipo de proyecto"}, "ans": "B", "exp": "Es el documento que formaliza la existencia del proyecto."}, {"id": 11, "q": "Estás trabajando en un entorno híbrido. El cliente solicita una mejora que no está en el alcance inicial. ¿Qué deberías hacer primero?", "opts": {"A": "Implementarla si no afecta el costo.", "B": "Registrar el cambio y pasarlo por el proceso de control integrado.", "C": "Preguntar al equipo si puede integrarse.", "D": "Informar al cliente que no es posible hacer cambios."}, "ans": "B", "exp": "Todo cambio debe pasar por el proceso de control formal."}, {"id": 12, "q": "El proyecto tiene un SPI = 0.78 y CPI = 1.09. ¿Qué indica esto?", "opts": {"A": "Está atrasado y sobre el presupuesto.", "B": "Está adelantado y bajo presupuesto.", "C": "Está atrasado pero bajo presupuesto.", "D": "Está adelantado pero sobre presupuesto."}, "ans": "C", "exp": "SPI \\< 1 indica retraso, CPI \\> 1 indica ahorro."}, {"id": 13, "q": "Un interesado no responde a las comunicaciones ni participa activamente. ¿Qué acción es más efectiva?", "opts": {"A": "Escalar al patrocinador.", "B": "Revisar el análisis de interesados y actualizar estrategias.", "C": "Ignorar al interesado y continuar.", "D": "Programar reuniones adicionales para presionarlo."}, "ans": "B", "exp": "Es clave adaptar la estrategia de involucramiento."}, {"id": 14, "q": "En un proyecto ágil, el equipo no ha completado los elementos del backlog comprometidos. ¿Qué debe hacer el Scrum Master?", "opts": {"A": "Reasignar tareas automáticamente.", "B": "Extender el sprint.", "C": "Revisar la velocidad del equipo y ajustar el plan.", "D": "Notificar al Product Owner y cancelar entregables."}, "ans": "C", "exp": "Se deben ajustar las expectativas según la velocidad."}, {"id": 15, "q": "Una tarea crítica se retrasa. ¿Qué técnica es más adecuada para resolver este problema?", "opts": {"A": "Fast Tracking", "B": "Monte Carlo", "C": "Histogramas", "D": "Técnica Delphi"}, "ans": "A", "exp": "Consiste en ejecutar tareas en paralelo para ganar tiempo."}, {"id": 16, "q": "Un cambio urgente debe aplicarse. ¿Qué haces primero?", "opts": {"A": "Ejecutarlo inmediatamente.", "B": "Registrar y analizar el impacto antes de actuar.", "C": "Consultar con el equipo.", "D": "Escalar al comité de dirección."}, "ans": "B", "exp": "Todo cambio debe ser evaluado antes de implementarse."}, {"id": 17, "q": "En una retrospectiva ágil, el equipo señala que la comunicación con el cliente es deficiente. ¿Qué acción debes tomar?", "opts": {"A": "Aumentar la frecuencia de reuniones con el cliente.", "B": "Escalar al patrocinador.", "C": "Desestimar porque no es parte del equipo.", "D": "Cambiar al cliente de proyecto."}, "ans": "A", "exp": "La mejora continua incluye la comunicación externa."}, {"id": 18, "q": "En la ejecución, identificas un riesgo no previsto que podría impactar el presupuesto. ¿Qué deberías hacer?", "opts": {"A": "Rechazar el riesgo.", "B": "Añadirlo al registro de riesgos y desarrollar una respuesta.", "C": "Ignorarlo si no ha ocurrido.", "D": "Asignarlo al cliente."}, "ans": "B", "exp": "Los nuevos riesgos deben registrarse y analizarse."}, {"id": 19, "q": "¿Cuál es el principal propósito del plan de gestión de beneficios?", "opts": {"A": "Medir el desempeño técnico.", "B": "Definir cómo y cuándo se obtendrán los beneficios del proyecto.", "C": "Probar entregables.", "D": "Justificar el caso de negocio."}, "ans": "B", "exp": "Establece el marco para asegurar el retorno esperado."}, {"id": 20, "q": "¿Cuándo se realiza el proceso de \"Validar el Alcance\"?", "opts": {"A": "Durante la ejecución.", "B": "Al cierre del proyecto.", "C": "Al finalizar cada entregable o fase.", "D": "Solo en auditorías."}, "ans": "C", "exp": "Se valida cada entregable antes del cierre completo."}, {"id": 21, "q": "¿Cuál es el principal objetivo del proceso \"Dirigir y Gestionar el Trabajo del Proyecto\"?", "opts": {"A": "Aprobar entregables", "B": "Producir los entregables y dirigir los recursos", "C": "Controlar cambios", "D": "Estimar costos"}, "ans": "B", "exp": "*Es el proceso de ejecución para crear los entregables.*"}, {"id": 22, "q": "Tienes muchos interesados con intereses en conflicto. ¿Qué estrategia es más efectiva?", "opts": {"A": "Dar preferencia al más influyente", "B": "Negociar expectativas con un plan de gestión de interesados", "C": "Minimizar la participación", "D": "Incluir a todos en el comité de dirección"}, "ans": "B", "exp": "*Permite alinear expectativas desde el inicio.*"}, {"id": 23, "q": "En un proyecto ágil, el cliente agrega elementos al backlog constantemente. ¿Qué debe hacer el Product Owner?", "opts": {"A": "Aceptar todo para mantener al cliente contento", "B": "Repriorizar el backlog según valor de negocio", "C": "Detener el proyecto hasta congelar el alcance", "D": "Negar los cambios"}, "ans": "B", "exp": "*La flexibilidad es clave, priorizando valor.*"}, {"id": 24, "q": "¿Qué herramienta analiza incertidumbre en el cronograma del proyecto?", "opts": {"A": "Ruta crítica", "B": "Diagrama de Gantt", "C": "Análisis de Monte Carlo", "D": "Histogramas"}, "ans": "C", "exp": "*Permite modelar variaciones de duración.*"}, {"id": 25, "q": "En un proyecto predictivo, los entregables intermedios no están siendo aceptados. ¿Qué podría estar fallando?", "opts": {"A": "Reuniones diarias", "B": "Validación del alcance", "C": "Revisión por pares", "D": "Auditoría de calidad"}, "ans": "B", "exp": "*Sin validación no hay aceptación formal.*"}, {"id": 26, "q": "El equipo no entiende claramente las prioridades del proyecto. ¿Qué documento debes revisar?", "opts": {"A": "Acta de constitución", "B": "EDT", "C": "Registro de interesados", "D": "Registro de riesgos"}, "ans": "A", "exp": "*Define los objetivos y criterios de éxito.*"}, {"id": 27, "q": "En proyectos ágiles, ¿cuál es el valor principal de la retrospectiva?", "opts": {"A": "Evaluar cumplimiento del contrato", "B": "Identificar mejoras en el proceso", "C": "Medir velocidad", "D": "Controlar el presupuesto"}, "ans": "B", "exp": "*Se centra en la mejora continua.*"}, {"id": 28, "q": "Un entregable es rechazado en la verificación. ¿Qué proceso debes aplicar ahora?", "opts": {"A": "Control de calidad", "B": "Validar el alcance", "C": "Controlar los recursos", "D": "Integración del cambio"}, "ans": "A", "exp": "*Permite revisar si se cumplieron los requisitos técnicos.*"}, {"id": 29, "q": "Una actividad tiene una duración esperada de 10 días, pero con una probabilidad de 70% puede tomar 20 días. ¿Qué técnica se aplica?", "opts": {"A": "Estimación análoga", "B": "Estimación paramétrica", "C": "Estimación PERT", "D": "Técnica Delphi"}, "ans": "C", "exp": "*Toma en cuenta tres estimaciones para calcular la duración.*"}, {"id": 31, "q": "En la planificación, el equipo discute cómo cumplir con políticas de seguridad. ¿Qué proceso es?", "opts": {"A": "Identificar riesgos", "B": "Planificar la calidad", "C": "Planificar gestión de recursos", "D": "Planificar cumplimiento"}, "ans": "D", "exp": "*Trata sobre requerimientos regulatorios o normativos.*"}, {"id": 32, "q": "Si el SPI es 1.0 y el CPI es 0.8, ¿qué indica?", "opts": {"A": "Proyecto va en tiempo pero sobrepresupuesto", "B": "Proyecto va en tiempo y bajo presupuesto", "C": "Proyecto atrasado pero bajo presupuesto", "D": "Proyecto con problemas de alcance"}, "ans": "A", "exp": "*El tiempo está bien, pero el gasto es mayor al planeado.*"}, {"id": 33, "q": "Tu equipo subcontratado reporta avance incorrecto en entregables. ¿Qué debes hacer?", "opts": {"A": "Cambiar de proveedor", "B": "Revisar el plan de adquisiciones y tomar acción correctiva", "C": "Terminar contrato", "D": "Excluir entregables"}, "ans": "B", "exp": "*Debe activarse la respuesta de control contratada.*"}, {"id": 34, "q": "¿Cómo se prioriza en un backlog ágil?", "opts": {"A": "Por orden de llegada", "B": "Según opinión del cliente", "C": "Según valor del negocio y riesgo", "D": "Según duración estimada"}, "ans": "C", "exp": "*El valor entregado es el eje principal.*"}, {"id": 35, "q": "¿Cuál es el mejor indicador de desempeño futuro del proyecto?", "opts": {"A": "Valor ganado", "B": "ETC", "C": "EAC", "D": "VAC"}, "ans": "C", "exp": "*Permite proyectar el costo final del proyecto.*"}, {"id": 36, "q": "¿Qué significa un VAC negativo?", "opts": {"A": "Ahorro de costos", "B": "Se espera exceder el presupuesto", "C": "Proyecto en equilibrio", "D": "Cambio de alcance"}, "ans": "B", "exp": "*Se prevé una desviación negativa en costos.*"}, {"id": 37, "q": "¿Qué se utiliza para medir la eficacia de las respuestas a los riesgos?", "opts": {"A": "Plan de gestión de calidad", "B": "Registro de incidentes", "C": "Auditoría de riesgos", "D": "Análisis de causa raíz"}, "ans": "C", "exp": "*Se usa para verificar si las respuestas fueron adecuadas.*"}, {"id": 38, "q": "En gestión ágil, ¿qué representa el Burndown Chart?", "opts": {"A": "Cronograma", "B": "Velocidad del equipo", "C": "Trabajo restante", "D": "Presupuesto consumido"}, "ans": "C", "exp": "*Indica cuánto trabajo queda para terminar el sprint o release.*"}, {"id": 39, "q": "¿Qué es un impedimento en Scrum?", "opts": {"A": "Un entregable atrasado", "B": "Algo que impide al equipo avanzar", "C": "Cambios de alcance", "D": "Reuniones canceladas"}, "ans": "B", "exp": "*Puede ser interno o externo al equipo.*"}, {"id": 40, "q": "¿Cuál es el propósito principal del proceso \"Cerrar el Proyecto o Fase\"?", "opts": {"A": "Terminar el contrato", "B": "Revisar el presupuesto", "C": "Obtener aceptación formal", "D": "Entregar productos"}, "ans": "C", "exp": "*Se cierra formalmente con aceptación y documentación completa.*"}, {"id": 41, "q": "¿Qué principio aplica en una situación avanzada relacionada con costos?", "opts": {"A": "Optimización de recursos", "B": "Control del valor ganado", "C": "Validación del alcance", "D": "Aceptación de cambios"}, "ans": "B", "exp": "Es una técnica clave para evaluar el desempeño del costo."}, {"id": 42, "q": "En Scrum, ¿cuál es el resultado esperado de una reunión diaria (Daily Scrum)?", "opts": {"A": "Una planificación detallada", "B": "Resolver todos los impedimentos", "C": "Sincronización y ajustes para cumplir el Sprint Goal", "D": "Registrar métricas de desempeño"}, "ans": "C", "exp": "Es un evento de inspección y adaptación diario."}, {"id": 43, "q": "¿Cuál es la principal ventaja del uso de Monte Carlo en la planificación del cronograma?", "opts": {"A": "Identifica actividades críticas", "B": "Reduce los costos", "C": "Estima la probabilidad de cumplir fechas", "D": "Evita el análisis cualitativo"}, "ans": "C", "exp": "Permite analizar la incertidumbre en la planificación."}, {"id": 44, "q": "Un interesado clave cambia sus requisitos en mitad del proyecto. ¿Qué deberías hacer?", "opts": {"A": "Modificar el alcance inmediatamente", "B": "Iniciar control integrado de cambios", "C": "Consultar al equipo", "D": "Esperar a la siguiente reunión de seguimiento"}, "ans": "B", "exp": "Los cambios deben seguir un proceso formal."}, {"id": 45, "q": "¿Qué representa el índice de desempeño del cronograma (SPI)?", "opts": {"A": "La relación entre EV y PV", "B": "EV menos AC", "C": "La desviación en días del cronograma", "D": "EV dividido por AC"}, "ans": "A", "exp": "Mide el progreso real respecto al planificado."}, {"id": 46, "q": "¿Qué tipo de contrato es más adecuado cuando el alcance no está bien definido?", "opts": {"A": "Precio fijo cerrado", "B": "Costo reembolsable", "C": "Tiempo y materiales con tope", "D": "Precio fijo con incentivos"}, "ans": "B", "exp": "Favorece flexibilidad cuando hay incertidumbre."}, {"id": 47, "q": "En una retrospectiva, el equipo identifica fricciones internas. ¿Qué debe hacer el Scrum Master?", "opts": {"A": "Reasignar tareas", "B": "Facilitar la comunicación y mediación", "C": "Escalar al patrocinador", "D": "Modificar el backlog"}, "ans": "B", "exp": "Es parte de su rol como facilitador."}, {"id": 48, "q": "¿Qué documento justifica el proyecto y define beneficios esperados?", "opts": {"A": "Acta de constitución", "B": "Business Case", "C": "Plan de gestión del alcance", "D": "Registro de interesados"}, "ans": "B", "exp": "Detalla los fundamentos y beneficios esperados."}, {"id": 49, "q": "¿Qué representa un VAC negativo?", "opts": {"A": "Ahorro en costos", "B": "Retraso en la planificación", "C": "Exceso en presupuesto proyectado", "D": "Riesgo inaceptable"}, "ans": "C", "exp": "Indica que se excederá el presupuesto."}, {"id": 50, "q": "¿Cuál es la mejor estrategia para lidiar con un riesgo de alto impacto y alta probabilidad?", "opts": {"A": "Transferir", "B": "Aceptar", "C": "Mitigar", "D": "Evitar"}, "ans": "D", "exp": "Si es posible, lo mejor es evitar el riesgo completamente."}, {"id": 51, "q": "¿Qué herramienta permite visualizar la relación entre actividades del cronograma?", "opts": {"A": "EDT", "B": "Diagrama de Gantt", "C": "Matriz de asignación de responsabilidades", "D": "Registro de interesados"}, "ans": "B", "exp": "*Permite ver la secuencia y dependencias del cronograma.*"}, {"id": 52, "q": "¿Qué ocurre si el SPI y el CPI son menores que 1?", "opts": {"A": "Proyecto en tiempo y bajo presupuesto", "B": "Proyecto atrasado y sobre presupuesto", "C": "Proyecto adelantado y dentro del presupuesto", "D": "Proyecto completado"}, "ans": "B", "exp": "*Valores menores a 1 indican desempeño deficiente.*"}, {"id": 53, "q": "¿Qué proceso se enfoca en asegurar que solo se implementen los cambios aprobados?", "opts": {"A": "Control de calidad", "B": "Control integrado de cambios", "C": "Validar el alcance", "D": "Controlar riesgos"}, "ans": "B", "exp": "*Evita cambios no autorizados al plan.*"}, {"id": 54, "q": "¿Qué técnica de estimación se basa en datos históricos similares?", "opts": {"A": "Estimación análoga", "B": "Estimación paramétrica", "C": "Estimación por tres valores", "D": "Delphi"}, "ans": "A", "exp": "*Usa datos de proyectos anteriores como referencia.*"}, {"id": 55, "q": "¿Qué componente del plan para la dirección del proyecto define cómo se manejarán los cambios?", "opts": {"A": "Plan de comunicaciones", "B": "Plan de calidad", "C": "Plan de gestión de cambios", "D": "Plan de adquisiciones"}, "ans": "C", "exp": "*Establece el procedimiento formal para tratar cambios.*"}, {"id": 56, "q": "¿Qué indica un índice de desempeño de costos (CPI) de 1.1?", "opts": {"A": "El proyecto está excediendo el presupuesto", "B": "Se está gastando más de lo previsto", "C": "Se está ejecutando de forma eficiente en costos", "D": "El alcance se ha reducido"}, "ans": "C", "exp": "*Indica que se obtiene más valor por cada unidad de costo.*"}, {"id": 57, "q": "¿Qué significa tener muchas dependencias de fin a inicio en el cronograma?", "opts": {"A": "Riesgo bajo", "B": "Actividades paralelas", "C": "Alta rigidez y riesgo de retrasos", "D": "Flujo ágil del proyecto"}, "ans": "C", "exp": "*Aumenta la posibilidad de cuellos de botella.*"}, {"id": 58, "q": "¿Qué entrega el proceso de identificar interesados?", "opts": {"A": "Registro de interesados", "B": "Plan de gestión de interesados", "C": "Análisis de comunicaciones", "D": "Estrategia de influencia"}, "ans": "A", "exp": "*Lista e informa sobre cada parte interesada.*"}, {"id": 59, "q": "En proyectos ágiles, ¿quién tiene autoridad sobre el orden del backlog?", "opts": {"A": "Scrum Master", "B": "Equipo de desarrollo", "C": "Product Owner", "D": "Stakeholders"}, "ans": "C", "exp": "*Es responsable de priorizar según el valor.*"}, {"id": 60, "q": "¿Qué propósito tiene una revisión de lecciones aprendidas?", "opts": {"A": "Aprobar el cierre del proyecto", "B": "Identificar mejoras para proyectos futuros", "C": "Validar entregables", "D": "Escalar problemas"}, "ans": "B", "exp": "*Permite mejorar la gestión en futuras iniciativas.*"}, {"id": 61, "q": "¿Qué representa el valor ganado (EV)?", "opts": {"A": "Costos reales del trabajo", "B": "Valor del trabajo realmente ejecutado", "C": "Presupuesto total", "D": "Costos estimados al cierre"}, "ans": "B", "exp": "*Refleja cuánto valor se ha generado respecto al plan.*"}, {"id": 62, "q": "¿Cuál es el objetivo del proceso \"Controlar los recursos\"?", "opts": {"A": "Contratar personal externo", "B": "Medir desempeño técnico", "C": "Asegurar que los recursos físicos estén disponibles cuando se necesiten", "D": "Reasignar tareas manualmente"}, "ans": "C", "exp": "*Enfocado en recursos físicos, no humanos.*"}, {"id": 63, "q": "¿Qué herramienta ágil muestra tareas en columnas según su estado?", "opts": {"A": "Kanban", "B": "Burndown", "C": "Retrospectiva", "D": "SPI"}, "ans": "A", "exp": "*Visualiza el flujo de trabajo y los cuellos de botella.*"}, {"id": 64, "q": "¿Qué proceso asegura que el alcance entregado sea el correcto?", "opts": {"A": "Control de calidad", "B": "Verificación del cronograma", "C": "Validar el alcance", "D": "Control de adquisiciones"}, "ans": "C", "exp": "*Se usa para la aceptación formal de los entregables.*"}, {"id": 65, "q": "¿Cuál es el propósito del control de calidad?", "opts": {"A": "Entregar productos a tiempo", "B": "Aprobar cambios", "C": "Asegurar que los entregables cumplen con los requisitos", "D": "Validar costos"}, "ans": "C", "exp": "*Revisa entregables antes de su validación formal.*"}, {"id": 66, "q": "¿Qué técnica ayuda a anticipar conflictos entre interesados?", "opts": {"A": "Análisis de causa raíz", "B": "Matriz de influencia/interés", "C": "Línea base del cronograma", "D": "Diagrama de Gantt"}, "ans": "B", "exp": "*Permite planificar la gestión de expectativas.*"}, {"id": 67, "q": "¿Qué rol tiene el Product Owner en una Daily Scrum?", "opts": {"A": "Liderar la reunión", "B": "Asistir obligatoriamente", "C": "No es obligatorio que asista", "D": "Asignar tareas"}, "ans": "C", "exp": "*Sólo el equipo de desarrollo y Scrum Master son necesarios.*"}, {"id": 68, "q": "¿Qué resultado se espera del proceso de planificar la gestión de riesgos?", "opts": {"A": "Registro de riesgos", "B": "Plan de respuesta", "C": "Plan para la dirección del proyecto", "D": "Plan de gestión de riesgos"}, "ans": "D", "exp": "*Define cómo se abordarán los riesgos durante el proyecto.*"}, {"id": 69, "q": "¿Qué se utiliza para justificar la continuidad de un proyecto en fases?", "opts": {"A": "Plan de calidad", "B": "Business case", "C": "Plan de adquisiciones", "D": "Registro de interesados"}, "ans": "B", "exp": "*Se revisa para confirmar si los beneficios siguen siendo válidos.*"}, {"id": 70, "q": "¿Qué herramienta se usa para estimar el esfuerzo basado en experiencia colectiva?", "opts": {"A": "Delphi", "B": "Monte Carlo", "C": "Análisis de sensibilidad", "D": "Árbol de decisiones"}, "ans": "A", "exp": "*Recoge estimaciones de expertos de forma anónima.*"}, {"id": 71, "q": "¿Qué ocurre si el equipo no tiene acceso frecuente al Product Owner?", "opts": {"A": "El proyecto se acelera", "B": "Se afecta la toma de decisiones y claridad de requerimientos", "C": "Mejora la autonomía del equipo", "D": "Se fortalece la documentación"}, "ans": "B", "exp": "*La falta de disponibilidad puede afectar la entrega de valor.*"}, {"id": 72, "q": "¿Cuál es el objetivo principal de gestionar el conocimiento del proyecto?", "opts": {"A": "Mejorar informes", "B": "Crear lecciones aprendidas", "C": "Usar conocimiento previo y generar nuevo", "D": "Actualizar stakeholders"}, "ans": "C", "exp": "*Favorece el aprendizaje continuo y evita la reinvención.*"}, {"id": 73, "q": "¿Qué significa un CPI de 0.9 y un SPI de 1.2?", "opts": {"A": "Atraso y ahorro", "B": "Eficiencia en tiempo pero sobrecosto", "C": "Proyecto cancelado", "D": "Todo está en equilibrio"}, "ans": "B", "exp": "*Se está avanzando más rápido de lo previsto pero gastando más.*"}, {"id": 74, "q": "¿Qué proceso del PMBOK cierra todos los contratos formalmente?", "opts": {"A": "Controlar adquisiciones", "B": "Cerrar adquisiciones", "C": "Cerrar el proyecto", "D": "Dirigir el trabajo del proyecto"}, "ans": "B", "exp": "*Cierra formalmente los compromisos contractuales.*"}, {"id": 75, "q": "¿Qué caracteriza a un entorno predictivo?", "opts": {"A": "Alta flexibilidad y cambios frecuentes", "B": "Plan detallado al inicio y cambios mínimos", "C": "Iteraciones y entregas continuas", "D": "Entorno sin control formal"}, "ans": "B", "exp": "*Planificación detallada desde el comienzo.*"}, {"id": 76, "q": "¿Qué valor mide el esfuerzo restante necesario para completar un proyecto?", "opts": {"A": "VAC", "B": "EAC", "C": "ETC", "D": "SPI"}, "ans": "C", "exp": "*Indica cuánto costará el trabajo restante.*"}, {"id": 77, "q": "¿Qué documento define cómo se ejecutará, monitoreará y controlará el proyecto?", "opts": {"A": "Acta de constitución", "B": "Cronograma", "C": "Plan para la dirección del proyecto", "D": "EDT"}, "ans": "C", "exp": "*Contiene todos los planes subsidiarios.*"}, {"id": 78, "q": "¿Cuál es el principal resultado de realizar el proceso de identificar riesgos?", "opts": {"A": "Registro de riesgos", "B": "Plan de respuesta", "C": "Plan de gestión", "D": "Auditoría"}, "ans": "A", "exp": "*Es donde se listan todos los riesgos conocidos.*"}, {"id": 79, "q": "¿Qué técnica usa tarjetas, votación y consenso para priorizar?", "opts": {"A": "Técnica Delphi", "B": "Técnica del Valor Escondido", "C": "Técnicas grupales", "D": "Planificación por puntos"}, "ans": "C", "exp": "*Técnicas como dot-voting son ejemplos comunes.*"}, {"id": 80, "q": "¿Qué proceso asegura que el producto final cumple los criterios de aceptación?", "opts": {"A": "Validar el alcance", "B": "Control de calidad", "C": "Cierre del proyecto", "D": "Verificar entregables"}, "ans": "A", "exp": "*Asegurar la aceptación formal del cliente o patrocinador.*"}, {"id": 81, "q": "Mientras llevas a cabo una sesión de planificación de gestión de riesgos, descubres la posibilidad de cambios regulatorios que pueden afectar los entregables de tu proyecto. Para gestionar eficazmente estos posibles cambios, ¿cuál es el mejor paso inicial a tomar en tu estrategia de respuesta al riesgo?", "opts": {"A": "Realizar una evaluación del riesgo para evaluar el impacto de los cambios regulatorios", "B": "Detener inmediatamente el proyecto hasta que el entorno regulatorio se estabilice", "C": "Confiar únicamente en el seguro para transferir el riesgo asociado a los cambios regulatorios", "D": "Excluir cualquier consideración regulatoria del alcance del proyecto para evitar conflictos"}, "ans": "A", "exp": "El primer paso ante un posible riesgo es evaluarlo (probabilidad e impacto). Sólo después se decide si se evita, transfiere, mitiga o acepta."}, {"id": 82, "q": "Estás gestionando un proyecto de software complejo para una institución financiera. A mitad del desarrollo, el cliente solicita un cambio importante de alcance para integrar un nuevo módulo de cumplimiento regulatorio. Este cambio está alineado con los estándares de la industria, pero aumentaría los costos en un 25% y retrasaría el proyecto dos meses. El equipo de desarrollo está preocupado por los desafíos técnicos, mientras que algunos interesados lo ven como esencial para la competitividad. ¿", "opts": {"A": "Negociar con el cliente para implementar el módulo regulatorio como una fase separada del proyecto actual", "B": "Consultar con el equipo para incorporar el cambio usando los recursos y cronograma actuales", "C": "Realizar un análisis de impacto completo, presentar los resultados al comité de control de cambios y esperar su decisión antes de continuar", "D": "Implementar el cambio de inmediato, ajustando el cronograma y presupuesto ya que está alineado con estándares"}, "ans": "C", "exp": "Cualquier cambio significativo en alcance debe pasar por un proceso formal de control de cambios, incluyendo análisis de impacto, antes de su aprobación."}, {"id": 83, "q": "El Control de Calidad se preocupa principalmente de ________.", "opts": {"A": "la creación de métricas de calidad", "B": "la definición de políticas de calidad", "C": "la identificación de nuevos estándares de calidad", "D": "la corrección de los entregables"}, "ans": "D", "exp": ""}, {"id": 84, "q": "La ____________ efectiva asegura que los interesados del proyecto sean identificados, que se comprendan sus necesidades y expectativas, y que participen apropiadamente en decisiones y actividades del proyecto.  Opciones:", "opts": {"A": "planificación del alcance", "B": "gestión de riesgos", "C": "control de costos", "D": "involucramiento de interesados"}, "ans": "D", "exp": ""}, {"id": 85, "q": "Una lista de verificación de calidad es una herramienta usada en la Gestión de Calidad del Proyecto para verificar que se haya realizado un conjunto de pasos requeridos o para ______ una lista de atributos requeridos.", "opts": {"A": "presupuestar", "B": "inspeccionar", "C": "programar", "D": "documentar"}, "ans": "B", "exp": ""}, {"id": 86, "q": "¿Qué proceso del PMBOK está enfocado en la aprobación formal de los entregables por parte del cliente o patrocinador?", "opts": {"A": "Controlar la calidad", "B": "Validar el alcance", "C": "Dirigir y gestionar el trabajo del proyecto", "D": "Cerrar el proyecto o fase"}, "ans": "B", "exp": "Validar el alcance busca asegurar que los entregables han sido completados satisfactoriamente y aceptados formalmente."}, {"id": 87, "q": "¿Qué herramienta ayuda a representar visualmente la estructura jerárquica del trabajo del proyecto?", "opts": {"A": "EDT (WBS)", "B": "Diagrama de Gantt", "C": "Matriz de asignación de responsabilidades", "D": "Registro de interesados"}, "ans": "A", "exp": "La EDT descompone el proyecto en componentes manejables que facilitan su gestión y control."}, {"id": 88, "q": "¿Cuál es el propósito principal del Product Backlog en un proyecto ágil?", "opts": {"A": "Registrar problemas técnicos", "B": "Listar los entregables completados", "C": "Organizar y priorizar los requerimientos del cliente", "D": "Documentar cambios en el alcance"}, "ans": "C", "exp": "El Product Backlog es un listado vivo y priorizado de funcionalidades, mejoras y requerimientos del producto."}, {"id": 89, "q": "En el contexto del análisis de riesgos, ¿qué representa un riesgo residual?", "opts": {"A": "Un riesgo que ya ocurrió", "B": "Un riesgo identificado sin plan de respuesta", "C": "Un riesgo que permanece después de implementar una respuesta", "D": "Un riesgo que se transfiere a un tercero"}, "ans": "C", "exp": "El riesgo residual es aquel que sigue existiendo tras aplicar acciones de respuesta planificadas."}, {"id": 90, "q": "¿Qué se debe hacer al identificar una nueva parte interesada en la fase de ejecución?", "opts": {"A": "Escalar al comité de dirección", "B": "Revisar y actualizar el registro de interesados y estrategias de involucramiento", "C": "Solicitar aprobación del patrocinador", "D": "Detener el proyecto hasta integrar al nuevo interesado"}, "ans": "B", "exp": "Es fundamental actualizar los documentos de gestión de interesados para mantener la alineación con sus expectativas."}, {"id": 91, "q": "¿Qué técnica se utiliza en proyectos ágiles para estimar el esfuerzo mediante consenso grupal?", "opts": {"A": "Técnica de Monte Carlo", "B": "Técnica Delphi", "C": "Planning Poker", "D": "Análisis de causa raíz"}, "ans": "C", "exp": "Planning Poker es común en equipos ágiles para consensuar estimaciones usando tarjetas con valores numéricos."}, {"id": 92, "q": "¿Cuál de los siguientes elementos forma parte del triángulo de restricciones del proyecto?", "opts": {"A": "Comunicación", "B": "Riesgo", "C": "Costo", "D": "Requisitos no funcionales"}, "ans": "C", "exp": "El triángulo de restricciones incluye alcance, tiempo y costo."}, {"id": 93, "q": "El proyecto ha finalizado y todos los entregables fueron aceptados. ¿Cuál es el siguiente paso lógico?", "opts": {"A": "Iniciar una nueva fase", "B": "Validar el alcance", "C": "Cerrar el proyecto o fase", "D": "Controlar los recursos"}, "ans": "C", "exp": "Una vez completados los entregables, se formaliza el cierre administrativo del proyecto."}, {"id": 94, "q": "En un proyecto ágil, ¿cuál es la responsabilidad del Scrum Master?", "opts": {"A": "Priorizar el backlog", "B": "Coordinar al equipo comercial", "C": "Remover impedimentos y facilitar el proceso ágil", "D": "Aprobar cambios en el alcance"}, "ans": "C", "exp": "El Scrum Master protege al equipo y asegura que se siga el marco Scrum."}, {"id": 95, "q": "¿Cuál es el propósito de un hito en el cronograma del proyecto?", "opts": {"A": "Representar tareas repetitivas", "B": "Indicar el porcentaje de avance", "C": "Señalar eventos clave sin duración", "D": "Controlar el presupuesto"}, "ans": "C", "exp": "Los hitos marcan puntos importantes como aprobaciones o entregas clave."}, {"id": 96, "q": "¿Qué significa tener un SPI de 0.95 y un CPI de 0.60?", "opts": {"A": "Atraso moderado, sobrecosto significativo", "B": "Atraso leve, ahorro moderado", "C": "Proyecto adelantado y bajo costo", "D": "Buen desempeño general"}, "ans": "A", "exp": "SPI \\< 1 indica retraso; CPI \\< 1 muestra que se gasta más de lo previsto."}, {"id": 97, "q": "¿Cuál es el propósito de realizar auditorías de calidad durante el proyecto?", "opts": {"A": "Identificar nuevos riesgos", "B": "Asignar recursos", "C": "Verificar el cumplimiento de procesos y estándares", "D": "Medir productividad"}, "ans": "C", "exp": "Las auditorías garantizan que se sigan los procesos definidos."}, {"id": 98, "q": "¿Cuál es el entregable principal del proceso \"Desarrollar el Plan para la Dirección del Proyecto\"?", "opts": {"A": "Acta de constitución", "B": "Plan de gestión de riesgos", "C": "Plan para la dirección del proyecto", "D": "EDT (WBS)"}, "ans": "C", "exp": "Este plan integra todos los planes subsidiarios y guía la ejecución y control del proyecto."}, {"id": 99, "q": "¿Qué enfoque es más adecuado cuando los requisitos son volátiles o evolucionan con el tiempo?", "opts": {"A": "Predictivo", "B": "En cascada", "C": "Ágil", "D": "En paralelo"}, "ans": "C", "exp": "Los marcos ágiles permiten adaptarse continuamente a cambios en requerimientos."}, {"id": 100, "q": "En la planificación del proyecto, ¿qué documento detalla cómo se comunicará el avance a los interesados?", "opts": {"A": "Registro de interesados", "B": "Matriz RACI", "C": "Plan de gestión de las comunicaciones", "D": "EDT"}, "ans": "C", "exp": "Este plan define el qué, cómo, cuándo y a quién se comunica durante el proyecto."}, {"id": 101, "q": "¿Qué se busca al desarrollar el cronograma del proyecto?", "opts": {"A": "Asignar tareas al equipo de trabajo", "B": "Establecer los costos asociados", "C": "Definir fechas de inicio y fin de actividades", "D": "Evaluar los riesgos del proyecto"}, "ans": "C", "exp": "El cronograma establece la secuencia lógica de las actividades con sus duraciones previstas."}, {"id": 102, "q": "¿Cuál de las siguientes opciones representa un riesgo positivo en un proyecto?", "opts": {"A": "Demora en la entrega de un proveedor", "B": "Reducción de presupuesto", "C": "Mayor disponibilidad de recursos", "D": "Pérdida de un interesado clave"}, "ans": "C", "exp": "Los riesgos positivos, también llamados oportunidades, pueden tener impacto favorable si se aprovechan."}, {"id": 103, "q": "¿Qué se utiliza para asegurar que todos los requerimientos estén incluidos en el alcance del proyecto?", "opts": {"A": "Plan de calidad", "B": "Matriz de trazabilidad de requisitos", "C": "EDT", "D": "Registro de interesados"}, "ans": "B", "exp": "La matriz de trazabilidad permite relacionar cada requisito con entregables y objetivos del proyecto."}, {"id": 104, "q": "¿Cuál de las siguientes técnicas se usa para tomar decisiones en grupo?", "opts": {"A": "Diagrama de Ishikawa", "B": "Técnica Delphi", "C": "Análisis de valor ganado", "D": "Estimación paramétrica"}, "ans": "B", "exp": "Delphi es útil para consenso experto en decisiones con incertidumbre."}, {"id": 105, "q": "¿Qué acción es la más adecuada cuando se identifica un nuevo riesgo durante la ejecución?", "opts": {"A": "Detener el proyecto hasta mitigarlo", "B": "Ignorarlo si no tiene impacto inmediato", "C": "Incluirlo en el registro de riesgos y analizarlo", "D": "Asignarlo directamente al patrocinador"}, "ans": "C", "exp": "Debe registrarse, evaluarse y planificarse una respuesta si corresponde."}, {"id": 106, "q": "En Scrum, ¿cuál es el resultado de una Sprint Review?", "opts": {"A": "Una mejora al proceso de equipo", "B": "Entregables listos para ser liberados o revisados", "C": "La identificación de nuevos impedimentos", "D": "La replanificación del backlog"}, "ans": "B", "exp": "La revisión permite mostrar al cliente lo que se completó en el sprint y recibir retroalimentación."}, {"id": 107, "q": "¿Cuál es el rol del Product Owner en un proyecto ágil?", "opts": {"A": "Dirigir al equipo técnico", "B": "Eliminar impedimentos", "C": "Priorizar los elementos del backlog de producto", "D": "Asegurar la calidad de los entregables"}, "ans": "C", "exp": "El Product Owner maximiza el valor del producto gestionando el backlog."}, {"id": 108, "q": "¿Qué representa el EAC en el análisis de valor ganado?", "opts": {"A": "Presupuesto aprobado", "B": "Estimación de costos al finalizar el proyecto", "C": "Desviación del cronograma", "D": "Costo acumulado a la fecha"}, "ans": "B", "exp": "EAC (Estimate at Completion) permite proyectar el costo total del proyecto al finalizar."}, {"id": 109, "q": "¿Qué elemento sirve para representar visualmente las dependencias entre actividades?", "opts": {"A": "Diagrama de red del cronograma", "B": "Acta de constitución", "C": "Matriz RACI", "D": "Registro de interesados"}, "ans": "A", "exp": "Este diagrama muestra la secuencia lógica y las relaciones entre actividades del proyecto."}, {"id": 110, "q": "En un entorno híbrido, ¿cómo se gestionan los cambios de alcance?", "opts": {"A": "Se aplican directamente si el cliente lo solicita", "B": "Se discuten solo al final del proyecto", "C": "Se gestionan según el enfoque del componente afectado (ágil o predictivo)", "D": "Se rechazan para mantener la planificación original"}, "ans": "C", "exp": "En entornos híbridos, se debe aplicar el enfoque adecuado según el tipo de trabajo afectado."}, {"id": 111, "q": "¿Cuál es el objetivo principal del proceso \"Controlar la calidad\"?", "opts": {"A": "Validar el cumplimiento del cronograma", "B": "Verificar que los entregables cumplan con los requisitos de calidad", "C": "Aprobar el alcance del proyecto", "D": "Autorizar pagos a proveedores"}, "ans": "B", "exp": "Controlar la calidad consiste en evaluar los resultados del proyecto para verificar que cumplen con los estándares definidos."}, {"id": 112, "q": "¿Qué herramienta permite identificar la causa raíz de un problema?", "opts": {"A": "Diagrama de Ishikawa", "B": "Diagrama de Gantt", "C": "Histograma", "D": "Matriz RACI"}, "ans": "A", "exp": "También conocido como diagrama de espina de pescado, ayuda a visualizar causas posibles de un problema."}, {"id": 113, "q": "¿Qué representa un SPI mayor a 1?", "opts": {"A": "Proyecto adelantado respecto al plan", "B": "Proyecto con sobrecosto", "C": "Riesgo alto en cronograma", "D": "Actividades críticas sin secuencia"}, "ans": "A", "exp": "Un índice SPI (Schedule Performance Index) mayor a 1 indica que el proyecto va adelantado en tiempo."}, {"id": 114, "q": "¿Qué es el lead time en gestión de proyectos?", "opts": {"A": "Tiempo adicional incluido por riesgos", "B": "Tiempo entre el inicio y la finalización de una actividad", "C": "Tiempo para tomar decisiones del patrocinador", "D": "Tiempo en resolver conflictos de equipo"}, "ans": "B", "exp": "Lead time es el tiempo que toma completar un proceso desde el inicio hasta su entrega final."}, {"id": 115, "q": "¿Qué se debe hacer si un entregable es rechazado en la validación del alcance?", "opts": {"A": "Incluirlo como una lección aprendida", "B": "Volver a revisarlo en control de calidad", "C": "Actualizar el registro de interesados", "D": "Escalar el rechazo al comité de dirección"}, "ans": "B", "exp": "Primero se revisa técnicamente el entregable para corregir cualquier incumplimiento antes de revalidarlo."}, {"id": 116, "q": "¿Cuál es la diferencia principal entre un riesgo y un problema (issue)?", "opts": {"A": "El riesgo no tiene dueño, el problema sí", "B": "El problema ya ocurrió, el riesgo es potencial", "C": "El riesgo se puede ignorar, el problema no", "D": "El problema se planifica, el riesgo no"}, "ans": "B", "exp": "El riesgo es una condición incierta; un problema es un evento que ya ha impactado el proyecto."}, {"id": 117, "q": "¿Qué documento define cómo se capturarán y gestionarán las lecciones aprendidas?", "opts": {"A": "Plan de gestión del conocimiento", "B": "Plan de calidad", "C": "Registro de riesgos", "D": "Plan de adquisiciones"}, "ans": "A", "exp": "Este plan define procesos para recopilar, documentar y reutilizar el conocimiento adquirido."}, {"id": 118, "q": "¿Qué es un entregable?", "opts": {"A": "Actividad de cierre del proyecto", "B": "Documento de planificación interna", "C": "Producto, servicio o resultado verificable del proyecto", "D": "Requisito del cliente sin validar"}, "ans": "C", "exp": "Un entregable es todo resultado tangible o intangible generado por el proyecto."}, {"id": 119, "q": "¿Qué se utiliza para priorizar riesgos cuando se dispone de una gran cantidad de ellos?", "opts": {"A": "Análisis de Monte Carlo", "B": "Matriz de probabilidad e impacto", "C": "Análisis de valor ganado", "D": "Método del camino crítico"}, "ans": "B", "exp": "La matriz ayuda a clasificar riesgos según su probabilidad de ocurrencia y su impacto."}, {"id": 120, "q": "¿Cuál es la mejor acción para mejorar el desempeño de un equipo desmotivado?", "opts": {"A": "Aplicar sanciones", "B": "Reasignar recursos", "C": "Facilitar sesiones de coaching o team building", "D": "Acortar los plazos del proyecto"}, "ans": "C", "exp": "Mejorar la cohesión y comunicación del equipo puede elevar su desempeño y motivación."}, {"id": 121, "q": "Debido a una escasez de recursos, la actividad E podría retrasarse 2 días. El stackeholder pregunta si este retraso afectará la fecha de finalización general del proyecto.  ![](media/image1.png){width=\"6.267716535433071in\" height=\"3.013888888888889in\"}  ¿Qué debería hacer primero el director del proyecto?", "opts": {"A": "Notificar a los interesados que la fecha de finalización del proyecto se retrasará a menos que se agreguen más recursos.", "B": "Realizar un análisis de la ruta crítica para evaluar el impacto del retraso.", "C": "Solicitar un cambio para acelerar (fast-track) las actividades B y C para compensar el retraso de E.", "D": "Agregar un margen de reserva después de la Actividad F para proteger la entrega final."}, "ans": "B", "exp": "Una pequeña ayuda para resolver el ejercicio"}, {"id": 122, "q": "Un director de proyecto descubre que un miembro clave del equipo no está cumpliendo con sus plazos debido a falta de habilidades específicas. ¿Cuál debería ser la MEJOR acción del director de proyecto?", "opts": {"A": "Reemplazar al miembro del equipo inmediatamente.", "B": "Asignarle tareas menos críticas para el proyecto.", "C": "Proporcionar coaching o capacitación y monitorear su progreso.", "D": "Escalar el problema al patrocinador para que tome una decisión."}, "ans": "C", "exp": "La gestión de recursos incluye el desarrollo del equipo. El coaching y la capacitación son herramientas para mejorar el desempeño individual."}, {"id": 123, "q": "Durante el monitoreo y control del proyecto, el director del proyecto nota que el índice de desempeño del cronograma (SPI) ha sido consistentemente menor a 1 por varios ciclos. ¿Qué implica esto y cuál es la MEJOR acción a tomar?", "opts": {"A": "El proyecto está adelantado; no se requiere acción.", "B": "El proyecto está atrasado; se debe revisar la línea base del cronograma para ajustar las expectativas.", "C": "El proyecto está atrasado; se debe identificar la causa raíz de los retrasos y tomar acciones correctivas.", "D": "El proyecto está dentro del presupuesto; se debe ignorar el SPI y enfocarse en el CPI."}, "ans": "C", "exp": "Un SPI \\< 1 indica que el proyecto está atrasado. El primer paso es entender por qué, para luego aplicar acciones correctivas."}, {"id": 124, "q": "En un entorno ágil, el equipo de desarrollo está sobrecargado con nuevas solicitudes que provienen directamente de varios interesados. ¿Quién es el PRINCIPAL responsable de gestionar estas solicitudes y mantener la claridad del trabajo?", "opts": {"A": "El Scrum Master, para proteger al equipo de interrupciones.", "B": "El Director de Proyecto, para asegurar el cumplimiento del alcance.", "C": "El Product Owner, para priorizar el backlog y comunicarlo al equipo.", "D": "Los Interesados, ya que ellos definen las necesidades del producto."}, "ans": "C", "exp": "El Product Owner es el único punto de contacto para las nuevas solicitudes y es responsable de la gestión y priorización del Product Backlog."}, {"id": 125, "q": "Un proyecto se encuentra en su fase de ejecución, y un interesado clave que previamente se mostraba muy positivo, ahora se muestra resistente a las decisiones del equipo. ¿Qué debería hacer el director del proyecto PRIMERO?", "opts": {"A": "Informar al patrocinador sobre la resistencia del interesado.", "B": "Ignorar al interesado si su influencia es baja.", "C": "Revisar el registro de interesados y actualizar la estrategia de involucramiento.", "D": "Eliminar al interesado del registro de interesados si es un obstáculo."}, "ans": "C", "exp": "El involucramiento de los interesados es dinámico. Cuando hay un cambio en su actitud o influencia, se debe revisar su análisis y ajustar la estrategia de comunicación/involucramiento."}, {"id": 126, "q": "¿Cuál es el principal beneficio de celebrar reuniones diarias (Daily Scrum) en un proyecto ágil?", "opts": {"A": "Proporcionar un informe de estado detallado al Product Owner.", "B": "Resolver todos los impedimentos del equipo.", "C": "Sincronizar las actividades del equipo y planificar el trabajo para las próximas 24 horas.", "D": "Asignar nuevas tareas a los miembros del equipo."}, "ans": "C", "exp": "La Daily Scrum es un evento de inspección y adaptación diario para que el equipo de desarrollo se sincronice y planifique su trabajo hacia el Sprint Goal."}, {"id": 127, "q": "Estás en la fase de planificación de un proyecto y necesitas estimar la duración de una actividad compleja que no tiene precedentes en tu organización. ¿Qué técnica de estimación sería la MENOS apropiada en este escenario?", "opts": {"A": "Estimación por tres valores (PERT).", "B": "Estimación paramétrica.", "C": "Estimación análoga.", "D": "Estimación ascendente (bottom-up)."}, "ans": "C", "exp": "La estimación análoga se basa en datos históricos de proyectos similares. Si no hay precedentes, esta técnica sería la menos fiable. La paramétrica requiere datos de relaciones estadísticas, PERT y bottom-up son más adecuadas para actividades con incertidumbre o sin datos históricos directos."}, {"id": 128, "q": "Un proyecto predictivo ha completado un entregable importante. ¿Cuál es el siguiente paso CLAVE para asegurar su aceptación formal por parte del cliente?", "opts": {"A": "Realizar un control de calidad interno.", "B": "Presentar el entregable para la validación del alcance.", "C": "Actualizar el plan de gestión del alcance.", "D": "Cerrar la fase del proyecto."}, "ans": "B", "exp": "Después del control de calidad (que asegura que cumple con los estándares), el entregable se somete a la validación del alcance para obtener la aceptación formal del cliente o patrocinador."}, {"id": 129, "q": "En un proyecto, el equipo de desarrollo detecta un problema técnico inesperado que no fue identificado como riesgo, pero que podría afectar críticamente el cronograma si no se resuelve pronto. ¿Qué debería hacer el director del proyecto PRIMERO?", "opts": {"A": "Ignorarlo si no está en el registro de riesgos.", "B": "Detener el proyecto hasta que se resuelva el problema.", "C": "Añadirlo al registro de problemas y buscar una solución inmediata.", "D": "Escalarlo directamente al patrocinador sin análisis previo."}, "ans": "C", "exp": "Los eventos inesperados y negativos que ya ocurrieron son problemas (issues). Deben registrarse, analizarse y abordarse proactivamente."}, {"id": 129, "q": "¿Cuál es el propósito principal de un caso de negocio (Business Case) en la iniciación de un proyecto?", "opts": {"A": "Detallar el cronograma del proyecto.", "B": "Formalizar la autoridad del director del proyecto.", "C": "Justificar la viabilidad económica y estratégica del proyecto.", "D": "Listar a todos los interesados del proyecto."}, "ans": "C", "exp": "El Business Case proporciona la justificación documentada para iniciar un proyecto o una fase, incluyendo los beneficios económicos esperados."}, {"id": 130, "q": "Un proyecto se enfrenta a una alta incertidumbre debido a tecnologías emergentes y requisitos cambiantes. ¿Qué enfoque del ciclo de vida del proyecto sería el más adecuado en este escenario?", "opts": {"A": "Predictivo.", "B": "Cascada.", "C": "Iterativo o Ágil.", "D": "Híbrido con un fuerte componente predictivo."}, "ans": "C", "exp": "Los enfoques iterativos o ágiles son ideales para entornos de alta incertidumbre y requisitos cambiantes, ya que permiten la adaptación continua."}, {"id": 131, "q": "Un director de proyecto está supervisando un proyecto de infraestructura financiado por el gobierno. Durante las evaluaciones de adquisición, un miembro del equipo recomienda adjudicar el contrato a un proveedor para el que trabajaron anteriormente, citando un sólido rendimiento pasado. Sin embargo, la oferta del proveedor no es la más rentable ni técnicamente superior.  ¿Qué debe hacer el director del proyecto a continuación?", "opts": {"A": "Aceptar la recomendación ya que el miembro del equipo tiene experiencia relevante con el proveedor.", "B": "Proceder con la adjudicación del contrato al proveedor para mantener la armonía del equipo.", "C": "Escalar la preocupación al comité de adquisiciones o ética para su revisión.", "D": "Pedir al miembro del equipo que se retire del proceso de evaluación para evitar sesgos."}, "ans": "C", "exp": ""}, {"id": 132, "q": "Si el CPI de tu proyecto es 1.05 y el SPI es 0.90, ¿qué conclusión puedes sacar sobre el rendimiento actual del proyecto?", "opts": {"A": "El proyecto está adelantado y bajo presupuesto.", "B": "El proyecto está atrasado y bajo presupuesto.", "C": "El proyecto está atrasado y sobre presupuesto.", "D": "El proyecto está adelantado y sobre presupuesto."}, "ans": "B", "exp": "Un CPI \\> 1 indica que el proyecto está bajo presupuesto (eficiente en costos). Un SPI \\< 1 indica que el proyecto está atrasado."}, {"id": 133, "q": "¿Qué documento se crea al finalizar un contrato en un proyecto y registra la aceptación formal del comprador y el vendedor de que las obligaciones contractuales han terminado?", "opts": {"A": "Acta de constitución del proyecto.", "B": "Cierre del contrato.", "C": "Informe de desempeño del trabajo.", "D": "Activos de los procesos de la organización actualizados."}, "ans": "B", "exp": "Aunque el \\\"Cierre del Proyecto o Fase\\\" se encarga del cierre general, el \\\"Cierre de Adquisiciones\\\" es el proceso específico para cerrar formalmente los contratos."}, {"id": 134, "q": "Durante una reunión de planificación de la calidad, el equipo decide implementar revisiones por pares obligatorias para todos los entregables clave de software. ¿Qué proceso se está realizando?", "opts": {"A": "Controlar la calidad.", "B": "Realizar el aseguramiento de la calidad.", "C": "Planificar la gestión de la calidad.", "D": "Validar el alcance."}, "ans": "C", "exp": "Planificar la gestión de la calidad implica identificar los requisitos y/o estándares de calidad para el proyecto y sus entregables, y documentar cómo el proyecto demostrará el cumplimiento."}, {"id": 135, "q": "Un director de proyecto necesita representar visualmente el flujo de trabajo, las dependencias y la secuencia de las actividades del proyecto para identificar la ruta crítica. ¿Qué herramienta o técnica es la más adecuada?", "opts": {"A": "Estructura de Desglose del Trabajo (EDT/WBS).", "B": "Diagrama de Gantt.", "C": "Diagrama de Red del Cronograma.", "D": "Histograma de recursos."}, "ans": "C", "exp": "El diagrama de red del cronograma (también conocido como diagrama de precedencia) muestra las dependencias lógicas y la secuencia en que las actividades se realizarán."}, {"id": 137, "q": "¿Cuál es el propósito principal de un registro de riesgos?", "opts": {"A": "Documentar las acciones completadas y los problemas resueltos.", "B": "Listar y rastrear los riesgos identificados, sus análisis y respuestas planificadas.", "C": "Registrar los cambios aprobados en el proyecto.", "D": "Detallar las comunicaciones planificadas para los interesados."}, "ans": "B", "exp": "El registro de riesgos es el documento principal para mantener un registro de todos los riesgos identificados durante el proyecto."}, {"id": 138, "q": "Un interesado clave tiene una alta influencia en el proyecto pero un bajo interés en participar en las reuniones regulares. ¿Cuál es la MEJOR estrategia de involucramiento para este interesado?", "opts": {"A": "Monitorear solamente, evitando la comunicación excesiva.", "B": "Mantenerlos informados a través de resúmenes concisos o informes clave.", "C": "Gestionarlos de cerca y buscar su participación activa en todas las decisiones.", "D": "Ignorar su baja participación si su influencia no es directa."}, "ans": "B", "exp": "Para interesados de alta influencia y bajo interés, la estrategia más efectiva es mantenerlos informados a través de canales eficientes que no requieran su participación activa constante, pero les permitan estar al tanto de lo crucial."}, {"id": 139, "q": "En un proyecto ágil, si el equipo no puede completar el incremento comprometido al final de un sprint. ¿Cuál es la MEJOR acción del Scrum Master?", "opts": {"A": "Extender el sprint para que el equipo pueda terminar.", "B": "Reducir la calidad del trabajo para cumplir con los plazos.", "C": "Facilitar una discusión para entender por qué el trabajo no se completó y ayudar al equipo a ajustar su plan o velocidad futura.", "D": "Asignar más tareas al Product Owner para el próximo sprint."}, "ans": "C", "exp": "El Scrum Master debe facilitar la retrospectiva para que el equipo aprenda de la experiencia y ajuste su velocidad o estimaciones para sprints futuros, sin extender el sprint o comprometer la calidad."}, {"id": 140, "q": "¿Cuál es la diferencia CLAVE entre un riesgo y un problema (issue) en la gestión de proyectos?", "opts": {"A": "Un riesgo es siempre negativo, un problema puede ser positivo.", "B": "Un riesgo es un evento futuro incierto; un problema es un evento que ya ocurrió y tiene un impacto.", "C": "Un riesgo se gestiona solo al inicio del proyecto; un problema se gestiona durante la ejecución.", "D": "Un riesgo no tiene dueño; un problema siempre tiene un responsable asignado."}, "ans": "B", "exp": "Un riesgo es una incertidumbre potencial que podría ocurrir, mientras que un problema es algo que ya ha sucedido y requiere atención inmediata."}, {"id": 141, "q": "En un proyecto, se descubre que un entregable no cumple con las especificaciones técnicas definidas. ¿Qué proceso del PMBOK se encarga de revisar este entregable para identificar y corregir las deficiencias?", "opts": {"A": "Validar el Alcance.", "B": "Controlar la Calidad.", "C": "Realizar el Aseguramiento de la Calidad.", "D": "Cerrar el Proyecto o Fase."}, "ans": "B", "exp": "Controlar la Calidad es el proceso de monitorear y registrar los resultados de la ejecución de las actividades de calidad para evaluar el desempeño y recomendar los cambios necesarios. Es donde se inspeccionan los entregables."}, {"id": 142, "q": "¿Qué tipo de contrato es el MÁS riesgoso para el vendedor (contratista) si el alcance del proyecto es incierto y puede cambiar significativamente?", "opts": {"A": "Precio Fijo (Fixed Price).", "B": "Costo Reembolsable (Cost-Reimbursable).", "C": "Tiempo y Materiales (Time & Materials).", "D": "Precio Fijo con Incentivos."}, "ans": "A", "exp": "En un contrato de Precio Fijo, el vendedor asume el mayor riesgo, ya que el precio está pactado independientemente de los costos reales en los que incurra. Si el alcance es incierto, un aumento en el trabajo puede resultar en pérdidas para el vendedor."}, {"id": 143, "q": "Estás en la mitad de un proyecto y el equipo está desmotivado y su productividad ha disminuido. ¿Qué acción debería tomar el director del proyecto para mejorar esta situación?", "opts": {"A": "Reducir el alcance del proyecto para disminuir la presión.", "B": "Asignar sanciones a los miembros del equipo con bajo rendimiento.", "C": "Realizar actividades de team building y buscar oportunidades de reconocimiento para el equipo.", "D": "Escalar el problema al área de recursos humanos para que ellos lo gestionen."}, "ans": "C", "exp": "La gestión del equipo incluye el desarrollo y la motivación. Las actividades de team building y el reconocimiento son herramientas clave para mejorar la moral y el rendimiento."}, {"id": 144, "q": "¿Cuál es el propósito principal de una Estructura de Desglose del Trabajo (EDT/WBS)?", "opts": {"A": "Definir la secuencia de las actividades del cronograma.", "B": "Descomponer el alcance total del proyecto en entregables más pequeños y manejables.", "C": "Asignar recursos a las actividades específicas.", "D": "Estimar los costos del proyecto con precisión."}, "ans": "B", "exp": "La EDT es una descomposición jerárquica del alcance total del trabajo a realizar por el equipo del proyecto para cumplir con los objetivos del proyecto y crear los entregables requeridos."}, {"id": 145, "q": "Un director de proyecto se da cuenta de que la comunicación entre el equipo de desarrollo y el departamento legal es ineficaz, causando retrasos. ¿Qué documento debería revisar para mejorar esta situación?", "opts": {"A": "El plan de gestión de riesgos.", "B": "El acta de constitución del proyecto.", "C": "El plan de gestión de las comunicaciones.", "D": "El registro de problemas."}, "ans": "C", "exp": "El plan de gestión de las comunicaciones detalla cómo, cuándo y por quién se intercambiará la información del proyecto, y con quién. Es el lugar para revisar y ajustar las estrategias de comunicación."}, {"id": 146, "q": "En un proyecto ágil, ¿quién tiene la autoridad final para decidir qué elementos se incluirán en el Product Backlog y en qué orden se priorizarán?", "opts": {"A": "El Scrum Master.", "B": "El Equipo de Desarrollo.", "C": "El Product Owner.", "D": "El Patrocinador."}, "ans": "C", "exp": "El Product Owner es el único responsable de la gestión del Product Backlog, lo que incluye su contenido, orden y disponibilidad."}, {"id": 147, "q": "Una vez que todos los entregables del proyecto han sido formalmente aceptados por el cliente, ¿cuál es el siguiente paso CLAVE que debe realizar el director del proyecto?", "opts": {"A": "Liberar al equipo del proyecto.", "B": "Realizar la auditoría final de calidad.", "C": "Cerrar formalmente el proyecto o la fase.", "D": "Actualizar el registro de interesados."}, "ans": "C", "exp": "Después de la aceptación de los entregables, el siguiente paso lógico es realizar el proceso de \\\"Cerrar el Proyecto o Fase\\\" para formalizar la finalización administrativa."}, {"id": 148, "q": "¿Qué representa el EV (Valor Ganado) en el análisis del valor ganado?", "opts": {"A": "El costo real incurrido en el trabajo completado.", "B": "El valor del trabajo que se planificó realizar hasta la fecha.", "C": "El valor del trabajo realmente completado, expresado en términos del presupuesto autorizado para ese trabajo.", "D": "La diferencia entre el valor planificado y el costo real."}, "ans": "C", "exp": "El Valor Ganado (EV) es el valor presupuestado del trabajo completado. Es la cantidad de presupuesto asignada al trabajo que se ha completado hasta la fecha."}, {"id": 149, "q": "¿Cuál es la principal ventaja de utilizar un Diagrama de Ishikawa (Espina de Pescado) en la gestión de proyectos?", "opts": {"A": "Muestra la relación entre actividades y el tiempo.", "B": "Ayuda a identificar y visualizar las posibles causas raíz de un problema.", "C": "Estima la probabilidad de cumplir el cronograma.", "D": "Documenta los entregables del proyecto de forma jerárquica."}, "ans": "B", "exp": "El Diagrama de Ishikawa, o diagrama de causa y efecto, es una herramienta utilizada para explorar todas las causas posibles (y no solo las más obvias) de un efecto o problema específico."}, {"id": 150, "q": "En un proyecto ágil, el equipo está teniendo dificultades para colaborar y hay falta de transparencia en su progreso. ¿Qué artefacto o práctica podría ayudar MEJOR a mejorar esta situación?", "opts": {"A": "El Product Backlog.", "B": "El Daily Scrum.", "C": "El Sprint Review.", "D": "El Burndown Chart."}, "ans": "B", "exp": "El Daily Scrum (reunión diaria) es fundamental para la transparencia y la colaboración, ya que permite al equipo sincronizarse, identificar impedimentos y planificar las próximas 24 horas."}, {"id": 151, "q": "Un proyecto ha experimentado una serie de eventos negativos imprevistos. Para aprender de estas experiencias y mejorar la gestión de proyectos futuros, ¿qué actividad debería realizarse?", "opts": {"A": "Realizar auditorías de calidad.", "B": "Desarrollar un plan de gestión de riesgos más detallado.", "C": "Documentar las lecciones aprendidas.", "D": "Realizar un análisis de valor ganado."}, "ans": "C", "exp": "Las lecciones aprendidas son un componente clave de la gestión del conocimiento del proyecto y se utilizan para mejorar el rendimiento de proyectos futuros."}, {"id": 152, "q": "¿Cuál es la principal desventaja de usar el método de la Ruta Crítica (CPM) sin reservas en el cronograma?", "opts": {"A": "No permite identificar holguras.", "B": "No considera la asignación de recursos.", "C": "No incorpora la variabilidad o incertidumbre en las duraciones de las actividades.", "D": "Solo aplica a proyectos pequeños."}, "ans": "C", "exp": "CPM calcula la duración más corta del proyecto basándose en las duraciones determinísticas de las actividades críticas. No incorpora la incertidumbre, para eso se usan técnicas como Monte Carlo o PERT que añaden reservas."}, {"id": 153, "q": "Si el VAC (Varianza al Término) de tu proyecto es un valor positivo, ¿qué indica esto?", "opts": {"A": "El proyecto terminará antes de lo previsto.", "B": "El proyecto se completará con un costo menor al presupuesto original.", "C": "El proyecto se completará con un costo mayor al presupuesto original.", "D": "El alcance del proyecto ha aumentado."}, "ans": "B", "exp": "VAC = BAC (Presupuesto al Término) - EAC (Estimación al Término). Un VAC positivo significa que el proyecto se espera que termine por debajo del presupuesto original."}, {"id": 154, "q": "¿Cuál es el objetivo principal del proceso \"Planificar la Gestión de Riesgos\"?", "opts": {"A": "Identificar todos los riesgos del proyecto.", "B": "Asignar propietarios a los riesgos identificados.", "C": "Decidir cómo se abordarán los riesgos durante el proyecto.", "D": "Desarrollar un plan de contingencia para cada riesgo."}, "ans": "C", "exp": "Este proceso decide el enfoque para la gestión de riesgos en el proyecto, es decir, cómo se planificarán, identificarán, analizarán, responderán y monitorearán los riesgos."}, {"id": 155, "q": "En un entorno híbrido, un componente del proyecto se gestiona de forma predictiva y otro de forma ágil. Un cambio significativo surge en el componente predictivo. ¿Qué debe hacerse PRIMERO?", "opts": {"A": "Implementar el cambio directamente si el cliente lo solicita.", "B": "Aplicar el proceso de control integrado de cambios para ese componente.", "C": "Escalar al Product Owner del componente ágil para que lo evalúe.", "D": "Rechazar el cambio para no afectar la línea base."}, "ans": "B", "exp": "En un entorno híbrido, los cambios en componentes predictivos aún deben seguir un proceso formal de control de cambios, que incluye análisis de impacto y aprobación."}, {"id": 156, "q": "El equipo de un proyecto ágil está teniendo dificultades con la comunicación y la colaboración debido a un conflicto entre dos miembros. ¿Qué es lo más adecuado que debe hacer el Scrum Master?", "opts": {"A": "Reasignar a los miembros en conflicto a diferentes equipos.", "B": "Escalar el conflicto al patrocinador.", "C": "Facilitar una sesión de mediación y coaching para resolver el conflicto.", "D": "Ignorar el conflicto, esperando que el equipo lo resuelva por sí mismo."}, "ans": "C", "exp": "El Scrum Master es un facilitador y un líder de servicio. Parte de su rol es eliminar impedimentos y mejorar la colaboración dentro del equipo."}, {"id": 157, "q": "¿Cuál es el propósito principal de una lista de verificación de calidad (checklist)?", "opts": {"A": "Registrar las lecciones aprendidas al final del proyecto.", "B": "Inspeccionar si un conjunto de pasos o atributos requeridos se han completado correctamente.", "C": "Medir el nivel de satisfacción del cliente.", "D": "Estimar los costos de las actividades de calidad."}, "ans": "B", "exp": "Las listas de verificación de calidad son herramientas de control de calidad utilizadas para verificar que todos los elementos necesarios se han completado o están presentes."}, {"id": 158, "q": "Un proyecto está por encima del presupuesto (CPI < 1) pero adelantado en el cronograma (SPI > 1). ¿Cuál es la MEJOR acción del director del proyecto?", "opts": {"A": "Centrarse en acelerar el cronograma aún más.", "B": "Ignorar el desempeño del costo ya que el cronograma va bien.", "C": "Investigar la causa raíz del sobrecosto y tomar acciones correctivas para el presupuesto.", "D": "Solicitar un aumento de presupuesto al patrocinador."}, "ans": "C", "exp": "Aunque el proyecto vaya adelantado, un CPI \\< 1 indica ineficiencia en costos. Es fundamental investigar por qué se está gastando más de lo previsto para corregirlo."}, {"id": 159, "q": "¿Qué documento autoriza formalmente un proyecto y proporciona al director del proyecto la autoridad para asignar recursos de la organización a las actividades del proyecto?", "opts": {"A": "Plan para la dirección del proyecto.", "B": "Estructura de Desglose del Trabajo (EDT/WBS).", "C": "Acta de Constitución del Proyecto (Project Charter).", "D": "Registro de Interesados."}, "ans": "C", "exp": "El Acta de Constitución del Proyecto es el documento que formaliza la existencia del proyecto y otorga la autoridad al director del proyecto."}, {"id": 160, "q": "En un proyecto, el equipo de desarrollo está preocupado por la carga de trabajo y el compromiso excesivo en los sprints. ¿Qué medida podría tomar el Scrum Master para ayudar al equipo a tener una velocidad sostenible?", "opts": {"A": "Asignar menos tareas en los próximos sprints.", "B": "Eliminar impedimentos y trabajar con el Product Owner para refinar el backlog.", "C": "Extender la duración de los sprints para permitir más tiempo.", "D": "Solicitar más recursos externos para el equipo."}, "ans": "B", "exp": "El Scrum Master debe eliminar impedimentos (como una carga de trabajo insostenible) y colaborar con el Product Owner para asegurar que el backlog esté refinado y el tamaño del sprint sea realista para la velocidad del equipo."}, {"id": 161, "q": "¿Cuál es el propósito principal de la Revisión del Sprint (Sprint Review) en Scrum?", "opts": {"A": "Inspeccionar el progreso hacia el objetivo del sprint y adaptar el Product Backlog si es necesario.", "B": "Discutir y resolver los impedimentos del equipo.", "C": "Evaluar el desempeño individual de los miembros del equipo.", "D": "Crear una nueva lista de tareas para el próximo sprint."}, "ans": "A", "exp": "La Revisión del Sprint es donde el equipo presenta el Incremento completado a los interesados clave, y se colabora sobre lo que se hizo y lo que se hará a continuación, inspeccionando el Product Backlog."}, {"id": 162, "q": "Se ha identificado un riesgo con alta probabilidad de ocurrencia y alto impacto. ¿Cuál es la estrategia de respuesta al riesgo más proactiva y deseable, si es viable?", "opts": {"A": "Aceptar.", "B": "Mitigar.", "C": "Transferir.", "D": "Evitar."}, "ans": "D", "exp": "Evitar el riesgo significa eliminar la causa o la posibilidad de que ocurra. Es la estrategia más proactiva para riesgos de alto impacto y alta probabilidad, si se puede aplicar."}, {"id": 163, "q": "Un proyecto tiene un cronograma muy ajustado y el director del proyecto necesita acelerar la finalización sin aumentar el riesgo general del proyecto. ¿Qué técnica podría usar?", "opts": {"A": "Crashing (Intensificación).", "B": "Fast Tracking (Compresión rápida).", "C": "Análisis Monte Carlo.", "D": "Recurso de nivelación."}, "ans": "A", "exp": "Crashing (Intensificación) implica añadir recursos para acortar la duración de las actividades de la ruta crítica. Fast Tracking (Compresión rápida) implica ejecutar actividades en paralelo, lo que a menudo aumenta el riesgo."}, {"id": 164, "q": "¿Qué métrica de Valor Ganado indica la estimación del costo total del proyecto al finalizar, basándose en el desempeño actual?", "opts": {"A": "BAC (Budget At Completion).", "B": "PV (Planned Value).", "C": "EAC (Estimate At Completion).", "D": "ETC (Estimate To Complete)."}, "ans": "C", "exp": "EAC es la estimación del costo total del proyecto al finalizar, utilizando el desempeño actual del costo."}, {"id": 165, "q": "En un proyecto predictivo, el cliente solicita un cambio de alcance significativo después de que el plan de proyecto ha sido aprobado. ¿Qué debe hacer el director del proyecto?", "opts": {"A": "Implementar el cambio si el cliente lo insiste.", "B": "Negar el cambio para mantener el plan original.", "C": "Iniciar el proceso formal de control integrado de cambios.", "D": "Preguntar al equipo si pueden absorber el cambio."}, "ans": "C", "exp": "Cualquier cambio de alcance en un proyecto predictivo debe pasar por el proceso de control integrado de cambios para evaluar su impacto y obtener aprobación formal."}, {"id": 166, "q": "¿Cuál es el propósito principal del registro de lecciones aprendidas?", "opts": {"A": "Documentar los problemas y las acciones correctivas.", "B": "Almacenar el conocimiento adquirido durante un proyecto para mejorar proyectos futuros.", "C": "Registrar las decisiones tomadas por el comité de dirección.", "D": "Listar los requisitos del proyecto que no se pudieron cumplir."}, "ans": "B", "exp": "El registro de lecciones aprendidas es una herramienta clave para la gestión del conocimiento, permitiendo que la organización aprenda de sus experiencias."}, {"id": 167, "q": "En un proyecto ágil, si el Product Owner está disponible pero no logra priorizar el Product Backlog de manera efectiva, lo que causa confusión en el equipo. ¿Qué debería hacer el Scrum Master?", "opts": {"A": "Tomar el control del backlog y priorizarlo por sí mismo.", "B": "Escalar la situación al patrocinador.", "C": "Guiar y entrenar al Product Owner en técnicas de priorización y gestión del backlog.", "D": "Pedir al equipo que elija las tareas que considere más importantes."}, "ans": "C", "exp": "El Scrum Master es un líder de servicio y coach para el Product Owner, ayudándolo a mejorar su efectividad en la gestión del Product Backlog."}, {"id": 168, "q": "¿Qué es un riesgo residual?", "opts": {"A": "Un riesgo que ha sido completamente eliminado.", "B": "Un riesgo que se transfiere a un tercero (ej. mediante un seguro).", "C": "Un riesgo que permanece después de implementar una respuesta a un riesgo.", "D": "Un riesgo no identificado en la planificación inicial."}, "ans": "C", "exp": "Un riesgo residual es el riesgo que persiste después de que se han ejecutado las respuestas planificadas a los riesgos, o el riesgo que permanece después de que se ha aplicado la mitigación."}, {"id": 169, "q": "En la fase de ejecución, un miembro del equipo informa de un impedimento que le impide avanzar con una tarea crítica. ¿Quién es el PRINCIPAL responsable de ayudar a eliminar este impedimento?", "opts": {"A": "El Director de Proyecto (en un entorno predictivo).", "B": "El Scrum Master (en un entorno ágil).", "C": "El Miembro del Equipo afectado.", "D": "El Patrocinador."}, "ans": "B", "exp": "En un entorno ágil, el Scrum Master es el principal responsable de eliminar los impedimentos que afectan al equipo de desarrollo. En un entorno predictivo, esta responsabilidad recae en el Director de Proyecto (opción A). Dada la naturaleza dual del examen PMP, y asumiendo una pregunta general de im"}, {"id": 170, "q": "¿Cuál es el principal objetivo de realizar un análisis de sensibilidad para los riesgos del proyecto?", "opts": {"A": "Cuantificar el costo total de los riesgos.", "B": "Determinar qué riesgos tienen el mayor impacto potencial en los objetivos del proyecto.", "C": "Desarrollar planes de respuesta para cada riesgo.", "D": "Estimar la probabilidad de ocurrencia de cada riesgo."}, "ans": "B", "exp": "El análisis de sensibilidad ayuda a determinar cuáles riesgos tienen el mayor impacto potencial, al examinar el grado en que la incertidumbre de cada elemento del proyecto afecta el objetivo que se está examinando."}, {"id": 171, "q": "El equipo del proyecto está teniendo discusiones frecuentes y desacuerdos sobre cómo ejecutar una tarea. ¿Qué documento puede ayudar a clarificar la responsabilidad y autoridad de cada miembro para evitar futuros conflictos?", "opts": {"A": "Acta de constitución del proyecto.", "B": "Estructura de Desglose del Trabajo (EDT).", "C": "Matriz de Asignación de Responsabilidades (RAM/RACI).", "D": "Registro de interesados."}, "ans": "C", "exp": "Una matriz de asignación de responsabilidades (RAM), como la matriz RACI (Responsable, Aprobador, Consultado, Informado), clarifica las responsabilidades y autoridades de los miembros del equipo."}, {"id": 172, "q": "Durante la fase de planificación, el director del proyecto descubre que dos interesados clave tienen expectativas completamente opuestas respecto al alcance del producto. ¿Cuál es la acción más adecuada?", "opts": {"A": "Dar preferencia al interesado con mayor autoridad jerárquica.", "B": "Facilitar una sesión de alineación entre los interesados para negociar expectativas y documentar  acuerdos.", "C": "Incluir ambas expectativas en el alcance para satisfacer a todos.", "D": "Escalar inmediatamente al patrocinador para que decida."}, "ans": "B", "exp": "La gestión proactiva de interesados requiere facilitar acuerdos tempranos. Documentar los consensos previene conflictos durante la ejecución."}, {"id": 173, "q": "Tu proyecto tiene un BAC de $500,000, un EV de $200,000, un AC de $250,000 y un PV de $220,000. ¿Cuál es el EAC asumiendo que el desempeño actual continuará?", "opts": {"A": "$550,000", "B": "$475,000", "C": "$625,000", "D": "$500,000"}, "ans": "C", "exp": "CPI = EV/AC = 200,000/250,000 = 0.80. EAC = BAC/CPI = 500,000/0.80 = \\$625,000. El proyecto terminará sobre presupuesto si el desempeño no mejora."}, {"id": 174, "q": "En el marco del PMBOK 7, ¿cuál de los siguientes representa mejor un principio de dirección de proyectos en lugar de un proceso?", "opts": {"A": "Desarrollar el acta de constitución del proyecto.", "B": "Controlar el cronograma.", "C": "Identificar a los interesados.", "D": "Ser un administrador diligente, respetuoso y cuidadoso."}, "ans": "D", "exp": "El PMBOK 7 se basa en 12 principios de dirección de proyectos, no en procesos. \"Ser un administrador diligente\" es uno de esos principios rectores."}, {"id": 175, "q": "Un proyecto ágil está en su octavo sprint. El equipo ha entregado consistentemente menos puntos de historia de los comprometidos. El Product Owner está presionando para agregar más elementos al sprint. ¿Qué debe hacer el Scrum Master?", "opts": {"A": "Proteger al equipo y facilitar una conversación sobre la velocidad real vs. comprometida.", "B": "Aceptar la solicitud del Product Owner ya que tiene autoridad sobre el backlog.", "C": "Extender el sprint para cumplir con los compromisos actuales.", "D": "Reducir la definición de 'Done' para incrementar la velocidad aparente."}, "ans": "A", "exp": "El Scrum Master protege al equipo de compromisos insostenibles. La velocidad histórica debe guiar la planificación futura, no las presiones externas."}, {"id": 176, "q": "¿Cuál de los siguientes dominios de desempeño del PMBOK 7 se enfoca en establecer la cultura, estructura y capacidades del equipo para alcanzar los resultados del proyecto?", "opts": {"A": "Dominio de entrega.", "B": "Dominio de interesados.", "C": "Dominio de planificación.", "D": "Dominio de equipo."}, "ans": "D", "exp": "El Dominio de Equipo en PMBOK 7 se ocupa de las actividades y funciones asociadas con las personas responsables de producir los entregables del proyecto."}, {"id": 177, "q": "Durante la ejecución de un proyecto de construcción, el contratista principal informa que un subcontratista no puede cumplir con sus obligaciones contractuales por quiebra. Esto afecta la ruta crítica. ¿Cuál es la PRIMERA acción del director del proyecto?", "opts": {"A": "Terminar inmediatamente el contrato con el subcontratista.", "B": "Evaluar el impacto en cronograma, costo y riesgos, y activar el plan de respuesta.", "C": "Notificar al cliente del retraso potencial.", "D": "Contratar a otro subcontratista sin análisis previo."}, "ans": "B", "exp": "Antes de tomar acciones, el director debe evaluar el impacto real y activar los planes de contingencia predefinidos. Actuar sin análisis puede agravar la situación."}, {"id": 178, "q": "En el PMBOK 7, ¿qué representa el concepto de \"valor\" como resultado de un proyecto?", "opts": {"A": "El presupuesto total ejecutado con éxito.", "B": "El número de entregables completados a tiempo.", "C": "Los beneficios netos obtenidos por los interesados como resultado de un proyecto.", "D": "La satisfacción del director del proyecto con el resultado."}, "ans": "C", "exp": "En PMBOK 7, el valor es el resultado final que importa: los beneficios netos obtenidos por los interesados, ya sean tangibles (financieros) o intangibles (reputación, satisfacción)."}, {"id": 179, "q": "En un proyecto con SV = -$30,000 y CV = +$20,000, con un BAC de $400,000 y EV de $180,000. ¿Cuál es el PV del proyecto?", "opts": {"A": "$150,000", "B": "$200,000", "C": "$210,000", "D": "$220,000"}, "ans": "C", "exp": "SV = EV - PV → -30,000 = 180,000 - PV → PV = 210,000. El proyecto está atrasado (\\$30,000 menos de lo planificado) pero eficiente en costos."}, {"id": 180, "q": "¿Cuál de los siguientes describe mejor el rol de un 'líder servidor' según el PMBOK 7?", "opts": {"A": "Un gerente que asigna tareas y controla el cumplimiento de plazos.", "B": "Un líder que antepone las necesidades del equipo para potenciar su desempeño y bienestar.", "C": "Un patrocinador que provee recursos al equipo.", "D": "Un director que reporta resultados al comité de dirección."}, "ans": "B", "exp": "El liderazgo servidor es un principio clave del PMBOK 7: el líder sirve al equipo eliminando obstáculos, promoviendo el crecimiento y poniendo al equipo en primer lugar."}, {"id": 181, "q": "Un equipo ágil identifica durante el sprint que una historia de usuario tiene una dependencia técnica que no fue detectada durante el refinamiento. Esto amenaza el Sprint Goal. ¿Qué debe hacerse?", "opts": {"A": "Eliminar la historia del sprint sin informar al Product Owner.", "B": "El equipo debe discutirlo con el Product Owner para re-evaluar el Sprint Goal o ajustar el alcance del sprint.", "C": "Extender el sprint automáticamente.", "D": "Escalar al patrocinador para obtener recursos adicionales."}, "ans": "B", "exp": "La transparencia y la colaboración son fundamentales en Scrum. El equipo debe comunicar el impedimento al Product Owner para tomar decisiones informadas sobre el Sprint Goal."}, {"id": 182, "q": "¿Cuál de los siguientes es un ejemplo del dominio de desempeño de \"Incertidumbre\" en PMBOK 7?", "opts": {"A": "Desarrollar la EDT del proyecto.", "B": "Identificar, analizar y responder a riesgos y ambigüedades del proyecto.", "C": "Planificar la comunicación con interesados.", "D": "Definir los criterios de aceptación de los entregables."}, "ans": "B", "exp": "El dominio de Incertidumbre en PMBOK 7 abarca actividades relacionadas con la gestión de riesgos, ambigüedad y volatilidad que pueden afectar los resultados del proyecto."}, {"id": 183, "q": "Estás gestionando un proyecto internacional y descubres que un miembro del equipo, al negociar con un proveedor local, aceptó un regalo de alto valor para agilizar una adjudicación. ¿Qué debes hacer PRIMERO como director del proyecto?", "opts": {"A": "Ignorarlo si el proveedor seleccionado es técnicamente competente.", "B": "Confrontar al miembro del equipo y reportar la situación siguiendo las políticas éticas de la organización.", "C": "Cancelar el contrato con el proveedor de inmediato.", "D": "Consultar al equipo legal antes de tomar cualquier acción."}, "ans": "B", "exp": "El Código de Ética del PMI requiere actuar con honestidad e integridad. Aceptar regalos que influyen en decisiones de negocio es una violación ética que debe reportarse según los procedimientos de la organización."}, {"id": 184, "q": "¿Qué herramienta del PMBOK 7 ayuda a visualizar el estado actual del sistema del proyecto, sus partes interconectadas y las relaciones de causa-efecto entre variables?", "opts": {"A": "Diagrama de Gantt.", "B": "Pensamiento sistémico (Systems Thinking).", "C": "EDT/WBS.", "D": "Registro de interesados."}, "ans": "B", "exp": "El pensamiento sistémico es una herramienta del PMBOK 7 que permite al director del proyecto comprender las interrelaciones complejas dentro y fuera del proyecto."}, {"id": 185, "q": "Un proyecto tiene: EV = $120,000, PV = $150,000, AC = $100,000. ¿Cuál de las siguientes afirmaciones es CORRECTA?", "opts": {"A": "El proyecto está atrasado y sobre presupuesto.", "B": "El proyecto está adelantado y bajo presupuesto.", "C": "El proyecto está atrasado pero es eficiente en costos.", "D": "El proyecto está en tiempo y sobre presupuesto."}, "ans": "C", "exp": "SPI = EV/PV = 120,000/150,000 = 0.80 (atrasado, \\< 1). CPI = EV/AC = 120,000/100,000 = 1.20 (eficiente en costos, \\> 1). Atrasado pero bajo presupuesto."}, {"id": 186, "q": "En el contexto del PMBOK 7, ¿cuál es el propósito principal del dominio de desempeño de \"Entrega\"?", "opts": {"A": "Gestionar los riesgos del proyecto.", "B": "Asegurar que el proyecto produzca los entregables que satisfagan los requisitos.", "C": "Planificar la comunicación con los interesados.", "D": "Gestionar el presupuesto del proyecto."}, "ans": "B", "exp": "El dominio de Entrega se enfoca en actividades que producen entregables de calidad que satisfacen los requisitos acordados y generan valor."}, {"id": 187, "q": "Durante la planificación, se determina que el proyecto tiene alta complejidad técnica, requisitos estables y regulación estricta. El cliente requiere aprobaciones formales en cada fase. ¿Qué ciclo de vida es el más adecuado?", "opts": {"A": "Ágil con sprints de dos semanas.", "B": "Predictivo con revisiones de fase formales.", "C": "Híbrido con componente ágil dominante.", "D": "Iterativo sin hitos formales."}, "ans": "B", "exp": "Cuando los requisitos son estables, hay regulación estricta y se requieren aprobaciones formales por fase, el ciclo de vida predictivo es el más apropiado."}, {"id": 188, "q": "¿Qué principio del PMBOK 7 se aplica cuando el director del proyecto adapta el enfoque de gestión según las características únicas del proyecto y su contexto?", "opts": {"A": "Crear un entorno colaborativo.", "B": "Demostrar comportamientos de liderazgo.", "C": "Enfocarse en el valor.", "D": "Adaptar en función del contexto."}, "ans": "D", "exp": "El principio de adaptación (tailoring) reconoce que no existe un enfoque único: el director debe ajustar los métodos, herramientas y artefactos al contexto específico del proyecto."}, {"id": 189, "q": "Un director de proyecto recibe una solicitud de cambio de un interesado que agregaría funcionalidad valiosa pero no estaba en el alcance original. El análisis de impacto muestra +15% en costo y +3 semanas. El comité de cambios aprueba. ¿Cuál es el siguiente paso?", "opts": {"A": "Implementar inmediatamente el cambio.", "B": "Actualizar el plan para la dirección del proyecto, las líneas base y comunicar a los interesados relevantes.", "C": "Notificar solo al equipo de desarrollo.", "D": "Esperar al siguiente ciclo de planificación."}, "ans": "B", "exp": "Tras la aprobación de un cambio, se deben actualizar todas las líneas base afectadas (alcance, cronograma, costo) y el plan para la dirección del proyecto, y comunicar a todos los interesados pertinentes."}, {"id": 190, "q": "¿Cuál de las siguientes opciones describe mejor el concepto de 'complejidad' en el contexto del PMBOK 7?", "opts": {"A": "Un proyecto con muchas actividades en el cronograma.", "B": "Características de un proyecto con muchas partes interconectadas cuyo comportamiento es difícil de  predecir.", "C": "Un proyecto con alto presupuesto y muchos recursos.", "D": "Un proyecto con más de 50 interesados identificados."}, "ans": "B", "exp": "La complejidad en PMBOK 7 se refiere a características como interdependencias, comportamiento emergente, ambigüedad y dinámica de sistemas que hacen difícil predecir los resultados."}, {"id": 191, "q": "En un proyecto ágil, al finalizar el sprint 5, el cliente indica que la dirección del producto ha cambiado significativamente. Varias historias completadas ya no son relevantes. ¿Qué debe hacerse?", "opts": {"A": "Continuar con el plan original ya que el trabajo fue aceptado.", "B": "El Product Owner debe revisar y repriorizar el Product Backlog para reflejar la nueva dirección  estratégica.", "C": "Cancelar el proyecto y reiniciar.", "D": "Ignorar el cambio hasta el final del proyecto."}, "ans": "B", "exp": "En proyectos ágiles, la adaptación al cambio es un valor fundamental. El Product Owner debe actualizar el backlog para maximizar el valor entregado según la nueva visión del cliente."}, {"id": 192, "q": "¿Cuál es la diferencia entre 'calidad' y 'grado' en gestión de proyectos según el PMBOK?", "opts": {"A": "No hay diferencia, son términos equivalentes.", "B": "La calidad es el grado en que los requisitos se satisfacen; el grado es la categoría asignada según funcionalidad.", "C": "El grado mide la satisfacción del cliente; la calidad mide el costo.", "D": "La calidad se aplica a personas; el grado a entregables."}, "ans": "B", "exp": "Calidad: grado en que los requisitos se satisfacen. Grado: categoría basada en características funcionales (ej. hotel de 3 vs 5 estrellas). Bajo grado puede ser aceptable; baja calidad, nunca."}, {"id": 193, "q": "El director del proyecto de un programa de transformación digital debe decidir si continuar con un proyecto que ha consumido el 60% del presupuesto pero solo ha completado el 35% del alcance, con perspectivas de mejora inciertas. ¿Qué concepto económico es relevante aquí?", "opts": {"A": "Costo de oportunidad.", "B": "Costo hundido (sunk cost).", "C": "Valor presente neto.", "D": "Tasa interna de retorno."}, "ans": "B", "exp": "El costo hundido (sunk cost) es el dinero ya gastado que no puede recuperarse. Las decisiones de continuar o cancelar deben basarse en el valor futuro esperado, no en lo ya invertido."}, {"id": 194, "q": "¿Cuál de los siguientes dominios de desempeño del PMBOK 7 incluye actividades relacionadas con la estimación, presupuestación y monitoreo financiero del proyecto?", "opts": {"A": "Dominio de entrega.", "B": "Dominio de planificación.", "C": "Dominio de trabajo del proyecto.", "D": "Dominio de medición."}, "ans": "B", "exp": "El Dominio de Planificación en PMBOK 7 cubre las actividades necesarias para organizar, elaborar y coordinar el trabajo del proyecto, incluyendo estimaciones y presupuesto."}, {"id": 195, "q": "Un interesado de alto poder e interés bajo aparece constantemente bloqueando decisiones clave del proyecto. ¿Cuál es la estrategia más efectiva?", "opts": {"A": "Ignorarlo dado su bajo interés declarado.", "B": "Escalarlo al patrocinador para que sea removido del proyecto.", "C": "Investigar sus preocupaciones reales, involucrarlos estratégicamente y personalizar la comunicación.", "D": "Excluirlo de las reuniones para evitar bloqueos."}, "ans": "C", "exp": "Un interesado de alto poder que bloquea activamente indica que su interés real es mayor al registrado. Comprenderlo y gestionar proactivamente es clave para evitar que comprometa el proyecto."}, {"id": 196, "q": "En el enfoque ágil, ¿qué significa que un equipo sea \"autoorganizado\"?", "opts": {"A": "Que no necesita un Scrum Master.", "B": "Que el equipo decide internamente cómo realizar el trabajo para alcanzar los objetivos.", "C": "Que cada miembro trabaja de forma independiente sin coordinación.", "D": "Que el equipo no necesita comunicarse con el Product Owner."}, "ans": "B", "exp": "Un equipo autoorganizado en Scrum tiene la autonomía para decidir cómo realizar el trabajo técnico, eligiendo sus métodos y distribuyendo tareas internamente para lograr el Sprint Goal."}, {"id": 199, "q": "El proyecto está en fase de ejecución. El equipo identifica una oportunidad no planificada  para reducir costos en un 20% adoptando una tecnología emergente, pero esto requiere  reentrenamiento y modifica parte del alcance. ¿Qué debe hacer el director del proyecto?", "opts": {"A": "Implementar la oportunidad inmediatamente para aprovecharla.", "B": "Ignorarla ya que no estaba en el plan original.", "C": "Documentarla como oportunidad, analizarla y someterla al proceso de control de cambios.", "D": "Delegarla al equipo técnico para que la evalúe de forma autónoma."}, "ans": "C", "exp": "*Los riesgos positivos (oportunidades) también deben gestionarse formalmente. Cualquier cambio que afecte el*"}, {"id": 200, "q": "¿Cuál de los siguientes es un ejemplo de 'factor ambiental de la empresa' (EEF) que puede  influir en la planificación de un proyecto?", "opts": {"A": "Las plantillas de documentos de proyectos anteriores.", "B": "La cultura organizacional y el estilo de gestión.", "C": "Las lecciones aprendidas de proyectos pasados.", "D": "Los procedimientos de control de cambios documentados."}, "ans": "B", "exp": "*Los EEF son condiciones externas o internas no bajo control del equipo, como la cultura organizacional,*"}, {"id": 201, "q": "En un proyecto con múltiples proveedores, uno de ellos entrega constantemente con calidad  inferior a la acordada. El contrato es de tipo Precio Fijo. ¿Cuál es la acción MÁS apropiada?", "opts": {"A": "Aceptar los entregables para no retrasar el cronograma.", "B": "Activar las cláusulas de penalidad del contrato y exigir corrección formal documentada.", "C": "Cambiar el tipo de contrato a costo reembolsable.", "D": "Asignar recursos internos para corregir los entregables del proveedor."}, "ans": "B", "exp": "*En un contrato de Precio Fijo, el vendedor asume el riesgo de cumplir los requisitos al precio pactado. Activar*"}, {"id": 202, "q": "¿Qué característica distingue a un proyecto de las operaciones continuas de una  organización?", "opts": {"A": "Los proyectos tienen más presupuesto que las operaciones.", "B": "Los proyectos son temporales y producen un resultado único.", "C": "Las operaciones son más complejas que los proyectos.", "D": "Los proyectos no requieren gestión de recursos humanos."}, "ans": "B", "exp": "*Por definición, un proyecto es un esfuerzo temporal que crea un producto, servicio o resultado único. Las operaciones son continuas y repetitivas.*"}, {"id": 203, "q": "Un equipo distribuido globalmente en 5 zonas horarias enfrenta problemas de comunicación que están causando retrabajo. ¿Qué acción es la más efectiva para resolver esto?", "opts": {"A": "Centralizar todas las decisiones en el director del proyecto.", "B": "Revisar y actualizar el plan de gestión de comunicaciones, estableciendo protocolos claros para equipos distribuidos.", "C": "Eliminar las reuniones asíncronas.", "D": "Contratar un coordinador de comunicaciones externo."}, "ans": "B", "exp": "*El plan de gestión de comunicaciones debe adaptarse a las necesidades del equipo. Para equipos distribuidos, establecer protocolos, canales y frecuencias adecuados es esencial para reducir el retrabajo.*"}, {"id": 204, "q": "En el PMBOK 7, ¿cuál de los siguientes principios establece que los directores de proyectos deben actuar de manera ética y en el mejor interés de la organización y la sociedad?", "opts": {"A": "Enfocarse en el valor.", "B": "Ser un administrador diligente, respetuoso y cuidadoso.", "C": "Involucrarse con los interesados.", "D": "Adoptar la agilidad."}, "ans": "B", "exp": "*El principio de administración (stewardship) implica actuar con integridad, cuidado y cumplimiento de obligaciones, siendo responsable de los recursos y el impacto de las decisiones.*"}, {"id": 205, "q": "Al inicio del proyecto, el análisis de interesados identifica a un grupo con alto interés y alto poder que tiene expectativas contradictorias con el patrocinador. ¿Qué estrategia es la MÁS  adecuada?", "opts": {"A": "Dar prioridad absoluta al patrocinador por su rol formal.", "B": "Ignorar al grupo hasta que presente objeciones formales.", "C": "Involucrar a ambas partes en sesiones de alineación temprana para documentar acuerdos y gestionar expectativas.", "D": "Excluir al grupo conflictivo del registro de interesados."}, "ans": "C", "exp": "*Cuando hay interesados de alto poder con expectativas contradictorias, la gestión proactiva y la alineación temprana son críticas. Ignorar el conflicto en etapas iniciales lo amplifican en la ejecución.*"}, {"id": 206, "q": "¿Qué técnica de resolución de conflictos tiene mayor probabilidad de producir una solución duradera en un equipo de proyecto?", "opts": {"A": "Forzar (imponer una solución).", "B": "Suavizar (minimizar las diferencias).", "C": "Colaborar (buscar soluciones que satisfagan a todas las partes).", "D": "Retirarse (evitar el conflicto)."}, "ans": "C", "exp": "*La técnica de colaborar (confrontar/resolver problemas) aborda las causas raíz del conflicto y busca soluciones ganar-ganar, produciendo los resultados más duraderos.*"}, {"id": 207, "q": "Un proyecto tiene un EAC de $800,000 y un BAC de $700,000. El EV actual es $350,000 y el AC es $420,000. ¿Cuál es el VAC del proyecto?", "opts": {"A": "+$100,000", "B": "-$70,000", "C": "-$100,000", "D": "+$70,000"}, "ans": "C", "exp": "*VAC = BAC - EAC = \\$700,000 - \\$800,000 = -\\$100,000. Un VAC negativo confirma que se espera exceder el presupuesto original en \\$100,000.*"}, {"id": 208, "q": "¿Cuál es el propósito principal de una reunión de 'Sprint Planning' en Scrum?", "opts": {"A": "Revisar el incremento completado con los interesados.", "B": "Identificar mejoras al proceso del equipo.", "C": "Definir el Sprint Goal y seleccionar los elementos del backlog a desarrollar en el sprint.", "D": "Actualizar el estado del proyecto ante el patrocinador."}, "ans": "C", "exp": "*En el Sprint Planning, el equipo colabora para establecer el Sprint Goal y determinar qué elementos del Product Backlog se pueden completar, creando el Sprint Backlog.*"}, {"id": 209, "q": "Un proyecto de desarrollo de software utiliza un enfoque híbrido. El módulo de integración con sistemas legacy es gestionado de forma predictiva, mientras que la interfaz de usuario es ágil. ¿Cómo se deben gestionar los riesgos del módulo predictivo?", "opts": {"A": "Usar el registro de riesgos del componente ágil para ambos.", "B": "Aplicar el proceso formal de identificación, análisis y respuesta a riesgos del componente predictivo.", "C": "Ignorar los riesgos del módulo predictivo si el ágil va bien.", "D": "Gestionar todos los riesgos solo en las retrospectivas del componente ágil."}, "ans": "B", "exp": "*En entornos híbridos, cada componente mantiene su enfoque de gestión. El componente predictivo requiere los procesos formales de gestión de riesgos del PMBOK.*"}, {"id": 210, "q": "¿Cuál es la finalidad principal de realizar una 'refinamiento del backlog' (backlog grooming) en un proyecto ágil?", "opts": {"A": "Revisar el desempeño del equipo en el sprint anterior.", "B": "Preparar y detallar los elementos del backlog para que estén listos para futuros sprints.", "C": "Aprobar los entregables del sprint actual.", "D": "Presentar el avance del proyecto al patrocinador."}, "ans": "B", "exp": "*El refinamiento del backlog asegura que los elementos estén suficientemente detallados, estimados y priorizados*"}, {"id": 211, "q": "El director del proyecto recibe una solicitud del patrocinador de comprimir el cronograma en  3 semanas mediante crashing. El análisis muestra que el costo adicional sería $50,000. ¿Qué debe  evaluar ANTES de recomendar esta acción?", "opts": {"A": "Solo el costo adicional de los recursos.", "B": "El impacto en riesgos, calidad, moral del equipo y si la compresión es factible en las actividades de la ruta  crítica.", "C": "Únicamente si el patrocinador tiene presupuesto disponible.", "D": "Si el equipo acepta trabajar horas extra."}, "ans": "B", "exp": "*El crashing tiene múltiples implicaciones: además del costo, puede aumentar riesgos, afectar la calidad y*"}, {"id": 212, "q": "¿Qué representa la 'holgura total' (float/slack) en la gestión del cronograma?", "opts": {"A": "El tiempo que una actividad puede atrasarse sin impactar la fecha de finalización del proyecto.", "B": "El costo adicional reservado para riesgos.", "C": "El tiempo total estimado de la ruta crítica.", "D": "La diferencia entre el tiempo planificado y el real."}, "ans": "A", "exp": "*La holgura total es el tiempo que una actividad puede retrasarse sin retrasar la fecha de finalización del proyecto.*"}, {"id": 213, "q": "Durante una auditoría de adquisiciones, se descubre que el equipo de compras omitió evaluar  a tres proveedores calificados en el proceso de licitación. ¿Cuál es el riesgo MÁS significativo de  esta situación?", "opts": {"A": "Que el proyecto se retrase por repetir el proceso.", "B": "Incumplimiento de políticas de adquisición, posible conflicto de intereses y riesgo legal para la  organización.", "C": "Que el proveedor seleccionado sea más costoso.", "D": "Que los proveedores excluidos presenten quejas."}, "ans": "B", "exp": ""}, {"id": 214, "q": "En el PMBOK 7, el dominio de desempeño de 'Medición' tiene como objetivo principal:", "opts": {"A": "Registrar todos los costos del proyecto.", "B": "Evaluar el desempeño del proyecto y tomar acciones para mantener un desempeño aceptable.", "C": "Medir la satisfacción de los miembros del equipo.", "D": "Controlar los cambios de alcance del proyecto."}, "ans": "B", "exp": "*El dominio de Medición en PMBOK 7 se centra en evaluar el desempeño del proyecto respecto a los planes y*"}, {"id": 215, "q": "Un proyecto ágil de 12 sprints está en el sprint 8. El velocity promedio es 40 puntos/sprint.  Quedan 180 puntos en el backlog. Con la información disponible, ¿qué es lo más probable?", "opts": {"A": "El proyecto terminará antes del sprint 12.", "B": "El proyecto necesitará aproximadamente 4.5 sprints adicionales, excediendo el plan.", "C": "El proyecto terminará exactamente en el sprint 12.", "D": "El proyecto debe cancelarse por incumplimiento."}, "ans": "B", "exp": "*Con velocity de 40 puntos/sprint y 180 puntos restantes, se necesitan 180/40 = 4.5 sprints más. Sumando al sprint*"}, {"id": 216, "q": "¿Cuál de los siguientes describe mejor el concepto de \"gestión del cambio organizacional\" en el contexto de proyectos?", "opts": {"A": "El proceso formal para aprobar cambios de alcance.", "B": "Las actividades para preparar, apoyar y guiar a las personas durante una transición generada por el proyecto.", "C": "La actualización del plan de gestión del proyecto.", "D": "El control de versiones de los entregables."}, "ans": "B", "exp": "*La gestión del cambio organizacional (OCM) se enfoca en el elemento humano: preparar y apoyar a las personas para adoptar los cambios que el proyecto genera en la organización.*"}, {"id": 217, "q": "Un director de proyecto debe decidir entre dos estrategias de respuesta a un riesgo: mitigar (costo $30,000, reduce probabilidad de 60% a 20%) o transferir (costo $15,000 de seguro, elimina el impacto). El impacto del riesgo es $100,000. ¿Cuál opción es financieramente más conveniente?", "opts": {"A": "Mitigar: el costo esperado total es $50,000.", "B": "Transferir: el costo total es $15,000, menor que cualquier alternativa.", "C": "Aceptar: el costo esperado es $60,000 sin gastar en respuesta.", "D": "Ambas estrategias son equivalentes."}, "ans": "B", "exp": "*Transferir: \\$15,000 fijo. Mitigar: \\$30,000 + (20% x \\$100,000) = \\$30,000 + \\$20,000 = \\$50,000 esperado. Aceptar: 60% x \\$100,000 = \\$60,000 esperado. Transferir es la opción más económica.*"}, {"id": 218, "q": "¿Qué rol juega el 'caso de negocio' (Business Case) durante el ciclo de vida del proyecto según el PMBOK 7?", "opts": {"A": "Solo se usa al inicio para justificar el proyecto.", "B": "Se revisa periódicamente para confirmar que el proyecto sigue siendo viable y alineado con los objetivos estratégicos.", "C": "Es reemplazado por el acta de constitución una vez que el proyecto inicia.", "D": "Solo lo gestiona el departamento financiero, no el director del proyecto."}, "ans": "B", "exp": "*El Business Case no es solo un documento de inicio. Debe revisarse en puntos de decisión clave para confirmar que los beneficios esperados aún justifican la inversión continua en el proyecto.*"}, {"id": 219, "q": "Durante la ejecución, el equipo detecta que la solución técnica planificada no cumplirá con los requisitos de desempeño del cliente, aunque lo hará dentro del plazo y presupuesto. ¿Qué debe hacer el director del proyecto?", "opts": {"A": "Entregar la solución según el plan y notificar al cliente después.", "B": "Iniciar el proceso de control de cambios para modificar el diseño técnico y comunicar proactivamente al cliente el impacto.", "C": "Reducir los criterios de aceptación para que la solución actual los cumpla.", "D": "Absorber el costo extra de mejoras sin informar al cliente."}, "ans": "B", "exp": "*La integridad y la orientación al valor exigen que el director sea transparente. Entregar algo que no cumple los requisitos de desempeño del cliente no es un éxito, incluso si se cumple plazo y costo.*"}, {"id": 220, "q": "¿Cuál es el propósito de los 'puntos de historia' en la estimación ágil?", "opts": {"A": "Medir el tiempo exacto en horas que tomará una tarea.", "B": "Representar el esfuerzo relativo, complejidad e incertidumbre de una historia de usuario.", "C": "Calcular el costo de cada funcionalidad.", "D": "Asignar prioridad a los elementos del backlog."}, "ans": "B", "exp": "*Los puntos de historia son una medida relativa (no absoluta) que captura el esfuerzo, complejidad e incertidumbre de implementar una historia. Permiten estimar sin comprometerse a duraciones exactas.*"}, {"id": 221, "q": "El comité de dirección solicita al director del proyecto una proyección del costo final basada en el desempeño acumulado. El proyecto tiene: BAC = $600,000, EV = $240,000, AC = $300,000.  ¿Cuál es el EAC?", "opts": {"A": "$660,000", "B": "$720,000", "C": "$750,000", "D": "$690,000"}, "ans": "C", "exp": "*CPI = EV/AC = 240,000/300,000 = 0.80. EAC = BAC/CPI = 600,000/0.80 = \\$750,000. El proyecto está siendo ineficiente en costos y se proyecta exceder el presupuesto en \\$150,000.*"}];
+    window.iniciarExamen = (cantidad) => {
+        totalPreguntas = cantidad;
+        indexActual = 0;
+        tiempoRestante = Math.floor((230/180) * cantidad * 60);
+        document.getElementById('inicio').style.display = 'none';
+        document.getElementById('header').style.display = 'flex';
+        document.getElementById('quiz-section').style.display = 'block';
+        listaIds = Array.from({length: 321}, (_, i) => i + 1).sort(() => Math.random() - 0.5).slice(0, totalPreguntas);
+        respuestasUsuario = new Array(totalPreguntas).fill(null);
+        iniciarReloj();
+        cargarPregunta();
+    };
 
-// AUTH
-const USERS = { admin: 'pmp2025', pmp: 'exam2025' };
-let currentUser = null;
+    window.pausarExamen = () => {
+        clearInterval(cronometro);
+        document.getElementById('quiz-content').style.display = 'none';
+        document.getElementById('pause-overlay').style.display = 'block';
+        document.getElementById('pause-btn').style.display = 'none';
+    };
 
-// STATE
-let examQuestions = [];
-let userAnswers = [];
-let flagged = [];
-let currentQ = 0;
-let timerInterval = null;
-let totalSeconds = 0;
-let elapsedSeconds = 0;
-let examSize = 0;
-let lastRetrySize = 0;
-let lastRetryTime = 0;
-let reviewData = [];
-let currentTab = 'all';
+    window.reanudarExamen = () => {
+        iniciarReloj();
+        document.getElementById('quiz-content').style.display = 'block';
+        document.getElementById('pause-overlay').style.display = 'none';
+    };
 
-// HISTORY
-let history = JSON.parse(localStorage.getItem('pmp_history') || '[]');
-
-function saveHistory() { localStorage.setItem('pmp_history', JSON.stringify(history)); }
-
-// UTILS
-function $(id) { return document.getElementById(id); }
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  $(id).classList.add('active');
-}
-function showToast(msg, dur=2500) {
-  const t = $('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), dur);
-}
-function shuffle(arr) {
-  const a = [...arr];
-  for (let i=a.length-1;i>0;i--) {
-    const j=Math.floor(Math.random()*(i+1));
-    [a[i],a[j]]=[a[j],a[i]];
-  }
-  return a;
-}
-function fmtTime(secs) {
-  const m = Math.floor(secs/60).toString().padStart(2,'0');
-  const s = (secs%60).toString().padStart(2,'0');
-  return `${m}:${s}`;
-}
-
-// LOGIN
-function doLogin() {
-  const u = $('loginUser').value.trim();
-  const p = $('loginPass').value.trim();
-  if (USERS[u] && USERS[u] === p) {
-    currentUser = u;
-    $('loginError').style.display = 'none';
-    showMenuScreen();
-  } else {
-    $('loginError').style.display = 'block';
-    $('loginUser').focus();
-  }
-}
-$('loginUser').addEventListener('keydown', e => { if(e.key==='Enter') $('loginPass').focus(); });
-$('loginPass').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
-
-function logout() {
-  currentUser = null;
-  $('loginUser').value = '';
-  $('loginPass').value = '';
-  showScreen('loginScreen');
-}
-
-function showMenuScreen() {
-  $('userName').textContent = currentUser;
-  updateStats();
-  showScreen('menuScreen');
-}
-function goMenu() {
-  if (timerInterval) clearInterval(timerInterval);
-  showMenuScreen();
-}
-
-function updateStats() {
-  if (!history.length) return;
-  $('statTotal').textContent = history.length;
-  const scores = history.map(h=>h.pct);
-  $('statBest').textContent = Math.max(...scores) + '%';
-  $('statAvg').textContent = Math.round(scores.reduce((a,b)=>a+b,0)/scores.length) + '%';
-  $('statPassed').textContent = history.filter(h=>h.passed).length;
-}
-
-// START EXAM
-function startExam(size, mins) {
-  examSize = size;
-  lastRetrySize = size;
-  lastRetryTime = mins;
-  totalSeconds = mins * 60;
-  elapsedSeconds = 0;
-  
-  const pool = shuffle(QUESTIONS);
-  examQuestions = pool.slice(0, size);
-  userAnswers = new Array(size).fill(null);
-  flagged = new Array(size).fill(false);
-  currentQ = 0;
-  
-  // Build minimap
-  const grid = $('minimapGrid');
-  grid.innerHTML = '';
-  examQuestions.forEach((_,i) => {
-    const btn = document.createElement('button');
-    btn.className = 'mini-btn';
-    btn.textContent = i+1;
-    btn.id = `mini_${i}`;
-    btn.onclick = () => goToQ(i);
-    grid.appendChild(btn);
-  });
-  
-  showScreen('testScreen');
-  renderQuestion();
-  startTimer();
-}
-
-function retryExam() { startExam(lastRetrySize, Math.round(lastRetryTime)); }
-
-// TIMER
-function startTimer() {
-  clearInterval(timerInterval);
-  timerInterval = setInterval(() => {
-    elapsedSeconds++;
-    const remaining = totalSeconds - elapsedSeconds;
-    if (remaining <= 0) {
-      clearInterval(timerInterval);
-      $('timerValue').textContent = '00:00';
-      $('timeupOverlay').classList.add('show');
-      return;
+    function iniciarReloj() {
+        clearInterval(cronometro);
+        cronometro = setInterval(() => {
+            tiempoRestante--;
+            let min = Math.floor(tiempoRestante/60), seg = tiempoRestante%60;
+            document.getElementById('reloj').innerText = `${min}:${seg < 10 ? '0' : ''}${seg}`;
+            if (tiempoRestante <= 0) mostrarResultados();
+        }, 1000);
     }
-    const pct = (remaining/totalSeconds)*100;
-    const tv = $('timerValue');
-    const tf = $('timerFill');
-    tv.textContent = fmtTime(remaining);
-    $('timerElapsed').textContent = `Transcurrido: ${fmtTime(elapsedSeconds)}`;
-    
-    if (pct <= 20) {
-      tv.className = 'timer-value warning';
-      tf.className = 'timer-fill low';
-    } else if (pct <= 50) {
-      tv.className = 'timer-value';
-      tf.className = 'timer-fill half';
-    } else {
-      tv.className = 'timer-value';
-      tf.className = 'timer-fill';
+
+    async function cargarPregunta() {
+        // Lógica de Pausa Reglamentaria (Igual que el examen real)
+        const numPregunta = indexActual + 1;
+        const btnPausa = document.getElementById('pause-btn');
+        if (totalPreguntas >= 180 && (numPregunta === 61 || numPregunta === 121)) {
+            btnPausa.style.display = 'inline-block';
+        } else {
+            btnPausa.style.display = 'none';
+        }
+
+        const docId = `pregunta_${String(listaIds[indexActual]).padStart(3, '0')}`;
+        let data;
+        if(cachePreguntas[docId]) { data = cachePreguntas[docId]; } 
+        else {
+            const docSnap = await getDoc(doc(db, "preguntas_pmp", docId));
+            data = docSnap.data();
+            cachePreguntas[docId] = data;
+        }
+
+        if (data) {
+            document.getElementById('progreso-txt').innerText = `${indexActual + 1}/${totalPreguntas}`;
+            document.getElementById('meta-info').innerHTML = `<span class="chip">${data.enfoque || 'General'}</span>`;
+            document.getElementById('enunciado').innerText = `${indexActual + 1}. ${data.enunciado}`;
+            const container = document.getElementById('opciones-container');
+            container.innerHTML = "";
+            Object.entries(data.opciones).forEach(([letra, texto]) => {
+                const btn = document.createElement('button');
+                btn.className = `opcion-btn ${respuestasUsuario[indexActual]?.elegida === letra ? 'selected' : ''}`;
+                btn.innerText = `${letra}) ${texto}`;
+                btn.onclick = () => {
+                    document.querySelectorAll('.opcion-btn').forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    respuestasUsuario[indexActual] = { elegida: letra, data: data };
+                };
+                container.appendChild(btn);
+            });
+            document.getElementById('next-btn').style.display = indexActual === totalPreguntas - 1 ? 'none' : 'block';
+            document.getElementById('finish-btn').style.display = indexActual === totalPreguntas - 1 ? 'block' : 'none';
+        }
     }
-    tf.style.width = pct + '%';
-  }, 1000);
-}
 
-// RENDER
-function renderQuestion() {
-  const q = examQuestions[currentQ];
-  const total = examQuestions.length;
-  
-  $('qNumber').textContent = `PREGUNTA ${currentQ+1} DE ${total}`;
-  $('testBadge').textContent = `Test ${examSize}Q • ${currentQ+1}/${total}`;
-  $('qText').textContent = q.q;
-  
-  const pct = Math.round((currentQ+1)/total*100);
-  $('progFill').style.width = pct + '%';
-  $('progLabel').textContent = `Pregunta ${currentQ+1}`;
-  $('progPct').textContent = pct + '%';
-  
-  // Options
-  const opts = $('optionsContainer');
-  opts.innerHTML = '';
-  const letters = ['A','B','C','D'];
-  letters.forEach(letter => {
-    if (!q.opts[letter]) return;
-    const div = document.createElement('div');
-    div.className = 'option';
-    div.dataset.letter = letter;
-    
-    const answered = userAnswers[currentQ];
-    if (answered === letter) {
-      div.classList.add('selected');
-      div.style.cursor = 'default';
-    } else if (answered) {
-      div.style.cursor = 'default';
-    }
-    
-    div.innerHTML = `<div class="option-letter">${letter}</div><div class="option-text">${q.opts[letter]}</div>`;
-    if (!answered) div.onclick = () => selectAnswer(letter);
-    opts.appendChild(div);
-  });
-  
-  // Explanation hidden during test — only shown in results
-  $('explanationBox').classList.remove('show');
-  
-  // Buttons
-  $('prevBtn').disabled = currentQ === 0;
-  const isLast = currentQ === total - 1;
-  $('nextBtn').style.display = isLast ? 'none' : '';
-  $('finishBtn').style.display = isLast ? '' : 'none';
-  
-  // Flag button
-  const fb = $('flagBtn');
-  fb.textContent = flagged[currentQ] ? '🟡 Marcada' : '🚩 Marcar';
-  
-  updateMinimap();
-}
+    window.siguientePregunta = () => { indexActual++; cargarPregunta(); };
+    window.previaPregunta = () => { indexActual--; cargarPregunta(); };
 
-function selectAnswer(letter) {
-  if (userAnswers[currentQ]) return;
-  userAnswers[currentQ] = letter;
-  showToast('✔ Respuesta guardada');
-  renderQuestion();
-}
+    window.mostrarResultados = async () => {
+        clearInterval(cronometro);
+        document.getElementById('quiz-section').style.display = 'none';
+        document.getElementById('header').style.display = 'none';
+        document.getElementById('resultados-section').style.display = 'block';
+        
+        let aciertos = 0, stats = { dominio: {}, enfoque: {} };
+        let revisionHTML = "";
 
-function navigate(dir) {
-  const next = currentQ + dir;
-  if (next >= 0 && next < examQuestions.length) {
-    currentQ = next;
-    renderQuestion();
-  }
-}
+        for (let i = 0; i < totalPreguntas; i++) {
+            let r = respuestasUsuario[i];
+            let dataPregunta;
+            if (!r) {
+                const docId = `pregunta_${String(listaIds[i]).padStart(3, '0')}`;
+                dataPregunta = cachePreguntas[docId] || (await getDoc(doc(db, "preguntas_pmp", docId))).data();
+            } else { dataPregunta = r.data; }
 
-function goToQ(i) {
-  currentQ = i;
-  renderQuestion();
-}
+            const elegida = r ? r.elegida : "No contestada";
+            const esOk = r && r.elegida === dataPregunta.respuesta_correcta;
+            if(esOk) aciertos++;
 
-function toggleFlag() {
-  flagged[currentQ] = !flagged[currentQ];
-  showToast(flagged[currentQ] ? '🚩 Pregunta marcada' : 'Marca eliminada');
-  renderQuestion();
-}
+            const d = dataPregunta.dominio_eco || "Otros", e = dataPregunta.enfoque || "General";
+            if(!stats.dominio[d]) stats.dominio[d] = {ok:0, total:0};
+            if(!stats.enfoque[e]) stats.enfoque[e] = {ok:0, total:0};
+            stats.dominio[d].total++; stats.enfoque[e].total++;
+            if(esOk) { stats.dominio[d].ok++; stats.enfoque[e].ok++; }
 
-function updateMinimap() {
-  examQuestions.forEach((_,i) => {
-    const btn = $(`mini_${i}`);
-    if (!btn) return;
-    btn.className = 'mini-btn';
-    if (i === currentQ) btn.classList.add('current');
-    else if (flagged[i]) btn.classList.add('flagged');
-    else if (userAnswers[i]) btn.classList.add('answered');
-  });
-}
+            revisionHTML += `<div class="reporte-pregunta">
+                <b style="color:${esOk?'#34a853':'#ea4335'}">${esOk?'✓':'✗'} Pregunta ${i+1}</b>
+                <p style="margin:10px 0;">${dataPregunta.enunciado}</p>
+                <div style="font-size: 0.9rem; margin-bottom: 10px;">
+                    Tu respuesta: <b style="color:${esOk?'#34a853':'#ea4335'}">${elegida}</b> | 
+                    Correcta: <b style="color:#34a853">${dataPregunta.respuesta_correcta}</b>
+                </div>
+                <div class="explicacion-box">
+                    <strong>Mindset:</strong> ${dataPregunta.mindset_clave || 'N/A'}<br><br>
+                    <strong>Explicación:</strong> ${dataPregunta.explicacion}
+                </div>
+            </div>`;
+        }
 
-// FINISH
-function confirmFinish() {
-  const unanswered = userAnswers.filter(a=>!a).length;
-  if (unanswered > 0) {
-    $('modalTitle').textContent = '¿Finalizar examen?';
-    $('modalMsg').textContent = `Tienes ${unanswered} pregunta(s) sin responder. ¿Deseas finalizar y ver tus resultados?`;
-    $('modalConfirmBtn').onclick = () => { closeModal(); finishExam(); };
-    $('confirmModal').classList.add('show');
-  } else {
-    finishExam();
-  }
-}
-
-function confirmAbandon() {
-  $('modalTitle').textContent = '¿Abandonar el examen?';
-  $('modalMsg').textContent = 'Si abandonas, el examen se finalizará con las respuestas actuales.';
-  $('modalConfirmBtn').textContent = 'Abandonar';
-  $('modalConfirmBtn').onclick = () => { closeModal(); finishExam(); };
-  $('confirmModal').classList.add('show');
-}
-
-function closeModal() {
-  $('confirmModal').classList.remove('show');
-  $('modalConfirmBtn').textContent = 'Finalizar';
-}
-
-function finishExam() {
-  clearInterval(timerInterval);
-  $('timeupOverlay').classList.remove('show');
-  
-  let correct = 0, incorrect = 0, skipped = 0;
-  reviewData = examQuestions.map((q,i) => {
-    const ua = userAnswers[i];
-    const status = !ua ? 'skip' : ua===q.ans ? 'correct' : 'incorrect';
-    if (status==='correct') correct++;
-    else if (status==='incorrect') incorrect++;
-    else skipped++;
-    return { q, ua, status };
-  });
-  
-  const pct = Math.round(correct/examQuestions.length*100);
-  const passed = pct >= 85;
-  const timeUsed = Math.min(elapsedSeconds, totalSeconds);
-  
-  // Save history
-  history.push({ size: examSize, pct, passed, correct, incorrect, date: Date.now() });
-  saveHistory();
-  
-  // Show results
-  const badge = $('resultBadge');
-  badge.className = `result-badge ${passed ? 'pass' : 'fail'}`;
-  badge.textContent = passed ? '🏆 APROBADO' : '❌ REPROBADO';
-  
-  $('scorePct').textContent = pct + '%';
-  $('resultTitle').textContent = passed ? '¡Excelente trabajo!' : 'Sigue practicando';
-  $('resultSub').textContent = passed 
-    ? `Superaste el umbral del 85%. ¡Estás listo para el examen PMP!`
-    : `Necesitas el 85% (${Math.ceil(examQuestions.length*0.85)} de ${examQuestions.length} correctas). Te faltaron ${Math.ceil(examQuestions.length*0.85)-correct} respuestas.`;
-  
-  $('rCorrect').textContent = correct;
-  $('rIncorrect').textContent = incorrect;
-  $('rSkipped').textContent = skipped;
-  $('rTime').textContent = fmtTime(timeUsed);
-  
-  showTab('all');
-  showScreen('resultsScreen');
-  if (passed) launchConfetti();
-}
-
-function showTab(tab) {
-  currentTab = tab;
-  document.querySelectorAll('.tab-btn').forEach((b,i) => {
-    b.classList.toggle('active', ['all','correct','incorrect','skipped'][i] === tab);
-  });
-  
-  const filtered = reviewData.filter(d => {
-    if (tab==='all') return true;
-    if (tab==='correct') return d.status==='correct';
-    if (tab==='incorrect') return d.status==='incorrect';
-    if (tab==='skipped') return d.status==='skip';
-    return true;
-  });
-  
-  const list = $('reviewList');
-  list.innerHTML = '';
-  if (!filtered.length) {
-    list.innerHTML = '<div style="text-align:center;color:var(--text3);padding:32px">No hay preguntas en esta categoría</div>';
-    return;
-  }
-  
-  filtered.forEach((d, idx) => {
-    const item = document.createElement('div');
-    item.className = `review-item ${d.status==='correct'?'correct-item':'incorrect-item'}`;
-    const statusLabel = d.status==='correct'?'<span class="review-status c">✅ Correcta</span>':
-                        d.status==='skip'?'<span class="review-status" style="color:var(--text3)">⬜ Sin responder</span>':
-                        '<span class="review-status w">❌ Incorrecta</span>';
-    const origIdx = reviewData.indexOf(d);
-    item.innerHTML = `
-      <div class="review-item-header">
-        <div class="review-q-num">Pregunta ${origIdx+1}</div>
-        ${statusLabel}
-      </div>
-      <div class="review-q-text">${d.q.q}</div>
-      <div class="review-answers">
-        ${d.ua ? `<div class="your">Tu respuesta: <strong>${d.ua}</strong> — ${d.q.opts[d.ua]||'—'}</div>` : '<div class="your">Sin respuesta</div>'}
-        ${d.status!=='correct' ? `<div class="correct">✅ Correcta: <strong>${d.q.ans}</strong> — ${d.q.opts[d.q.ans]||'—'}</div>` : ''}
-        ${d.q.exp ? `<div class="exp">💡 ${d.q.exp}</div>` : ''}
-      </div>
-    `;
-    list.appendChild(item);
-  });
-}
-
-// CONFETTI
-function launchConfetti() {
-  const colors = ['#3b82f6','#06b6d4','#10b981','#f59e0b','#8b5cf6','#ec4899'];
-  for (let i=0;i<80;i++) {
-    setTimeout(() => {
-      const p = document.createElement('div');
-      p.className = 'confetti-piece';
-      p.style.cssText = `left:${Math.random()*100}vw;background:${colors[Math.floor(Math.random()*colors.length)]};
-        animation-duration:${2+Math.random()*2}s;animation-delay:${Math.random()*0.5}s;
-        width:${8+Math.random()*8}px;height:${8+Math.random()*8}px;
-        border-radius:${Math.random()>0.5?'50%':'2px'};`;
-      document.body.appendChild(p);
-      setTimeout(() => p.remove(), 4000);
-    }, i*30);
-  }
-}
+        const dibujar = (obj, elementId) => {
+            document.getElementById(elementId).innerHTML = Object.entries(obj).map(([key, val]) => {
+                let p = Math.round((val.ok/val.total)*100);
+                return `<div style="margin:10px 0; font-size:0.8rem;">${key} (${p}%)<div class="bar-outer"><div class="bar-inner" style="width:${p}%; background:${p<70?'#ea4335':'#34a853'}"></div></div></div>`;
+            }).join('');
+        };
+        dibujar(stats.dominio, 'dash-dominios');
+        dibujar(stats.enfoque, 'dash-enfoques');
+        let finalScore = Math.round((aciertos/totalPreguntas)*100);
+        document.getElementById('score-final').innerText = `${finalScore}% ${finalScore >= 70 ? '¡APROBADO!' : 'A SEGUIR ESTUDIANDO'}`;
+        document.getElementById('lista-revision').innerHTML = revisionHTML;
+    };
 </script>
 </body>
 </html>
