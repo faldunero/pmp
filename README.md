@@ -36,7 +36,7 @@ La aplicación utiliza **Firebase Security Rules** para garantizar que el banco 
 ```javascript
 allow read: if true;
 allow write: if false;
-🚀 Cómo utilizarlo
+Cómo utilizarlo
 Accede al simulador en vivo: [TU_URL_DE_GITHUB_PAGES_AQUÍ]
 
 Selecciona la cantidad de preguntas para tu sesión de estudio.
