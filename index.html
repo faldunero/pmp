@@ -115,8 +115,15 @@
 </div>
 
 <script>
-    const firebaseConfig = { projectId: "pmp-simulator-pro-c656a" };
-    firebase.initializeApp(firebaseConfig);
+    //const firebaseConfig = { projectId: "pmp-simulator-pro-c656a" };
+ 
+// Configuración actualizada con tu nueva clave protegida
+    const firebaseConfig = { 
+        apiKey: "AIzaSyBnd8g4h0-H9IsSWH4TciiZ5LgJJhmtqis",
+        projectId: "pmp-simulator-pro-c656a" 
+    };
+ 
+   firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
     let qSet = [], idx = 0, userChoices = {}, segs = 0, timer, breakTimer, breakSecs = 600;
