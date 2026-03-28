@@ -2,267 +2,228 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PMP Simulator Pro</title>
+    <title>PMP Simulator Pro | Executive Training</title>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f8f9fa; display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; padding: 20px; color: #333; }
-        .container { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); max-width: 900px; width: 95%; text-align: center; }
-        
-        h1 { color: #4285f4; font-size: 3rem; font-weight: 800; margin-bottom: 10px; }
-        .subtitle { color: #666; font-size: 1.4rem; margin-bottom: 40px; }
-        .info-box { background-color: #f8f9fa; border-left: 6px solid #4285f4; border-radius: 12px; padding: 30px; text-align: left; margin-bottom: 40px; }
-        .info-box h2 { color: #4285f4; margin-top: 0; font-size: 1.6rem; margin-bottom: 20px; }
-        .info-box ul { list-style: none; padding: 0; margin: 0; }
-        .info-box li { margin-bottom: 12px; font-size: 1.2rem; color: #444; position: relative; padding-left: 25px; }
-        .info-box li::before { content: "•"; position: absolute; left: 0; font-weight: bold; }
-        
-        .grid-menu { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .btn-menu { background: white; border: 2px solid #e0e0e0; border-radius: 15px; padding: 25px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.2s; color: #444; }
-        .btn-menu:hover { border-color: #4285f4; background-color: #f1f3f4; }
-        .btn-primary { background-color: #3b71db; color: white; border: none; }
-        .btn-primary:hover { background-color: #2d5abd; }
+        :root { 
+            --pmi-blue: #0f172a; --accent: #2563eb; --success: #10b981; 
+            --error: #ef4444; --bg: #f8fafc; --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+        * { box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg); margin: 0; display: flex; justify-content: center; padding: 40px 20px; color: #1e293b; }
+        .main-container { width: 100%; max-width: 950px; background: white; border-radius: 32px; padding: 60px; box-shadow: var(--card-shadow); border: 1px solid #f1f5f9; }
 
-        .header-info { background: #1c1c2e; color: white; padding: 15px 25px; border-radius: 50px; display: none; gap: 20px; margin-bottom: 20px; align-items: center; }
-        .btn-cancel { background: #fce8e6; color: #d93025; border: 1px solid #f5c6cb; padding: 5px 15px; border-radius: 20px; cursor: pointer; margin-left: 15px; font-size: 0.8rem; }
-        .btn-pause { background: #34a853; color: white; border: none; padding: 5px 15px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; margin-left: 10px; display: none; }
-        
-        #quiz-section, #resultados-section { display: none; text-align: left; }
-        .chip { display: inline-block; padding: 4px 10px; border-radius: 5px; font-size: 0.75rem; font-weight: bold; margin-bottom: 10px; text-transform: uppercase; background: #e8f0fe; color: #1a73e8; }
-        .opcion-btn { display: block; width: 100%; padding: 15px; margin: 10px 0; border: 1px solid #dadce0; border-radius: 8px; background: white; text-align: left; cursor: pointer; font-size: 1rem; }
-        .opcion-btn.selected { background-color: #e8f0fe; border-color: #1a73e8; }
+        /* Pantalla de Inicio */
+        h1 { font-size: 3rem; font-weight: 800; color: var(--pmi-blue); text-align: center; letter-spacing: -0.04em; margin-bottom: 8px; }
+        .subtitle { text-align: center; color: #64748b; font-size: 1.2rem; margin-bottom: 40px; }
+        .disclaimer-elegant { background: #f1f5f9; border-radius: 16px; padding: 25px; margin-bottom: 35px; border: 1px solid #e2e8f0; text-align: center; font-size: 0.95rem; line-height: 1.5; color: #475569; }
+        .instructions-list { list-style: none; padding: 0; margin-bottom: 40px; }
+        .instructions-list li { margin-bottom: 12px; font-size: 0.95rem; display: flex; align-items: flex-start; }
+        .instructions-list li::before { content: "•"; color: var(--accent); font-weight: bold; width: 1.5em; }
+        .passing-rule-banner { background: #ecfdf5; border: 1px solid #d1fae5; padding: 15px; border-radius: 12px; color: #065f46; font-size: 0.95rem; font-weight: 600; text-align: center; margin-bottom: 30px; }
 
-        .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 25px 0; }
-        .dash-card { background: #f8f9fa; padding: 15px; border-radius: 12px; border: 1px solid #eee; }
-        .dash-card h4 { margin: 0 0 10px 0; font-size: 0.9rem; color: #1a73e8; text-transform: uppercase; }
-        .bar-outer { background: #eee; height: 10px; border-radius: 5px; margin-top: 4px; overflow: hidden; }
-        .bar-inner { height: 100%; transition: width 0.5s; }
-        .explicacion-box { background: #fff9c4; padding: 15px; border-radius: 8px; margin-top: 10px; font-size: 0.9rem; border-left: 5px solid #fbc02d; }
-        .reporte-pregunta { border-bottom: 1px solid #eee; padding: 20px 0; }
-        #pause-overlay { display: none; padding: 50px; text-align: center; background: #fff; border-radius: 15px; border: 2px dashed #4285f4; margin: 20px 0; }
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+        .btn-option { background: white; border: 1.5px solid #e2e8f0; padding: 20px; border-radius: 16px; font-weight: 700; cursor: pointer; transition: 0.2s; color: #334155; }
+        .btn-option:hover { border-color: var(--accent); color: var(--accent); background: #f0f7ff; }
+        .btn-featured { grid-column: 1 / -1; background: var(--pmi-blue); color: white; border: none; font-size: 1.1rem; padding: 24px; border-radius: 16px; cursor: pointer; font-weight: 700; margin-top: 10px; }
+
+        /* Quiz Area */
+        #quiz-area, #report-area, #break-area { display: none; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .timer-pill { background: #f1f5f9; padding: 8px 16px; border-radius: 100px; font-weight: 700; font-family: monospace; }
+        .progress-rail { width: 100%; height: 6px; background: #f1f5f9; border-radius: 10px; margin-bottom: 40px; }
+        .progress-fill { height: 100%; background: var(--accent); border-radius: 10px; transition: 0.5s; width: 0%; }
+        .question-text { font-size: 1.6rem; font-weight: 600; color: #0f172a; margin-bottom: 40px; }
+        .ans-card { border: 1.5px solid #e2e8f0; padding: 22px; border-radius: 18px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; }
+        .ans-card.selected { border-color: var(--accent); background: #eff6ff; color: var(--accent); font-weight: 600; }
+        
+        /* Report Area */
+        .review-item { border: 1px solid #e2e8f0; border-radius: 24px; padding: 35px; margin-bottom: 25px; background: white; }
+        .meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 20px 0; }
+        .meta-card { background: #f8fafc; border: 1px solid #e2e8f0; padding: 14px; border-radius: 12px; }
+        .meta-card label { display: block; font-size: 0.65rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; margin-bottom: 4px; }
+        .meta-card span { font-size: 0.85rem; font-weight: 600; color: #1e293b; }
+        .explanation-box { background: #fffbeb; border-left: 5px solid #fbbf24; padding: 20px; border-radius: 12px; color: #92400e; font-size: 0.95rem; }
+        .btn-cancel { background: #fee2e2; color: #ef4444; border: none; padding: 10px 20px; border-radius: 12px; font-weight: 700; cursor: pointer; }
     </style>
 </head>
 <body>
 
-<div id="header" class="header-info">
-    <span>⏳ <span id="reloj">00:00</span></span>
-    <button id="pause-btn" class="btn-pause" onclick="pausarExamen()">☕ Tomar Descanso (10 min)</button>
-    <span>📋 Pregunta: <span id="progreso-txt">0/0</span></span>
-    <button class="btn-cancel" onclick="location.reload()">✕ Cancelar</button>
-</div>
-
-<div class="container">
-    <div id="inicio">
+<div class="main-container">
+    <div id="home-screen">
         <h1>PMP Simulator Pro</h1>
-        <p class="subtitle">Las preguntas se generan de manera aleatoria</p>
-        <div class="info-box">
-            <h2>Cómo funciona:</h2>
-            <ul>
-                <li>Selecciona la cantidad de preguntas.</li>
-                <li><b>Simulacro Real:</b> Feedback detallado solo al finalizar.</li>
-                <li><b>Pausas Reglamentarias:</b> Disponibles tras la pregunta 60 y 120 en el examen completo.</li>
-                <li><b>Exigencia PMP:</b> El veredicto final se basa en una exigencia mínima del 70%.</li>
-            </ul>
+        <p class="subtitle">Simulador de práctica basado en estándares PMI®</p>
+        <div class="disclaimer-elegant">
+            Este simulador NO corresponde a un examen oficial del PMI®. Es una herramienta de entrenamiento diseñada para reforzar conocimientos y familiarizarte con el formato del examen PMP®.
         </div>
-        <div class="grid-menu">
-            <button class="btn-menu" onclick="iniciarExamen(20)">20 preguntas</button>
-            <button class="btn-menu" onclick="iniciarExamen(40)">40 preguntas</button>
-            <button class="btn-menu" onclick="iniciarExamen(60)">60 preguntas</button>
-            <button class="btn-menu" onclick="iniciarExamen(80)">80 preguntas</button>
-            <button class="btn-menu" onclick="iniciarExamen(100)">100 preguntas</button>
-            <button class="btn-menu" onclick="iniciarExamen(120)">120 preguntas</button>
-            <button class="btn-menu" onclick="iniciarExamen(140)">140 preguntas</button>
-            <button class="btn-menu btn-primary" onclick="iniciarExamen(180)">Examen Completo (180 p.)</button>
-        </div>
-    </div>
-
-    <div id="quiz-section">
-        <div id="pause-overlay">
-            <h2 style="color:#4285f4;">Descanso en Progreso</h2>
-            <p>Has completado un bloque. El cronómetro está detenido.</p>
-            <button class="btn-menu btn-primary" onclick="reanudarExamen()">Reanudar y Continuar</button>
-        </div>
-        <div id="quiz-content">
-            <div id="meta-info"></div>
-            <div id="enunciado" style="font-size: 1.2rem; margin-bottom: 20px; font-weight: 500;"></div>
-            <div id="opciones-container"></div>
-            <div style="display: flex; justify-content: space-between; margin-top: 30px;">
-                <button onclick="previaPregunta()" style="padding: 12px 25px; border-radius: 8px; border: 1px solid #ccc; cursor: pointer;">Anterior</button>
-                <button id="next-btn" onclick="siguientePregunta()" style="padding: 12px 25px; border-radius: 8px; background: #4285f4; color: white; border: none; cursor: pointer;">Siguiente</button>
-                <button id="finish-btn" onclick="mostrarResultados()" style="display:none; padding: 12px 25px; border-radius: 8px; background: #34a853; color: white; border: none; cursor: pointer;">Finalizar</button>
-            </div>
+        <ul class="instructions-list">
+            <li>Selecciona la cantidad de preguntas según tu objetivo de práctica.</li>
+            <li>Puedes elegir entre modo práctica o simulacro real.</li>
+            <li>En modo simulacro, recibirás el feedback detallado únicamente al finalizar.</li>
+            <li>Lee cuidadosamente cada pregunta antes de responder.</li>
+            <li>Administra tu tiempo como en un examen real.</li>
+        </ul>
+        <div class="passing-rule-banner">Se recomienda alcanzar al menos un 70% de respuestas correctas.</div>
+        
+        <div class="menu-grid">
+            <button class="btn-option" onclick="empezar(20)">Práctica 20</button>
+            <button class="btn-option" onclick="empezar(40)">Práctica 40</button>
+            <button class="btn-option" onclick="empezar(60)">Práctica 60</button>
+            <button class="btn-option" onclick="empezar(80)">Práctica 80</button>
+            <button class="btn-option" onclick="empezar(100)">Práctica 100</button>
+            <button class="btn-option" onclick="empezar(120)">Práctica 120</button>
+            <button class="btn-option" onclick="empezar(140)">Práctica 140</button>
+            <button class="btn-featured" onclick="empezar(180)">MODO EXAMEN COMPLETO (180 p.)</button>
         </div>
     </div>
 
-    <div id="resultados-section">
-        <h2 id="score-final" style="text-align:center; color:#1a73e8; font-size: 2rem;"></h2>
-        <div class="dashboard-grid">
-            <div class="dash-card">
-                <h4>📊 Por Dominio ECO</h4>
-                <div id="dash-dominios"></div>
-            </div>
-            <div class="dash-card">
-                <h4>⚡ Por Enfoque</h4>
-                <div id="dash-enfoques"></div>
-            </div>
+    <div id="quiz-area">
+        <div class="top-bar">
+            <button class="btn-cancel" onclick="location.reload()">Salir del Test</button>
+            <div id="progreso-txt" style="font-weight: 800;">PREGUNTA 1 / --</div>
+            <div class="timer-pill" id="reloj-digital">00:00:00</div>
         </div>
-        <hr>
-        <h3>Análisis de Fallos y Mindset:</h3>
-        <div id="lista-revision"></div>
-        <button onclick="location.reload()" style="width:100%; padding:15px; margin-top:20px; background:#4285f4; color:white; border:none; border-radius:10px; cursor:pointer; font-weight:bold;">Volver al Inicio</button>
+        <div class="progress-rail"><div class="progress-fill" id="p-bar"></div></div>
+        <div class="question-text" id="texto-enunciado">Cargando...</div>
+        <div id="contenedor-opciones"></div>
+        <div style="display: flex; justify-content: space-between; margin-top: 40px;">
+            <button onclick="mover(-1)" style="padding: 15px 30px; border-radius: 12px; border: none; cursor: pointer; font-weight: 600;">Anterior</button>
+            <button id="btn-next" onclick="mover(1)" style="padding: 15px 40px; border-radius: 12px; background: var(--accent); color: white; border: none; cursor: pointer; font-weight: 700;">Siguiente</button>
+        </div>
+    </div>
+
+    <div id="break-area" style="text-align: center; padding: 50px 0;">
+        <h2 style="font-weight: 800;">DESCANSO PROGRAMADO</h2>
+        <div id="break-clock" style="font-size: 5rem; font-weight: 800; color: var(--accent); margin: 30px 0;">10:00</div>
+        <button class="btn-featured" style="width: auto; padding: 15px 40px;" onclick="terminarBreak()">Reanudar ahora</button>
+    </div>
+
+    <div id="report-area">
+        <div style="text-align: center; margin-bottom: 50px;">
+            <div id="report-score" style="font-size: 5rem; font-weight: 800;">0%</div>
+            <div id="report-time" style="color: #94a3b8; font-weight: 700; text-transform: uppercase; font-size: 0.8rem;"></div>
+        </div>
+        <h3 style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            Revisión Técnica de Respuestas
+            <button class="btn-cancel" onclick="location.reload()">Finalizar Sesión</button>
+        </h3>
+        <div id="report-review" style="max-height: 800px; overflow-y: auto; padding-right: 15px;"></div>
     </div>
 </div>
 
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+<script>
+    const firebaseConfig = { projectId: "pmp-simulator-pro-c656a" };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyCIjxMJ1837p-rN7Husua5jgVLr9MRi_Fg",
-      authDomain: "pmp-simulator-pro-c656a.firebaseapp.com",
-      projectId: "pmp-simulator-pro-c656a",
-      storageBucket: "pmp-simulator-pro-c656a.firebasestorage.app",
-      messagingSenderId: "574994878534",
-      appId: "1:574994878534:web:e9a98ac2d9e0ec85c73a47"
-    };
+    let qSet = [], idx = 0, userChoices = {}, segs = 0, timer, breakTimer, breakSecs = 600;
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    let totalPreguntas, indexActual = 0, listaIds = [], respuestasUsuario = [], tiempoRestante, cronometro, cachePreguntas = {};
-
-    window.iniciarExamen = (cantidad) => {
-        totalPreguntas = cantidad;
-        indexActual = 0;
-        tiempoRestante = Math.floor((230/180) * cantidad * 60);
-        document.getElementById('inicio').style.display = 'none';
-        document.getElementById('header').style.display = 'flex';
-        document.getElementById('quiz-section').style.display = 'block';
-        listaIds = Array.from({length: 321}, (_, i) => i + 1).sort(() => Math.random() - 0.5).slice(0, totalPreguntas);
-        respuestasUsuario = new Array(totalPreguntas).fill(null);
+    async function empezar(n) {
+        document.getElementById('home-screen').style.display = 'none';
+        document.getElementById('quiz-area').style.display = 'block';
+        const snap = await db.collection('preguntas_pmp').get();
+        let all = snap.docs.map(d => d.data());
+        qSet = all.sort(() => 0.5 - Math.random()).slice(0, n);
         iniciarReloj();
-        cargarPregunta();
-    };
-
-    window.pausarExamen = () => {
-        clearInterval(cronometro);
-        document.getElementById('quiz-content').style.display = 'none';
-        document.getElementById('pause-overlay').style.display = 'block';
-        document.getElementById('pause-btn').style.display = 'none';
-    };
-
-    window.reanudarExamen = () => {
-        iniciarReloj();
-        document.getElementById('quiz-content').style.display = 'block';
-        document.getElementById('pause-overlay').style.display = 'none';
-    };
+        dibujar();
+    }
 
     function iniciarReloj() {
-        clearInterval(cronometro);
-        cronometro = setInterval(() => {
-            tiempoRestante--;
-            let min = Math.floor(tiempoRestante/60), seg = tiempoRestante%60;
-            document.getElementById('reloj').innerText = `${min}:${seg < 10 ? '0' : ''}${seg}`;
-            if (tiempoRestante <= 0) mostrarResultados();
+        timer = setInterval(() => { 
+            segs++; 
+            document.getElementById('reloj-digital').innerText = new Date(segs * 1000).toISOString().substr(11, 8); 
         }, 1000);
     }
 
-    async function cargarPregunta() {
-        // Lógica de Pausa Reglamentaria (Igual que el examen real)
-        const numPregunta = indexActual + 1;
-        const btnPausa = document.getElementById('pause-btn');
-        if (totalPreguntas >= 180 && (numPregunta === 61 || numPregunta === 121)) {
-            btnPausa.style.display = 'inline-block';
-        } else {
-            btnPausa.style.display = 'none';
-        }
-
-        const docId = `pregunta_${String(listaIds[indexActual]).padStart(3, '0')}`;
-        let data;
-        if(cachePreguntas[docId]) { data = cachePreguntas[docId]; } 
-        else {
-            const docSnap = await getDoc(doc(db, "preguntas_pmp", docId));
-            data = docSnap.data();
-            cachePreguntas[docId] = data;
-        }
-
-        if (data) {
-            document.getElementById('progreso-txt').innerText = `${indexActual + 1}/${totalPreguntas}`;
-            document.getElementById('meta-info').innerHTML = `<span class="chip">${data.enfoque || 'General'}</span>`;
-            document.getElementById('enunciado').innerText = `${indexActual + 1}. ${data.enunciado}`;
-            const container = document.getElementById('opciones-container');
-            container.innerHTML = "";
-            Object.entries(data.opciones).forEach(([letra, texto]) => {
-                const btn = document.createElement('button');
-                btn.className = `opcion-btn ${respuestasUsuario[indexActual]?.elegida === letra ? 'selected' : ''}`;
-                btn.innerText = `${letra}) ${texto}`;
-                btn.onclick = () => {
-                    document.querySelectorAll('.opcion-btn').forEach(b => b.classList.remove('selected'));
-                    btn.classList.add('selected');
-                    respuestasUsuario[indexActual] = { elegida: letra, data: data };
-                };
-                container.appendChild(btn);
-            });
-            document.getElementById('next-btn').style.display = indexActual === totalPreguntas - 1 ? 'none' : 'block';
-            document.getElementById('finish-btn').style.display = indexActual === totalPreguntas - 1 ? 'block' : 'none';
-        }
+    function dibujar() {
+        const p = qSet[idx];
+        document.getElementById('texto-enunciado').innerText = p.enunciado;
+        document.getElementById('progreso-txt').innerText = `PREGUNTA ${idx+1} / ${qSet.length}`;
+        document.getElementById('p-bar').style.width = `${((idx+1)/qSet.length)*100}%`;
+        const c = document.getElementById('contenedor-opciones');
+        c.innerHTML = '';
+        ['A', 'B', 'C', 'D'].forEach(l => {
+            const d = document.createElement('div');
+            d.className = `ans-card ${userChoices[idx] === l ? 'selected' : ''}`;
+            d.innerText = `${l}. ${p.opciones[l]}`;
+            d.onclick = () => { userChoices[idx] = l; dibujar(); };
+            c.appendChild(d);
+        });
+        document.getElementById('btn-next').innerText = idx === qSet.length - 1 ? "Finalizar" : "Siguiente";
     }
 
-    window.siguientePregunta = () => { indexActual++; cargarPregunta(); };
-    window.previaPregunta = () => { indexActual--; cargarPregunta(); };
+    function mover(d) {
+        if(idx + d >= 0 && idx + d < qSet.length) { 
+            idx += d; 
+            if((idx === 60 || idx === 120) && d === 1) iniciarBreak();
+            else dibujar(); 
+        } else if(idx + d >= qSet.length) finalizado();
+    }
 
-    window.mostrarResultados = async () => {
-        clearInterval(cronometro);
-        document.getElementById('quiz-section').style.display = 'none';
-        document.getElementById('header').style.display = 'none';
-        document.getElementById('resultados-section').style.display = 'block';
-        
-        let aciertos = 0, stats = { dominio: {}, enfoque: {} };
-        let revisionHTML = "";
+    function iniciarBreak() {
+        clearInterval(timer);
+        document.getElementById('quiz-area').style.display = 'none';
+        document.getElementById('break-area').style.display = 'block';
+        breakSecs = 600;
+        breakTimer = setInterval(() => {
+            breakSecs--;
+            let m = Math.floor(breakSecs / 60), s = breakSecs % 60;
+            document.getElementById('break-clock').innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
+            if(breakSecs <= 0) terminarBreak();
+        }, 1000);
+    }
 
-        for (let i = 0; i < totalPreguntas; i++) {
-            let r = respuestasUsuario[i];
-            let dataPregunta;
-            if (!r) {
-                const docId = `pregunta_${String(listaIds[i]).padStart(3, '0')}`;
-                dataPregunta = cachePreguntas[docId] || (await getDoc(doc(db, "preguntas_pmp", docId))).data();
-            } else { dataPregunta = r.data; }
+    function terminarBreak() {
+        clearInterval(breakTimer);
+        document.getElementById('break-area').style.display = 'none';
+        document.getElementById('quiz-area').style.display = 'block';
+        iniciarReloj();
+        dibujar();
+    }
 
-            const elegida = r ? r.elegida : "No contestada";
-            const esOk = r && r.elegida === dataPregunta.respuesta_correcta;
-            if(esOk) aciertos++;
+    function finalizado() {
+        clearInterval(timer);
+        document.getElementById('quiz-area').style.display = 'none';
+        document.getElementById('report-area').style.display = 'block';
+        let buenas = 0;
+        let reviewHTML = '';
 
-            const d = dataPregunta.dominio_eco || "Otros", e = dataPregunta.enfoque || "General";
-            if(!stats.dominio[d]) stats.dominio[d] = {ok:0, total:0};
-            if(!stats.enfoque[e]) stats.enfoque[e] = {ok:0, total:0};
-            stats.dominio[d].total++; stats.enfoque[e].total++;
-            if(esOk) { stats.dominio[d].ok++; stats.enfoque[e].ok++; }
+        qSet.forEach((q, i) => {
+            const u = userChoices[i], esOk = u === q.respuesta_correcta;
+            if(esOk) buenas++;
+            
+            reviewHTML += `
+                <div class="review-item">
+                    <span style="color:${esOk?'var(--success)':'var(--error)'}; font-weight:800; font-size:0.75rem; text-transform:uppercase;">
+                        P${i+1}: ${esOk ? 'Correcta' : 'Incorrecta'}
+                    </span>
+                    <p style="font-weight:700; font-size:1.15rem; margin:15px 0;">${q.enunciado}</p>
+                    <div style="font-size:0.95rem; margin-bottom:20px;">
+                        <div style="margin-bottom:6px;">Tu respuesta: <strong>${u ? q.opciones[u] : 'No respondida'}</strong></div>
+                        <div style="color:var(--success);">Correcta: <strong>${q.opciones[q.respuesta_correcta]}</strong></div>
+                    </div>
+                    <div class="meta-grid">
+                        <div class="meta-card"><label>Dominio ECO</label><span>${q.Dominio_ECO || q.dominio_eco || 'N/A'}</span></div>
+                        <div class="meta-card"><label>Oficial PMI</label><span>${q.Oficial_PMI || q.oficial_pmi || 'N/A'}</span></div>
+                        <div class="meta-card"><label>Enfoque</label><span>${q.Enfoque || q.enfoque || 'N/A'}</span></div>
+                        <div class="meta-card"><label>Mindset Clave</label><span>${q.Mindset_Clave || q.mindset_clave || 'N/A'}</span></div>
+                    </div>
+                    <div class="explanation-box">
+                        <strong style="display:block; margin-bottom:5px; font-size:0.7rem; text-transform:uppercase;">Explicación Técnica:</strong>
+                        ${q.Explicacion || q.explicacion || 'Sin detalle disponible.'}
+                    </div>
+                </div>`;
+        });
 
-            revisionHTML += `<div class="reporte-pregunta">
-                <b style="color:${esOk?'#34a853':'#ea4335'}">${esOk?'✓':'✗'} Pregunta ${i+1}</b>
-                <p style="margin:10px 0;">${dataPregunta.enunciado}</p>
-                <div style="font-size: 0.9rem; margin-bottom: 10px;">
-                    Tu respuesta: <b style="color:${esOk?'#34a853':'#ea4335'}">${elegida}</b> | 
-                    Correcta: <b style="color:#34a853">${dataPregunta.respuesta_correcta}</b>
-                </div>
-                <div class="explicacion-box">
-                    <strong>Mindset:</strong> ${dataPregunta.mindset_clave || 'N/A'}<br><br>
-                    <strong>Explicación:</strong> ${dataPregunta.explicacion}
-                </div>
-            </div>`;
-        }
-
-        const dibujar = (obj, elementId) => {
-            document.getElementById(elementId).innerHTML = Object.entries(obj).map(([key, val]) => {
-                let p = Math.round((val.ok/val.total)*100);
-                return `<div style="margin:10px 0; font-size:0.8rem;">${key} (${p}%)<div class="bar-outer"><div class="bar-inner" style="width:${p}%; background:${p<70?'#ea4335':'#34a853'}"></div></div></div>`;
-            }).join('');
-        };
-        dibujar(stats.dominio, 'dash-dominios');
-        dibujar(stats.enfoque, 'dash-enfoques');
-        let finalScore = Math.round((aciertos/totalPreguntas)*100);
-        document.getElementById('score-final').innerText = `${finalScore}% ${finalScore >= 70 ? '¡APROBADO!' : 'A SEGUIR ESTUDIANDO'}`;
-        document.getElementById('lista-revision').innerHTML = revisionHTML;
-    };
+        const score = Math.round((buenas / qSet.length) * 100);
+        document.getElementById('report-score').innerText = `${score}%`;
+        document.getElementById('report-score').style.color = score >= 70 ? 'var(--success)' : 'var(--error)';
+        document.getElementById('report-time').innerText = `TIEMPO TOTAL: ${document.getElementById('reloj-digital').innerText}`;
+        document.getElementById('report-review').innerHTML = reviewHTML;
+    }
 </script>
 </body>
 </html>
