@@ -104,7 +104,7 @@
     const auth = firebase.auth();
     const provider = new firebase.auth.GoogleAuthProvider();
 
-    // El Guardián: Muestra u oculta según la sesión
+    //  Muestra u oculta según la sesión
     auth.onAuthStateChanged(user => {
         if (user) {
             document.getElementById('login-overlay').style.display = 'none';
