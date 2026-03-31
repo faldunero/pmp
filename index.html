@@ -12,37 +12,27 @@
     
     <style>
         :root { 
-            --pmi-blue: #0f172a; --accent: #2563eb; --success: #10b981; 
-            --error: #ef4444; --bg: #f8fafc; --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            --pmi-blue: #0f172a; --accent: #2563eb; --bg: #f8fafc; --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
         }
         * { box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background-color: var(--bg); margin: 0; display: flex; justify-content: center; padding: 40px 20px; color: #1e293b; }
-        .main-container { width: 100%; max-width: 950px; background: white; border-radius: 32px; padding: 60px; box-shadow: var(--card-shadow); border: 1px solid #f1f5f9; }
-
+        .main-container { width: 100%; max-width: 950px; background: white; border-radius: 32px; padding: 60px; box-shadow: var(--card-shadow); border: 1px solid #f1f5f9; min-height: 500px; }
         #login-overlay { display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-        .btn-google { 
-            display: flex; align-items: center; gap: 12px; background: white; border: 1px solid #dadce0; 
-            padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; margin-top: 20px;
-        }
-        
+        .btn-google { display: flex; align-items: center; gap: 12px; background: white; border: 1px solid #dadce0; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 20px; }
         #simulador-wrapper { display: none; }
-
-        h1 { font-size: 3rem; font-weight: 800; color: var(--pmi-blue); text-align: center; letter-spacing: -0.04em; margin-bottom: 8px; }
+        h1 { font-size: 3rem; font-weight: 800; color: var(--pmi-blue); text-align: center; margin-bottom: 8px; }
         .subtitle { text-align: center; color: #64748b; font-size: 1.2rem; margin-bottom: 40px; }
         .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
-        .btn-option { background: white; border: 1.5px solid #e2e8f0; padding: 20px; border-radius: 16px; font-weight: 700; cursor: pointer; transition: 0.2s; color: #334155; }
-        .btn-option:hover { border-color: var(--accent); color: var(--accent); background: #f0f7ff; }
-        .btn-featured { grid-column: 1 / -1; background: var(--pmi-blue); color: white; border: none; font-size: 1.1rem; padding: 24px; border-radius: 16px; cursor: pointer; font-weight: 700; margin-top: 10px; }
-        
-        #quiz-area, #report-area, #break-area { display: none; }
+        .btn-option { background: white; border: 1.5px solid #e2e8f0; padding: 20px; border-radius: 16px; font-weight: 700; cursor: pointer; color: #334155; }
+        .btn-featured { grid-column: 1 / -1; background: var(--pmi-blue); color: white; border: none; font-size: 1.1rem; padding: 24px; border-radius: 16px; cursor: pointer; font-weight: 700; }
+        #quiz-area { display: none; }
         .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
         .timer-pill { background: #f1f5f9; padding: 8px 16px; border-radius: 100px; font-weight: 700; font-family: monospace; }
-        .progress-rail { width: 100%; height: 6px; background: #f1f5f9; border-radius: 100px; margin-bottom: 40px; }
-        .progress-fill { height: 100%; background: var(--accent); border-radius: 10px; transition: 0.5s; width: 0%; }
+        .progress-rail { width: 100%; height: 6px; background: #f1f5f9; border-radius: 10px; margin-bottom: 40px; }
+        .progress-fill { height: 100%; background: var(--accent); border-radius: 10px; width: 0%; transition: 0.5s; }
         .question-text { font-size: 1.6rem; font-weight: 600; color: #0f172a; margin-bottom: 40px; }
-        .ans-card { border: 1.5px solid #e2e8f0; padding: 22px; border-radius: 18px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; }
+        .ans-card { border: 1.5px solid #e2e8f0; padding: 22px; border-radius: 18px; margin-bottom: 12px; cursor: pointer; }
         .ans-card.selected { border-color: var(--accent); background: #eff6ff; color: var(--accent); font-weight: 600; }
-        .btn-cancel { background: #fee2e2; color: #ef4444; border: none; padding: 10px 20px; border-radius: 12px; font-weight: 700; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -60,18 +50,17 @@
     <div id="simulador-wrapper">
         <div id="home-screen">
             <h1>PMP Simulator Pro</h1>
-            <p class="subtitle">Simulador de práctica basado en estándares PMI®</p>
+            <p class="subtitle">Simulador basado en estándares PMI®</p>
             <div class="menu-grid">
                 <button class="btn-option" onclick="empezar(20)">Práctica 20</button>
                 <button class="btn-option" onclick="empezar(60)">Práctica 60</button>
                 <button class="btn-featured" onclick="empezar(180)">MODO EXAMEN COMPLETO (180 p.)</button>
             </div>
-            <button onclick="logout()" style="margin-top:40px; background:none; border:none; color:#64748b; cursor:pointer; text-decoration:underline;">Cerrar sesión</button>
         </div>
 
         <div id="quiz-area">
             <div class="top-bar">
-                <button class="btn-cancel" onclick="location.reload()">Salir</button>
+                <button onclick="location.reload()" style="background:#fee2e2; color:#ef4444; border:none; padding:10px; border-radius:8px; cursor:pointer; font-weight:700;">Salir</button>
                 <div id="progreso-txt" style="font-weight: 800;">PREGUNTA 1 / --</div>
                 <div class="timer-pill" id="reloj-digital">00:00:00</div>
             </div>
@@ -79,15 +68,15 @@
             <div id="texto-enunciado" class="question-text"></div>
             <div id="contenedor-opciones"></div>
             <div style="display: flex; justify-content: space-between; margin-top: 40px;">
-                <button onclick="mover(-1)" style="padding: 15px 30px; border-radius: 12px; border: none; cursor: pointer; font-weight: 600;">Anterior</button>
-                <button id="btn-next" onclick="mover(1)" style="padding: 15px 40px; border-radius: 12px; background: var(--accent); color: white; border: none; cursor: pointer; font-weight: 700;">Siguiente</button>
+                <button onclick="mover(-1)" style="padding: 15px 30px; border-radius: 12px; border:none; cursor:pointer;">Anterior</button>
+                <button id="btn-next" onclick="mover(1)" style="padding: 15px 40px; border-radius: 12px; background:var(--accent); color:white; border:none; cursor:pointer; font-weight:700;">Siguiente</button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    // Configuración oficial de Firebase
+    // Configuración limpia
     const firebaseConfig = {
         apiKey: "AIzaSyBnd8g4h0-H9lsSWH4TciiZ5LgJJhmtqis",
         authDomain: "pmp-simulator-pro-c656a.firebaseapp.com",
@@ -96,14 +85,16 @@
         messagingSenderId: "509518346611",
         appId: "1:509518346611:web:a1b2c3d4e5f6g7h8i9j0k1"
     };
- 
-    // Inicialización
-    firebase.initializeApp(firebaseConfig);
+
+    // Inicialización única y segura
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
     const db = firebase.firestore();
     const auth = firebase.auth();
     const provider = new firebase.auth.GoogleAuthProvider();
 
-    // Control de sesión
+    // Gestión de interfaz según sesión
     auth.onAuthStateChanged(user => {
         if (user) {
             document.getElementById('login-overlay').style.display = 'none';
@@ -115,22 +106,27 @@
     });
 
     function login() {
-        auth.signInWithPopup(provider).catch(err => alert("Error de Auth: " + err.message));
+        auth.signInWithPopup(provider).catch(err => {
+            console.error(err);
+            alert("Error de Auth: " + err.message);
+        });
     }
 
-    function logout() { auth.signOut(); }
-
-    // Lógica del simulador
     let qSet = [], idx = 0, userChoices = {}, segs = 0, timer;
 
     async function empezar(n) {
         document.getElementById('home-screen').style.display = 'none';
         document.getElementById('quiz-area').style.display = 'block';
-        const snap = await db.collection('preguntas_pmp').get();
-        let all = snap.docs.map(d => d.data());
-        qSet = all.sort(() => 0.5 - Math.random()).slice(0, n);
-        iniciarReloj();
-        dibujar();
+        try {
+            const snap = await db.collection('preguntas_pmp').get();
+            let all = snap.docs.map(d => d.data());
+            qSet = all.sort(() => 0.5 - Math.random()).slice(0, n);
+            if(qSet.length === 0) alert("No hay preguntas en la base de datos.");
+            iniciarReloj();
+            dibujar();
+        } catch (e) {
+            alert("Error Firestore: " + e.message);
+        }
     }
 
     function iniciarReloj() {
