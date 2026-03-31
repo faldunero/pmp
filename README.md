@@ -22,7 +22,7 @@ El proyecto está construido bajo una arquitectura **Serverless**, priorizando l
 * **Simulación Real:** El examen de 180 preguntas incluye las **pausas reglamentarias** obligatorias tras la pregunta 60 y 120, tal como en el centro de examen Pearson VUE.
 * **Algoritmo de Aleatoriedad:** Selección dinámica sobre un banco de 321 preguntas para evitar el aprendizaje por memoria de posición.
 
-### 📊 Análisis y Mindset
+### Análisis y Mindset
 * **Reporte de Desempeño:** Desglose detallado por Dominio ECO (Personas, Procesos, Entorno de Negocio) y Enfoque (Predictivo, Ágil, Híbrido).
 * **Corrección Inteligente:** Feedback inmediato al finalizar con explicación detallada y **Mindset Clave** para cada pregunta (fallida o no contestada).
 * **Control de Tiempo:** Cronómetro integrado con cálculo proporcional según la cantidad de preguntas seleccionadas.
@@ -45,7 +45,7 @@ Responde las preguntas aplicando la lógica del PMBOK 7 y la Guía Ágil.
 
 Analiza tus resultados y ajusta tu plan de estudio según los dominios con menor puntaje.
 
-👨‍💻 Autor
+Autor
 Felipe Ignacio Aldunate Romero Delivery Manager & IT Project Lead
 
 
