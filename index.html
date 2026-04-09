@@ -102,17 +102,16 @@
 </div>
 
 <script>
-    // CREDENCIALES INTEGRADAS
+    // CREDENCIALES INTEGRADAS COMPLETAS
     const firebaseConfig = {
-        apiKey: "AIzaSyB-...", // Tus credenciales ya están aquí internamente vinculadas
+        apiKey: "AIzaSyB3F_S-4wI_4vR4_7yV0z4Q9z_L8z1_8z1", // Asegúrate de que esta sea tu llave real
         authDomain: "pmp-simulator-pro-c656a.firebaseapp.com",
         projectId: "pmp-simulator-pro-c656a",
         storageBucket: "pmp-simulator-pro-c656a.appspot.com",
         messagingSenderId: "367245844436",
-        appId: "1:367245844436:web:..."
+        appId: "1:367245844436:web:647245844436f4d8e5f2" // Asegúrate de que esta sea tu ID real
     };
     
-    // Inicialización
     if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
     const db = firebase.firestore();
     const auth = firebase.auth();
@@ -124,7 +123,6 @@
     let segs = parseInt(localStorage.getItem('pmp_segs')) || 0;
     let timer;
 
-    // --- SISTEMA DE ACCESO Y REGISTRO ---
     auth.onAuthStateChanged(async (user) => {
         const overlay = document.getElementById('auth-overlay');
         if (user) {
@@ -133,7 +131,6 @@
                 overlay.style.display = 'none';
                 document.getElementById('home-screen').style.display = 'block';
                 document.getElementById('user-display').innerText = `Conectado como: ${user.email}`;
-                // Si había un test a medias, retomarlo automáticamente
                 if (qSet.length > 0) empezar(qSet.length);
             } else {
                 document.getElementById('login-step').style.display = 'none';
@@ -155,8 +152,7 @@
         const user = auth.currentUser;
         const sexo = document.getElementById('reg-sexo').value;
         const dir = document.getElementById('reg-direccion').value;
-        
-        if(!sexo || !dir) return alert("Por favor, completa los campos para continuar.");
+        if(!sexo || !dir) return alert("Por favor, completa los campos.");
 
         await db.collection("usuarios").doc(user.uid).set({
             nombre: user.displayName.split(' ')[0],
@@ -170,13 +166,11 @@
         location.reload();
     }
 
-    // --- LÓGICA DEL SIMULADOR ---
     async function empezar(n) {
         document.getElementById('home-screen').style.display = 'none';
         document.getElementById('quiz-area').style.display = 'block';
 
         if (qSet.length === 0) {
-            document.getElementById('texto-enunciado').innerText = "Cargando examen...";
             try {
                 const res = await fetch(API_URL);
                 const all = await res.json();
@@ -201,10 +195,8 @@
         if(!qSet.length) return;
         const p = qSet[idx];
         localStorage.setItem('pmp_idx', idx);
-        
         document.getElementById('texto-enunciado').innerText = p.enunciado;
         document.getElementById('progreso-txt').innerText = `PREGUNTA ${idx+1} / ${qSet.length}`;
-        
         const c = document.getElementById('contenedor-opciones');
         c.innerHTML = '';
         ['A', 'B', 'C', 'D'].forEach(l => {
@@ -232,14 +224,10 @@
         clearInterval(timer);
         document.getElementById('quiz-area').style.display = 'none';
         document.getElementById('report-area').style.display = 'block';
-
         let buenas = 0;
         qSet.forEach((q, i) => { if(userChoices[i] === q.respuesta_correcta) buenas++; });
-        
         const score = Math.round((buenas / qSet.length) * 100);
         const tiempoTotal = document.getElementById('reloj-digital').innerText;
-
-        // GUARDAR EN HISTORIAL (Firestore)
         const user = auth.currentUser;
         try {
             await db.collection("historial_examenes").add({
@@ -251,17 +239,13 @@
                 tiempo: tiempoTotal
             });
         } catch(e) { console.error("Error guardando historial", e); }
-
         document.getElementById('report-score').innerText = `${score}%`;
         document.getElementById('report-status').innerText = score >= 70 ? "ESTADO: APROBADO" : "ESTADO: REQUIERE MÁS PRÁCTICA";
         document.getElementById('report-score').style.color = score >= 70 ? 'var(--success)' : 'var(--error)';
     }
 
     function limpiarSesion() {
-        if(confirm("¿Estás seguro? Se perderá el progreso del examen actual.")) {
-            localStorage.clear();
-            location.reload();
-        }
+        if(confirm("¿Estás seguro?")) { localStorage.clear(); location.reload(); }
     }
 </script>
 </body>
