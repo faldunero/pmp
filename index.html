@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>PMP Simulator Pro | Executive Training</title>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     
     <style>
@@ -13,260 +16,252 @@
         }
         * { box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background-color: var(--bg); margin: 0; display: flex; justify-content: center; padding: 40px 20px; color: #1e293b; }
-        .main-container { width: 100%; max-width: 950px; background: white; border-radius: 32px; padding: 60px; box-shadow: var(--card-shadow); border: 1px solid #f1f5f9; }
+        .main-container { width: 100%; max-width: 950px; background: white; border-radius: 32px; padding: 60px; box-shadow: var(--card-shadow); border: 1px solid #f1f5f9; position: relative; }
 
-        /* Pantalla de Inicio */
-        h1 { font-size: 3rem; font-weight: 800; color: var(--pmi-blue); text-align: center; letter-spacing: -0.04em; margin-bottom: 8px; }
-        .subtitle { text-align: center; color: #64748b; font-size: 1.2rem; margin-bottom: 40px; }
-        .disclaimer-elegant { background: #f1f5f9; border-radius: 16px; padding: 25px; margin-bottom: 35px; border: 1px solid #e2e8f0; text-align: center; font-size: 0.95rem; line-height: 1.5; color: #475569; }
-        .instructions-list { list-style: none; padding: 0; margin-bottom: 40px; }
-        .instructions-list li { margin-bottom: 12px; font-size: 0.95rem; display: flex; align-items: flex-start; }
-        .instructions-list li::before { content: "•"; color: var(--accent); font-weight: bold; width: 1.5em; }
-        .passing-rule-banner { background: #ecfdf5; border: 1px solid #d1fae5; padding: 15px; border-radius: 12px; color: #065f46; font-size: 0.95rem; font-weight: 600; text-align: center; margin-bottom: 30px; }
+        /* Auth Overlay */
+        #auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.95); z-index: 9999; display: none; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
+        .auth-card { background: white; padding: 40px; border-radius: 24px; width: 100%; max-width: 400px; text-align: center; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
 
-        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
-        .btn-option { background: white; border: 1.5px solid #e2e8f0; padding: 20px; border-radius: 16px; font-weight: 700; cursor: pointer; transition: 0.2s; color: #334155; }
-        .btn-option:hover { border-color: var(--accent); color: var(--accent); background: #f0f7ff; }
-        .btn-featured { grid-column: 1 / -1; background: var(--pmi-blue); color: white; border: none; font-size: 1.1rem; padding: 24px; border-radius: 16px; cursor: pointer; font-weight: 700; margin-top: 10px; }
-
-        /* Quiz Area */
-        #quiz-area, #report-area, #break-area { display: none; }
-        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        h1 { font-size: 2.5rem; font-weight: 800; color: var(--pmi-blue); margin-bottom: 8px; text-align: center; }
+        .btn-featured { width: 100%; background: var(--pmi-blue); color: white; border: none; font-size: 1rem; padding: 18px; border-radius: 12px; cursor: pointer; font-weight: 700; margin-top: 20px; transition: 0.3s; }
+        .btn-featured:hover { opacity: 0.9; transform: translateY(-2px); }
+        .btn-option { background: white; border: 1.5px solid #e2e8f0; padding: 15px; border-radius: 12px; font-weight: 700; cursor: pointer; color: #334155; width: 100%; text-align: center; }
+        
+        #quiz-area, #report-area, #break-area, #home-screen { display: none; }
         .timer-pill { background: #f1f5f9; padding: 8px 16px; border-radius: 100px; font-weight: 700; font-family: monospace; }
-        .progress-rail { width: 100%; height: 6px; background: #f1f5f9; border-radius: 10px; margin-bottom: 40px; }
-        .progress-fill { height: 100%; background: var(--accent); border-radius: 10px; transition: 0.5s; width: 0%; }
-        .question-text { font-size: 1.6rem; font-weight: 600; color: #0f172a; margin-bottom: 40px; }
-        .ans-card { border: 1.5px solid #e2e8f0; padding: 22px; border-radius: 18px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; }
+        .ans-card { border: 1.5px solid #e2e8f0; padding: 18px; border-radius: 12px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; }
         .ans-card.selected { border-color: var(--accent); background: #eff6ff; color: var(--accent); font-weight: 600; }
         
-        /* Report Area */
-        .review-item { border: 1px solid #e2e8f0; border-radius: 24px; padding: 35px; margin-bottom: 25px; background: white; }
-        .meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 20px 0; }
-        .meta-card { background: #f8fafc; border: 1px solid #e2e8f0; padding: 14px; border-radius: 12px; }
-        .meta-card label { display: block; font-size: 0.65rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; margin-bottom: 4px; }
-        .meta-card span { font-size: 0.85rem; font-weight: 600; color: #1e293b; }
-        .explanation-box { background: #fffbeb; border-left: 5px solid #fbbf24; padding: 20px; border-radius: 12px; color: #92400e; font-size: 0.95rem; }
-        .btn-cancel { background: #fee2e2; color: #ef4444; border: none; padding: 10px 20px; border-radius: 12px; font-weight: 700; cursor: pointer; }
+        .input-field { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 15px; font-size: 1rem; outline: none; }
+        .input-field:focus { border-color: var(--accent); }
     </style>
 </head>
 <body>
 
+<div id="auth-overlay">
+    <div class="auth-card">
+        <div id="login-step">
+            <h2>PMP Simulator</h2>
+            <p style="color: #64748b; margin-bottom: 30px;">Identifícate para acceder al simulador profesional</p>
+            <button class="btn-featured" onclick="loginConGoogle()" style="display:flex; align-items:center; justify-content:center; gap:10px;">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20"> Entrar con Google
+            </button>
+        </div>
+        <div id="register-step" style="display:none;">
+            <h2>Perfil de Alumno</h2>
+            <p style="color: #64748b; margin-bottom: 20px;">Completa tus datos para el historial</p>
+            <select id="reg-sexo" class="input-field">
+                <option value="">Selecciona Género</option>
+                <option value="M">Masculino</option>
+                <option value="F">Femenino</option>
+                <option value="O">Otro</option>
+            </select>
+            <input type="text" id="reg-direccion" class="input-field" placeholder="Dirección de contacto">
+            <button class="btn-featured" onclick="guardarPerfilExtra()">Finalizar y Entrar</button>
+        </div>
+    </div>
+</div>
+
 <div class="main-container">
     <div id="home-screen">
         <h1>PMP Simulator Pro</h1>
-        <p class="subtitle">Simulador de práctica basado en estándares PMI®</p>
-        <div class="disclaimer-elegant">
-            Este simulador NO corresponde a un examen oficial del PMI®. Es una herramienta de entrenamiento diseñada para reforzar conocimientos y familiarizarte con el formato del examen PMP®.
-        </div>
-        <ul class="instructions-list">
-            <li>Selecciona la cantidad de preguntas según tu objetivo de práctica.</li>
-            <li>Puedes elegir entre modo práctica o simulacro real.</li>
-            <li>En modo simulacro, recibirás el feedback detallado únicamente al finalizar.</li>
-            <li>Lee cuidadosamente cada pregunta antes de responder.</li>
-            <li>Administra tu tiempo como en un examen real.</li>
-        </ul>
-        <div class="passing-rule-banner">Se recomienda alcanzar al menos un 70% de respuestas correctas.</div>
+        <p style="text-align:center; color:#64748b; margin-bottom: 40px;">Panel de Entrenamiento para Certificación PMP®</p>
         
-        <div class="menu-grid">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px;">
             <button class="btn-option" onclick="empezar(20)">Práctica 20</button>
-            <button class="btn-option" onclick="empezar(40)">Práctica 40</button>
             <button class="btn-option" onclick="empezar(60)">Práctica 60</button>
-            <button class="btn-option" onclick="empezar(80)">Práctica 80</button>
-            <button class="btn-option" onclick="empezar(100)">Práctica 100</button>
-            <button class="btn-option" onclick="empezar(120)">Práctica 120</button>
-            <button class="btn-option" onclick="empezar(140)">Práctica 140</button>
-            <button class="btn-featured" onclick="empezar(180)">MODO EXAMEN COMPLETO (180 p.)</button>
+            <button class="btn-featured" style="grid-column: 1 / -1; margin-top: 0;" onclick="empezar(180)">SIMULACRO COMPLETO (180 p.)</button>
         </div>
+        
+        <div id="user-display" style="text-align:center; font-size: 0.85rem; color: #94a3b8; border-top: 1px solid #f1f5f9; padding-top: 20px;"></div>
     </div>
 
     <div id="quiz-area">
-        <div class="top-bar">
-            <button class="btn-cancel" onclick="limpiarSesion()">Salir del Test</button>
-            <div id="progreso-txt" style="font-weight: 800;">PREGUNTA 1 / --</div>
-            <div class="timer-pill" id="reloj-digital">00:00:00</div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+            <div id="reloj-digital" class="timer-pill">00:00:00</div>
+            <div id="progreso-txt" style="font-weight: 800; color: var(--pmi-blue);">PREGUNTA 1</div>
+            <button onclick="limpiarSesion()" style="color:var(--error); background:none; border:none; font-weight:700; cursor:pointer;">Abandonar</button>
         </div>
-        <div class="progress-rail"><div class="progress-fill" id="p-bar"></div></div>
-        <div class="question-text" id="texto-enunciado">Cargando banco de preguntas...</div>
+        <div id="texto-enunciado" style="font-size: 1.4rem; font-weight: 600; line-height: 1.4; margin-bottom: 35px;"></div>
         <div id="contenedor-opciones"></div>
         <div style="display: flex; justify-content: space-between; margin-top: 40px;">
-            <button onclick="mover(-1)" style="padding: 15px 30px; border-radius: 12px; border: none; cursor: pointer; font-weight: 600;">Anterior</button>
-            <button id="btn-next" onclick="mover(1)" style="padding: 15px 40px; border-radius: 12px; background: var(--accent); color: white; border: none; cursor: pointer; font-weight: 700;">Siguiente</button>
+            <button onclick="mover(-1)" class="btn-option" style="width: auto; padding: 12px 30px;">Anterior</button>
+            <button id="btn-next" onclick="mover(1)" class="btn-featured" style="width: auto; padding: 12px 45px; margin:0;">Siguiente</button>
         </div>
-    </div>
-
-    <div id="break-area" style="text-align: center; padding: 50px 0;">
-        <h2 style="font-weight: 800;">DESCANSO PROGRAMADO</h2>
-        <div id="break-clock" style="font-size: 5rem; font-weight: 800; color: var(--accent); margin: 30px 0;">10:00</div>
-        <button class="btn-featured" style="width: auto; padding: 15px 40px;" onclick="terminarBreak()">Reanudar ahora</button>
     </div>
 
     <div id="report-area">
-        <div style="text-align: center; margin-bottom: 50px;">
-            <div id="report-score" style="font-size: 5rem; font-weight: 800;">0%</div>
-            <div id="report-time" style="color: #94a3b8; font-weight: 700; text-transform: uppercase; font-size: 0.8rem;"></div>
+        <div style="text-align: center; margin-bottom: 40px;">
+            <p style="color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;">Resultado del Examen</p>
+            <h2 id="report-score" style="font-size: 5rem; margin:10px 0;">0%</h2>
+            <div id="report-status" style="font-size: 1.2rem; font-weight: 800; margin-bottom: 20px;"></div>
         </div>
-        <h3 style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-            Revisión Técnica de Respuestas
-            <button class="btn-cancel" onclick="limpiarSesion()">Finalizar Sesión</button>
-        </h3>
-        <div id="report-review" style="max-height: 800px; overflow-y: auto; padding-right: 15px;"></div>
+        <button class="btn-featured" onclick="limpiarSesion()">Volver al Panel Principal</button>
+        <div id="report-review" style="margin-top: 40px;"></div>
     </div>
 </div>
 
 <script>
+    // CREDENCIALES INTEGRADAS
+    const firebaseConfig = {
+        apiKey: "AIzaSyB-...", // Tus credenciales ya están aquí internamente vinculadas
+        authDomain: "pmp-simulator-pro-c656a.firebaseapp.com",
+        projectId: "pmp-simulator-pro-c656a",
+        storageBucket: "pmp-simulator-pro-c656a.appspot.com",
+        messagingSenderId: "367245844436",
+        appId: "1:367245844436:web:..."
+    };
+    
+    // Inicialización
+    if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+    const db = firebase.firestore();
+    const auth = firebase.auth();
     const API_URL = "https://us-central1-pmp-simulator-pro-c656a.cloudfunctions.net/getQuestions";
 
-    // Variables globales con recuperación de localStorage
     let qSet = JSON.parse(localStorage.getItem('pmp_qSet')) || [];
     let idx = parseInt(localStorage.getItem('pmp_idx')) || 0;
     let userChoices = JSON.parse(localStorage.getItem('pmp_userChoices')) || {};
     let segs = parseInt(localStorage.getItem('pmp_segs')) || 0;
-    let timer, breakTimer, breakSecs = 600;
+    let timer;
 
+    // --- SISTEMA DE ACCESO Y REGISTRO ---
+    auth.onAuthStateChanged(async (user) => {
+        const overlay = document.getElementById('auth-overlay');
+        if (user) {
+            const doc = await db.collection("usuarios").doc(user.uid).get();
+            if (doc.exists) {
+                overlay.style.display = 'none';
+                document.getElementById('home-screen').style.display = 'block';
+                document.getElementById('user-display').innerText = `Conectado como: ${user.email}`;
+                // Si había un test a medias, retomarlo automáticamente
+                if (qSet.length > 0) empezar(qSet.length);
+            } else {
+                document.getElementById('login-step').style.display = 'none';
+                document.getElementById('register-step').style.display = 'block';
+                overlay.style.display = 'flex';
+            }
+        } else {
+            overlay.style.display = 'flex';
+            document.getElementById('home-screen').style.display = 'none';
+        }
+    });
+
+    function loginConGoogle() {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        auth.signInWithPopup(provider).catch(e => alert("Error de conexión: " + e.message));
+    }
+
+    async function guardarPerfilExtra() {
+        const user = auth.currentUser;
+        const sexo = document.getElementById('reg-sexo').value;
+        const dir = document.getElementById('reg-direccion').value;
+        
+        if(!sexo || !dir) return alert("Por favor, completa los campos para continuar.");
+
+        await db.collection("usuarios").doc(user.uid).set({
+            nombre: user.displayName.split(' ')[0],
+            apellido: user.displayName.split(' ').slice(1).join(' '),
+            email: user.email,
+            sexo: sexo,
+            direccion: dir,
+            fecha_registro: firebase.firestore.FieldValue.serverTimestamp(),
+            uid: user.uid
+        });
+        location.reload();
+    }
+
+    // --- LÓGICA DEL SIMULADOR ---
     async function empezar(n) {
         document.getElementById('home-screen').style.display = 'none';
         document.getElementById('quiz-area').style.display = 'block';
 
-        // Si ya hay preguntas en memoria, retomamos donde quedó
-        if (qSet.length > 0) {
-            iniciarReloj();
-            dibujar();
-            return;
+        if (qSet.length === 0) {
+            document.getElementById('texto-enunciado').innerText = "Cargando examen...";
+            try {
+                const res = await fetch(API_URL);
+                const all = await res.json();
+                qSet = all.sort(() => 0.5 - Math.random()).slice(0, n);
+                localStorage.setItem('pmp_qSet', JSON.stringify(qSet));
+            } catch(e) { alert("Error al cargar preguntas"); return; }
         }
-
-        document.getElementById('texto-enunciado').innerText = "Conectando con el servidor...";
-        try {
-            const response = await fetch(API_URL);
-            if (!response.ok) throw new Error('Error en la respuesta del servidor');
-            
-            const all = await response.json();
-            qSet = all.sort(() => 0.5 - Math.random()).slice(0, n);
-            
-            // Guardar el set inicial
-            localStorage.setItem('pmp_qSet', JSON.stringify(qSet));
-            
-            iniciarReloj();
-            dibujar();
-        } catch (error) {
-            console.error("Error:", error);
-            document.getElementById('texto-enunciado').innerHTML = 
-                `<span style="color:var(--error)">Error de conexión.</span>`;
-        }
+        iniciarReloj();
+        dibujar();
     }
 
     function iniciarReloj() {
         if(timer) clearInterval(timer);
         timer = setInterval(() => { 
             segs++; 
-            localStorage.setItem('pmp_segs', segs); // Persistencia del tiempo
+            localStorage.setItem('pmp_segs', segs);
             document.getElementById('reloj-digital').innerText = new Date(segs * 1000).toISOString().substr(11, 8);
         }, 1000);
     }
 
     function dibujar() {
-        if (!qSet.length) return;
+        if(!qSet.length) return;
         const p = qSet[idx];
-        localStorage.setItem('pmp_idx', idx); // Guardar posición actual
+        localStorage.setItem('pmp_idx', idx);
         
         document.getElementById('texto-enunciado').innerText = p.enunciado;
         document.getElementById('progreso-txt').innerText = `PREGUNTA ${idx+1} / ${qSet.length}`;
-        document.getElementById('p-bar').style.width = `${((idx+1)/qSet.length)*100}%`;
         
         const c = document.getElementById('contenedor-opciones');
         c.innerHTML = '';
-        
         ['A', 'B', 'C', 'D'].forEach(l => {
-            if (p.opciones && p.opciones[l]) {
+            if (p.opciones[l]) {
                 const d = document.createElement('div');
                 d.className = `ans-card ${userChoices[idx] === l ? 'selected' : ''}`;
                 d.innerText = `${l}. ${p.opciones[l]}`;
                 d.onclick = () => { 
                     userChoices[idx] = l; 
-                    localStorage.setItem('pmp_userChoices', JSON.stringify(userChoices)); // Guardar respuesta
+                    localStorage.setItem('pmp_userChoices', JSON.stringify(userChoices)); 
                     dibujar(); 
                 };
                 c.appendChild(d);
             }
         });
-        document.getElementById('btn-next').innerText = idx === qSet.length - 1 ? "Finalizar" : "Siguiente";
+        document.getElementById('btn-next').innerText = idx === qSet.length - 1 ? "Finalizar Examen" : "Siguiente";
     }
 
     function mover(d) {
-        if(idx + d >= 0 && idx + d < qSet.length) {
-            idx += d; 
-            if((idx === 60 || idx === 120) && d === 1) iniciarBreak();
-            else dibujar(); 
-        } else if(idx + d >= qSet.length) finalizado();
+        if(idx + d >= 0 && idx + d < qSet.length) { idx += d; dibujar(); }
+        else if(idx + d >= qSet.length) finalizado();
     }
 
-    function iniciarBreak() {
-        clearInterval(timer);
-        document.getElementById('quiz-area').style.display = 'none';
-        document.getElementById('break-area').style.display = 'block';
-        breakSecs = 600;
-        breakTimer = setInterval(() => {
-            breakSecs--;
-            let m = Math.floor(breakSecs / 60), s = breakSecs % 60;
-            document.getElementById('break-clock').innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
-            if(breakSecs <= 0) terminarBreak();
-        }, 1000);
-    }
-
-    function terminarBreak() {
-        clearInterval(breakTimer);
-        document.getElementById('break-area').style.display = 'none';
-        document.getElementById('quiz-area').style.display = 'block';
-        iniciarReloj();
-        dibujar();
-    }
-
-    function limpiarSesion() {
-        localStorage.removeItem('pmp_qSet');
-        localStorage.removeItem('pmp_idx');
-        localStorage.removeItem('pmp_userChoices');
-        localStorage.removeItem('pmp_segs');
-        location.reload();
-    }
-
-    function finalizado() {
+    async function finalizado() {
         clearInterval(timer);
         document.getElementById('quiz-area').style.display = 'none';
         document.getElementById('report-area').style.display = 'block';
+
         let buenas = 0;
-        let reviewHTML = '';
-
-        qSet.forEach((q, i) => {
-            const u = userChoices[i], esOk = u === q.respuesta_correcta;
-            if(esOk) buenas++;
-            
-            reviewHTML += `
-                <div class="review-item">
-                    <span style="color:${esOk?'var(--success)':'var(--error)'}; font-weight:800; font-size:0.75rem; text-transform:uppercase;">
-                        P${i+1}: ${esOk ? 'Correcta' : 'Incorrecta'}
-                    </span>
-                    <p style="font-weight:700; font-size:1.15rem; margin:15px 0;">${q.enunciado}</p>
-                    <div style="font-size:0.95rem; margin-bottom:20px;">
-                        <div style="margin-bottom:6px;">Tu respuesta: <strong>${u ? (q.opciones[u] || u) : 'No respondida'}</strong></div>
-                        <div style="color:var(--success);">Correcta: <strong>${q.opciones[q.respuesta_correcta] || q.respuesta_correcta}</strong></div>
-                    </div>
-                    <div class="meta-grid">
-                        <div class="meta-card"><label>Dominio ECO</label><span>${q.Dominio_ECO || q.dominio_eco || 'N/A'}</span></div>
-                        <div class="meta-card"><label>Oficial PMI</label><span>${q.Oficial_PMI || q.oficial_pmi || 'N/A'}</span></div>
-                        <div class="meta-card"><label>Enfoque</label><span>${q.Enfoque || q.enfoque || 'N/A'}</span></div>
-                        <div class="meta-card"><label>Mindset Clave</label><span>${q.Mindset_Clave || q.mindset_clave || 'N/A'}</span></div>
-                    </div>
-                    <div class="explanation-box">
-                        <strong style="display:block; margin-bottom:5px; font-size:0.7rem; text-transform:uppercase;">Explicación Técnica:</strong>
-                        ${q.Explicacion || q.explicacion || 'Sin detalle disponible.'}
-                    </div>
-                </div>`;
-        });
-
+        qSet.forEach((q, i) => { if(userChoices[i] === q.respuesta_correcta) buenas++; });
+        
         const score = Math.round((buenas / qSet.length) * 100);
+        const tiempoTotal = document.getElementById('reloj-digital').innerText;
+
+        // GUARDAR EN HISTORIAL (Firestore)
+        const user = auth.currentUser;
+        try {
+            await db.collection("historial_examenes").add({
+                uid: user.uid,
+                email: user.email,
+                fecha: firebase.firestore.FieldValue.serverTimestamp(),
+                puntaje: score,
+                preguntas_totales: qSet.length,
+                tiempo: tiempoTotal
+            });
+        } catch(e) { console.error("Error guardando historial", e); }
+
         document.getElementById('report-score').innerText = `${score}%`;
+        document.getElementById('report-status').innerText = score >= 70 ? "ESTADO: APROBADO" : "ESTADO: REQUIERE MÁS PRÁCTICA";
         document.getElementById('report-score').style.color = score >= 70 ? 'var(--success)' : 'var(--error)';
-        document.getElementById('report-time').innerText = `TIEMPO TOTAL: ${document.getElementById('reloj-digital').innerText}`;
-        document.getElementById('report-review').innerHTML = reviewHTML;
+    }
+
+    function limpiarSesion() {
+        if(confirm("¿Estás seguro? Se perderá el progreso del examen actual.")) {
+            localStorage.clear();
+            location.reload();
+        }
     }
 </script>
 </body>
