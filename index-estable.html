@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>PMP Simulator Pro - Felipe Aldunate</title>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
+    
+    <style>
+        :root { --pmi-blue: #3b82f6; --text: #1f2937; --success: #22c55e; --error: #ef4444; }
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; margin: 0; display: flex; justify-content: center; padding: 40px 20px; }
+        .card { background: white; border-radius: 28px; box-shadow: 0 15px 35px rgba(0,0,0,0.05); width: 100%; max-width: 850px; padding: 45px; position: relative; }
+        
+        h1 { color: var(--pmi-blue); text-align: center; font-size: 2.5rem; font-weight: 800; margin-bottom: 5px; }
+        .subtitle { text-align: center; color: #6b7280; margin-bottom: 35px; }
+        
+        /* Menu Original (Foto) */
+        .info-banner { background: #f8fafc; border-left: 5px solid var(--pmi-blue); border-radius: 16px; padding: 25px; margin-bottom: 40px; }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+        .btn-sel { background: white; border: 1px solid #e5e7eb; padding: 22px; border-radius: 18px; font-weight: 600; cursor: pointer; color: #4b5563; font-size: 1.05rem; }
+        .btn-full { grid-column: 1 / -1; background: var(--pmi-blue); color: white; border: none; font-size: 1.15rem; }
+
+        #quiz-area, #report-area { display: none; }
+        .q-header { display: flex; justify-content: space-between; margin-bottom: 10px; color: var(--pmi-blue); font-weight: 700; align-items: center; }
+        
+        .progress-container { width: 100%; background: #e5e7eb; border-radius: 10px; height: 10px; margin-bottom: 25px; overflow: hidden; }
+        .progress-bar { height: 100%; background: var(--pmi-blue); width: 0%; transition: 0.3s; }
+
+        .pregunta-body { font-size: 1.5rem; line-height: 1.5; margin-bottom: 35px; }
+        .opcion-card { border: 1px solid #e5e7eb; padding: 18px; border-radius: 14px; margin-bottom: 12px; cursor: pointer; }
+        .opcion-card.active { border-color: var(--pmi-blue); background: #eff6ff; font-weight: 600; }
+
+        /* Informe Final */
+        .review-list { max-height: 500px; overflow-y: auto; border: 1px solid #eee; border-radius: 16px; padding: 20px; margin-top: 20px; }
+        .review-item { padding: 15px 0; border-bottom: 1px solid #eee; }
+        .tech-tags { font-size: 0.85rem; color: #64748b; margin: 10px 0; }
+        .explicacion-box { background: #fffbeb; padding: 15px; border-radius: 10px; margin-top: 10px; font-size: 0.95rem; border-left: 4px solid #facc15; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div id="home-screen">
+        <h1>PMP Simulator Pro</h1>
+        <p class="subtitle">Las preguntas se generan de manera aleatoria</p>
+        <div class="info-banner">
+            <ul style="padding:0; margin:0; list-style:none;">
+                <li>• Selecciona la cantidad de preguntas.</li>
+                <li>• <strong>Simulacro Real:</strong> Feedback detallado solo al finalizar.</li>
+                <li>• <strong>Exigencia PMP:</strong> Aprobación con un mínimo del 70%.</li>
+            </ul>
+        </div>
+        <div class="menu-grid">
+            <button class="btn-sel" onclick="empezar(20)">20 preguntas</button>
+            <button class="btn-sel" onclick="empezar(40)">40 preguntas</button>
+            <button class="btn-sel" onclick="empezar(60)">60 preguntas</button>
+            <button class="btn-sel" onclick="empezar(80)">80 preguntas</button>
+            <button class="btn-sel" onclick="empezar(100)">100 preguntas</button>
+            <button class="btn-sel" onclick="empezar(120)">120 preguntas</button>
+            <button class="btn-sel" onclick="empezar(140)">140 preguntas</button>
+            <button class="btn-sel btn-full" onclick="empezar(180)">Examen Completo (180 p.)</button>
+        </div>
+    </div>
+
+    <div id="quiz-area">
+        <div class="q-header">
+            <span id="progreso-label">Pregunta 1 de --</span>
+            <button onclick="location.reload()" style="background:#fee2e2; color:#ef4444; border:none; padding:5px 10px; border-radius:5px; cursor:pointer;">Cancelar</button>
+            <span id="reloj-digital">00:00:00</span>
+        </div>
+        <div class="progress-container"><div class="progress-bar" id="p-bar"></div></div>
+        <div class="pregunta-body" id="texto-enunciado">Cargando...</div>
+        <div id="contenedor-opciones"></div>
+        <div style="margin-top:40px; display:flex; justify-content:space-between;">
+            <button id="btn-ant" onclick="mover(-1)" style="padding:12px 25px; border-radius:10px; border:none; cursor:pointer; background:#e5e7eb;">Anterior</button>
+            <button id="btn-next" onclick="mover(1)" style="padding:12px 25px; border-radius:10px; border:none; cursor:pointer; background:var(--pmi-blue); color:white; font-weight:700;">Siguiente</button>
+        </div>
+    </div>
+
+    <div id="report-area">
+        <h2 style="text-align:center;" id="report-status"></h2>
+        <div style="font-size:3.5rem; text-align:center; font-weight:800;" id="report-score">0%</div>
+        <div class="review-list" id="report-review"></div>
+        <button onclick="location.reload()" style="width:100%; margin-top:20px; padding:15px; background:var(--pmi-blue); color:white; border:none; border-radius:10px; cursor:pointer;">Reiniciar</button>
+    </div>
+</div>
+
+<script>
+    const firebaseConfig = { projectId: "pmp-simulator-pro-c656a" };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    let qSet = [], idx = 0, userChoices = {}, segs = 0, timer;
+
+    async function empezar(n) {
+        document.getElementById('home-screen').style.display = 'none';
+        document.getElementById('quiz-area').style.display = 'block';
+        const snap = await db.collection('preguntas_pmp').orderBy('id').limit(n).get();
+        qSet = snap.docs.map(d => d.data());
+        timer = setInterval(() => { segs++; document.getElementById('reloj-digital').innerText = new Date(segs * 1000).toISOString().substr(11, 8); }, 1000);
+        dibujar();
+    }
+
+    function dibujar() {
+        const p = qSet[idx];
+        document.getElementById('texto-enunciado').innerText = p.enunciado;
+        document.getElementById('progreso-label').innerText = `Pregunta ${idx+1} de ${qSet.length}`;
+        document.getElementById('p-bar').style.width = `${((idx+1)/qSet.length)*100}%`;
+        const c = document.getElementById('contenedor-opciones');
+        c.innerHTML = '';
+        ['A', 'B', 'C', 'D'].forEach(l => {
+            const d = document.createElement('div');
+            d.className = `opcion-card ${userChoices[idx] === l ? 'active' : ''}`;
+            d.innerText = `${l}. ${p.opciones[l]}`;
+            d.onclick = () => { userChoices[idx] = l; dibujar(); };
+            c.appendChild(d);
+        });
+        document.getElementById('btn-next').innerText = idx === qSet.length - 1 ? "Finalizar" : "Siguiente";
+        document.getElementById('btn-ant').style.visibility = idx === 0 ? 'hidden' : 'visible';
+    }
+
+    function mover(d) {
+        if(idx + d >= 0 && idx + d < qSet.length) { idx += d; dibujar(); }
+        else if(idx + d >= qSet.length) finalizado();
+    }
+
+    function finalizado() {
+        clearInterval(timer);
+        document.getElementById('quiz-area').style.display = 'none';
+        document.getElementById('report-area').style.display = 'block';
+
+        let buenas = 0;
+        let reviewHTML = '';
+
+        qSet.forEach((q, i) => {
+            const esOk = userChoices[i] === q.respuesta_correcta;
+            if(esOk) buenas++;
+            
+            reviewHTML += `
+                <div class="review-item">
+                    <strong>Pregunta ${i+1}: ${esOk ? '✅' : '❌'}</strong>
+                    <p>${q.enunciado}</p>
+                    <div class="tech-tags">
+                        Dominio: ${q.dominio_eco} | Enfoque: ${q.enfoque} | Mindset: ${q.mindset_clave}
+                    </div>
+                    <div class="explicacion-box">
+                        <strong>Oficial PMI:</strong> ${q.oficial_pmi}<br><br>
+                        <strong>Explicación:</strong> ${q.explicacion}
+                    </div>
+                </div>`;
+        });
+
+        const score = (buenas / qSet.length) * 100;
+        document.getElementById('report-score').innerText = `${score.toFixed(1)}%`;
+        document.getElementById('report-status').innerText = score >= 70 ? "¡APROBADO!" : "REPROBADO";
+        document.getElementById('report-review').innerHTML = reviewHTML;
+    }
+</script>
+</body>
+</html>

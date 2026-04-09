@@ -1,0 +1,70 @@
+import firebase_admin
+from firebase_admin import credentials, firestore
+import pandas as pd
+import os
+
+# 1. Configuración de Firebase
+if not firebase_admin._apps:
+    cred = credentials.Certificate('llave.json')
+    firebase_admin.initialize_app(cred)
+db = firestore.client()
+
+def cargar_datos():
+    archivo_csv = 'Preparacion_PMP_Preguntas_1_completo_1.csv'
+    
+    if not os.path.exists(archivo_csv):
+        print(f"❌ Error: No se encuentra el archivo {archivo_csv}")
+        return
+
+    try:
+        # FORZAMOS el separador a punto y coma (;) que es el estándar de Excel en Chile
+        # Si esto falla, cámbialo a sep=','
+        df = pd.read_csv(archivo_csv, sep=';', encoding='utf-8-sig', on_bad_lines='skip')
+        df.columns = df.columns.str.strip()
+        
+        print(f"🚀 Columnas detectadas: {list(df.columns)}")
+        print(f"📦 ¡Ahora sí! Detectadas {len(df)} preguntas.")
+
+        batch = db.batch()
+        for index, row in df.iterrows():
+            # Intentamos obtener el número de la columna 'N°', si no, usamos el índice
+            try:
+                num_id = int(row['N°'])
+            except:
+                num_id = index + 1
+
+            doc_id = f"pregunta_{str(num_id).zfill(3)}"
+            doc_ref = db.collection('preguntas_pmp').document(doc_id)
+            
+            datos_pregunta = {
+                'id': num_id,
+                'enunciado': str(row.get('Pregunta', '')).strip(),
+                'opciones': {
+                    'A': str(row.get('Opción A', '')).strip(),
+                    'B': str(row.get('Opción B', '')).strip(),
+                    'C': str(row.get('Opción C', '')).strip(),
+                    'D': str(row.get('Opción D', '')).strip()
+                },
+                'respuesta_correcta': str(row.get('Respuesta', '')).strip().upper(),
+                'explicacion': str(row.get('Explicación', '')).strip(),
+                'dominio_eco': str(row.get('Dominio ECO', 'N/A')).strip(),
+                'tarea_eco': str(row.get('Tarea ECO (Oficial PMI)', 'N/A')).strip(),
+                'enfoque': str(row.get('Enfoque', 'N/A')).strip(),
+                'mindset_clave': str(row.get('Trick PMP / Mindset (Clave)', 'N/A')).strip()
+            }
+            
+            batch.set(doc_ref, datos_pregunta)
+            
+            if (index + 1) % 500 == 0:
+                batch.commit()
+                batch = db.batch()
+                print(f"✅ Enviado bloque hasta la pregunta {index + 1}...")
+
+        batch.commit()
+        print(f"\n✨ ¡Misión cumplida! Se cargaron {len(df)} preguntas correctamente.")
+
+    except Exception as e:
+        print(f"❌ Error crítico: {e}")
+
+if __name__ == "__main__":
+    cargar_datos()
