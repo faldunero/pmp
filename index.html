@@ -81,12 +81,12 @@
 
     <div id="quiz-area">
         <div class="top-bar">
-            <button class="btn-cancel" onclick="location.reload()">Salir del Test</button>
+            <button class="btn-cancel" onclick="limpiarSesion()">Salir del Test</button>
             <div id="progreso-txt" style="font-weight: 800;">PREGUNTA 1 / --</div>
             <div class="timer-pill" id="reloj-digital">00:00:00</div>
         </div>
         <div class="progress-rail"><div class="progress-fill" id="p-bar"></div></div>
-        <div class="question-text" id="texto-enunciado">Cargando banco de preguntas de ingeniería...</div>
+        <div class="question-text" id="texto-enunciado">Cargando banco de preguntas...</div>
         <div id="contenedor-opciones"></div>
         <div style="display: flex; justify-content: space-between; margin-top: 40px;">
             <button onclick="mover(-1)" style="padding: 15px 30px; border-radius: 12px; border: none; cursor: pointer; font-weight: 600;">Anterior</button>
@@ -107,51 +107,67 @@
         </div>
         <h3 style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
             Revisión Técnica de Respuestas
-            <button class="btn-cancel" onclick="location.reload()">Finalizar Sesión</button>
+            <button class="btn-cancel" onclick="limpiarSesion()">Finalizar Sesión</button>
         </h3>
         <div id="report-review" style="max-height: 800px; overflow-y: auto; padding-right: 15px;"></div>
     </div>
 </div>
 
 <script>
-    // URL de la Cloud Function que acabamos de desplegar
     const API_URL = "https://us-central1-pmp-simulator-pro-c656a.cloudfunctions.net/getQuestions";
 
-    let qSet = [], idx = 0, userChoices = {}, segs = 0, timer, breakTimer, breakSecs = 600;
+    // Variables globales con recuperación de localStorage
+    let qSet = JSON.parse(localStorage.getItem('pmp_qSet')) || [];
+    let idx = parseInt(localStorage.getItem('pmp_idx')) || 0;
+    let userChoices = JSON.parse(localStorage.getItem('pmp_userChoices')) || {};
+    let segs = parseInt(localStorage.getItem('pmp_segs')) || 0;
+    let timer, breakTimer, breakSecs = 600;
 
     async function empezar(n) {
         document.getElementById('home-screen').style.display = 'none';
         document.getElementById('quiz-area').style.display = 'block';
-        document.getElementById('texto-enunciado').innerText = "Conectando con el servidor de Cloud Functions...";
 
+        // Si ya hay preguntas en memoria, retomamos donde quedó
+        if (qSet.length > 0) {
+            iniciarReloj();
+            dibujar();
+            return;
+        }
+
+        document.getElementById('texto-enunciado').innerText = "Conectando con el servidor...";
         try {
             const response = await fetch(API_URL);
             if (!response.ok) throw new Error('Error en la respuesta del servidor');
             
             const all = await response.json();
-            
-            // Mezcla aleatoria y selección del subset n
             qSet = all.sort(() => 0.5 - Math.random()).slice(0, n);
+            
+            // Guardar el set inicial
+            localStorage.setItem('pmp_qSet', JSON.stringify(qSet));
             
             iniciarReloj();
             dibujar();
         } catch (error) {
-            console.error("Error al cargar preguntas:", error);
+            console.error("Error:", error);
             document.getElementById('texto-enunciado').innerHTML = 
-                `<span style="color:var(--error)">Error de conexión.</span><br><small>Verifica que la función esté activa y los CORS permitidos.</small>`;
+                `<span style="color:var(--error)">Error de conexión.</span>`;
         }
     }
 
     function iniciarReloj() {
+        if(timer) clearInterval(timer);
         timer = setInterval(() => { 
             segs++; 
-            document.getElementById('reloj-digital').innerText = new Date(segs * 1000).toISOString().substr(11, 8); 
+            localStorage.setItem('pmp_segs', segs); // Persistencia del tiempo
+            document.getElementById('reloj-digital').innerText = new Date(segs * 1000).toISOString().substr(11, 8);
         }, 1000);
     }
 
     function dibujar() {
         if (!qSet.length) return;
         const p = qSet[idx];
+        localStorage.setItem('pmp_idx', idx); // Guardar posición actual
+        
         document.getElementById('texto-enunciado').innerText = p.enunciado;
         document.getElementById('progreso-txt').innerText = `PREGUNTA ${idx+1} / ${qSet.length}`;
         document.getElementById('p-bar').style.width = `${((idx+1)/qSet.length)*100}%`;
@@ -164,7 +180,11 @@
                 const d = document.createElement('div');
                 d.className = `ans-card ${userChoices[idx] === l ? 'selected' : ''}`;
                 d.innerText = `${l}. ${p.opciones[l]}`;
-                d.onclick = () => { userChoices[idx] = l; dibujar(); };
+                d.onclick = () => { 
+                    userChoices[idx] = l; 
+                    localStorage.setItem('pmp_userChoices', JSON.stringify(userChoices)); // Guardar respuesta
+                    dibujar(); 
+                };
                 c.appendChild(d);
             }
         });
@@ -172,7 +192,7 @@
     }
 
     function mover(d) {
-        if(idx + d >= 0 && idx + d < qSet.length) { 
+        if(idx + d >= 0 && idx + d < qSet.length) {
             idx += d; 
             if((idx === 60 || idx === 120) && d === 1) iniciarBreak();
             else dibujar(); 
@@ -198,6 +218,14 @@
         document.getElementById('quiz-area').style.display = 'block';
         iniciarReloj();
         dibujar();
+    }
+
+    function limpiarSesion() {
+        localStorage.removeItem('pmp_qSet');
+        localStorage.removeItem('pmp_idx');
+        localStorage.removeItem('pmp_userChoices');
+        localStorage.removeItem('pmp_segs');
+        location.reload();
     }
 
     function finalizado() {
