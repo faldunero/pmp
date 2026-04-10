@@ -449,59 +449,36 @@
     function cerrarSesion() { auth.signOut(); localStorage.clear(); location.reload(); }
     function limpiarSesion() { if(confirm("¿Seguro que quieres cancelar? Perderás el progreso de este test.")) { localStorage.removeItem('pmp_test_activo'); location.reload(); } }
 </script>
-<footer class="footer-autoria">
-    <div class="footer-line"></div>
-    <div class="footer-text">
-        <span class="nombre">Felipe Aldunate</span>
-        <span class="separador">•</span>
-        <a href="mailto:faldunate@gmail.com" class="email">faldunate@gmail.com</a>
-    </div>
-</footer>
+<body>
 
-<style>
-    .footer-autoria {
-        width: 100%;
-        max-width: 800px;
-        margin: 60px auto 20px auto;
-        padding: 0 20px;
-        text-align: center;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+<div class="screen-wrapper" style="display: flex; justify-content: center; align-items: start; min-height: 100vh; padding: 40px 20px;">
 
-    .footer-line {
-        height: 1px;
-        background-color: #eeeeee;
-        margin-bottom: 20px;
-    }
+    <div class="main-container">
 
-    .footer-text {
-        font-size: 0.85rem;
-        color: #888888;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-    }
+        <div class="profile-header" style="text-align: right; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #f1f5f9; color: #64748b; font-size: 0.9rem;">
+            <span style="font-weight: 700; color: #1e293b; margin-right: 5px;">Felipe Aldunate</span> • <span style="margin-left: 5px;">faldunate@gmail.com</span>
+        </div>
 
-    .nombre {
-        font-weight: 600;
-        color: #555555;
-    }
+        <div id="screen-login" class="screen">
+            <h1>PMP Simulator Pro</h1>
+            <p class="subtitle">Simulador de práctica basado en estándares PMI</p>
+             <div class="disclaimer-elegant">
+                Este simulador NO corresponde a un examen oficial del PMI®. Es una herramienta de entrenamiento diseñada para reforzar conocimientos y familiarizarte con el formato del examen PMP®.
+            </div>
+            <div class="auth-form">
+                <input type="email" id="login-email" class="auth-input" placeholder="Correo electrónico">
+                <input type="password" id="login-pass" class="auth-input" placeholder="Contraseña">
+                <button class="btn-featured" onclick="handleLogin()">Acceder</button>
+                <div class="auth-links">
+                    <a onclick="navigate('screen-register')">Crear cuenta</a> | 
+                    <a onclick="handleResetPassword()">Recuperar contraseña</a>
+                </div>
+            </div>
+        </div>
 
-    .separador {
-        color: #cccccc;
-    }
+        </div> </div> <script>
+    // ... tu código de Firebase y funciones JS no cambia ...
+</script>
 
-    .email {
-        color: #888888;
-        text-decoration: none;
-        transition: color 0.2s;
-    }
-
-    .email:hover {
-        color: #3861fb; /* Azul de tu interfaz */
-        text-decoration: underline;
-    }
-</style>
 </body>
 </html>
