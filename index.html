@@ -113,7 +113,7 @@
             
             <div style="margin-bottom: 20px;">
                 <strong style="color: var(--pmi-blue); display: block; margin-bottom: 5px;">2. Tiempo y Descansos</strong>
-                <span>Cronómetro integrado en la barra superior. En sesiones largas, se activarán descansos automáticos de 10 minutos (preguntas 60 y 120).</span>
+                <span>Cronómetro integrado en la barra superior. En sesiones largas, se activarán descansos automáticos de 10 minutos (preguntas 80 hasta exámen completo).</span>
             </div>
             
             <div style="margin-bottom: 20px;">
@@ -449,5 +449,59 @@
     function cerrarSesion() { auth.signOut(); localStorage.clear(); location.reload(); }
     function limpiarSesion() { if(confirm("¿Seguro que quieres cancelar? Perderás el progreso de este test.")) { localStorage.removeItem('pmp_test_activo'); location.reload(); } }
 </script>
+<footer class="footer-autoria">
+    <div class="footer-line"></div>
+    <div class="footer-text">
+        <span class="nombre">Felipe Aldunate</span>
+        <span class="separador">•</span>
+        <a href="mailto:faldunate@gmail.com" class="email">faldunate@gmail.com</a>
+    </div>
+</footer>
+
+<style>
+    .footer-autoria {
+        width: 100%;
+        max-width: 800px;
+        margin: 60px auto 20px auto;
+        padding: 0 20px;
+        text-align: center;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .footer-line {
+        height: 1px;
+        background-color: #eeeeee;
+        margin-bottom: 20px;
+    }
+
+    .footer-text {
+        font-size: 0.85rem;
+        color: #888888;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .nombre {
+        font-weight: 600;
+        color: #555555;
+    }
+
+    .separador {
+        color: #cccccc;
+    }
+
+    .email {
+        color: #888888;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .email:hover {
+        color: #3861fb; /* Azul de tu interfaz */
+        text-decoration: underline;
+    }
+</style>
 </body>
 </html>
