@@ -22,25 +22,21 @@
         .screen { display: none; }
         .active { display: block; }
 
-        /* Auth UI */
         .auth-form { max-width: 450px; margin: 0 auto; }
         .auth-input { width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 12px; border: 1.5px solid #e2e8f0; font-size: 1rem; outline: none; }
         .auth-links { margin-top: 20px; text-align: center; font-size: 0.9rem; color: #64748b; }
         .auth-links a { color: var(--accent); text-decoration: none; font-weight: 600; cursor: pointer; margin: 0 5px; }
 
-        /* General UI */
         h1 { font-size: 3rem; font-weight: 800; color: var(--pmi-blue); text-align: center; letter-spacing: -0.04em; margin-bottom: 8px; }
         .subtitle { text-align: center; color: #64748b; font-size: 1.2rem; margin-bottom: 30px; }
         .disclaimer-elegant { background: #f1f5f9; border-radius: 16px; padding: 25px; margin-bottom: 35px; border: 1px solid #e2e8f0; text-align: center; font-size: 0.95rem; line-height: 1.6; color: #475569; }
         
-        /* Botones y Grilla */
         .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-top: 20px; }
         .btn-option { background: white; border: 1.5px solid #e2e8f0; padding: 20px; border-radius: 16px; font-weight: 700; cursor: pointer; transition: 0.2s; }
         .btn-option:hover { border-color: var(--accent); background: #f0f7ff; color: var(--accent); }
         .btn-featured { width: 100%; background: var(--pmi-blue); color: white; border: none; font-size: 1.1rem; padding: 24px; border-radius: 16px; cursor: pointer; font-weight: 700; }
         .btn-cancel { background: transparent; color: #64748b; border: none; padding: 10px 20px; border-radius: 12px; font-weight: 700; cursor: pointer; }
 
-        /* Quiz UI */
         .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
         .timer-pill { background: #f1f5f9; padding: 8px 16px; border-radius: 100px; font-weight: 700; font-family: monospace; }
         .progress-rail { width: 100%; height: 6px; background: #f1f5f9; border-radius: 10px; margin-bottom: 40px; }
@@ -49,7 +45,6 @@
         .ans-card { border: 1.5px solid #e2e8f0; padding: 22px; border-radius: 18px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; }
         .ans-card.selected { border-color: var(--accent); background: #eff6ff; color: var(--accent); font-weight: 600; }
 
-        /* INFORME MINIMALISTA */
         .minimal-report-item { padding: 30px 0; border-bottom: 1px solid #f1f5f9; }
         .minimal-report-item:last-child { border-bottom: none; }
         .rep-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
@@ -60,6 +55,79 @@
         .rep-tags { display: flex; gap: 8px; margin-bottom: 15px; }
         .rep-tag-item { font-size: 0.7rem; font-weight: 700; background: #f1f5f9; padding: 4px 10px; border-radius: 6px; color: #64748b; }
         .rep-explanation { font-size: 0.95rem; line-height: 1.6; color: #64748b; padding-left: 20px; border-left: 2px solid #f1f5f9; }
+
+        .instructions-section {
+            max-width: 800px;
+            margin: 20px auto 40px auto;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .instructions-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+
+        .instructions-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 12px;
+            color: #2c3e50;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .instructions-list li::before {
+            content: "•";
+            color: #3861fb;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+            position: absolute;
+            left: 5px;
+            font-size: 1.2rem;
+        }
+
+        .recommendation-banner {
+            background-color: #ebfbf4;
+            border: 1px solid #d1f2e4;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            color: #1a5c40;
+            font-weight: 600;
+            font-size: 1.05rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .app-footer {
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 1px solid #f1f5f9;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        .app-footer a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .app-footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 20px 12px; }
+            .main-container { padding: 28px 20px; border-radius: 24px; }
+            h1 { font-size: 2.1rem; }
+            .question-text { font-size: 1.25rem; }
+            .rep-answers { grid-template-columns: 1fr; }
+            .top-bar { gap: 12px; flex-wrap: wrap; }
+        }
     </style>
 </head>
 <body>
@@ -69,7 +137,7 @@
     <div id="screen-login" class="screen">
         <h1>PMP Simulator Pro</h1>
         <p class="subtitle">Simulador de práctica basado en estándares PMI</p>
-         <div class="disclaimer-elegant">
+        <div class="disclaimer-elegant">
             Este simulador NO corresponde a un examen oficial del PMI®. Es una herramienta de entrenamiento diseñada para reforzar conocimientos y familiarizarte con el formato del examen PMP®.
         </div>
         <div class="auth-form">
@@ -77,7 +145,7 @@
             <input type="password" id="login-pass" class="auth-input" placeholder="Contraseña">
             <button class="btn-featured" onclick="handleLogin()">Acceder</button>
             <div class="auth-links">
-                <a onclick="navigate('screen-register')">Crear cuenta</a> | 
+                <a onclick="navigate('screen-register')">Crear cuenta</a> |
                 <a onclick="handleResetPassword()">Recuperar contraseña</a>
             </div>
         </div>
@@ -135,70 +203,19 @@
             <button onclick="cerrarSesion()" style="background: none; border: none; cursor: pointer; color: #ef4444; font-weight: 600; font-size: 1rem; padding: 10px; font-family: 'Inter', sans-serif;">Cerrar Sesión</button>
         </div>
         <h1>Selecciona el test de tu interés.</h1>
-       <div class="instructions-section">
-    <ul class="instructions-list">
-        <li>Selecciona la cantidad de preguntas según tu objetivo de práctica.</li>
-        <li>Puedes elegir entre modo práctica o simulacro real.</li>
-        <li>Recibirás el feedback detallado únicamente al finalizar cada formato de test.</li>
-        <li>Lee cuidadosamente cada pregunta antes de responder.</li>
-        <li>Administra tu tiempo como en un examen real.</li>
-    </ul>
+        <div class="instructions-section">
+            <ul class="instructions-list">
+                <li>Selecciona la cantidad de preguntas según tu objetivo de práctica.</li>
+                <li>Puedes elegir entre modo práctica o simulacro real.</li>
+                <li>Recibirás el feedback detallado únicamente al finalizar cada formato de test.</li>
+                <li>Lee cuidadosamente cada pregunta antes de responder.</li>
+                <li>Administra tu tiempo como en un examen real.</li>
+            </ul>
 
-    <div class="recommendation-banner">
-        Se recomienda alcanzar al menos un 70% de respuestas correctas.
-    </div>
-</div>
-
-<style>
-    .instructions-section {
-        max-width: 800px;
-        margin: 20px auto 40px auto;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    .instructions-list {
-        list-style: none;
-        padding: 0;
-        margin-bottom: 30px;
-    }
-
-    .instructions-list li {
-        position: relative;
-        padding-left: 25px;
-        margin-bottom: 12px;
-        color: #2c3e50;
-        font-size: 1rem;
-        line-height: 1.5;
-    }
-
-    /* Punto azul de la lista */
-    .instructions-list li::before {
-        content: "•";
-        color: #3861fb; /* Azul de la captura */
-        font-weight: bold;
-        display: inline-block;
-        width: 1em;
-        margin-left: -1em;
-        position: absolute;
-        left: 5px;
-        font-size: 1.2rem;
-    }
-
-    .recommendation-banner {
-        background-color: #ebfbf4; /* Verde muy claro */
-        border: 1px solid #d1f2e4;
-        border-radius: 12px;
-        padding: 20px;
-        text-align: center;
-        color: #1a5c40; /* Verde oscuro para el texto */
-        font-weight: 600;
-        font-size: 1.05rem;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-    }
-</style> 
-        
-        
-        
+            <div class="recommendation-banner">
+                Se recomienda alcanzar al menos un 70% de respuestas correctas.
+            </div>
+        </div>
         
         <div class="menu-grid">
             <button class="btn-option" onclick="empezar(20)">Práctica 20</button>
@@ -213,7 +230,6 @@
 
         <div style="margin-top: 40px; display: flex; flex-direction: column; gap: 20px; align-items: center; border-top: 1px solid #f1f5f9; padding-top: 20px;">
             <a href="#" onclick="navigate('screen-instructions')" style="color: #64748b; text-decoration: none; font-size: 0.95rem; font-weight: 500;">← Volver al Set de Instrucciones</a>
-            <!--<button onclick="cerrarSesion()" style="background: none; border: none; cursor: pointer; color: #ef4444; font-weight: 600; font-size: 1rem; font-family: 'Inter', sans-serif;">Cerrar Sesión</button>-->
         </div>
     </div>
 
@@ -226,7 +242,7 @@
         <div class="progress-rail"><div class="progress-fill" id="p-bar"></div></div>
         <div class="question-text" id="texto-enunciado">Cargando...</div>
         <div id="contenedor-opciones"></div>
-        <div style="display: flex; justify-content: space-between; margin-top: 40px;">
+        <div style="display: flex; justify-content: space-between; margin-top: 40px; gap: 12px;">
             <button onclick="mover(-1)" style="padding: 15px 30px; border-radius: 12px; border: 1.5px solid #e2e8f0; cursor: pointer;">Anterior</button>
             <button id="btn-next" onclick="mover(1)" style="padding: 15px 40px; border-radius: 12px; background: var(--accent); color: white; border: none; cursor: pointer; font-weight: 700;">Siguiente</button>
         </div>
@@ -249,12 +265,16 @@
         <div style="margin-top: 40px; display: flex; flex-direction: column; gap: 15px; align-items: center; border-top: 1px solid #f1f5f9; padding-top: 30px;">
             <button class="btn-featured" onclick="volverASeleccion()" style="width: 100%; max-width: 300px;">
                 Volver al Set de Preguntas
-           </button>
-               <button onclick="cerrarSesion()" style="background: none; border: none; cursor: pointer; color: #ef4444; font-weight: 600; font-size: 1rem; padding: 10px; font-family: 'Inter', sans-serif;">
-                Cerrar Sesión 
-            </button> 
+            </button>
+            <button onclick="cerrarSesion()" style="background: none; border: none; cursor: pointer; color: #ef4444; font-weight: 600; font-size: 1rem; padding: 10px; font-family: 'Inter', sans-serif;">
+                Cerrar Sesión
+            </button>
         </div>
     </div>
+
+    <footer class="app-footer">
+        realizado por : Felipe Aldunate - <a href="mailto:faldunate@gmail.com">faldunate@gmail.com</a>
+    </footer>
 
 </div>
 
@@ -288,13 +308,13 @@
                 userChoices = JSON.parse(localStorage.getItem('pmp_userChoices')) || {};
                 segs = parseInt(localStorage.getItem('pmp_segs')) || 0;
                 navigate('screen-quiz');
-                iniciarReloj(); 
+                iniciarReloj();
                 dibujar();
-            } else { 
-                navigate('screen-instructions'); 
+            } else {
+                navigate('screen-instructions');
             }
-        } else { 
-            navigate('screen-login'); 
+        } else {
+            navigate('screen-login');
         }
     });
 
@@ -340,8 +360,8 @@
 
     function iniciarReloj() {
         if(timer) clearInterval(timer);
-        timer = setInterval(() => { 
-            segs++; 
+        timer = setInterval(() => {
+            segs++;
             localStorage.setItem('pmp_segs', segs);
             document.getElementById('reloj-digital').innerText = new Date(segs * 1000).toISOString().substr(11, 8);
         }, 1000);
@@ -368,7 +388,7 @@
     }
 
     function mover(d) {
-       let nuevoIdx = idx + d;
+        let nuevoIdx = idx + d;
         if (nuevoIdx >= 0 && nuevoIdx < qSet.length) {
             if (d === 1 && (nuevoIdx === 60 || nuevoIdx === 120)) {
                 idx = nuevoIdx;
@@ -377,19 +397,19 @@
                 idx = nuevoIdx;
                 dibujar();
             }
-        } 
+        }
         else if (nuevoIdx >= qSet.length) {
             finalizado();
         }
     }
 
-    function iniciarBreak() { 
-        clearInterval(timer); 
-        navigate('screen-break'); 
-        bSecs = 600; 
+    function iniciarBreak() {
+        clearInterval(timer);
+        navigate('screen-break');
+        bSecs = 600;
         document.getElementById('break-clock').innerText = "10:00";
-        bTimer = setInterval(() => { 
-            bSecs--; 
+        bTimer = setInterval(() => {
+            bSecs--;
             if(bSecs <= 0) {
                 terminarBreak();
             } else {
@@ -397,14 +417,14 @@
                 let s = bSecs % 60;
                 document.getElementById('break-clock').innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
             }
-        }, 1000); 
+        }, 1000);
     }
 
-    function terminarBreak() { 
-        clearInterval(bTimer); 
-        navigate('screen-quiz'); 
-        iniciarReloj(); 
-        dibujar(); 
+    function terminarBreak() {
+        clearInterval(bTimer);
+        navigate('screen-quiz');
+        iniciarReloj();
+        dibujar();
     }
 
     function finalizado() {
@@ -448,36 +468,6 @@
 
     function cerrarSesion() { auth.signOut(); localStorage.clear(); location.reload(); }
     function limpiarSesion() { if(confirm("¿Seguro que quieres cancelar? Perderás el progreso de este test.")) { localStorage.removeItem('pmp_test_activo'); location.reload(); } }
-</script>
-<body>
-
-<div class="screen-wrapper" style="display: flex; justify-content: center; align-items: start; min-height: 100vh; padding: 40px 20px;">
-
-    <div class="main-container">
-
-        <div class="profile-header" style="text-align: right; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #f1f5f9; color: #64748b; font-size: 0.9rem;">
-            <span style="font-weight: 700; color: #1e293b; margin-right: 5px;">Felipe Aldunate</span> • <span style="margin-left: 5px;">faldunate@gmail.com</span>
-        </div>
-
-        <div id="screen-login" class="screen">
-            <h1>PMP Simulator Pro</h1>
-            <p class="subtitle">Simulador de práctica basado en estándares PMI</p>
-             <div class="disclaimer-elegant">
-                Este simulador NO corresponde a un examen oficial del PMI®. Es una herramienta de entrenamiento diseñada para reforzar conocimientos y familiarizarte con el formato del examen PMP®.
-            </div>
-            <div class="auth-form">
-                <input type="email" id="login-email" class="auth-input" placeholder="Correo electrónico">
-                <input type="password" id="login-pass" class="auth-input" placeholder="Contraseña">
-                <button class="btn-featured" onclick="handleLogin()">Acceder</button>
-                <div class="auth-links">
-                    <a onclick="navigate('screen-register')">Crear cuenta</a> | 
-                    <a onclick="handleResetPassword()">Recuperar contraseña</a>
-                </div>
-            </div>
-        </div>
-
-        </div> </div> <script>
-    // ... tu código de Firebase y funciones JS no cambia ...
 </script>
 
 </body>
