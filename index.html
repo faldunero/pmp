@@ -82,10 +82,11 @@
  .filter-tab { padding: 8px 16px; border-radius: 100px; border: 1.5px solid #e2e8f0; background: white; font-size: 0.82rem; font-weight: 600; cursor: pointer; color: #64748b; transition: 0.15s; }
  .filter-tab.active { border-color: var(--accent); background: #eff6ff; color: var(--accent); }
 
- .rep-item { border: 1px solid #e2e8f0; border-radius: 20px; margin-bottom: 16px; overflow: hidden; transition: 0.2s; }
- .rep-item.correct { border-left: 4px solid var(--success); }
- .rep-item.incorrect { border-left: 4px solid var(--error); }
- .rep-item.omitted { border-left: 4px solid #f59e0b; }
+ .rep-item { border: 1.5px solid #cbd5e1; border-radius: 20px; margin-bottom: 16px; overflow: hidden; transition: 0.2s; }
+ .rep-item:hover { border-color: #94a3b8; }
+ .rep-item.correct { }
+ .rep-item.incorrect { }
+ .rep-item.omitted { }
  .rep-item-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; cursor: pointer; gap: 12px; }
  .rep-item-left { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
  .rep-badge { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; padding: 4px 10px; border-radius: 6px; flex-shrink: 0; }
@@ -589,12 +590,12 @@
  </div>
 
  <footer class="app-footer">
- realizado por : Felipe Aldunate - faldunate@gmail.com
+ realizado por : Felipe Aldunate - <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1d7b7c717968737c69785d7a707c7471337e7270">[email&#160;protected]</a>
  </footer>
 
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
  const firebaseConfig = {
  apiKey: "AIzaSyCIjxMJ1837p-rN7Husua5jgVLr9MRi_Fg",
  authDomain: "pmp-simulator-pro-c656a.firebaseapp.com",
@@ -1444,14 +1445,4 @@
                 edad,
                 pais,
                 provider: 'google',
-                creadoEn: new Date().toISOString()
-            });
-            navigate('screen-instructions');
-        } catch(e) {
-            alert('Error al guardar perfil: ' + e.message);
-        }
-    }
-
-</script>
-</body>
-</html>
+      
