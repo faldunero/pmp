@@ -95,8 +95,9 @@
  .rep-badge.omitted { background: #fef3c7; color: #92400e; }
  .rep-q-num { font-size: 0.75rem; font-weight: 700; color: #94a3b8; flex-shrink: 0; }
  .rep-q-preview { font-size: 0.92rem; font-weight: 600; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
- .rep-chevron { color: #94a3b8; font-size: 1.1rem; flex-shrink: 0; transition: transform 0.2s; }
- .rep-item.open .rep-chevron { transform: rotate(180deg); }
+ .rep-chevron { display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; background: #f1f5f9; color: #475569; font-size: 0.75rem; transition: transform 0.2s, background 0.15s; }
+ .rep-item:hover .rep-chevron { background: #e2e8f0; }
+ .rep-item.open .rep-chevron { transform: rotate(180deg); background: #e2e8f0; }
 
  .rep-item-body { display: none; padding: 0 22px 22px; border-top: 1px solid #f1f5f9; }
  .rep-item.open .rep-item-body { display: block; }
@@ -264,6 +265,53 @@
         }
         .auth-divider::before,
         .auth-divider::after { content: ''; flex: 1; height: 1px; background: #e2e8f0; }
+
+        /* ── TEACHER DASHBOARD ── */
+        .prof-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; flex-wrap: wrap; gap: 12px; }
+        .prof-header h2 { font-size: 1.8rem; font-weight: 800; color: var(--pmi-blue); margin: 0; }
+        .prof-kpi-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-bottom: 28px; }
+        .prof-kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 16px 18px; }
+        .prof-kpi-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #94a3b8; margin-bottom: 5px; }
+        .prof-kpi-value { font-size: 1.5rem; font-weight: 800; color: #0f172a; line-height: 1; }
+        .prof-kpi-sub { font-size: 0.75rem; color: #64748b; margin-top: 2px; }
+
+        .prof-filters { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px 22px; margin-bottom: 24px; }
+        .prof-filters-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #94a3b8; margin-bottom: 14px; }
+        .prof-filters-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+        .prof-filter-select { width: 100%; padding: 10px 12px; border-radius: 10px; border: 1.5px solid #e2e8f0; font-size: 0.85rem; font-family: 'Inter', sans-serif; background: white; color: #1e293b; outline: none; cursor: pointer; }
+        .prof-filter-select:focus { border-color: var(--accent); }
+        .prof-filter-btn { padding: 10px 18px; border-radius: 10px; border: none; background: var(--pmi-blue); color: white; font-size: 0.85rem; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; }
+        .prof-filter-btn.secondary { background: white; border: 1.5px solid #e2e8f0; color: #475569; }
+
+        .prof-table-wrap { margin-bottom: 28px; overflow-x: auto; }
+        .prof-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        .prof-table th { text-align: left; padding: 10px 14px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #94a3b8; border-bottom: 2px solid #f1f5f9; white-space: nowrap; }
+        .prof-table td { padding: 13px 14px; border-bottom: 1px solid #f8fafc; color: #1e293b; vertical-align: middle; }
+        .prof-table tr:hover td { background: #f8fafc; cursor: pointer; }
+        .prof-table .pill { font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 100px; white-space: nowrap; display: inline-block; }
+        .prof-table .pill.pass { background: #dcfce7; color: #166534; }
+        .prof-table .pill.warn { background: #fef9c3; color: #854d0e; }
+        .prof-table .pill.fail { background: #fee2e2; color: #991b1b; }
+        .prof-table .pill.neutral { background: #f1f5f9; color: #475569; }
+
+        .prof-detail-back { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+        .prof-detail-back button { background: none; border: 1.5px solid #e2e8f0; padding: 8px 16px; border-radius: 100px; font-weight: 600; cursor: pointer; color: #475569; font-size: 0.82rem; font-family: 'Inter', sans-serif; }
+        .prof-student-hero { background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%); border-radius: 20px; padding: 28px 32px; color: white; margin-bottom: 24px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+        .prof-student-avatar { width: 56px; height: 56px; border-radius: 50%; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; font-weight: 800; flex-shrink: 0; }
+        .prof-student-info h3 { font-size: 1.3rem; font-weight: 800; margin: 0 0 4px; }
+        .prof-student-info p { font-size: 0.82rem; opacity: 0.65; margin: 0; }
+        .prof-student-meta { display: flex; gap: 16px; margin-left: auto; flex-wrap: wrap; }
+        .prof-student-meta-item { text-align: center; }
+        .prof-student-meta-item .val { font-size: 1.4rem; font-weight: 800; display: block; }
+        .prof-student-meta-item .lbl { font-size: 0.7rem; opacity: 0.6; text-transform: uppercase; letter-spacing: 0.07em; }
+
+        .prof-empty { text-align: center; padding: 50px 20px; color: #94a3b8; }
+        .prof-loading { text-align: center; padding: 40px; color: #94a3b8; font-size: 0.9rem; }
+
+        @media (max-width: 600px) {
+            .prof-student-hero { flex-direction: column; }
+            .prof-student-meta { margin-left: 0; }
+        }
  </style>
 </head>
 <body>
@@ -589,13 +637,96 @@
  </div>
  </div>
 
+ <!-- TEACHER DASHBOARD -->
+ <div id="screen-teacher" class="screen">
+   <div class="prof-header">
+     <h2>Dashboard Profesor</h2>
+     <button onclick="cerrarSesion()" style="background:none;border:1.5px solid #fca5a5;padding:8px 18px;border-radius:100px;font-weight:600;cursor:pointer;color:#ef4444;font-size:0.82rem;font-family:'Inter',sans-serif;">Cerrar Sesión</button>
+   </div>
+
+   <!-- KPIs -->
+   <div class="prof-kpi-strip" id="prof-kpis">
+     <div class="prof-loading">Cargando datos...</div>
+   </div>
+
+   <!-- Filters -->
+   <div class="prof-filters">
+     <div class="prof-filters-title">Filtros</div>
+     <div class="prof-filters-grid">
+       <select class="prof-filter-select" id="f-pais">
+         <option value="">Todos los países</option>
+       </select>
+       <select class="prof-filter-select" id="f-genero">
+         <option value="">Todos los géneros</option>
+         <option value="masculino">Masculino</option>
+         <option value="femenino">Femenino</option>
+         <option value="no_binario">No binario</option>
+         <option value="prefiero_no_decir">Prefiero no decir</option>
+       </select>
+       <select class="prof-filter-select" id="f-edad">
+         <option value="">Todas las edades</option>
+         <option value="18-29">18 – 29</option>
+         <option value="30-39">30 – 39</option>
+         <option value="40-49">40 – 49</option>
+         <option value="50+">50+</option>
+       </select>
+       <select class="prof-filter-select" id="f-puntaje">
+         <option value="">Todos los puntajes</option>
+         <option value="pass">Aprobados (70%+)</option>
+         <option value="warn">Cerca (55–69%)</option>
+         <option value="fail">Por debajo (menos 55%)</option>
+       </select>
+       <select class="prof-filter-select" id="f-orden">
+         <option value="nombre">Ordenar por nombre</option>
+         <option value="puntaje_desc">Mayor puntaje</option>
+         <option value="puntaje_asc">Menor puntaje</option>
+         <option value="sesiones">Más activos</option>
+         <option value="reciente">Más recientes</option>
+       </select>
+       <button class="prof-filter-btn" onclick="aplicarFiltros()">Aplicar</button>
+       <button class="prof-filter-btn secondary" onclick="limpiarFiltros()">Limpiar</button>
+     </div>
+   </div>
+
+   <!-- Table -->
+   <div class="prof-table-wrap">
+     <table class="prof-table">
+       <thead>
+         <tr>
+           <th>Alumno</th>
+           <th>País</th>
+           <th>Género</th>
+           <th>Edad</th>
+           <th>Sesiones</th>
+           <th>Prom.</th>
+           <th>Mejor</th>
+           <th>Último test</th>
+           <th>Estado</th>
+         </tr>
+       </thead>
+       <tbody id="prof-tbody"></tbody>
+     </table>
+   </div>
+ </div>
+
+ <!-- STUDENT DETAIL VIEW -->
+ <div id="screen-teacher-detail" class="screen">
+   <div class="prof-detail-back">
+     <button onclick="navigate('screen-teacher')">← Volver al dashboard</button>
+   </div>
+   <div id="prof-detail-content">
+     <div class="prof-loading">Cargando alumno...</div>
+   </div>
+ </div>
+
+
  <footer class="app-footer">
- realizado por : Felipe Aldunate - <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1d7b7c717968737c69785d7a707c7471337e7270">[email&#160;protected]</a>
+ realizado por : Felipe Aldunate - faldunate@gmail.com
  </footer>
 
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
  const firebaseConfig = {
  apiKey: "AIzaSyCIjxMJ1837p-rN7Husua5jgVLr9MRi_Fg",
  authDomain: "pmp-simulator-pro-c656a.firebaseapp.com",
@@ -616,15 +747,25 @@
  function navigate(id) {
  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
  document.getElementById(id).classList.add('active');
+ window.scrollTo({ top: 0, behavior: 'smooth' });
  if (id === 'screen-login') {
  document.getElementById('login-email').value = '';
  document.getElementById('login-pass').value = '';
  }
  }
 
- auth.onAuthStateChanged(user => {
- if (isRegistering) return; // ignorar durante el registro
+ auth.onAuthStateChanged(async user => {
+ if (isRegistering) return;
  if (user) {
+ // Check rol in Firestore
+ try {
+ const perfil = await db.collection('usuarios').doc(user.uid).get();
+ const rol = perfil.exists ? (perfil.data().rol || 'alumno') : 'alumno';
+ if (rol === 'profesor') {
+ cargarDashboardProfesor();
+ return;
+ }
+ } catch(e) { console.warn('No se pudo leer rol:', e); }
  if (localStorage.getItem('pmp_test_activo') === "true") {
  qSet = JSON.parse(localStorage.getItem('pmp_qSet'));
  idx = parseInt(localStorage.getItem('pmp_idx')) || 0;
@@ -919,7 +1060,7 @@
  <span class="rep-q-num">P${i+1}</span>
  <span class="rep-q-preview">${(qField(q,'enunciado','pregunta','question') || '').substring(0, 100)}…</span>
  </div>
- <span class="rep-chevron"></span>
+ <span class="rep-chevron"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
  </div>
  <div class="rep-item-body">
  <div class="rep-full-question">${qField(q,'enunciado','pregunta','question') || ''}</div>
@@ -1458,6 +1599,278 @@
         } catch(e) {
             alert('Error al guardar perfil: ' + e.message);
         }
+    }
+
+    // ══════════════════════════════════════════════════
+    // TEACHER DASHBOARD
+    // ══════════════════════════════════════════════════
+
+    let allStudents = []; // full dataset for filtering
+
+    async function cargarDashboardProfesor() {
+        navigate('screen-teacher');
+        document.getElementById('prof-kpis').innerHTML = '<div class="prof-loading">Cargando datos...</div>';
+        document.getElementById('prof-tbody').innerHTML = '<tr><td colspan="9" class="prof-loading">Cargando alumnos...</td></tr>';
+
+        try {
+            // Load all users
+            const usersSnap = await db.collection('usuarios').get();
+            allStudents = [];
+
+            // Load historial for each student in parallel
+            const promises = [];
+            usersSnap.forEach(doc => {
+                const data = doc.data();
+                if (data.rol === 'profesor') return; // skip teachers
+                promises.push(
+                    Promise.all([
+                        db.collection('usuarios').doc(doc.id).collection('historial').orderBy('fecha','asc').get(),
+                        db.collection('usuarios').doc(doc.id).collection('historial_canceladas').get()
+                    ]).then(([histSnap, cancelSnap]) => {
+                        const sesiones = [];
+                        histSnap.forEach(s => sesiones.push({ id: s.id, ...s.data() }));
+                        const puntajes = sesiones.map(s => s.pct || 0);
+                        const promedio = puntajes.length ? Math.round(puntajes.reduce((a,b) => a+b,0) / puntajes.length) : null;
+                        const mejor = puntajes.length ? Math.max(...puntajes) : null;
+                        const ultima = sesiones.length ? sesiones[sesiones.length-1] : null;
+                        allStudents.push({
+                            uid: doc.id,
+                            nombre: data.nombre || '',
+                            apellido: data.apellido || '',
+                            email: data.email || '',
+                            pais: data.pais || '—',
+                            genero: data.genero || '—',
+                            edad: data.edad || '—',
+                            provider: data.provider || 'email',
+                            creadoEn: data.creadoEn || '',
+                            sesiones,
+                            canceladas: cancelSnap.size,
+                            promedio,
+                            mejor,
+                            ultima,
+                        });
+                    })
+                );
+            });
+
+            await Promise.all(promises);
+
+            // Populate country filter dynamically
+            const paises = [...new Set(allStudents.map(s => s.pais).filter(p => p && p !== '—'))].sort();
+            const fPais = document.getElementById('f-pais');
+            fPais.innerHTML = '<option value="">Todos los países</option>' +
+                paises.map(p => `<option value="${p}">${p}</option>`).join('');
+
+            renderDashboard(allStudents);
+
+        } catch(e) {
+            document.getElementById('prof-kpis').innerHTML = `<div style="color:#ef4444;padding:20px;">Error al cargar: ${e.message}</div>`;
+            console.error(e);
+        }
+    }
+
+    function aplicarFiltros() {
+        const pais    = document.getElementById('f-pais').value;
+        const genero  = document.getElementById('f-genero').value;
+        const edad    = document.getElementById('f-edad').value;
+        const puntaje = document.getElementById('f-puntaje').value;
+        const orden   = document.getElementById('f-orden').value;
+
+        let filtered = allStudents.filter(s => {
+            if (pais && s.pais !== pais) return false;
+            if (genero && s.genero !== genero) return false;
+            if (edad) {
+                const e = parseInt(s.edad) || 0;
+                if (edad === '18-29' && !(e >= 18 && e <= 29)) return false;
+                if (edad === '30-39' && !(e >= 30 && e <= 39)) return false;
+                if (edad === '40-49' && !(e >= 40 && e <= 49)) return false;
+                if (edad === '50+' && e < 50) return false;
+            }
+            if (puntaje && s.promedio !== null) {
+                if (puntaje === 'pass' && s.promedio < 70) return false;
+                if (puntaje === 'warn' && (s.promedio < 55 || s.promedio >= 70)) return false;
+                if (puntaje === 'fail' && s.promedio >= 55) return false;
+            }
+            return true;
+        });
+
+        // Sort
+        filtered.sort((a, b) => {
+            if (orden === 'nombre') return `${a.nombre} ${a.apellido}`.localeCompare(`${b.nombre} ${b.apellido}`);
+            if (orden === 'puntaje_desc') return (b.promedio || 0) - (a.promedio || 0);
+            if (orden === 'puntaje_asc') return (a.promedio || 0) - (b.promedio || 0);
+            if (orden === 'sesiones') return b.sesiones.length - a.sesiones.length;
+            if (orden === 'reciente') {
+                const fa = a.ultima ? a.ultima.fecha : '';
+                const fb = b.ultima ? b.ultima.fecha : '';
+                return fb.localeCompare(fa);
+            }
+            return 0;
+        });
+
+        renderDashboard(filtered);
+    }
+
+    function limpiarFiltros() {
+        ['f-pais','f-genero','f-edad','f-puntaje','f-orden'].forEach(id => {
+            document.getElementById(id).selectedIndex = 0;
+        });
+        renderDashboard(allStudents);
+    }
+
+    function renderDashboard(students) {
+        // KPIs
+        const total = students.length;
+        const conSesiones = students.filter(s => s.sesiones.length > 0);
+        const promGlobal = conSesiones.length
+            ? Math.round(conSesiones.reduce((a,s) => a + (s.promedio||0), 0) / conSesiones.length)
+            : 0;
+        const aprobados = conSesiones.filter(s => (s.promedio||0) >= 70).length;
+        const totalSesiones = students.reduce((a,s) => a + s.sesiones.length, 0);
+        const totalCanceladas = students.reduce((a,s) => a + s.canceladas, 0);
+
+        document.getElementById('prof-kpis').innerHTML = `
+            <div class="prof-kpi"><div class="prof-kpi-label">Alumnos</div><div class="prof-kpi-value">${total}</div><div class="prof-kpi-sub">registrados</div></div>
+            <div class="prof-kpi"><div class="prof-kpi-label">Promedio global</div><div class="prof-kpi-value">${promGlobal}%</div><div class="prof-kpi-sub">puntaje promedio</div></div>
+            <div class="prof-kpi"><div class="prof-kpi-label">Aprobados</div><div class="prof-kpi-value" style="color:var(--success)">${aprobados}</div><div class="prof-kpi-sub">sobre 70%</div></div>
+            <div class="prof-kpi"><div class="prof-kpi-label">Tests realizados</div><div class="prof-kpi-value">${totalSesiones}</div><div class="prof-kpi-sub">sesiones completas</div></div>
+            <div class="prof-kpi"><div class="prof-kpi-label">Cancelados</div><div class="prof-kpi-value" style="color:${totalCanceladas>0?'#b45309':'#0f172a'}">${totalCanceladas}</div><div class="prof-kpi-sub">tests interrumpidos</div></div>`;
+
+        // Table
+        if (!students.length) {
+            document.getElementById('prof-tbody').innerHTML =
+                '<tr><td colspan="9"><div class="prof-empty">No hay alumnos que coincidan con los filtros.</div></td></tr>';
+            return;
+        }
+
+        document.getElementById('prof-tbody').innerHTML = students.map(s => {
+            const prom = s.promedio !== null ? s.promedio : '—';
+            const mejor = s.mejor !== null ? s.mejor + '%' : '—';
+            const pillCls = s.promedio === null ? 'neutral' : s.promedio >= 70 ? 'pass' : s.promedio >= 55 ? 'warn' : 'fail';
+            const pillTxt = s.promedio === null ? 'Sin tests' : s.promedio >= 70 ? 'Aprobado' : s.promedio >= 55 ? 'Cerca' : 'Por debajo';
+            const ultimaFecha = s.ultima ? new Date(s.ultima.fecha).toLocaleDateString('es-CL') : '—';
+            const generoLabel = { masculino:'Masc.', femenino:'Fem.', no_binario:'NB', prefiero_no_decir:'N/D' }[s.genero] || s.genero;
+            return `<tr onclick="verDetalleAlumno('${s.uid}')">
+                <td><strong>${s.nombre} ${s.apellido}</strong><br><span style="font-size:0.75rem;color:#94a3b8;">${s.email}</span></td>
+                <td>${s.pais}</td>
+                <td>${generoLabel}</td>
+                <td>${s.edad}</td>
+                <td>${s.sesiones.length}</td>
+                <td><strong>${typeof prom === 'number' ? prom+'%' : prom}</strong></td>
+                <td>${mejor}</td>
+                <td style="font-size:0.8rem;color:#64748b;">${ultimaFecha}</td>
+                <td><span class="pill ${pillCls}">${pillTxt}</span></td>
+            </tr>`;
+        }).join('');
+    }
+
+    async function verDetalleAlumno(uid) {
+        navigate('screen-teacher-detail');
+        document.getElementById('prof-detail-content').innerHTML = '<div class="prof-loading">Cargando alumno...</div>';
+
+        const student = allStudents.find(s => s.uid === uid);
+        if (!student) {
+            document.getElementById('prof-detail-content').innerHTML = '<p style="color:#ef4444">Alumno no encontrado.</p>';
+            return;
+        }
+
+        const sesiones = student.sesiones;
+        const prom = student.promedio;
+        const pillCls = prom === null ? 'neutral' : prom >= 70 ? 'pass' : prom >= 55 ? 'warn' : 'fail';
+        const pillTxt = prom === null ? 'Sin tests' : prom >= 70 ? 'Aprobado' : prom >= 55 ? 'Cerca del umbral' : 'Por debajo';
+        const initials = `${student.nombre.charAt(0)}${student.apellido.charAt(0)}`.toUpperCase();
+
+        // Build mini chart SVG
+        let chartSvg = '';
+        if (sesiones.length >= 2) {
+            const W = 400, H = 80, PL = 10, PR = 10, PT = 10, PB = 20;
+            const scores = sesiones.map(s => s.pct || 0);
+            const minS = Math.max(0, Math.min(...scores) - 10);
+            const maxS = Math.min(100, Math.max(...scores) + 10);
+            const cW = W - PL - PR, cH = H - PT - PB;
+            const xStep = cW / (sesiones.length - 1);
+            const toX = i => PL + i * xStep;
+            const toY = v => PT + cH - ((v - minS) / (maxS - minS || 1)) * cH;
+            const pts = sesiones.map((s,i) => `${toX(i)},${toY(s.pct||0)}`).join(' ');
+            chartSvg = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;margin-top:16px;">
+                <line x1="${PL}" y1="${toY(70)}" x2="${W-PR}" y2="${toY(70)}" stroke="#2563eb" stroke-width="1" stroke-dasharray="4,3" opacity="0.4"/>
+                <polyline points="${pts}" fill="none" stroke="#2563eb" stroke-width="2" stroke-linejoin="round"/>
+                ${sesiones.map((s,i) => {
+                    const color = (s.pct||0) >= 70 ? '#10b981' : (s.pct||0) >= 55 ? '#f59e0b' : '#ef4444';
+                    return `<circle cx="${toX(i)}" cy="${toY(s.pct||0)}" r="4" fill="${color}" stroke="white" stroke-width="1.5"/>`;
+                }).join('')}
+            </svg>`;
+        }
+
+        // Domain breakdown across all sessions
+        const dominios = {};
+        sesiones.forEach(s => {
+            if (!s.dominios) return;
+            Object.entries(s.dominios).forEach(([d, v]) => {
+                if (!dominios[d]) dominios[d] = { ok:0, total:0 };
+                dominios[d].ok += v.ok; dominios[d].total += v.total;
+            });
+        });
+        const domBars = Object.entries(dominios).map(([name, v]) => {
+            const pct = v.total ? Math.round((v.ok/v.total)*100) : 0;
+            const color = pct >= 70 ? '#10b981' : pct >= 55 ? '#f59e0b' : '#ef4444';
+            return `<div class="domain-row">
+                <div class="domain-name" title="${name}">${name}</div>
+                <div class="domain-track"><div class="domain-fill" style="width:${pct}%;background:${color}"></div></div>
+                <div class="domain-pct">${pct}%</div>
+                <div class="domain-count">${v.ok}/${v.total}</div>
+            </div>`;
+        }).join('');
+
+        // Session history table
+        const histRows = [...sesiones].reverse().map((s, i) => {
+            const fecha = new Date(s.fecha).toLocaleDateString('es-CL');
+            const pc = (s.pct||0) >= 70 ? 'pass' : (s.pct||0) >= 55 ? 'warn' : 'fail';
+            return `<tr>
+                <td>${sesiones.length - i}</td>
+                <td>${fecha}</td>
+                <td>${s.total || '?'} preguntas</td>
+                <td>${s.tiempo || '—'}</td>
+                <td><span class="pill ${pc}">${s.pct||0}%</span></td>
+                <td style="font-size:0.8rem;color:#64748b;">${s.correctas||0}C / ${s.incorrectas||0}I / ${s.omitidas||0}O</td>
+            </tr>`;
+        }).join('');
+
+        document.getElementById('prof-detail-content').innerHTML = `
+            <div class="prof-student-hero">
+                <div class="prof-student-avatar">${initials}</div>
+                <div class="prof-student-info">
+                    <h3>${student.nombre} ${student.apellido}</h3>
+                    <p>${student.email} · ${student.pais} · ${student.genero} · ${student.edad} años</p>
+                </div>
+                <div class="prof-student-meta">
+                    <div class="prof-student-meta-item"><span class="val">${sesiones.length}</span><span class="lbl">Sesiones</span></div>
+                    <div class="prof-student-meta-item"><span class="val">${prom !== null ? prom+'%' : '—'}</span><span class="lbl">Promedio</span></div>
+                    <div class="prof-student-meta-item"><span class="val">${student.mejor !== null ? student.mejor+'%' : '—'}</span><span class="lbl">Mejor marca</span></div>
+                    <div class="prof-student-meta-item"><span class="val">${student.canceladas}</span><span class="lbl">Cancelados</span></div>
+                </div>
+            </div>
+
+            <div style="margin-bottom:24px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+                    <h3 style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#94a3b8;margin:0;">Evolución de puntaje</h3>
+                    <span class="pill ${pillCls}">${pillTxt}</span>
+                </div>
+                ${sesiones.length >= 2 ? chartSvg : '<p style="color:#94a3b8;font-size:0.85rem;">Se necesitan al menos 2 sesiones para mostrar el gráfico.</p>'}
+            </div>
+
+            ${domBars ? `<div style="margin-bottom:24px;">
+                <h3 style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#94a3b8;margin-bottom:14px;">Rendimiento por Dominio ECO</h3>
+                ${domBars}
+            </div>` : ''}
+
+            <div>
+                <h3 style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#94a3b8;margin-bottom:14px;">Historial de sesiones</h3>
+                ${sesiones.length ? `<div style="overflow-x:auto;"><table class="prof-table">
+                    <thead><tr><th>#</th><th>Fecha</th><th>Test</th><th>Tiempo</th><th>Puntaje</th><th>Detalle</th></tr></thead>
+                    <tbody>${histRows}</tbody>
+                </table></div>` : '<p style="color:#94a3b8;font-size:0.85rem;">Sin sesiones registradas.</p>'}
+            </div>`;
     }
 
 </script>
