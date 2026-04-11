@@ -1389,8 +1389,15 @@
 
     async function handleGoogleLogin() {
         const provider = new firebase.auth.GoogleAuthProvider();
+        // Force account selector every time — even if there's an active session
+        provider.setCustomParameters({ prompt: 'select_account' });
+
         try {
             isRegistering = true;
+
+            // Sign out first so onAuthStateChanged doesn't fire mid-flow
+            await auth.signOut();
+
             const cred = await auth.signInWithPopup(provider);
             const user = cred.user;
 
@@ -1402,7 +1409,7 @@
                 isRegistering = false;
                 navigate('screen-instructions');
             } else {
-                // New Google user — collect extra profile data
+                // New Google user — show profile completion form
                 const displayName = user.displayName || '';
                 const nameParts = displayName.split(' ');
                 const nombre = nameParts[0] || '';
@@ -1416,7 +1423,7 @@
             }
         } catch(e) {
             isRegistering = false;
-            if (e.code !== 'auth/popup-closed-by-user') {
+            if (e.code !== 'auth/popup-closed-by-user' && e.code !== 'auth/cancelled-popup-request') {
                 alert('Error al iniciar sesión con Google: ' + e.message);
             }
         }
@@ -1445,4 +1452,14 @@
                 edad,
                 pais,
                 provider: 'google',
-      
+                      creadoEn: new Date().toISOString()
+            });
+            navigate('screen-instructions');
+        } catch(e) {
+            alert('Error al guardar perfil: ' + e.message);
+        }
+    }
+
+</script>
+</body>
+</html>
