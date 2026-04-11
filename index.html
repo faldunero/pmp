@@ -231,6 +231,38 @@
  .hist-row-time { display: none; }
  .hist-row-n { display: none; }
  }
+
+        /* Google button */
+        .btn-google {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1.5px solid #e2e8f0;
+            background: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            color: #1e293b;
+            transition: border-color 0.15s, background 0.15s;
+            font-family: 'Inter', sans-serif;
+            margin-bottom: 15px;
+        }
+        .btn-google:hover { border-color: #94a3b8; background: #f8fafc; }
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 4px 0 18px;
+            color: #94a3b8;
+            font-size: 0.82rem;
+            font-weight: 500;
+        }
+        .auth-divider::before,
+        .auth-divider::after { content: ''; flex: 1; height: 1px; background: #e2e8f0; }
  </style>
 </head>
 <body>
@@ -244,6 +276,11 @@
  Este simulador NO corresponde a un examen oficial del PMI®. Es una herramienta de entrenamiento diseñada para reforzar conocimientos y familiarizarte con el formato del examen PMP®.
  </div>
  <div class="auth-form">
+ <button class="btn-google" onclick="handleGoogleLogin()">
+   <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.35-8.16 2.35-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/><path fill="none" d="M0 0h48v48H0z"/></svg>
+   Continuar con Google
+ </button>
+ <div class="auth-divider">o ingresa con tu cuenta</div>
  <input type="email" id="login-email" class="auth-input" placeholder="Correo electrónico">
  <input type="password" id="login-pass" class="auth-input" placeholder="Contraseña">
  <button class="btn-featured" onclick="handleLogin()">Acceder</button>
@@ -312,6 +349,62 @@
  <div class="auth-links"><a onclick="navigate('screen-login')">Volver al inicio</a></div>
  </div>
  </div>
+
+ <div id="screen-google-complete" class="screen">
+ <h1>Completa tu perfil</h1>
+ <p class="subtitle" style="margin-bottom:24px;">Solo necesitamos algunos datos adicionales</p>
+ <div class="auth-form">
+   <div style="display:flex; gap:10px;">
+     <input type="text" id="gc-nombre" class="auth-input" placeholder="Nombre" readonly style="background:#f8fafc; color:#64748b;">
+     <input type="text" id="gc-apellido" class="auth-input" placeholder="Apellido" readonly style="background:#f8fafc; color:#64748b;">
+   </div>
+   <input type="email" id="gc-email" class="auth-input" placeholder="Email" readonly style="background:#f8fafc; color:#64748b;">
+   <div style="display:flex; gap:10px;">
+     <select id="gc-genero" class="auth-input" style="color:#1e293b;">
+       <option value="" disabled selected>Género</option>
+       <option value="masculino">Masculino</option>
+       <option value="femenino">Femenino</option>
+       <option value="no_binario">No binario</option>
+       <option value="prefiero_no_decir">Prefiero no decir</option>
+     </select>
+     <input type="number" id="gc-edad" class="auth-input" placeholder="Edad" min="18" max="99" style="width:110px; flex-shrink:0;">
+   </div>
+   <select id="gc-pais" class="auth-input" style="color:#1e293b;">
+     <option value="" disabled selected>País</option>
+     <optgroup label="España"><option value="España">España</option></optgroup>
+     <optgroup label="América del Norte">
+       <option value="México">México</option>
+       <option value="Estados Unidos">Estados Unidos</option>
+       <option value="Canadá">Canadá</option>
+     </optgroup>
+     <optgroup label="América Central y Caribe">
+       <option value="Guatemala">Guatemala</option>
+       <option value="Honduras">Honduras</option>
+       <option value="El Salvador">El Salvador</option>
+       <option value="Nicaragua">Nicaragua</option>
+       <option value="Costa Rica">Costa Rica</option>
+       <option value="Panamá">Panamá</option>
+       <option value="Cuba">Cuba</option>
+       <option value="República Dominicana">República Dominicana</option>
+       <option value="Puerto Rico">Puerto Rico</option>
+     </optgroup>
+     <optgroup label="América del Sur">
+       <option value="Colombia">Colombia</option>
+       <option value="Venezuela">Venezuela</option>
+       <option value="Ecuador">Ecuador</option>
+       <option value="Perú">Perú</option>
+       <option value="Bolivia">Bolivia</option>
+       <option value="Chile">Chile</option>
+       <option value="Argentina">Argentina</option>
+       <option value="Uruguay">Uruguay</option>
+       <option value="Paraguay">Paraguay</option>
+       <option value="Brasil">Brasil</option>
+     </optgroup>
+   </select>
+   <button class="btn-featured" onclick="handleGoogleComplete()">Guardar y entrar</button>
+ </div>
+ </div>
+
 
  <div id="screen-instructions" class="screen">
  <div style="display: flex; justify-content: flex-end; width: 100%; margin-bottom: 10px;">
@@ -407,6 +500,12 @@
 
  <div id="screen-report" class="screen">
 
+ <!-- Top action bar -->
+ <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+   <button onclick="volverASeleccion()" style="background:none; border:1.5px solid #e2e8f0; padding:9px 18px; border-radius:100px; font-weight:600; cursor:pointer; color:#475569; font-size:0.85rem; font-family:'Inter',sans-serif;">← Volver a Tests</button>
+   <button onclick="cerrarSesion()" style="background:none; border:1.5px solid #fca5a5; padding:9px 18px; border-radius:100px; font-weight:600; cursor:pointer; color:#ef4444; font-size:0.85rem; font-family:'Inter',sans-serif;">Cerrar Sesión</button>
+ </div>
+
  <!-- Hero / Score -->
  <div class="report-hero">
  <div class="report-score-ring">
@@ -490,12 +589,12 @@
  </div>
 
  <footer class="app-footer">
- realizado por : Felipe Aldunate - <a href="/cdn-cgi/l/email-protection#6a0c0b060e1f040b1e0f2a0d070b030644090507"><span class="__cf_email__" data-cfemail="1c7a7d707869727d68795c7b717d7570327f7371">[email&#160;protected]</span></a>
+ realizado por : Felipe Aldunate - faldunate@gmail.com
  </footer>
 
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
  const firebaseConfig = {
  apiKey: "AIzaSyCIjxMJ1837p-rN7Husua5jgVLr9MRi_Fg",
  authDomain: "pmp-simulator-pro-c656a.firebaseapp.com",
@@ -1275,11 +1374,81 @@
                 total: qSet.length,
                 preguntasRespondidas,
                 preguntaAlCancelar: idx + 1,
-                segs,
+                           segs,
                 tiempo: document.getElementById('reloj-digital').innerText
             });
         } catch(e) {
             console.warn('No se pudo guardar cancelación:', e);
+        }
+    }
+
+    // ══════════════════════════════════════════════════
+    // GOOGLE AUTH
+    // ══════════════════════════════════════════════════
+
+    async function handleGoogleLogin() {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        try {
+            isRegistering = true;
+            const cred = await auth.signInWithPopup(provider);
+            const user = cred.user;
+
+            // Check if profile already exists in Firestore
+            const doc = await db.collection('usuarios').doc(user.uid).get();
+
+            if (doc.exists) {
+                // Returning user — go straight in
+                isRegistering = false;
+                navigate('screen-instructions');
+            } else {
+                // New Google user — collect extra profile data
+                const displayName = user.displayName || '';
+                const nameParts = displayName.split(' ');
+                const nombre = nameParts[0] || '';
+                const apellido = nameParts.slice(1).join(' ') || '';
+
+                document.getElementById('gc-nombre').value = nombre;
+                document.getElementById('gc-apellido').value = apellido;
+                document.getElementById('gc-email').value = user.email || '';
+                isRegistering = false;
+                navigate('screen-google-complete');
+            }
+        } catch(e) {
+            isRegistering = false;
+            if (e.code !== 'auth/popup-closed-by-user') {
+                alert('Error al iniciar sesión con Google: ' + e.message);
+            }
+        }
+    }
+
+    async function handleGoogleComplete() {
+        const user = auth.currentUser;
+        if (!user) return navigate('screen-login');
+
+        const genero = document.getElementById('gc-genero').value;
+        const edad   = parseInt(document.getElementById('gc-edad').value);
+        const pais   = document.getElementById('gc-pais').value;
+        const nombre   = document.getElementById('gc-nombre').value.trim();
+        const apellido = document.getElementById('gc-apellido').value.trim();
+
+        if (!genero) return alert('Selecciona tu género.');
+        if (!edad || edad < 18 || edad > 99) return alert('Ingresa una edad válida (18–99).');
+        if (!pais) return alert('Selecciona tu país.');
+
+        try {
+            await db.collection('usuarios').doc(user.uid).set({
+                nombre,
+                apellido,
+                email: user.email,
+                genero,
+                edad,
+                pais,
+                provider: 'google',
+                creadoEn: new Date().toISOString()
+            });
+            navigate('screen-instructions');
+        } catch(e) {
+            alert('Error al guardar perfil: ' + e.message);
         }
     }
 
