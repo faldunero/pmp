@@ -312,6 +312,11 @@
             .prof-student-hero { flex-direction: column; }
             .prof-student-meta { margin-left: 0; }
         }
+
+        /* User info bar */
+        .user-bar { display: flex; justify-content: flex-end; align-items: flex-end; flex-direction: column; gap: 1px; margin-bottom: 16px; text-align: right; }
+        .user-bar-name { font-size: 0.78rem; font-weight: 700; color: #475569; }
+        .user-bar-meta { font-size: 0.7rem; color: #94a3b8; font-weight: 400; }
  </style>
 </head>
 <body>
@@ -341,7 +346,7 @@
  </div>
 
  <div id="screen-register" class="screen">
- <h1>Registro Profesional</h1>
+ <h1>Ficha de Registro</h1>
  <div class="auth-form">
  <div style="display: flex; gap: 10px;">
  <input type="text" id="reg-nombre" class="auth-input" placeholder="Nombre">
@@ -395,7 +400,7 @@
  </optgroup>
  </select>
  <button class="btn-featured" onclick="handleRegister()">Registrarme</button>
- <div class="auth-links"><a onclick="navigate('screen-login')">Volver al inicio</a></div>
+ <div class="auth-links"><a onclick="navigate('screen-login')">Cerrar</a></div>
  </div>
  </div>
 
@@ -456,6 +461,8 @@
 
 
  <div id="screen-instructions" class="screen">
+ <div class="user-bar"><div class="user-bar-name" id="ubar-name-instr"></div><div class="user-bar-meta" id="ubar-meta-instr"></div></div>
+
  <div style="display: flex; justify-content: flex-end; width: 100%; margin-bottom: 10px;">
  <button onclick="cerrarSesion()" style="background: none; border: none; cursor: pointer; color: #ef4444; font-weight: 600; font-size: 1rem; padding: 10px; font-family: 'Inter', sans-serif;">Cerrar Sesión</button>
  </div>
@@ -470,17 +477,22 @@
  
  <div style="margin-bottom: 20px;">
  <strong style="color: var(--pmi-blue); display: block; margin-bottom: 5px;">2. Tiempo y Descansos</strong>
- <span>Cronómetro integrado en la barra superior. En sesiones largas, se activarán descansos automáticos de 10 minutos (preguntas 80 hasta exámen completo).</span>
- </div>
- 
- <div style="margin-bottom: 20px;">
- <strong style="color: var(--pmi-blue); display: block; margin-bottom: 5px;">3. Navegación y Progreso</strong>
- <span>Puedes retroceder para revisar tus respuestas. El sistema guarda tu progreso automáticamente si cierras la sesión accidentalmente.</span>
+ <span>El simulador incluye un cronómetro integrado en la barra superior. En tests de 80 preguntas o más, el sistema activa automáticamente un <strong>descanso voluntario de 10 minutos</strong> al completar el bloque anterior. Puedes retomarlo en cualquier momento o esperar a que se agote el tiempo.</span>
  </div>
 
  <div style="margin-bottom: 20px;">
- <strong style="color: var(--pmi-blue); display: block; margin-bottom: 5px;">4. Resultados Detallados</strong>
- <span>Al finalizar, obtendrás un análisis por dominio ECO y la justificación técnica de cada respuesta correcta.</span>
+ <strong style="color: var(--pmi-blue); display: block; margin-bottom: 5px;">3. Restricción de Navegación tras el Descanso</strong>
+ <span>Una vez que se activa el descanso y reanudas el test, <strong>no podrás volver a las preguntas del bloque anterior</strong>. Esta regla replica las condiciones del examen oficial PMP®, donde cada sección es independiente y no permite retroceder entre bloques.</span>
+ </div>
+
+ <div style="margin-bottom: 20px;">
+ <strong style="color: var(--pmi-blue); display: block; margin-bottom: 5px;">4. Navegación y Progreso</strong>
+ <span>Dentro de cada bloque puedes retroceder para revisar tus respuestas. El sistema guarda tu progreso automáticamente en caso de que cierres la sesión accidentalmente.</span>
+ </div>
+
+ <div style="margin-bottom: 20px;">
+ <strong style="color: var(--pmi-blue); display: block; margin-bottom: 5px;">5. Resultados Detallados</strong>
+ <span>Al finalizar, obtendrás un análisis por dominio ECO, rendimiento por enfoque (predictivo, ágil e híbrido) y la justificación técnica de cada respuesta correcta.</span>
  </div>
  </div>
 
@@ -491,6 +503,8 @@
  </div>
 
  <div id="screen-selection" class="screen">
+ <div class="user-bar"><div class="user-bar-name" id="ubar-name-sel"></div><div class="user-bar-meta" id="ubar-meta-sel"></div></div>
+
  <div style="display: flex; justify-content: flex-end; width: 100%; margin-bottom: 10px;">
  <button onclick="cerrarSesion()" style="background: none; border: none; cursor: pointer; color: #ef4444; font-weight: 600; font-size: 1rem; padding: 10px; font-family: 'Inter', sans-serif;">Cerrar Sesión</button>
  </div>
@@ -614,6 +628,8 @@
 
 
  <div id="screen-history" class="screen">
+ <div class="user-bar"><div class="user-bar-name" id="ubar-name-hist"></div><div class="user-bar-meta" id="ubar-meta-hist"></div></div>
+
  <div class="hist-topbar">
  <h2> Mi Progreso</h2>
  <button onclick="navigate('screen-selection')" style="background:none;border:1.5px solid #e2e8f0;padding:8px 18px;border-radius:100px;font-weight:600;cursor:pointer;color:#475569;font-size:0.85rem;">← Volver</button>
@@ -639,6 +655,8 @@
 
  <!-- TEACHER DASHBOARD -->
  <div id="screen-teacher" class="screen">
+ <div class="user-bar"><div class="user-bar-name" id="ubar-name-teach"></div><div class="user-bar-meta" id="ubar-meta-teach"></div></div>
+
    <div class="prof-header">
      <h2>Dashboard Profesor</h2>
      <button onclick="cerrarSesion()" style="background:none;border:1.5px solid #fca5a5;padding:8px 18px;border-radius:100px;font-weight:600;cursor:pointer;color:#ef4444;font-size:0.82rem;font-family:'Inter',sans-serif;">Cerrar Sesión</button>
@@ -1867,10 +1885,35 @@
             <div>
                 <h3 style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#94a3b8;margin-bottom:14px;">Historial de sesiones</h3>
                 ${sesiones.length ? `<div style="overflow-x:auto;"><table class="prof-table">
-                    <thead><tr><th>#</th><th>Fecha</th><th>Test</th><th>Tiempo</th><th>Puntaje</th><th>Detalle</th></tr></thead>
+                    <thead><tr><th>#</th><th>Fecha</th><th>Test</th><th>Tiempo</th><th>Puntaje</th><th>Detalle<                    <thead><tr><th>#</th><th>Fecha</th><th>Test</th><th>Tiempo</th><th>Puntaje</th><th>Detalle</th></tr></thead>
                     <tbody>${histRows}</tbody>
                 </table></div>` : '<p style="color:#94a3b8;font-size:0.85rem;">Sin sesiones registradas.</p>'}
             </div>`;
+    }
+
+    // ══════════════════════════════════════════════════
+    // USER INFO BAR
+    // ══════════════════════════════════════════════════
+    function actualizarUserBar(user, perfil) {
+        const nombre = perfil ? `${perfil.nombre || ''} ${perfil.apellido || ''}`.trim() : (user.displayName || user.email);
+        const ahora = new Date().toLocaleDateString('es-CL', { weekday:'short', day:'2-digit', month:'short', year:'numeric' });
+        const ultimoLogin = user.metadata && user.metadata.lastSignInTime
+            ? new Date(user.metadata.lastSignInTime).toLocaleDateString('es-CL', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' })
+            : '—';
+
+        const barIds = [
+            ['ubar-name-instr','ubar-meta-instr'],
+            ['ubar-name-sel',  'ubar-meta-sel'],
+            ['ubar-name-hist', 'ubar-meta-hist'],
+            ['ubar-name-teach','ubar-meta-teach'],
+        ];
+
+        barIds.forEach(([nameId, metaId]) => {
+            const nameEl = document.getElementById(nameId);
+            const metaEl = document.getElementById(metaId);
+            if (nameEl) nameEl.textContent = nombre;
+            if (metaEl) metaEl.textContent = `${ahora}  ·  Último acceso: ${ultimoLogin}`;
+        });
     }
 
 </script>
