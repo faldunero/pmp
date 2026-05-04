@@ -1,0 +1,161 @@
+rules_version = '2';
+
+// ============================================================================
+// PMP Simulator Pro — Reglas de seguridad de Firestore
+// ----------------------------------------------------------------------------
+// Modelo de roles:
+//   - alumno  : usuario regular, solo accede a sus propios datos
+//   - profesor: admin, validado por custom claim `profesor == true` en el token
+//
+// La asignación del custom claim se hace SOLO desde Cloud Functions
+// (ver functions/index.js -> setProfesorClaim) o desde el script
+// scripts/bootstrap_admin.js. Nunca desde el cliente.
+//
+// Importante: en estas reglas confiamos exclusivamente en `request.auth.token`
+// para verificar el rol. NO leemos el campo `rol` del documento del usuario,
+// porque ese campo es escribible por el propio usuario y permitiría escalar
+// privilegios (un alumno podría auto-promoverse a profesor).
+// ============================================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ---------- Helpers ----------
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    function isProfesor() {
+      return isSignedIn() && request.auth.token.profesor == true;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.admin == true;
+    }
+
+    // El profesor puede crear/editar preguntas, pero hay campos que solo
+    // se pueden poblar server-side (creadoPor, creadoEn). Validamos forma.
+    function preguntaPayloadValida() {
+      return request.resource.data.keys().hasAll(
+        ['enunciado', 'opciones', 'respuesta_correcta']
+      )
+        && request.resource.data.enunciado is string
+        && request.resource.data.enunciado.size() > 0
+        && request.resource.data.enunciado.size() < 4000
+        && request.resource.data.respuesta_correcta in ['A', 'B', 'C', 'D'];
+    }
+
+    // ---------- usuarios/{uid} ----------
+    // El propio usuario puede leer y crear/actualizar su perfil, pero NO
+    // puede tocar campos sensibles de control (ej: `rol`, si llegara a
+    // existir). El profesor puede leer todos los perfiles para el dashboard.
+    match /usuarios/{uid} {
+      allow read: if isOwner(uid) || isProfesor();
+
+      // Crear: solo el propio usuario, y no puede setearse `rol` ni `profesor`
+      allow create: if isOwner(uid)
+        && !request.resource.data.keys().hasAny(['rol', 'profesor', 'admin']);
+
+      // Update: solo el dueño, y nunca puede tocar campos privilegiados:
+      //   - rol/profesor/admin: roles y autorización (solo via custom claims)
+      //   - fechaRegistro/email: identidad
+      //   - acceso_validUntil: vigencia del pago (solo Cloud Function tras PayPal)
+      //   - simulacros_gratis_usados: contador del free trial (solo Cloud Function)
+      allow update: if isOwner(uid)
+        && !request.resource.data.diff(resource.data)
+              .affectedKeys()
+              .hasAny([
+                'rol', 'profesor', 'admin',
+                'fechaRegistro', 'email',
+                'acceso_validUntil', 'simulacros_gratis_usados'
+              ]);
+
+      // Solo el admin puede borrar perfiles (no el profesor).
+      allow delete: if isAdmin();
+
+      // ---------- usuarios/{uid}/historial/{sesion} ----------
+      // El historial guarda los resultados de cada simulación.
+      // Lo escribe el alumno al terminar, lo lee el dueño y el profesor.
+      match /historial/{sesionId} {
+        allow read: if isOwner(uid) || isProfesor();
+        allow create: if isOwner(uid);
+        // No permitir editar/borrar historial: integridad académica.
+        // El profesor puede borrar si necesita limpiar datos de prueba.
+        allow update: if false;
+        allow delete: if isProfesor();
+      }
+
+      // ---------- usuarios/{uid}/historial_canceladas/{sesion} ----------
+      // Tests que el alumno abandonó antes de finalizar.
+      // Mismas reglas que historial: dueño y profesor leen, dueño escribe.
+      match /historial_canceladas/{sesionId} {
+        allow read: if isOwner(uid) || isProfesor();
+        allow create: if isOwner(uid);
+        allow update: if false;
+        allow delete: if isProfesor();
+      }
+    }
+
+    // ---------- preguntas_pmp/{preguntaId} ----------
+    // Banco de preguntas. Lectura DIRECTA bloqueada para alumnos: deben
+    // pasar por la Cloud Function getQuestions (autenticada). Esto evita
+    // que un alumno con la consola del navegador haga
+    //   db.collection('preguntas_pmp').get()
+    // y baje el banco completo con respuestas.
+    //
+    // Escritura: SOLO profesor (manual desde consola Firebase o vía
+    // Cloud Function uploadQuestions, que corre con admin SDK).
+    match /preguntas_pmp/{preguntaId} {
+      allow read: if isProfesor();
+      allow create, update: if isProfesor() && preguntaPayloadValida();
+      allow delete: if isProfesor();
+    }
+
+    // ---------- payments/{paymentId} ----------
+    // Registro de pagos PayPal. Escritura SOLO server-side (admin SDK
+    // dentro de Cloud Functions, después de validar la firma del webhook).
+    // Cualquier intento de write desde el cliente queda denegado.
+    match /payments/{paymentId} {
+      allow read: if isOwner(resource.data.uid) || isProfesor();
+      allow write: if false; // siempre desde Cloud Function con admin SDK
+    }
+
+    // ---------- payment_events/{eventId} ----------
+    // Log de eventos de webhook PayPal (para auditoría / idempotencia).
+    // Solo profesor puede leer. Escritura solo server-side.
+    match /payment_events/{eventId} {
+      allow read: if isProfesor();
+      allow write: if false;
+    }
+
+    // ---------- config/{configId} ----------
+    // Configuración global del sistema (ej: free_trial). El cliente la lee
+    // para que la UI sepa qué tamaños de simulacro están permitidos durante
+    // el trial. La escritura siempre pasa por la Cloud Function setTrialConfig
+    // (que valida que el caller sea admin antes de escribir con admin SDK).
+    match /config/{configId} {
+      allow read: if isSignedIn();
+      allow write: if false;
+    }
+
+    // ---------- sesiones/{uid} ----------
+    // Single-session enforcement. Cada usuario tiene UN doc con su sessionId
+    // activo. El cliente lo LEE (vía onSnapshot) para detectar cuando otra
+    // sesión toma posesión y forzarse a salir. La escritura pasa siempre por
+    // las Cloud Functions claimSession / releaseSession.
+    match /sesiones/{uid} {
+      allow read: if isOwner(uid) || isAdmin();
+      allow write: if false;
+    }
+
+    // ---------- Default deny ----------
+    // Cualquier colección no listada arriba queda completamente bloqueada.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

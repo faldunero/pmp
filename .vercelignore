@@ -1,0 +1,41 @@
+# Cloud Functions y dependencias node — NO se deployan en Vercel.
+# Las Cloud Functions siguen viviendo en Firebase (firebase deploy --only functions).
+functions/
+node_modules/
+
+# Scripts de admin local (bootstrap_admin.js, etc.)
+scripts/
+
+# Service account de Firebase Admin SDK — NUNCA debe llegar a un host público.
+llave.json
+*.json.local
+
+# Reglas y config de Firebase — pertenecen al deploy de Firebase, no de Vercel.
+firebase.json
+firestore.rules
+firestore.indexes.json
+.firebaserc
+
+# Datos / dumps locales
+*.csv
+*.xlsx
+*.py
+*.py.old
+
+# Documentación interna que no quiero servir públicamente
+DEPLOY.md
+INFRAESTRUCTURA.md
+AUDITORIA_SEGURIDAD.md
+MIGRACION_VERCEL.md
+
+# Logs y temporales
+*.log
+firebase-debug.log
+firebase-debug.*.log
+.DS_Store
+.env.local
+.env*.local
+
+# Git
+.git/
+.gitignore

@@ -1,20 +1,54 @@
-const { onRequest } = require("firebase-functions/v2/https");
+"use strict";
+
+/**
+ * Punto de entrada de Cloud Functions.
+ *
+ * Las funciones individuales viven en archivos separados:
+ *   - auth.js       -> setProfesorClaim, setAdminClaim, getMyRole, listUsersWithRoles
+ *   - questions.js  -> getQuestions, gradeAttempt, uploadQuestions
+ *   - access.js     -> getMyAccess, getTrialConfig, setTrialConfig (config admin)
+ *   - paypal.js     -> listPlans, getPaypalClientId, createPaypalOrder, capturePaypalOrder, paypalWebhook
+ */
+
 const admin = require("firebase-admin");
 const { setGlobalOptions } = require("firebase-functions/v2");
 
 admin.initializeApp();
 
-// Forzamos la región a us-central1 y permitimos acceso CORS
-setGlobalOptions({ region: "us-central1" });
+setGlobalOptions({ region: "us-central1", maxInstances: 20 });
 
-exports.getQuestions = onRequest({ cors: true }, async (req, res) => {
-    const db = admin.firestore();
-    try {
-        const snapshot = await db.collection("preguntas_pmp").get();
-        const questions = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        res.status(200).json(questions);
-    } catch (error) {
-        console.error("Error obteniendo preguntas:", error);
-        res.status(500).send("Error interno");
-    }
-});
+// Auth / claims
+const auth = require("./auth");
+exports.setProfesorClaim = auth.setProfesorClaim;
+exports.setAdminClaim = auth.setAdminClaim;
+exports.getMyRole = auth.getMyRole;
+exports.listUsersWithRoles = auth.listUsersWithRoles;
+
+// Preguntas
+const questions = require("./questions");
+exports.getQuestions = questions.getQuestions;
+exports.gradeAttempt = questions.gradeAttempt;
+exports.uploadQuestions = questions.uploadQuestions;
+
+// Acceso (gating freemium)
+const access = require("./access");
+exports.getMyAccess = access.getMyAccess;
+exports.getTrialConfig = access.getTrialConfig;
+exports.setTrialConfig = access.setTrialConfig;
+
+// PayPal
+const paypal = require("./paypal");
+exports.listPlans = paypal.listPlans;
+exports.getPaypalClientId = paypal.getPaypalClientId;
+exports.createPaypalOrder = paypal.createPaypalOrder;
+exports.capturePaypalOrder = paypal.capturePaypalOrder;
+exports.paypalWebhook = paypal.paypalWebhook;
+
+// Single-session enforcement
+const sessions = require("./sessions");
+exports.claimSession = sessions.claimSession;
+exports.releaseSession = sessions.releaseSession;
+
+// Vistas administrativas
+const adminViews = require("./admin_views");
+exports.listSubscriptions = adminViews.listSubscriptions;

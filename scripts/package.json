@@ -1,0 +1,8 @@
+{
+  "name": "pmp-scripts",
+  "private": true,
+  "description": "Scripts administrativos locales (no se deployan).",
+  "dependencies": {
+    "firebase-admin": "^13.6.0"
+  }
+}
