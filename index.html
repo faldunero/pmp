@@ -326,144 +326,199 @@
 <div class="main-container">
 
  <!-- ═══════════════════════════════════════════════════════════════════
-      LANDING PÚBLICA — catálogo de certificaciones (sin login).
+      LANDING PÚBLICA — estilo marketplace educativo (Coursera/Udemy).
       Es la primera pantalla que ve un visitante no autenticado.
       Los CTA llevan a screen-login y screen-register.
       ═══════════════════════════════════════════════════════════════════ -->
  <div id="screen-portal-landing" class="screen">
-   <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 28px;">
-     <div style="display: flex; align-items: center; gap: 10px;">
-       <div style="width: 32px; height: 32px; background: var(--pmi-blue); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+   <div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 0 18px; border-bottom: 1px solid #f3f4f6; margin-bottom: 0;">
+     <div style="display: flex; align-items: center; gap: 28px;">
+       <div style="display: flex; align-items: center; gap: 8px;">
+         <div style="width: 26px; height: 26px; background: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+         </div>
+         <div style="font-size: 17px; font-weight: 700; color: #111827; letter-spacing: -0.02em;">Certifica</div>
        </div>
+     </div>
+     <div style="display: flex; gap: 10px; align-items: center;">
+       <span onclick="navigate('screen-login')" style="font-size: 14px; color: #4b5563; cursor: pointer; padding: 8px 12px; font-weight: 500;">Iniciar sesión</span>
+       <button onclick="navigate('screen-register')" style="background: var(--accent); color: white; border: none; padding: 9px 18px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; font-family: 'Inter', sans-serif;">Crear cuenta</button>
+     </div>
+   </div>
+
+   <div style="text-align: center; padding: 64px 20px 56px;">
+     <div style="display: inline-block; background: #eff6ff; color: #1e40af; font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 100px; margin-bottom: 22px; letter-spacing: 0.02em;">Acceso gratuito por tiempo limitado</div>
+     <h1 style="font-size: 2.4rem; font-weight: 700; color: #111827; margin: 0 0 16px; line-height: 1.15; letter-spacing: -0.03em; max-width: 720px; margin-left: auto; margin-right: auto;">Prepárate para tu certificación profesional con confianza</h1>
+     <p style="font-size: 1.05rem; color: #6b7280; margin: 0 auto 28px; max-width: 540px; line-height: 1.6;">Material de estudio independiente y simuladores diseñados para que llegues al examen oficial sabiendo qué te espera.</p>
+     <div style="display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
+       <button onclick="navigate('screen-register')" style="background: var(--accent); color: white; border: none; padding: 13px 28px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 15px; font-family: 'Inter', sans-serif;">Explorar el catálogo</button>
+       <button onclick="navigate('screen-login')" style="background: white; color: #111827; border: 1px solid #d1d5db; padding: 13px 28px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 15px; font-family: 'Inter', sans-serif;">Iniciar sesión</button>
+     </div>
+     <div style="display: flex; align-items: center; justify-content: center; gap: 36px; margin-top: 44px; font-size: 13px; color: #6b7280; flex-wrap: wrap;">
+       <div><span style="font-weight: 700; color: #111827; font-size: 15px;">5</span> certificaciones</div>
+       <div style="width: 1px; height: 14px; background: #e5e7eb;"></div>
+       <div><span style="font-weight: 700; color: #111827; font-size: 15px;">100%</span> en línea</div>
+       <div style="width: 1px; height: 14px; background: #e5e7eb;"></div>
+       <div><span style="font-weight: 700; color: #111827; font-size: 15px;">Material</span> no oficial</div>
+     </div>
+   </div>
+
+   <div style="margin: 0 0 8px;">
+     <div style="background: #fefce8; border: 1px solid #fde68a; border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #713f12; line-height: 1.5;">
+       <strong style="font-weight: 600;">Aviso:</strong> Certifica es una plataforma independiente de material de apoyo. No estamos afiliados ni patrocinados por las entidades certificadoras. La certificación oficial se obtiene rindiendo el examen ante el organismo correspondiente.
+     </div>
+   </div>
+
+   <div style="padding: 48px 0 16px;">
+     <div style="display: flex; align-items: end; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 8px;">
        <div>
-         <div style="font-size: 16px; font-weight: 800; color: var(--pmi-blue); line-height: 1; letter-spacing: -0.01em;">Certifica Academy</div>
-         <div style="font-size: 11px; color: #64748b; margin-top: 2px;">Material de apoyo no oficial</div>
+         <h2 style="font-size: 1.45rem; font-weight: 700; color: #111827; margin: 0 0 4px; letter-spacing: -0.02em;">Certificaciones disponibles</h2>
+         <p style="font-size: 14px; color: #6b7280; margin: 0;">Empieza a estudiar gratis hoy</p>
        </div>
      </div>
-     <div style="display: flex; gap: 10px;">
-       <button onclick="navigate('screen-login')" style="background: transparent; border: 1.5px solid #e2e8f0; padding: 9px 18px; border-radius: 100px; font-weight: 600; cursor: pointer; color: #475569; font-size: 13px; font-family: 'Inter', sans-serif;">Iniciar sesión</button>
-       <button onclick="navigate('screen-register')" style="background: var(--pmi-blue); color: white; border: none; padding: 9px 18px; border-radius: 100px; font-weight: 700; cursor: pointer; font-size: 13px; font-family: 'Inter', sans-serif;">Crear cuenta</button>
+
+     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+
+       <div style="background: white; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden;">
+         <div style="background: #eff6ff; height: 100px; display: flex; align-items: center; justify-content: center;">
+           <div style="display: flex; align-items: center; gap: 10px;">
+             <div style="width: 36px; height: 36px; background: #2563eb; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>
+             </div>
+             <div style="font-size: 22px; font-weight: 700; color: #1e40af; letter-spacing: -0.02em;">PMP</div>
+           </div>
+         </div>
+         <div style="padding: 16px;">
+           <div style="font-size: 11px; color: #6b7280; margin-bottom: 4px;">Project Management Institute</div>
+           <div style="font-size: 15px; font-weight: 600; color: #111827; margin-bottom: 10px; line-height: 1.3;">Preparación PMP</div>
+           <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+             <span style="background: #dcfce7; color: #166534; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 4px;">Disponible</span>
+             <span style="font-size: 12px; color: #6b7280;">Simulador 180p</span>
+           </div>
+           <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 10px; border-top: 1px solid #f3f4f6;">
+             <span style="font-size: 14px; font-weight: 700; color: #166534;">Gratis</span>
+             <span onclick="navigate('screen-register')" style="font-size: 13px; font-weight: 600; color: var(--accent); cursor: pointer;">Empezar →</span>
+           </div>
+         </div>
+       </div>
+
+       <div style="background: white; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden;">
+         <div style="background: #ecfdf5; height: 100px; display: flex; align-items: center; justify-content: center;">
+           <div style="display: flex; align-items: center; gap: 10px;">
+             <div style="width: 36px; height: 36px; background: #059669; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/></svg>
+             </div>
+             <div style="font-size: 18px; font-weight: 700; color: #065f46; letter-spacing: -0.02em;">Scrum</div>
+           </div>
+         </div>
+         <div style="padding: 16px;">
+           <div style="font-size: 11px; color: #6b7280; margin-bottom: 4px;">Scrum.org · Scrum Alliance</div>
+           <div style="font-size: 15px; font-weight: 600; color: #111827; margin-bottom: 10px; line-height: 1.3;">Preparación Scrum Master</div>
+           <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+             <span style="background: #fef3c7; color: #92400e; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 4px;">Próximamente</span>
+             <span style="font-size: 12px; color: #6b7280;">Marzo 2026</span>
+           </div>
+           <div style="padding-top: 10px; border-top: 1px solid #f3f4f6; font-size: 13px; color: #6b7280;">Avísame cuando esté</div>
+         </div>
+       </div>
+
+       <div style="background: white; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden;">
+         <div style="background: #f5f3ff; height: 100px; display: flex; align-items: center; justify-content: center;">
+           <div style="display: flex; align-items: center; gap: 10px;">
+             <div style="width: 36px; height: 36px; background: #7c3aed; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+             </div>
+             <div style="font-size: 13px; font-weight: 700; color: #5b21b6; letter-spacing: -0.02em;">PRODUCT OWNER</div>
+           </div>
+         </div>
+         <div style="padding: 16px;">
+           <div style="font-size: 11px; color: #6b7280; margin-bottom: 4px;">Scrum.org</div>
+           <div style="font-size: 15px; font-weight: 600; color: #111827; margin-bottom: 10px; line-height: 1.3;">Preparación Product Owner</div>
+           <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+             <span style="background: #fef3c7; color: #92400e; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 4px;">Próximamente</span>
+             <span style="font-size: 12px; color: #6b7280;">Abril 2026</span>
+           </div>
+           <div style="padding-top: 10px; border-top: 1px solid #f3f4f6; font-size: 13px; color: #6b7280;">Avísame cuando esté</div>
+         </div>
+       </div>
+
+       <div style="background: white; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden;">
+         <div style="background: #fef2f2; height: 100px; display: flex; align-items: center; justify-content: center;">
+           <div style="display: flex; align-items: center; gap: 10px;">
+             <div style="width: 36px; height: 36px; background: #dc2626; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg>
+             </div>
+             <div style="font-size: 18px; font-weight: 700; color: #991b1b; letter-spacing: -0.02em;">PRINCE2</div>
+           </div>
+         </div>
+         <div style="padding: 16px;">
+           <div style="font-size: 11px; color: #6b7280; margin-bottom: 4px;">Axelos</div>
+           <div style="font-size: 15px; font-weight: 600; color: #111827; margin-bottom: 10px; line-height: 1.3;">Preparación PRINCE2</div>
+           <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+             <span style="background: #fef3c7; color: #92400e; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 4px;">Próximamente</span>
+             <span style="font-size: 12px; color: #6b7280;">Mayo 2026</span>
+           </div>
+           <div style="padding-top: 10px; border-top: 1px solid #f3f4f6; font-size: 13px; color: #6b7280;">Avísame cuando esté</div>
+         </div>
+       </div>
+
+       <div style="background: white; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden;">
+         <div style="background: #fefce8; height: 100px; display: flex; align-items: center; justify-content: center;">
+           <div style="display: flex; align-items: center; gap: 10px;">
+             <div style="width: 36px; height: 36px; background: #ca8a04; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+             </div>
+             <div style="font-size: 18px; font-weight: 700; color: #854d0e; letter-spacing: -0.02em;">ITIL 4</div>
+           </div>
+         </div>
+         <div style="padding: 16px;">
+           <div style="font-size: 11px; color: #6b7280; margin-bottom: 4px;">Axelos</div>
+           <div style="font-size: 15px; font-weight: 600; color: #111827; margin-bottom: 10px; line-height: 1.3;">Preparación ITIL 4</div>
+           <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+             <span style="background: #fef3c7; color: #92400e; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 4px;">Próximamente</span>
+             <span style="font-size: 12px; color: #6b7280;">Junio 2026</span>
+           </div>
+           <div style="padding-top: 10px; border-top: 1px solid #f3f4f6; font-size: 13px; color: #6b7280;">Avísame cuando esté</div>
+         </div>
+       </div>
+
      </div>
    </div>
 
-   <div style="text-align: center; padding: 32px 20px 28px;">
-     <div style="display: inline-flex; align-items: center; gap: 8px; background: #f1f5f9; border: 1px solid #e2e8f0; padding: 5px 12px; border-radius: 100px; font-size: 12px; color: #475569; margin-bottom: 18px;">
-       <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--success);"></span>
-       Acceso gratuito por tiempo limitado
+   <div style="padding: 56px 0;">
+     <div style="text-align: center; margin-bottom: 36px;">
+       <h2 style="font-size: 1.45rem; font-weight: 700; color: #111827; margin: 0 0 8px; letter-spacing: -0.02em;">Cómo funciona</h2>
+       <p style="font-size: 14px; color: #6b7280; margin: 0;">Tres pasos para empezar</p>
      </div>
-     <h1 style="font-size: 2.8rem; font-weight: 800; color: var(--pmi-blue); margin: 0 0 10px; line-height: 1.1; letter-spacing: -0.04em;">Material de apoyo para certificaciones profesionales</h1>
-     <p style="font-size: 1.1rem; color: #64748b; max-width: 540px; margin: 0 auto 18px; line-height: 1.6;">Simuladores y cursos de estudio para que llegues al examen oficial sabiendo cómo te paras.</p>
-     <div style="display: inline-block; background: white; border: 1px solid #e2e8f0; border-left: 3px solid #f59e0b; padding: 12px 18px; border-radius: 12px; max-width: 540px; text-align: left; margin-bottom: 24px;">
-       <div style="font-size: 13px; color: #1e293b; line-height: 1.5;"><strong style="font-weight: 700;">No somos un organismo certificador.</strong> Este es contenido de estudio independiente. La certificación oficial solo se obtiene rindiendo el examen ante PMI, Axelos, Scrum.org u otra entidad correspondiente.</div>
-     </div>
-   </div>
-
-   <div style="margin-bottom: 24px;">
-     <div style="font-size: 12px; font-weight: 800; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase; margin-bottom: 4px;">Catálogo</div>
-     <h2 style="font-size: 1.6rem; font-weight: 800; color: var(--pmi-blue); margin: 0; letter-spacing: -0.02em;">Elige tu ruta de preparación</h2>
-   </div>
-
-   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 36px;">
-
-     <div style="background: white; border: 1.5px solid #e2e8f0; border-radius: 20px; padding: 20px;">
-       <div style="display: flex; align-items: start; justify-content: space-between; margin-bottom: 14px;">
-         <div style="width: 40px; height: 40px; background: #dbeafe; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1e40af" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>
-         </div>
-         <div style="display: flex; flex-direction: column; gap: 4px; align-items: end;">
-           <span style="background: #dcfce7; color: #166534; font-size: 10px; font-weight: 800; padding: 3px 9px; border-radius: 100px; letter-spacing: 0.04em; text-transform: uppercase;">Disponible</span>
-           <span style="background: #f1f5f9; color: #64748b; font-size: 9px; padding: 2px 7px; border-radius: 100px;">Material no oficial</span>
-         </div>
+     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 28px; max-width: 720px; margin: 0 auto;">
+       <div style="text-align: center;">
+         <div style="width: 48px; height: 48px; background: #eff6ff; color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; font-size: 18px; font-weight: 700;">1</div>
+         <div style="font-size: 15px; font-weight: 600; color: #111827; margin-bottom: 6px;">Crea tu cuenta</div>
+         <div style="font-size: 13px; color: #6b7280; line-height: 1.55;">Sin tarjeta de crédito. Acceso libre por tiempo limitado.</div>
        </div>
-       <div style="font-size: 11px; color: #64748b; margin-bottom: 4px;">Apoyo para examen del PMI</div>
-       <div style="font-size: 17px; font-weight: 800; color: var(--pmi-blue); margin-bottom: 8px; letter-spacing: -0.01em;">Preparación PMP</div>
-       <div style="font-size: 13px; color: #64748b; line-height: 1.5; margin-bottom: 14px;">Simulador con 180 preguntas, análisis por dominio. Cursos modulares en preparación.</div>
-       <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid #f1f5f9;">
-         <div style="font-size: 13px; font-weight: 700; color: #166534;">Acceso gratuito</div>
-         <button onclick="navigate('screen-register')" style="background: var(--pmi-blue); color: white; border: none; padding: 7px 14px; border-radius: 100px; font-weight: 700; cursor: pointer; font-size: 12px; font-family: 'Inter', sans-serif;">Comenzar →</button>
+       <div style="text-align: center;">
+         <div style="width: 48px; height: 48px; background: #eff6ff; color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; font-size: 18px; font-weight: 700;">2</div>
+         <div style="font-size: 15px; font-weight: 600; color: #111827; margin-bottom: 6px;">Estudia y practica</div>
+         <div style="font-size: 13px; color: #6b7280; line-height: 1.55;">Simuladores con análisis por dominio y enfoque.</div>
        </div>
-     </div>
-
-     <div style="background: white; border: 1.5px solid #e2e8f0; border-radius: 20px; padding: 20px;">
-       <div style="display: flex; align-items: start; justify-content: space-between; margin-bottom: 14px;">
-         <div style="width: 40px; height: 40px; background: #d1fae5; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#065f46" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/></svg>
-         </div>
-         <span style="background: #fef3c7; color: #92400e; font-size: 10px; font-weight: 800; padding: 3px 9px; border-radius: 100px; letter-spacing: 0.04em; text-transform: uppercase;">Próximamente</span>
-       </div>
-       <div style="font-size: 11px; color: #64748b; margin-bottom: 4px;">Apoyo para Scrum.org / Scrum Alliance</div>
-       <div style="font-size: 17px; font-weight: 800; color: var(--pmi-blue); margin-bottom: 8px; letter-spacing: -0.01em;">Preparación Scrum Master</div>
-       <div style="font-size: 13px; color: #64748b; line-height: 1.5; margin-bottom: 14px;">PSM-I y CSM. Eventos, artefactos, roles del Scrum Guide 2020.</div>
-       <div style="font-size: 12px; color: #64748b; padding-top: 12px; border-top: 1px solid #f1f5f9;">Disponible en marzo 2026</div>
-     </div>
-
-     <div style="background: white; border: 1.5px solid #e2e8f0; border-radius: 20px; padding: 20px;">
-       <div style="display: flex; align-items: start; justify-content: space-between; margin-bottom: 14px;">
-         <div style="width: 40px; height: 40px; background: #ede9fe; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6d28d9" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-         </div>
-         <span style="background: #fef3c7; color: #92400e; font-size: 10px; font-weight: 800; padding: 3px 9px; border-radius: 100px; letter-spacing: 0.04em; text-transform: uppercase;">Próximamente</span>
-       </div>
-       <div style="font-size: 11px; color: #64748b; margin-bottom: 4px;">Apoyo para Scrum.org</div>
-       <div style="font-size: 17px; font-weight: 800; color: var(--pmi-blue); margin-bottom: 8px; letter-spacing: -0.01em;">Preparación Product Owner</div>
-       <div style="font-size: 13px; color: #64748b; line-height: 1.5; margin-bottom: 14px;">PSPO-I y PSPO-II. Backlog, valor de producto, estrategia.</div>
-       <div style="font-size: 12px; color: #64748b; padding-top: 12px; border-top: 1px solid #f1f5f9;">Disponible en abril 2026</div>
-     </div>
-
-     <div style="background: white; border: 1.5px solid #e2e8f0; border-radius: 20px; padding: 20px;">
-       <div style="display: flex; align-items: start; justify-content: space-between; margin-bottom: 14px;">
-         <div style="width: 40px; height: 40px; background: #fee2e2; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#991b1b" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg>
-         </div>
-         <span style="background: #fef3c7; color: #92400e; font-size: 10px; font-weight: 800; padding: 3px 9px; border-radius: 100px; letter-spacing: 0.04em; text-transform: uppercase;">Próximamente</span>
-       </div>
-       <div style="font-size: 11px; color: #64748b; margin-bottom: 4px;">Apoyo para Axelos</div>
-       <div style="font-size: 17px; font-weight: 800; color: var(--pmi-blue); margin-bottom: 8px; letter-spacing: -0.01em;">Preparación PRINCE2</div>
-       <div style="font-size: 13px; color: #64748b; line-height: 1.5; margin-bottom: 14px;">Foundation y Practitioner. Principios, temas y procesos del método estructurado.</div>
-       <div style="font-size: 12px; color: #64748b; padding-top: 12px; border-top: 1px solid #f1f5f9;">Disponible en mayo 2026</div>
-     </div>
-
-     <div style="background: white; border: 1.5px solid #e2e8f0; border-radius: 20px; padding: 20px;">
-       <div style="display: flex; align-items: start; justify-content: space-between; margin-bottom: 14px;">
-         <div style="width: 40px; height: 40px; background: #fef3c7; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#854d0e" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-         </div>
-         <span style="background: #fef3c7; color: #92400e; font-size: 10px; font-weight: 800; padding: 3px 9px; border-radius: 100px; letter-spacing: 0.04em; text-transform: uppercase;">Próximamente</span>
-       </div>
-       <div style="font-size: 11px; color: #64748b; margin-bottom: 4px;">Apoyo para Axelos</div>
-       <div style="font-size: 17px; font-weight: 800; color: var(--pmi-blue); margin-bottom: 8px; letter-spacing: -0.01em;">Preparación ITIL 4</div>
-       <div style="font-size: 13px; color: #64748b; line-height: 1.5; margin-bottom: 14px;">Foundation y Managing Professional. Service value system, prácticas y guiding principles.</div>
-       <div style="font-size: 12px; color: #64748b; padding-top: 12px; border-top: 1px solid #f1f5f9;">Disponible en junio 2026</div>
-     </div>
-
-   </div>
-
-   <div style="background: #f8fafc; border-radius: 20px; padding: 24px; margin-bottom: 24px;">
-     <div style="font-size: 12px; font-weight: 800; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase; margin-bottom: 6px;">Aviso importante</div>
-     <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--pmi-blue); margin: 0 0 12px;">Qué es y qué no es Certifica Academy</h3>
-     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; font-size: 13px; line-height: 1.6;">
-       <div>
-         <div style="font-weight: 700; color: #166534; margin-bottom: 6px;">Sí es:</div>
-         <ul style="margin: 0; padding-left: 18px; color: #1e293b;">
-           <li>Material de apoyo para tu estudio personal</li>
-           <li>Simuladores con preguntas de práctica</li>
-           <li>Una herramienta complementaria al material oficial</li>
-         </ul>
-       </div>
-       <div>
-         <div style="font-weight: 700; color: #991b1b; margin-bottom: 6px;">No es:</div>
-         <ul style="margin: 0; padding-left: 18px; color: #1e293b;">
-           <li>Un programa oficial del PMI, Axelos o Scrum.org</li>
-           <li>Una certificación ni habilita a obtener una</li>
-           <li>Endosado por las entidades certificadoras</li>
-         </ul>
+       <div style="text-align: center;">
+         <div style="width: 48px; height: 48px; background: #eff6ff; color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; font-size: 18px; font-weight: 700;">3</div>
+         <div style="font-size: 15px; font-weight: 600; color: #111827; margin-bottom: 6px;">Presenta tu examen</div>
+         <div style="font-size: 13px; color: #6b7280; line-height: 1.55;">Inscríbete ante el organismo certificador correspondiente.</div>
        </div>
      </div>
    </div>
 
-   <div style="text-align: center; padding-top: 14px; border-top: 1px solid #e2e8f0;">
-     <div style="font-size: 11px; color: #94a3b8; line-height: 1.6;">PMP y PMI son marcas registradas del Project Management Institute, Inc. PRINCE2 e ITIL son marcas de Axelos Limited. Scrum Master y Product Owner se preparan para exámenes de Scrum.org y Scrum Alliance. Certifica Academy es una plataforma independiente.</div>
+   <div style="padding-top: 24px; border-top: 1px solid #f3f4f6;">
+     <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: 14px;">
+       <div style="font-size: 13px; color: #6b7280;">© 2026 Certifica · Plataforma independiente de material de apoyo</div>
+       <div style="display: flex; gap: 22px; font-size: 13px; color: #6b7280;">
+         <span>Términos</span>
+         <span>Privacidad</span>
+         <span>Soporte</span>
+       </div>
+     </div>
+     <div style="font-size: 11px; color: #9ca3af; line-height: 1.6; padding-top: 14px; border-top: 1px solid #e5e7eb;">PMP y PMI son marcas registradas del Project Management Institute, Inc. PRINCE2 e ITIL son marcas de Axelos Limited. Scrum Master y Product Owner se preparan para exámenes de Scrum.org y Scrum Alliance. Todas las marcas pertenecen a sus respectivos titulares.</div>
    </div>
  </div>
 
@@ -607,74 +662,91 @@
  </div>
 
  <!-- ═══════════════════════════════════════════════════════════════════
-      DASHBOARD DEL ALUMNO MULTI-CURSO — primera pantalla post-login.
-      Muestra los tracks activos del alumno con progreso, atajo de
-      "continuar donde lo dejaste", y un catálogo de exploración.
+      DASHBOARD DEL ALUMNO MULTI-CURSO — estilo marketplace educativo.
+      Primera pantalla post-login. Muestra rutas activas con progreso,
+      "continuar donde lo dejaste", y catálogo de exploración.
       ═══════════════════════════════════════════════════════════════════ -->
  <div id="screen-dashboard-alumno" class="screen">
-   <div class="user-bar"><div class="user-bar-name" id="ubar-name-dash"></div><div class="user-bar-meta" id="ubar-meta-dash"></div></div>
 
-   <div style="display: flex; justify-content: flex-end; width: 100%; margin-bottom: 10px;">
-     <button onclick="cerrarSesion()" style="background: none; border: none; cursor: pointer; color: var(--error); font-weight: 600; font-size: 1rem; padding: 10px; font-family: 'Inter', sans-serif;">Cerrar Sesión</button>
-   </div>
-
-   <div style="margin-bottom: 24px;">
-     <div style="font-size: 12px; font-weight: 800; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase; margin-bottom: 4px;">Tu panel</div>
-     <h1 style="font-size: 2.4rem; font-weight: 800; color: var(--pmi-blue); margin: 0 0 6px; letter-spacing: -0.03em; line-height: 1.1;" id="dash-saludo">Hola</h1>
-     <div style="font-size: 14px; color: #64748b; line-height: 1.5;" id="dash-mensaje">Cargando tu progreso...</div>
-   </div>
-
-   <div id="dash-stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 28px;"></div>
-
-   <div id="dash-continuar" style="display: none; background: var(--pmi-blue); color: white; border-radius: 24px; padding: 24px; margin-bottom: 24px;"></div>
-
-   <div style="display: flex; align-items: end; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
-     <div>
-       <div style="font-size: 11px; font-weight: 800; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase; margin-bottom: 4px;">Mis rutas</div>
-       <h2 style="font-size: 1.4rem; font-weight: 800; color: var(--pmi-blue); margin: 0; letter-spacing: -0.02em;" id="dash-tracks-titulo">Certificaciones disponibles</h2>
+   <div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 0 18px; border-bottom: 1px solid #f3f4f6; margin-bottom: 0;">
+     <div style="display: flex; align-items: center; gap: 8px;">
+       <div style="width: 26px; height: 26px; background: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+       </div>
+       <div style="font-size: 17px; font-weight: 700; color: #111827; letter-spacing: -0.02em;">Certifica</div>
+     </div>
+     <div style="display: flex; gap: 14px; align-items: center;">
+       <div style="text-align: right;" id="dash-userbar-mini"><div style="font-size: 13px; color: #4b5563; font-weight: 500;" id="ubar-name-dash">—</div><div style="font-size: 11px; color: #9ca3af;" id="ubar-meta-dash"></div></div>
+       <button onclick="cerrarSesion()" style="background: white; border: 1px solid #d1d5db; padding: 7px 14px; border-radius: 6px; font-weight: 500; cursor: pointer; color: #4b5563; font-size: 13px; font-family: 'Inter', sans-serif;">Cerrar sesión</button>
      </div>
    </div>
-   <div id="dash-tracks" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 28px;">
-     <div style="text-align: center; color: #94a3b8; padding: 30px; grid-column: 1 / -1;">Cargando rutas...</div>
+
+   <div style="padding: 36px 0 28px;">
+     <h1 style="font-size: 1.9rem; font-weight: 700; color: #111827; margin: 0 0 6px; letter-spacing: -0.025em; line-height: 1.2;" id="dash-saludo">Hola</h1>
+     <div style="font-size: 15px; color: #6b7280; line-height: 1.55;" id="dash-mensaje">Cargando tu progreso...</div>
    </div>
 
-   <div style="margin-top: 18px; padding-top: 16px; border-top: 1px solid #e2e8f0; font-size: 11px; color: #94a3b8; line-height: 1.6; text-align: center;">Material de apoyo independiente. No estamos afiliados ni patrocinados por PMI, Axelos, Scrum.org o Scrum Alliance.</div>
+   <div id="dash-stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 28px;"></div>
+
+   <div id="dash-continuar" style="display: none; background: #1e293b; color: white; border-radius: 12px; padding: 24px; margin-bottom: 32px;"></div>
+
+   <div style="display: flex; align-items: end; justify-content: space-between; margin-bottom: 18px; flex-wrap: wrap; gap: 8px;">
+     <div>
+       <h2 style="font-size: 1.25rem; font-weight: 700; color: #111827; margin: 0 0 4px; letter-spacing: -0.02em;" id="dash-tracks-titulo">Mis rutas</h2>
+       <p style="font-size: 13px; color: #6b7280; margin: 0;">Continúa tu preparación o explora otras certificaciones</p>
+     </div>
+   </div>
+   <div id="dash-tracks" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 32px;">
+     <div style="text-align: center; color: #9ca3af; padding: 30px; grid-column: 1 / -1; font-size: 14px;">Cargando rutas...</div>
+   </div>
+
+   <div style="padding: 24px 0 8px; border-top: 1px solid #f3f4f6; font-size: 12px; color: #9ca3af; line-height: 1.6; text-align: center;">Material de apoyo independiente. No estamos afiliados ni patrocinados por PMI, Axelos, Scrum.org o Scrum Alliance.</div>
  </div>
 
  <!-- ═══════════════════════════════════════════════════════════════════
-      VISTA INTERNA DE UN TRACK — muestra cursos del track + simulador.
-      Para PMP: cursos en estado "próximamente" + simulador disponible.
+      VISTA INTERNA DE UN TRACK — estilo marketplace educativo.
+      Muestra el track elegido con sus cursos, simulador y disclaimer.
       ═══════════════════════════════════════════════════════════════════ -->
  <div id="screen-track-detail" class="screen">
-   <div class="user-bar"><div class="user-bar-name" id="ubar-name-track"></div><div class="user-bar-meta" id="ubar-meta-track"></div></div>
 
-   <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
-     <button onclick="navigate('screen-dashboard-alumno')" style="background: none; border: 1.5px solid #e2e8f0; padding: 8px 16px; border-radius: 100px; font-weight: 600; cursor: pointer; color: #475569; font-size: 0.85rem; font-family: 'Inter', sans-serif;">← Volver al panel</button>
-     <button onclick="cerrarSesion()" style="background: none; border: none; cursor: pointer; color: var(--error); font-weight: 600; font-size: 0.95rem; padding: 8px; font-family: 'Inter', sans-serif;">Cerrar Sesión</button>
+   <div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 0 18px; border-bottom: 1px solid #f3f4f6; margin-bottom: 0;">
+     <div style="display: flex; align-items: center; gap: 8px;">
+       <div style="width: 26px; height: 26px; background: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+       </div>
+       <div style="font-size: 17px; font-weight: 700; color: #111827; letter-spacing: -0.02em;">Certifica</div>
+     </div>
+     <div style="display: flex; gap: 14px; align-items: center;">
+       <div style="text-align: right;"><div style="font-size: 13px; color: #4b5563; font-weight: 500;" id="ubar-name-track">—</div><div style="font-size: 11px; color: #9ca3af;" id="ubar-meta-track"></div></div>
+       <button onclick="cerrarSesion()" style="background: white; border: 1px solid #d1d5db; padding: 7px 14px; border-radius: 6px; font-weight: 500; cursor: pointer; color: #4b5563; font-size: 13px; font-family: 'Inter', sans-serif;">Cerrar sesión</button>
+     </div>
    </div>
 
-   <div id="track-loading" style="text-align: center; color: #94a3b8; padding: 60px;">Cargando contenido...</div>
+   <div style="padding: 22px 0 0;">
+     <button onclick="navigate('screen-dashboard-alumno')" style="background: none; border: none; padding: 6px 0; font-weight: 500; cursor: pointer; color: var(--accent); font-size: 13px; font-family: 'Inter', sans-serif;">← Volver al panel</button>
+   </div>
 
-   <div id="track-content" style="display: none;">
-     <div style="margin-bottom: 24px;" id="track-header"></div>
+   <div id="track-loading" style="text-align: center; color: #9ca3af; padding: 80px 20px; font-size: 14px;">Cargando contenido...</div>
 
-     <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 3px solid #f59e0b; padding: 14px 16px; border-radius: 12px; margin-bottom: 24px; font-size: 13px; line-height: 1.6;">
-       <strong style="font-weight: 700;">Material de estudio independiente.</strong> Esta ruta es de apoyo personal. No es un programa oficial ni reemplaza la preparación formal requerida para presentar el examen.
+   <div id="track-content" style="display: none; padding-top: 16px;">
+     <div style="margin-bottom: 28px;" id="track-header"></div>
+
+     <div style="background: #fefce8; border: 1px solid #fde68a; border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #713f12; line-height: 1.5; margin-bottom: 32px;">
+       <strong style="font-weight: 600;">Material de estudio independiente.</strong> Esta ruta es de apoyo personal. No es un programa oficial ni reemplaza la preparación formal requerida para presentar el examen.
      </div>
 
-     <div style="display: flex; align-items: end; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
+     <div style="display: flex; align-items: end; justify-content: space-between; margin-bottom: 18px; flex-wrap: wrap; gap: 8px;">
        <div>
-         <div style="font-size: 11px; font-weight: 800; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase; margin-bottom: 4px;">Plan de estudio</div>
-         <h2 style="font-size: 1.3rem; font-weight: 800; color: var(--pmi-blue); margin: 0; letter-spacing: -0.01em;">Cursos y simulador</h2>
+         <h2 style="font-size: 1.25rem; font-weight: 700; color: #111827; margin: 0 0 4px; letter-spacing: -0.02em;">Plan de estudio</h2>
+         <p style="font-size: 13px; color: #6b7280; margin: 0;" id="track-resumen">Cargando...</p>
        </div>
-       <span id="track-resumen" style="font-size: 12px; color: #64748b;"></span>
      </div>
 
      <div id="track-cursos" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px;"></div>
 
-     <div id="track-simulador" style="background: var(--pmi-blue); color: white; border-radius: 16px; padding: 18px 20px; margin-top: 6px; display: none; align-items: center; gap: 14px;"></div>
+     <div id="track-simulador" style="display: none; background: #1e293b; color: white; border-radius: 12px; padding: 22px; margin-top: 16px;"></div>
 
-     <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #e2e8f0; font-size: 11px; color: #94a3b8; line-height: 1.6; text-align: center;" id="track-marcas"></div>
+     <div style="margin-top: 32px; padding-top: 20px; border-top: 1px solid #f3f4f6; font-size: 12px; color: #9ca3af; line-height: 1.6; text-align: center;" id="track-marcas"></div>
    </div>
  </div>
 
@@ -3688,8 +3760,10 @@
         const elStats = document.getElementById('dash-stats');
         const elContinuar = document.getElementById('dash-continuar');
         const elTracks = document.getElementById('dash-tracks');
+        const elUserBarName = document.getElementById('ubar-name-dash');
+        const elUserBarMeta = document.getElementById('ubar-meta-dash');
 
-        // Saludo personalizado con el nombre del usuario actual
+        // Saludo personalizado y user bar minimalista (estilo marketplace)
         try {
             const u = auth.currentUser;
             if (u) {
@@ -3697,7 +3771,8 @@
                 const perfil = doc.exists ? doc.data() : null;
                 const nombre = perfil?.nombre || (u.displayName ? u.displayName.split(' ')[0] : '') || 'Bienvenido';
                 if (elTitulo) elTitulo.textContent = `Hola, ${nombre}`;
-                actualizarUserBar(u, perfil);
+                if (elUserBarName) elUserBarName.textContent = perfil ? `${perfil.nombre || ''} ${perfil.apellido || ''}`.trim() || u.email : (u.displayName || u.email);
+                if (elUserBarMeta) elUserBarMeta.textContent = u.email || '';
             }
         } catch (e) { console.warn('saludo:', e); }
 
@@ -3709,36 +3784,37 @@
             const tracks = Array.isArray(data.tracks) ? data.tracks : [];
             const resumen = data.resumen || { tracksActivos: 0, leccionesCompletadas: 0, leccionesTotal: 0 };
 
-            // Mensaje + stats
+            // Mensaje
             if (resumen.leccionesTotal === 0) {
                 if (elMensaje) elMensaje.textContent = 'Las rutas con cursos modulares están en desarrollo. Por ahora puedes practicar con el simulador de PMP.';
             } else if (resumen.leccionesCompletadas === 0) {
                 if (elMensaje) elMensaje.textContent = `Tienes ${resumen.leccionesTotal} lecciones disponibles. Empieza cuando estés listo.`;
             } else {
-                if (elMensaje) elMensaje.textContent = `Llevas ${resumen.leccionesCompletadas} de ${resumen.leccionesTotal} lecciones. Vas bien.`;
+                if (elMensaje) elMensaje.textContent = `Llevas ${resumen.leccionesCompletadas} de ${resumen.leccionesTotal} lecciones completadas.`;
             }
 
+            // Stats: estilo marketplace, plano, sin pesos extremos
             if (elStats) {
+                const pctGlobal = resumen.leccionesTotal > 0 ? Math.round(resumen.leccionesCompletadas/resumen.leccionesTotal*100) : 0;
                 elStats.innerHTML = `
-                    <div style="background:white;border:1px solid #e2e8f0;border-radius:16px;padding:16px;">
-                        <div style="font-size:10px;font-weight:800;letter-spacing:0.08em;color:#64748b;text-transform:uppercase;margin-bottom:6px;">Rutas activas</div>
-                        <div style="font-size:1.6rem;font-weight:800;color:var(--pmi-blue);line-height:1;">${resumen.tracksActivos}</div>
-                        <div style="font-size:11px;color:#64748b;margin-top:4px;">en progreso</div>
+                    <div style="background:#f9fafb;border:1px solid #f3f4f6;border-radius:10px;padding:18px;">
+                        <div style="font-size:12px;color:#6b7280;margin-bottom:6px;">Rutas activas</div>
+                        <div style="font-size:1.5rem;font-weight:700;color:#111827;line-height:1;letter-spacing:-0.01em;">${resumen.tracksActivos}</div>
                     </div>
-                    <div style="background:white;border:1px solid #e2e8f0;border-radius:16px;padding:16px;">
-                        <div style="font-size:10px;font-weight:800;letter-spacing:0.08em;color:#64748b;text-transform:uppercase;margin-bottom:6px;">Lecciones</div>
-                        <div style="font-size:1.6rem;font-weight:800;color:var(--pmi-blue);line-height:1;">${resumen.leccionesCompletadas} <span style="font-size:0.95rem;color:#94a3b8;">/ ${resumen.leccionesTotal}</span></div>
-                        <div style="font-size:11px;color:#64748b;margin-top:4px;">${resumen.leccionesTotal > 0 ? Math.round(resumen.leccionesCompletadas/resumen.leccionesTotal*100) : 0}% del plan</div>
+                    <div style="background:#f9fafb;border:1px solid #f3f4f6;border-radius:10px;padding:18px;">
+                        <div style="font-size:12px;color:#6b7280;margin-bottom:6px;">Lecciones</div>
+                        <div style="font-size:1.5rem;font-weight:700;color:#111827;line-height:1;letter-spacing:-0.01em;">${resumen.leccionesCompletadas} <span style="font-size:1rem;color:#9ca3af;font-weight:500;">/ ${resumen.leccionesTotal}</span></div>
+                        <div style="font-size:11px;color:#6b7280;margin-top:6px;">${pctGlobal}% del plan</div>
                     </div>
-                    <div style="background:white;border:1px solid #e2e8f0;border-radius:16px;padding:16px;">
-                        <div style="font-size:10px;font-weight:800;letter-spacing:0.08em;color:#64748b;text-transform:uppercase;margin-bottom:6px;">Simulador</div>
-                        <div style="font-size:1.6rem;font-weight:800;color:var(--pmi-blue);line-height:1;">PMP</div>
-                        <div style="font-size:11px;color:#64748b;margin-top:4px;">disponible</div>
+                    <div style="background:#f9fafb;border:1px solid #f3f4f6;border-radius:10px;padding:18px;">
+                        <div style="font-size:12px;color:#6b7280;margin-bottom:6px;">Simulador</div>
+                        <div style="font-size:1.5rem;font-weight:700;color:#111827;line-height:1;letter-spacing:-0.01em;">Disponible</div>
+                        <div style="font-size:11px;color:#6b7280;margin-top:6px;">PMP · 180 preguntas</div>
                     </div>
                 `;
             }
 
-            // Card "continuar lección" (oculta si no hay próxima lección publicada)
+            // Card "continuar lección"
             if (elContinuar) {
                 const trackConProxima = tracks.find(t => t.proximaLeccion);
                 if (trackConProxima && trackConProxima.proximaLeccion) {
@@ -3746,25 +3822,25 @@
                     elContinuar.style.display = 'flex';
                     elContinuar.style.alignItems = 'center';
                     elContinuar.style.justifyContent = 'space-between';
-                    elContinuar.style.gap = '18px';
+                    elContinuar.style.gap = '20px';
                     elContinuar.style.flexWrap = 'wrap';
                     elContinuar.innerHTML = `
                         <div style="flex:1;min-width:240px;">
-                            <div style="font-size:11px;font-weight:800;letter-spacing:0.08em;opacity:0.6;text-transform:uppercase;margin-bottom:6px;">Continúa donde lo dejaste</div>
-                            <div style="font-size:1.1rem;font-weight:800;margin-bottom:4px;letter-spacing:-0.01em;">Lección ${p.orden} · ${escHtml(p.titulo)}</div>
-                            <div style="font-size:13px;opacity:0.7;line-height:1.5;">Curso ${p.cursoOrden} — ${escHtml(p.cursoTitulo)} · ${escHtml(trackConProxima.titulo)}</div>
+                            <div style="font-size:11px;letter-spacing:0.04em;opacity:0.6;text-transform:uppercase;margin-bottom:6px;font-weight:600;">Continúa donde lo dejaste</div>
+                            <div style="font-size:1.05rem;font-weight:600;margin-bottom:4px;letter-spacing:-0.01em;">Lección ${p.orden} · ${escHtml(p.titulo)}</div>
+                            <div style="font-size:13px;opacity:0.75;line-height:1.5;">Curso ${p.cursoOrden} — ${escHtml(p.cursoTitulo)} · ${escHtml(trackConProxima.titulo)}</div>
                         </div>
-                        <button onclick="abrirTrack('${escHtml(trackConProxima.id)}')" style="background:var(--accent);color:white;border:none;padding:12px 24px;border-radius:100px;font-weight:700;cursor:pointer;font-size:13px;font-family:'Inter',sans-serif;">Ir a la ruta →</button>
+                        <button onclick="abrirTrack('${escHtml(trackConProxima.id)}')" style="background:white;color:#111827;border:none;padding:11px 22px;border-radius:6px;font-weight:600;cursor:pointer;font-size:14px;font-family:'Inter',sans-serif;">Ir a la ruta →</button>
                     `;
                 } else {
                     elContinuar.style.display = 'none';
                 }
             }
 
-            // Lista de tracks
+            // Lista de tracks (cards estilo marketplace)
             if (elTracks) {
                 if (tracks.length === 0) {
-                    elTracks.innerHTML = '<div style="text-align:center;color:#94a3b8;padding:30px;grid-column:1/-1;">No hay rutas disponibles todavía.</div>';
+                    elTracks.innerHTML = '<div style="text-align:center;color:#9ca3af;padding:30px;grid-column:1/-1;font-size:14px;">No hay rutas disponibles todavía.</div>';
                 } else {
                     elTracks.innerHTML = tracks.map(t => pintarCardTrack(t)).join('');
                 }
@@ -3783,39 +3859,53 @@
         const pct = t.porcentaje || 0;
         const pcompletadas = t.lecciones_completadas || 0;
         const ptotal = t.lecciones_total || 0;
-        const colorBg = t.paletaIconBg || '#dbeafe';
+        const colorBg = t.paletaIconBg || '#eff6ff';
         const colorFg = t.paletaIconFg || '#1e40af';
 
         const badgeEstado = disponible
-            ? '<span style="background:#dcfce7;color:#166534;font-size:10px;font-weight:800;padding:3px 9px;border-radius:100px;letter-spacing:0.04em;text-transform:uppercase;">Disponible</span>'
-            : '<span style="background:#fef3c7;color:#92400e;font-size:10px;font-weight:800;padding:3px 9px;border-radius:100px;letter-spacing:0.04em;text-transform:uppercase;">Próximamente</span>';
+            ? '<span style="background:#dcfce7;color:#166534;font-size:11px;font-weight:600;padding:3px 8px;border-radius:4px;">Disponible</span>'
+            : '<span style="background:#fef3c7;color:#92400e;font-size:11px;font-weight:600;padding:3px 8px;border-radius:4px;">Próximamente</span>';
 
-        const cuerpoProgreso = (disponible && ptotal > 0)
-            ? `<div style="display:flex;align-items:center;justify-content:space-between;font-size:12px;color:#64748b;margin-bottom:6px;">
-                 <span>Avance</span><span style="font-weight:700;color:var(--pmi-blue);">${pct}%</span>
+        const cuerpo = (disponible && ptotal > 0)
+            ? `<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+                 ${badgeEstado}
+                 <span style="font-size:12px;color:#6b7280;">${pcompletadas}/${ptotal} lecciones</span>
                </div>
-               <div style="height:6px;background:#f1f5f9;border-radius:100px;overflow:hidden;margin-bottom:14px;">
+               <div style="height:4px;background:#f3f4f6;border-radius:100px;overflow:hidden;margin-bottom:12px;">
                  <div style="height:100%;width:${pct}%;background:${colorFg};"></div>
-               </div>
-               <div style="font-size:11px;color:#64748b;margin-bottom:14px;">${pcompletadas} de ${ptotal} lecciones · simulador disponible</div>`
-            : disponible
-                ? `<div style="font-size:12px;color:#64748b;margin-bottom:14px;line-height:1.5;">Cursos modulares en preparación. Por ahora puedes practicar con el simulador.</div>`
-                : `<div style="font-size:12px;color:#64748b;margin-bottom:14px;line-height:1.5;">Próximamente disponible.</div>`;
+               </div>`
+            : `<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+                 ${badgeEstado}
+                 <span style="font-size:12px;color:#6b7280;">${disponible ? 'Simulador disponible' : 'En desarrollo'}</span>
+               </div>`;
 
-        const cta = disponible
-            ? `<button onclick="abrirTrack('${escHtml(t.id)}')" style="background:var(--pmi-blue);color:white;border:none;padding:9px 16px;border-radius:100px;font-weight:700;cursor:pointer;font-size:12px;font-family:'Inter',sans-serif;">Entrar a la ruta →</button>`
-            : `<button disabled style="background:#f1f5f9;color:#94a3b8;border:none;padding:9px 16px;border-radius:100px;font-weight:600;cursor:not-allowed;font-size:12px;font-family:'Inter',sans-serif;">Próximamente</button>`;
+        const ctaFooter = disponible
+            ? `<div style="display:flex;align-items:center;justify-content:space-between;padding-top:10px;border-top:1px solid #f3f4f6;">
+                 <span style="font-size:14px;font-weight:700;color:#166534;">Gratis</span>
+                 <span onclick="abrirTrack('${escHtml(t.id)}')" style="font-size:13px;font-weight:600;color:var(--accent);cursor:pointer;">${pct > 0 ? 'Continuar →' : 'Empezar →'}</span>
+               </div>`
+            : `<div style="padding-top:10px;border-top:1px solid #f3f4f6;font-size:13px;color:#6b7280;">Avísame cuando esté</div>`;
+
+        const sigla = (t.siglas || t.titulo || '').toUpperCase();
+        const siglaShort = sigla.length > 12 ? sigla.substring(0, 12) : sigla;
+        const fontSize = sigla.length > 8 ? '13px' : (sigla.length > 5 ? '16px' : '22px');
 
         return `
-            <div style="background:white;border:1.5px solid #e2e8f0;border-radius:20px;padding:20px;">
-                <div style="display:flex;align-items:start;justify-content:space-between;margin-bottom:14px;">
-                    <div style="width:40px;height:40px;background:${colorBg};border-radius:12px;display:flex;align-items:center;justify-content:center;color:${colorFg};font-weight:800;font-size:14px;">${escHtml((t.siglas || t.titulo || '').substring(0,4))}</div>
-                    ${badgeEstado}
+            <div style="background:white;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;${disponible ? 'cursor:pointer;' : ''}" ${disponible ? `onclick="abrirTrack('${escHtml(t.id)}')"` : ''}>
+                <div style="background:${colorBg};height:90px;display:flex;align-items:center;justify-content:center;">
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <div style="width:32px;height:32px;background:${colorFg};border-radius:6px;display:flex;align-items:center;justify-content:center;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>
+                        </div>
+                        <div style="font-size:${fontSize};font-weight:700;color:${colorFg};letter-spacing:-0.02em;">${escHtml(siglaShort)}</div>
+                    </div>
                 </div>
-                <div style="font-size:11px;color:#64748b;margin-bottom:4px;">${escHtml(t.descripcionCorta || '')}</div>
-                <div style="font-size:1.05rem;font-weight:800;color:var(--pmi-blue);margin-bottom:14px;letter-spacing:-0.01em;">${escHtml(t.titulo)}</div>
-                ${cuerpoProgreso}
-                <div style="display:flex;justify-content:flex-end;">${cta}</div>
+                <div style="padding:16px;">
+                    <div style="font-size:11px;color:#6b7280;margin-bottom:4px;">${escHtml(t.descripcionCorta || '')}</div>
+                    <div style="font-size:15px;font-weight:600;color:#111827;margin-bottom:10px;line-height:1.3;">${escHtml(t.titulo)}</div>
+                    ${cuerpo}
+                    ${ctaFooter}
+                </div>
             </div>
         `;
     }
@@ -3834,9 +3924,22 @@
         const elSim = document.getElementById('track-simulador');
         const elResumen = document.getElementById('track-resumen');
         const elMarcas = document.getElementById('track-marcas');
+        const elUserBarName = document.getElementById('ubar-name-track');
+        const elUserBarMeta = document.getElementById('ubar-meta-track');
 
         if (elLoading) elLoading.style.display = 'block';
         if (elContent) elContent.style.display = 'none';
+
+        // Pintar user bar minimalista
+        try {
+            const u = auth.currentUser;
+            if (u) {
+                const doc = await db.collection('usuarios').doc(u.uid).get();
+                const perfil = doc.exists ? doc.data() : null;
+                if (elUserBarName) elUserBarName.textContent = perfil ? `${perfil.nombre || ''} ${perfil.apellido || ''}`.trim() || u.email : (u.displayName || u.email);
+                if (elUserBarMeta) elUserBarMeta.textContent = u.email || '';
+            }
+        } catch (e) { /* silent */ }
 
         try {
             const callable = functions.httpsCallable('getTrackDetail');
@@ -3846,41 +3949,48 @@
             const t = data.track || {};
             const cursos = Array.isArray(data.cursos) ? data.cursos : [];
 
-            actualizarUserBar(auth.currentUser, null);
-
+            // Header del track con thumbnail estilo marketplace
             if (elHeader) {
+                const colorBg = t.paletaIconBg || '#eff6ff';
+                const colorFg = t.paletaIconFg || '#1e40af';
                 elHeader.innerHTML = `
-                    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
-                        <div style="width:42px;height:42px;background:${escHtml(t.paletaIconBg || '#dbeafe')};color:${escHtml(t.paletaIconFg || '#1e40af')};border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;">${escHtml((t.siglas || t.titulo || '').substring(0,4))}</div>
-                        <div>
-                            <div style="font-size:11px;color:#64748b;">${escHtml(t.entidad || '')}</div>
-                            <h1 style="font-size:1.8rem;font-weight:800;color:var(--pmi-blue);margin:0;letter-spacing:-0.02em;">${escHtml(t.titulo || trackId)}</h1>
+                    <div style="background:${escHtml(colorBg)};border-radius:12px;padding:32px 24px;margin-bottom:20px;">
+                        <div style="display:flex;align-items:center;gap:14px;">
+                            <div style="width:44px;height:44px;background:${escHtml(colorFg)};border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>
+                            </div>
+                            <div>
+                                <div style="font-size:12px;color:${escHtml(colorFg)};font-weight:600;margin-bottom:2px;">${escHtml(t.entidad || '')}</div>
+                                <h1 style="font-size:1.7rem;font-weight:700;color:#111827;margin:0;letter-spacing:-0.025em;line-height:1.2;">${escHtml(t.titulo || trackId)}</h1>
+                            </div>
                         </div>
                     </div>
-                    <p style="font-size:14px;color:#475569;line-height:1.6;margin:0;max-width:560px;">${escHtml(t.descripcionLarga || t.descripcionCorta || '')}</p>
+                    <p style="font-size:15px;color:#4b5563;line-height:1.6;margin:0;max-width:640px;">${escHtml(t.descripcionLarga || t.descripcionCorta || '')}</p>
                 `;
             }
 
-            const totalLecciones = cursos.reduce((acc, c) => acc + (c.lecciones?.length || 0), 0);
             const leccionesPublicadas = cursos.reduce((acc, c) => acc + (c.lecciones?.filter(l => l.status === 'published').length || 0), 0);
             if (elResumen) elResumen.textContent = `${cursos.length} cursos · ${leccionesPublicadas} lecciones publicadas · 1 simulador`;
 
+            // Lista de cursos (estilo limpio, una fila por curso)
             if (elCursos) {
                 if (cursos.length === 0) {
-                    elCursos.innerHTML = '<div style="text-align:center;color:#94a3b8;padding:30px;">Aún no hay cursos cargados.</div>';
+                    elCursos.innerHTML = '<div style="text-align:center;color:#9ca3af;padding:30px;font-size:14px;">Aún no hay cursos cargados.</div>';
                 } else {
+                    const colorFg = t.paletaIconFg || '#1e40af';
+                    const colorBg = t.paletaIconBg || '#eff6ff';
                     elCursos.innerHTML = cursos.map(c => {
                         const tieneLeccionesPubl = c.lecciones && c.lecciones.some(l => l.status === 'published');
                         const estadoBadge = tieneLeccionesPubl
-                            ? '<span style="background:#dcfce7;color:#166534;font-size:9px;font-weight:800;padding:2px 7px;border-radius:100px;letter-spacing:0.04em;text-transform:uppercase;">Disponible</span>'
-                            : '<span style="background:#fef3c7;color:#92400e;font-size:9px;font-weight:800;padding:2px 7px;border-radius:100px;letter-spacing:0.04em;text-transform:uppercase;">Próximamente</span>';
+                            ? '<span style="background:#dcfce7;color:#166534;font-size:11px;font-weight:600;padding:3px 8px;border-radius:4px;">Disponible</span>'
+                            : '<span style="background:#fef3c7;color:#92400e;font-size:11px;font-weight:600;padding:3px 8px;border-radius:4px;">Próximamente</span>';
                         const tiempo = c.tiempoEstimadoMin ? `${Math.round(c.tiempoEstimadoMin/60*10)/10}h` : '—';
                         return `
-                            <div style="background:white;border:1px solid #e2e8f0;border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px;">
-                                <div style="width:30px;height:30px;background:${escHtml(t.paletaIconBg || '#dbeafe')};color:${escHtml(t.paletaIconFg || '#1e40af')};border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;">${String(c.orden).padStart(2,'0')}</div>
+                            <div style="background:white;border:1px solid #e5e7eb;border-radius:8px;padding:14px 16px;display:flex;align-items:center;gap:14px;">
+                                <div style="width:32px;height:32px;background:${escHtml(colorBg)};color:${escHtml(colorFg)};border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0;">${String(c.orden).padStart(2,'0')}</div>
                                 <div style="flex:1;min-width:0;">
-                                    <div style="font-size:13px;font-weight:700;color:var(--pmi-blue);">${escHtml(c.titulo)}</div>
-                                    <div style="font-size:11px;color:#64748b;margin-top:1px;">${c.lecciones_total || 0} lecciones · ${tiempo}</div>
+                                    <div style="font-size:14px;font-weight:600;color:#111827;">${escHtml(c.titulo)}</div>
+                                    <div style="font-size:12px;color:#6b7280;margin-top:2px;">${c.lecciones_total || 0} lecciones · ${tiempo}</div>
                                 </div>
                                 ${estadoBadge}
                             </div>
@@ -3889,20 +3999,22 @@
                 }
             }
 
-            // Simulador (solo si el track tiene preguntasCollection asociada)
+            // Simulador (sigue destacado, ahora con paleta del track)
             if (elSim) {
                 if (t.simuladorPreguntasCollection) {
-                    elSim.style.display = 'flex';
+                    elSim.style.display = 'block';
                     elSim.innerHTML = `
-                        <div style="width:36px;height:36px;background:rgba(255,255,255,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+                        <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+                            <div style="width:36px;height:36px;background:rgba(255,255,255,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+                            </div>
+                            <div style="flex:1;min-width:200px;">
+                                <div style="font-size:11px;opacity:0.65;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px;font-weight:600;">Simulador disponible</div>
+                                <div style="font-size:16px;font-weight:600;margin-bottom:4px;">Simulacro tipo examen</div>
+                                <div style="font-size:13px;opacity:0.75;line-height:1.5;">De 20 a ${t.simuladorTamanoExamenCompleto || 180} preguntas configurables. Análisis por dominio y enfoque al terminar.</div>
+                            </div>
+                            <button onclick="navigate('screen-instructions')" style="background:white;color:#111827;border:none;padding:11px 22px;border-radius:6px;font-weight:600;cursor:pointer;font-size:14px;font-family:'Inter',sans-serif;">Ir al simulador →</button>
                         </div>
-                        <div style="flex:1;min-width:0;">
-                            <div style="font-size:10px;opacity:0.7;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px;">Simulador del track</div>
-                            <div style="font-size:14px;font-weight:700;">Simulacro tipo examen</div>
-                            <div style="font-size:12px;opacity:0.7;margin-top:1px;">Configura desde 20 hasta ${t.simuladorTamanoExamenCompleto || 180} preguntas. Análisis por dominio y enfoque al terminar.</div>
-                        </div>
-                        <button onclick="navigate('screen-instructions')" style="background:var(--accent);color:white;border:none;padding:10px 18px;border-radius:100px;font-weight:700;cursor:pointer;font-size:13px;font-family:'Inter',sans-serif;">Ir al simulador →</button>
                     `;
                 } else {
                     elSim.style.display = 'none';
@@ -3913,7 +4025,7 @@
                 const marca = t.siglas === 'PMP'
                     ? 'PMP y PMI son marcas registradas del Project Management Institute, Inc.'
                     : `${escHtml(t.siglas || '')} y ${escHtml(t.entidad || '')} son marcas de sus respectivos titulares.`;
-                elMarcas.textContent = `${marca} Certifica Academy es una plataforma independiente de material de apoyo educativo y no está afiliada al ${escHtml(t.entidad || 'organismo certificador')}.`;
+                elMarcas.textContent = `${marca} Certifica es una plataforma independiente de material de apoyo educativo y no está afiliada al ${escHtml(t.entidad || 'organismo certificador')}.`;
             }
 
             if (elLoading) elLoading.style.display = 'none';
