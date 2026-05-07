@@ -152,6 +152,55 @@ service cloud.firestore {
       allow write: if false;
     }
 
+    // ---------- tracks/{trackId} ----------
+    // Catálogo de certificaciones (PMP, Scrum, ITIL, etc.). Cada track tiene
+    // metadatos públicos (titulo, descripcion, color, status).
+    //
+    // Lectura: cualquier autenticado, para que el portal pueda mostrar el
+    // catálogo en la landing y el dashboard del alumno. Los lectores solo ven
+    // los campos de metadatos; el contenido real de las lecciones se entrega
+    // a través de Cloud Functions (getLeccion) que valida session y publicación.
+    //
+    // Escritura: bloqueada al cliente. Las funciones admin (crearTrack,
+    // editarTrack, etc.) escriben con admin SDK.
+    match /tracks/{trackId} {
+      allow read: if isSignedIn();
+      allow write: if false;
+
+      // Cursos del track: igual lógica. El cliente puede listar la estructura
+      // (título, orden, duración) sin acceso al contenido de las lecciones.
+      match /cursos/{cursoId} {
+        allow read: if isSignedIn();
+        allow write: if false;
+
+        // Lecciones individuales. La metadata (título, orden, tiempo) la
+        // puede leer cualquier autenticado para listar la estructura. El
+        // contenido real (campo `contenido`) está protegido a nivel de
+        // Cloud Function: solo getLeccion lo devuelve, y solo si la lección
+        // está publicada y el alumno tiene acceso al track.
+        //
+        // Para evitar que un alumno con DevTools haga
+        //   db.collection('tracks/.../lecciones').get()
+        // y baje todo el contenido, dejamos lectura bloqueada acá. La
+        // estructura del catálogo viaja a través de Cloud Functions
+        // (listTracks, getTrackDetail) que devuelven SOLO metadatos.
+        match /lecciones/{leccionId} {
+          allow read: if false;
+          allow write: if false;
+        }
+      }
+    }
+
+    // ---------- progreso/{compositeId} ----------
+    // Avance del alumno por lección. compositeId = `${uid}_${leccionId}`.
+    // El alumno puede leer su propio progreso (para hidratar la UI). La
+    // escritura siempre pasa por Cloud Function (marcarLeccionCompletada)
+    // para validar single-session y publicación de la lección.
+    match /progreso/{compositeId} {
+      allow read: if isSignedIn() && compositeId.split('_')[0] == request.auth.uid;
+      allow write: if false;
+    }
+
     // ---------- Default deny ----------
     // Cualquier colección no listada arriba queda completamente bloqueada.
     match /{document=**} {

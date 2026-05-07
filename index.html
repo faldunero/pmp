@@ -325,6 +325,148 @@
 
 <div class="main-container">
 
+ <!-- ═══════════════════════════════════════════════════════════════════
+      LANDING PÚBLICA — catálogo de certificaciones (sin login).
+      Es la primera pantalla que ve un visitante no autenticado.
+      Los CTA llevan a screen-login y screen-register.
+      ═══════════════════════════════════════════════════════════════════ -->
+ <div id="screen-portal-landing" class="screen">
+   <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 28px;">
+     <div style="display: flex; align-items: center; gap: 10px;">
+       <div style="width: 32px; height: 32px; background: var(--pmi-blue); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+       </div>
+       <div>
+         <div style="font-size: 16px; font-weight: 800; color: var(--pmi-blue); line-height: 1; letter-spacing: -0.01em;">Certifica Academy</div>
+         <div style="font-size: 11px; color: #64748b; margin-top: 2px;">Material de apoyo no oficial</div>
+       </div>
+     </div>
+     <div style="display: flex; gap: 10px;">
+       <button onclick="navigate('screen-login')" style="background: transparent; border: 1.5px solid #e2e8f0; padding: 9px 18px; border-radius: 100px; font-weight: 600; cursor: pointer; color: #475569; font-size: 13px; font-family: 'Inter', sans-serif;">Iniciar sesión</button>
+       <button onclick="navigate('screen-register')" style="background: var(--pmi-blue); color: white; border: none; padding: 9px 18px; border-radius: 100px; font-weight: 700; cursor: pointer; font-size: 13px; font-family: 'Inter', sans-serif;">Crear cuenta</button>
+     </div>
+   </div>
+
+   <div style="text-align: center; padding: 32px 20px 28px;">
+     <div style="display: inline-flex; align-items: center; gap: 8px; background: #f1f5f9; border: 1px solid #e2e8f0; padding: 5px 12px; border-radius: 100px; font-size: 12px; color: #475569; margin-bottom: 18px;">
+       <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--success);"></span>
+       Acceso gratuito por tiempo limitado
+     </div>
+     <h1 style="font-size: 2.8rem; font-weight: 800; color: var(--pmi-blue); margin: 0 0 10px; line-height: 1.1; letter-spacing: -0.04em;">Material de apoyo para certificaciones profesionales</h1>
+     <p style="font-size: 1.1rem; color: #64748b; max-width: 540px; margin: 0 auto 18px; line-height: 1.6;">Simuladores y cursos de estudio para que llegues al examen oficial sabiendo cómo te paras.</p>
+     <div style="display: inline-block; background: white; border: 1px solid #e2e8f0; border-left: 3px solid #f59e0b; padding: 12px 18px; border-radius: 12px; max-width: 540px; text-align: left; margin-bottom: 24px;">
+       <div style="font-size: 13px; color: #1e293b; line-height: 1.5;"><strong style="font-weight: 700;">No somos un organismo certificador.</strong> Este es contenido de estudio independiente. La certificación oficial solo se obtiene rindiendo el examen ante PMI, Axelos, Scrum.org u otra entidad correspondiente.</div>
+     </div>
+   </div>
+
+   <div style="margin-bottom: 24px;">
+     <div style="font-size: 12px; font-weight: 800; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase; margin-bottom: 4px;">Catálogo</div>
+     <h2 style="font-size: 1.6rem; font-weight: 800; color: var(--pmi-blue); margin: 0; letter-spacing: -0.02em;">Elige tu ruta de preparación</h2>
+   </div>
+
+   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 36px;">
+
+     <div style="background: white; border: 1.5px solid #e2e8f0; border-radius: 20px; padding: 20px;">
+       <div style="display: flex; align-items: start; justify-content: space-between; margin-bottom: 14px;">
+         <div style="width: 40px; height: 40px; background: #dbeafe; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1e40af" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>
+         </div>
+         <div style="display: flex; flex-direction: column; gap: 4px; align-items: end;">
+           <span style="background: #dcfce7; color: #166534; font-size: 10px; font-weight: 800; padding: 3px 9px; border-radius: 100px; letter-spacing: 0.04em; text-transform: uppercase;">Disponible</span>
+           <span style="background: #f1f5f9; color: #64748b; font-size: 9px; padding: 2px 7px; border-radius: 100px;">Material no oficial</span>
+         </div>
+       </div>
+       <div style="font-size: 11px; color: #64748b; margin-bottom: 4px;">Apoyo para examen del PMI</div>
+       <div style="font-size: 17px; font-weight: 800; color: var(--pmi-blue); margin-bottom: 8px; letter-spacing: -0.01em;">Preparación PMP</div>
+       <div style="font-size: 13px; color: #64748b; line-height: 1.5; margin-bottom: 14px;">Simulador con 180 preguntas, análisis por dominio. Cursos modulares en preparación.</div>
+       <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid #f1f5f9;">
+         <div style="font-size: 13px; font-weight: 700; color: #166534;">Acceso gratuito</div>
+         <button onclick="navigate('screen-register')" style="background: var(--pmi-blue); color: white; border: none; padding: 7px 14px; border-radius: 100px; font-weight: 700; cursor: pointer; font-size: 12px; font-family: 'Inter', sans-serif;">Comenzar →</button>
+       </div>
+     </div>
+
+     <div style="background: white; border: 1.5px solid #e2e8f0; border-radius: 20px; padding: 20px;">
+       <div style="display: flex; align-items: start; justify-content: space-between; margin-bottom: 14px;">
+         <div style="width: 40px; height: 40px; background: #d1fae5; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#065f46" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/></svg>
+         </div>
+         <span style="background: #fef3c7; color: #92400e; font-size: 10px; font-weight: 800; padding: 3px 9px; border-radius: 100px; letter-spacing: 0.04em; text-transform: uppercase;">Próximamente</span>
+       </div>
+       <div style="font-size: 11px; color: #64748b; margin-bottom: 4px;">Apoyo para Scrum.org / Scrum Alliance</div>
+       <div style="font-size: 17px; font-weight: 800; color: var(--pmi-blue); margin-bottom: 8px; letter-spacing: -0.01em;">Preparación Scrum Master</div>
+       <div style="font-size: 13px; color: #64748b; line-height: 1.5; margin-bottom: 14px;">PSM-I y CSM. Eventos, artefactos, roles del Scrum Guide 2020.</div>
+       <div style="font-size: 12px; color: #64748b; padding-top: 12px; border-top: 1px solid #f1f5f9;">Disponible en marzo 2026</div>
+     </div>
+
+     <div style="background: white; border: 1.5px solid #e2e8f0; border-radius: 20px; padding: 20px;">
+       <div style="display: flex; align-items: start; justify-content: space-between; margin-bottom: 14px;">
+         <div style="width: 40px; height: 40px; background: #ede9fe; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6d28d9" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+         </div>
+         <span style="background: #fef3c7; color: #92400e; font-size: 10px; font-weight: 800; padding: 3px 9px; border-radius: 100px; letter-spacing: 0.04em; text-transform: uppercase;">Próximamente</span>
+       </div>
+       <div style="font-size: 11px; color: #64748b; margin-bottom: 4px;">Apoyo para Scrum.org</div>
+       <div style="font-size: 17px; font-weight: 800; color: var(--pmi-blue); margin-bottom: 8px; letter-spacing: -0.01em;">Preparación Product Owner</div>
+       <div style="font-size: 13px; color: #64748b; line-height: 1.5; margin-bottom: 14px;">PSPO-I y PSPO-II. Backlog, valor de producto, estrategia.</div>
+       <div style="font-size: 12px; color: #64748b; padding-top: 12px; border-top: 1px solid #f1f5f9;">Disponible en abril 2026</div>
+     </div>
+
+     <div style="background: white; border: 1.5px solid #e2e8f0; border-radius: 20px; padding: 20px;">
+       <div style="display: flex; align-items: start; justify-content: space-between; margin-bottom: 14px;">
+         <div style="width: 40px; height: 40px; background: #fee2e2; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#991b1b" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg>
+         </div>
+         <span style="background: #fef3c7; color: #92400e; font-size: 10px; font-weight: 800; padding: 3px 9px; border-radius: 100px; letter-spacing: 0.04em; text-transform: uppercase;">Próximamente</span>
+       </div>
+       <div style="font-size: 11px; color: #64748b; margin-bottom: 4px;">Apoyo para Axelos</div>
+       <div style="font-size: 17px; font-weight: 800; color: var(--pmi-blue); margin-bottom: 8px; letter-spacing: -0.01em;">Preparación PRINCE2</div>
+       <div style="font-size: 13px; color: #64748b; line-height: 1.5; margin-bottom: 14px;">Foundation y Practitioner. Principios, temas y procesos del método estructurado.</div>
+       <div style="font-size: 12px; color: #64748b; padding-top: 12px; border-top: 1px solid #f1f5f9;">Disponible en mayo 2026</div>
+     </div>
+
+     <div style="background: white; border: 1.5px solid #e2e8f0; border-radius: 20px; padding: 20px;">
+       <div style="display: flex; align-items: start; justify-content: space-between; margin-bottom: 14px;">
+         <div style="width: 40px; height: 40px; background: #fef3c7; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#854d0e" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+         </div>
+         <span style="background: #fef3c7; color: #92400e; font-size: 10px; font-weight: 800; padding: 3px 9px; border-radius: 100px; letter-spacing: 0.04em; text-transform: uppercase;">Próximamente</span>
+       </div>
+       <div style="font-size: 11px; color: #64748b; margin-bottom: 4px;">Apoyo para Axelos</div>
+       <div style="font-size: 17px; font-weight: 800; color: var(--pmi-blue); margin-bottom: 8px; letter-spacing: -0.01em;">Preparación ITIL 4</div>
+       <div style="font-size: 13px; color: #64748b; line-height: 1.5; margin-bottom: 14px;">Foundation y Managing Professional. Service value system, prácticas y guiding principles.</div>
+       <div style="font-size: 12px; color: #64748b; padding-top: 12px; border-top: 1px solid #f1f5f9;">Disponible en junio 2026</div>
+     </div>
+
+   </div>
+
+   <div style="background: #f8fafc; border-radius: 20px; padding: 24px; margin-bottom: 24px;">
+     <div style="font-size: 12px; font-weight: 800; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase; margin-bottom: 6px;">Aviso importante</div>
+     <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--pmi-blue); margin: 0 0 12px;">Qué es y qué no es Certifica Academy</h3>
+     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; font-size: 13px; line-height: 1.6;">
+       <div>
+         <div style="font-weight: 700; color: #166534; margin-bottom: 6px;">Sí es:</div>
+         <ul style="margin: 0; padding-left: 18px; color: #1e293b;">
+           <li>Material de apoyo para tu estudio personal</li>
+           <li>Simuladores con preguntas de práctica</li>
+           <li>Una herramienta complementaria al material oficial</li>
+         </ul>
+       </div>
+       <div>
+         <div style="font-weight: 700; color: #991b1b; margin-bottom: 6px;">No es:</div>
+         <ul style="margin: 0; padding-left: 18px; color: #1e293b;">
+           <li>Un programa oficial del PMI, Axelos o Scrum.org</li>
+           <li>Una certificación ni habilita a obtener una</li>
+           <li>Endosado por las entidades certificadoras</li>
+         </ul>
+       </div>
+     </div>
+   </div>
+
+   <div style="text-align: center; padding-top: 14px; border-top: 1px solid #e2e8f0;">
+     <div style="font-size: 11px; color: #94a3b8; line-height: 1.6;">PMP y PMI son marcas registradas del Project Management Institute, Inc. PRINCE2 e ITIL son marcas de Axelos Limited. Scrum Master y Product Owner se preparan para exámenes de Scrum.org y Scrum Alliance. Certifica Academy es una plataforma independiente.</div>
+   </div>
+ </div>
+
  <div id="screen-login" class="screen">
  <h1>PMP Simulator Pro</h1>
  <p class="subtitle">Simulador de práctica basado en estándares PMI</p>
@@ -343,6 +485,9 @@
  <div class="auth-links">
  <a onclick="navigate('screen-register')">Crear cuenta</a> |
  <a onclick="handleResetPassword()">Recuperar contraseña</a>
+ </div>
+ <div style="text-align: center; margin-top: 18px;">
+   <a onclick="navigate('screen-portal-landing')" style="color: #94a3b8; text-decoration: none; font-size: 0.85rem; cursor: pointer;">← Volver al catálogo</a>
  </div>
  </div>
  </div>
@@ -459,6 +604,78 @@
    </select>
    <button class="btn-featured" onclick="handleGoogleComplete()">Guardar y entrar</button>
  </div>
+ </div>
+
+ <!-- ═══════════════════════════════════════════════════════════════════
+      DASHBOARD DEL ALUMNO MULTI-CURSO — primera pantalla post-login.
+      Muestra los tracks activos del alumno con progreso, atajo de
+      "continuar donde lo dejaste", y un catálogo de exploración.
+      ═══════════════════════════════════════════════════════════════════ -->
+ <div id="screen-dashboard-alumno" class="screen">
+   <div class="user-bar"><div class="user-bar-name" id="ubar-name-dash"></div><div class="user-bar-meta" id="ubar-meta-dash"></div></div>
+
+   <div style="display: flex; justify-content: flex-end; width: 100%; margin-bottom: 10px;">
+     <button onclick="cerrarSesion()" style="background: none; border: none; cursor: pointer; color: var(--error); font-weight: 600; font-size: 1rem; padding: 10px; font-family: 'Inter', sans-serif;">Cerrar Sesión</button>
+   </div>
+
+   <div style="margin-bottom: 24px;">
+     <div style="font-size: 12px; font-weight: 800; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase; margin-bottom: 4px;">Tu panel</div>
+     <h1 style="font-size: 2.4rem; font-weight: 800; color: var(--pmi-blue); margin: 0 0 6px; letter-spacing: -0.03em; line-height: 1.1;" id="dash-saludo">Hola</h1>
+     <div style="font-size: 14px; color: #64748b; line-height: 1.5;" id="dash-mensaje">Cargando tu progreso...</div>
+   </div>
+
+   <div id="dash-stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 28px;"></div>
+
+   <div id="dash-continuar" style="display: none; background: var(--pmi-blue); color: white; border-radius: 24px; padding: 24px; margin-bottom: 24px;"></div>
+
+   <div style="display: flex; align-items: end; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
+     <div>
+       <div style="font-size: 11px; font-weight: 800; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase; margin-bottom: 4px;">Mis rutas</div>
+       <h2 style="font-size: 1.4rem; font-weight: 800; color: var(--pmi-blue); margin: 0; letter-spacing: -0.02em;" id="dash-tracks-titulo">Certificaciones disponibles</h2>
+     </div>
+   </div>
+   <div id="dash-tracks" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 28px;">
+     <div style="text-align: center; color: #94a3b8; padding: 30px; grid-column: 1 / -1;">Cargando rutas...</div>
+   </div>
+
+   <div style="margin-top: 18px; padding-top: 16px; border-top: 1px solid #e2e8f0; font-size: 11px; color: #94a3b8; line-height: 1.6; text-align: center;">Material de apoyo independiente. No estamos afiliados ni patrocinados por PMI, Axelos, Scrum.org o Scrum Alliance.</div>
+ </div>
+
+ <!-- ═══════════════════════════════════════════════════════════════════
+      VISTA INTERNA DE UN TRACK — muestra cursos del track + simulador.
+      Para PMP: cursos en estado "próximamente" + simulador disponible.
+      ═══════════════════════════════════════════════════════════════════ -->
+ <div id="screen-track-detail" class="screen">
+   <div class="user-bar"><div class="user-bar-name" id="ubar-name-track"></div><div class="user-bar-meta" id="ubar-meta-track"></div></div>
+
+   <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+     <button onclick="navigate('screen-dashboard-alumno')" style="background: none; border: 1.5px solid #e2e8f0; padding: 8px 16px; border-radius: 100px; font-weight: 600; cursor: pointer; color: #475569; font-size: 0.85rem; font-family: 'Inter', sans-serif;">← Volver al panel</button>
+     <button onclick="cerrarSesion()" style="background: none; border: none; cursor: pointer; color: var(--error); font-weight: 600; font-size: 0.95rem; padding: 8px; font-family: 'Inter', sans-serif;">Cerrar Sesión</button>
+   </div>
+
+   <div id="track-loading" style="text-align: center; color: #94a3b8; padding: 60px;">Cargando contenido...</div>
+
+   <div id="track-content" style="display: none;">
+     <div style="margin-bottom: 24px;" id="track-header"></div>
+
+     <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 3px solid #f59e0b; padding: 14px 16px; border-radius: 12px; margin-bottom: 24px; font-size: 13px; line-height: 1.6;">
+       <strong style="font-weight: 700;">Material de estudio independiente.</strong> Esta ruta es de apoyo personal. No es un programa oficial ni reemplaza la preparación formal requerida para presentar el examen.
+     </div>
+
+     <div style="display: flex; align-items: end; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
+       <div>
+         <div style="font-size: 11px; font-weight: 800; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase; margin-bottom: 4px;">Plan de estudio</div>
+         <h2 style="font-size: 1.3rem; font-weight: 800; color: var(--pmi-blue); margin: 0; letter-spacing: -0.01em;">Cursos y simulador</h2>
+       </div>
+       <span id="track-resumen" style="font-size: 12px; color: #64748b;"></span>
+     </div>
+
+     <div id="track-cursos" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px;"></div>
+
+     <div id="track-simulador" style="background: var(--pmi-blue); color: white; border-radius: 16px; padding: 18px 20px; margin-top: 6px; display: none; align-items: center; gap: 14px;"></div>
+
+     <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #e2e8f0; font-size: 11px; color: #94a3b8; line-height: 1.6; text-align: center;" id="track-marcas"></div>
+   </div>
  </div>
 
 
@@ -1101,7 +1318,9 @@
    'screen-report',
    'screen-history',
    'screen-planes',
-   'screen-google-complete'
+   'screen-google-complete',
+   'screen-dashboard-alumno',
+   'screen-track-detail'
  ];
  const RUTAS_SOLO_ADMIN = ['screen-admin-users', 'screen-admin-trial', 'screen-admin-subscriptions'];
  const RUTAS_PROFESOR_O_ADMIN = ['screen-teacher', 'screen-teacher-detail'];
@@ -1229,13 +1448,13 @@
  auth.onAuthStateChanged(async user => {
  if (isRegistering) return;
  if (!user) {
-   // Logout: limpiar flags de rol para que no haya estado contaminado si
-   // un usuario distinto se loguea en el mismo tab sin recargar.
+   // No autenticado: limpiar flags y mandar a la landing pública del portal.
+   // Desde ahí el visitante puede ir a login o registro.
    isProfesor = false;
    isAdmin = false;
    currentSessionId = null;
    if (unsubscribeSession) { unsubscribeSession(); unsubscribeSession = null; }
-   navigate('screen-login');
+   navigate('screen-portal-landing');
    return;
  }
  kickedOut = false;
@@ -1320,7 +1539,11 @@
  await claimSessionParaUsuarioActual();
  escucharCambiosDeSesion(user.uid);
 
- // Alumno con perfil completo: ir a quiz si tiene test activo, si no a instructions.
+ // Alumno con perfil completo:
+ //   - Si tiene un simulacro activo en localStorage, retomarlo (UX existente).
+ //   - Si no, va al dashboard multi-curso (NUEVO entry-point del portal).
+ //     Desde ahí elige una ruta y hace click para entrar al track detail,
+ //     y de ahí al simulador o (en el futuro) al lector de lecciones.
  if (localStorage.getItem('pmp_test_activo') === "true") {
    qSet = JSON.parse(localStorage.getItem('pmp_qSet'));
    idx = parseInt(localStorage.getItem('pmp_idx')) || 0;
@@ -1331,7 +1554,8 @@
    iniciarReloj();
    dibujar();
  } else {
-   navigate('screen-instructions');
+   navigate('screen-dashboard-alumno');
+   cargarDashboardAlumno().catch(e => console.warn('Dashboard:', e));
  }
  });
 
@@ -3449,6 +3673,261 @@
     // ══════════════════════════════════════════════════
     // USER INFO BAR
     // ══════════════════════════════════════════════════
+    // PORTAL: DASHBOARD DEL ALUMNO + VISTA DEL TRACK
+    // ══════════════════════════════════════════════════
+    // Estos handlers conectan las pantallas screen-dashboard-alumno y
+    // screen-track-detail con las Cloud Functions getDashboardAlumno,
+    // listTracks, getTrackDetail. La fuente de verdad del progreso es
+    // Firestore — el cliente nunca lo calcula.
+    let dashCacheTimestamp = 0;
+    let trackDetailCache = null;
+
+    async function cargarDashboardAlumno() {
+        const elTitulo = document.getElementById('dash-saludo');
+        const elMensaje = document.getElementById('dash-mensaje');
+        const elStats = document.getElementById('dash-stats');
+        const elContinuar = document.getElementById('dash-continuar');
+        const elTracks = document.getElementById('dash-tracks');
+
+        // Saludo personalizado con el nombre del usuario actual
+        try {
+            const u = auth.currentUser;
+            if (u) {
+                const doc = await db.collection('usuarios').doc(u.uid).get();
+                const perfil = doc.exists ? doc.data() : null;
+                const nombre = perfil?.nombre || (u.displayName ? u.displayName.split(' ')[0] : '') || 'Bienvenido';
+                if (elTitulo) elTitulo.textContent = `Hola, ${nombre}`;
+                actualizarUserBar(u, perfil);
+            }
+        } catch (e) { console.warn('saludo:', e); }
+
+        // Datos del dashboard (tracks + progreso)
+        try {
+            const callable = functions.httpsCallable('getDashboardAlumno');
+            const resp = await callable(conSessionId({}));
+            const data = resp.data || {};
+            const tracks = Array.isArray(data.tracks) ? data.tracks : [];
+            const resumen = data.resumen || { tracksActivos: 0, leccionesCompletadas: 0, leccionesTotal: 0 };
+
+            // Mensaje + stats
+            if (resumen.leccionesTotal === 0) {
+                if (elMensaje) elMensaje.textContent = 'Las rutas con cursos modulares están en desarrollo. Por ahora puedes practicar con el simulador de PMP.';
+            } else if (resumen.leccionesCompletadas === 0) {
+                if (elMensaje) elMensaje.textContent = `Tienes ${resumen.leccionesTotal} lecciones disponibles. Empieza cuando estés listo.`;
+            } else {
+                if (elMensaje) elMensaje.textContent = `Llevas ${resumen.leccionesCompletadas} de ${resumen.leccionesTotal} lecciones. Vas bien.`;
+            }
+
+            if (elStats) {
+                elStats.innerHTML = `
+                    <div style="background:white;border:1px solid #e2e8f0;border-radius:16px;padding:16px;">
+                        <div style="font-size:10px;font-weight:800;letter-spacing:0.08em;color:#64748b;text-transform:uppercase;margin-bottom:6px;">Rutas activas</div>
+                        <div style="font-size:1.6rem;font-weight:800;color:var(--pmi-blue);line-height:1;">${resumen.tracksActivos}</div>
+                        <div style="font-size:11px;color:#64748b;margin-top:4px;">en progreso</div>
+                    </div>
+                    <div style="background:white;border:1px solid #e2e8f0;border-radius:16px;padding:16px;">
+                        <div style="font-size:10px;font-weight:800;letter-spacing:0.08em;color:#64748b;text-transform:uppercase;margin-bottom:6px;">Lecciones</div>
+                        <div style="font-size:1.6rem;font-weight:800;color:var(--pmi-blue);line-height:1;">${resumen.leccionesCompletadas} <span style="font-size:0.95rem;color:#94a3b8;">/ ${resumen.leccionesTotal}</span></div>
+                        <div style="font-size:11px;color:#64748b;margin-top:4px;">${resumen.leccionesTotal > 0 ? Math.round(resumen.leccionesCompletadas/resumen.leccionesTotal*100) : 0}% del plan</div>
+                    </div>
+                    <div style="background:white;border:1px solid #e2e8f0;border-radius:16px;padding:16px;">
+                        <div style="font-size:10px;font-weight:800;letter-spacing:0.08em;color:#64748b;text-transform:uppercase;margin-bottom:6px;">Simulador</div>
+                        <div style="font-size:1.6rem;font-weight:800;color:var(--pmi-blue);line-height:1;">PMP</div>
+                        <div style="font-size:11px;color:#64748b;margin-top:4px;">disponible</div>
+                    </div>
+                `;
+            }
+
+            // Card "continuar lección" (oculta si no hay próxima lección publicada)
+            if (elContinuar) {
+                const trackConProxima = tracks.find(t => t.proximaLeccion);
+                if (trackConProxima && trackConProxima.proximaLeccion) {
+                    const p = trackConProxima.proximaLeccion;
+                    elContinuar.style.display = 'flex';
+                    elContinuar.style.alignItems = 'center';
+                    elContinuar.style.justifyContent = 'space-between';
+                    elContinuar.style.gap = '18px';
+                    elContinuar.style.flexWrap = 'wrap';
+                    elContinuar.innerHTML = `
+                        <div style="flex:1;min-width:240px;">
+                            <div style="font-size:11px;font-weight:800;letter-spacing:0.08em;opacity:0.6;text-transform:uppercase;margin-bottom:6px;">Continúa donde lo dejaste</div>
+                            <div style="font-size:1.1rem;font-weight:800;margin-bottom:4px;letter-spacing:-0.01em;">Lección ${p.orden} · ${escHtml(p.titulo)}</div>
+                            <div style="font-size:13px;opacity:0.7;line-height:1.5;">Curso ${p.cursoOrden} — ${escHtml(p.cursoTitulo)} · ${escHtml(trackConProxima.titulo)}</div>
+                        </div>
+                        <button onclick="abrirTrack('${escHtml(trackConProxima.id)}')" style="background:var(--accent);color:white;border:none;padding:12px 24px;border-radius:100px;font-weight:700;cursor:pointer;font-size:13px;font-family:'Inter',sans-serif;">Ir a la ruta →</button>
+                    `;
+                } else {
+                    elContinuar.style.display = 'none';
+                }
+            }
+
+            // Lista de tracks
+            if (elTracks) {
+                if (tracks.length === 0) {
+                    elTracks.innerHTML = '<div style="text-align:center;color:#94a3b8;padding:30px;grid-column:1/-1;">No hay rutas disponibles todavía.</div>';
+                } else {
+                    elTracks.innerHTML = tracks.map(t => pintarCardTrack(t)).join('');
+                }
+            }
+
+            dashCacheTimestamp = Date.now();
+        } catch (e) {
+            console.error('Dashboard alumno:', e);
+            if (elTracks) elTracks.innerHTML = `<div style="grid-column:1/-1;color:#991b1b;text-align:center;padding:20px;">No pudimos cargar tu panel: ${escHtml(e.message || 'desconocido')}</div>`;
+        }
+    }
+    window.cargarDashboardAlumno = cargarDashboardAlumno;
+
+    function pintarCardTrack(t) {
+        const disponible = t.status === 'available';
+        const pct = t.porcentaje || 0;
+        const pcompletadas = t.lecciones_completadas || 0;
+        const ptotal = t.lecciones_total || 0;
+        const colorBg = t.paletaIconBg || '#dbeafe';
+        const colorFg = t.paletaIconFg || '#1e40af';
+
+        const badgeEstado = disponible
+            ? '<span style="background:#dcfce7;color:#166534;font-size:10px;font-weight:800;padding:3px 9px;border-radius:100px;letter-spacing:0.04em;text-transform:uppercase;">Disponible</span>'
+            : '<span style="background:#fef3c7;color:#92400e;font-size:10px;font-weight:800;padding:3px 9px;border-radius:100px;letter-spacing:0.04em;text-transform:uppercase;">Próximamente</span>';
+
+        const cuerpoProgreso = (disponible && ptotal > 0)
+            ? `<div style="display:flex;align-items:center;justify-content:space-between;font-size:12px;color:#64748b;margin-bottom:6px;">
+                 <span>Avance</span><span style="font-weight:700;color:var(--pmi-blue);">${pct}%</span>
+               </div>
+               <div style="height:6px;background:#f1f5f9;border-radius:100px;overflow:hidden;margin-bottom:14px;">
+                 <div style="height:100%;width:${pct}%;background:${colorFg};"></div>
+               </div>
+               <div style="font-size:11px;color:#64748b;margin-bottom:14px;">${pcompletadas} de ${ptotal} lecciones · simulador disponible</div>`
+            : disponible
+                ? `<div style="font-size:12px;color:#64748b;margin-bottom:14px;line-height:1.5;">Cursos modulares en preparación. Por ahora puedes practicar con el simulador.</div>`
+                : `<div style="font-size:12px;color:#64748b;margin-bottom:14px;line-height:1.5;">Próximamente disponible.</div>`;
+
+        const cta = disponible
+            ? `<button onclick="abrirTrack('${escHtml(t.id)}')" style="background:var(--pmi-blue);color:white;border:none;padding:9px 16px;border-radius:100px;font-weight:700;cursor:pointer;font-size:12px;font-family:'Inter',sans-serif;">Entrar a la ruta →</button>`
+            : `<button disabled style="background:#f1f5f9;color:#94a3b8;border:none;padding:9px 16px;border-radius:100px;font-weight:600;cursor:not-allowed;font-size:12px;font-family:'Inter',sans-serif;">Próximamente</button>`;
+
+        return `
+            <div style="background:white;border:1.5px solid #e2e8f0;border-radius:20px;padding:20px;">
+                <div style="display:flex;align-items:start;justify-content:space-between;margin-bottom:14px;">
+                    <div style="width:40px;height:40px;background:${colorBg};border-radius:12px;display:flex;align-items:center;justify-content:center;color:${colorFg};font-weight:800;font-size:14px;">${escHtml((t.siglas || t.titulo || '').substring(0,4))}</div>
+                    ${badgeEstado}
+                </div>
+                <div style="font-size:11px;color:#64748b;margin-bottom:4px;">${escHtml(t.descripcionCorta || '')}</div>
+                <div style="font-size:1.05rem;font-weight:800;color:var(--pmi-blue);margin-bottom:14px;letter-spacing:-0.01em;">${escHtml(t.titulo)}</div>
+                ${cuerpoProgreso}
+                <div style="display:flex;justify-content:flex-end;">${cta}</div>
+            </div>
+        `;
+    }
+
+    async function abrirTrack(trackId) {
+        navigate('screen-track-detail');
+        await cargarTrackDetail(trackId);
+    }
+    window.abrirTrack = abrirTrack;
+
+    async function cargarTrackDetail(trackId) {
+        const elLoading = document.getElementById('track-loading');
+        const elContent = document.getElementById('track-content');
+        const elHeader = document.getElementById('track-header');
+        const elCursos = document.getElementById('track-cursos');
+        const elSim = document.getElementById('track-simulador');
+        const elResumen = document.getElementById('track-resumen');
+        const elMarcas = document.getElementById('track-marcas');
+
+        if (elLoading) elLoading.style.display = 'block';
+        if (elContent) elContent.style.display = 'none';
+
+        try {
+            const callable = functions.httpsCallable('getTrackDetail');
+            const resp = await callable({ trackId });
+            const data = resp.data || {};
+            trackDetailCache = data;
+            const t = data.track || {};
+            const cursos = Array.isArray(data.cursos) ? data.cursos : [];
+
+            actualizarUserBar(auth.currentUser, null);
+
+            if (elHeader) {
+                elHeader.innerHTML = `
+                    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
+                        <div style="width:42px;height:42px;background:${escHtml(t.paletaIconBg || '#dbeafe')};color:${escHtml(t.paletaIconFg || '#1e40af')};border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;">${escHtml((t.siglas || t.titulo || '').substring(0,4))}</div>
+                        <div>
+                            <div style="font-size:11px;color:#64748b;">${escHtml(t.entidad || '')}</div>
+                            <h1 style="font-size:1.8rem;font-weight:800;color:var(--pmi-blue);margin:0;letter-spacing:-0.02em;">${escHtml(t.titulo || trackId)}</h1>
+                        </div>
+                    </div>
+                    <p style="font-size:14px;color:#475569;line-height:1.6;margin:0;max-width:560px;">${escHtml(t.descripcionLarga || t.descripcionCorta || '')}</p>
+                `;
+            }
+
+            const totalLecciones = cursos.reduce((acc, c) => acc + (c.lecciones?.length || 0), 0);
+            const leccionesPublicadas = cursos.reduce((acc, c) => acc + (c.lecciones?.filter(l => l.status === 'published').length || 0), 0);
+            if (elResumen) elResumen.textContent = `${cursos.length} cursos · ${leccionesPublicadas} lecciones publicadas · 1 simulador`;
+
+            if (elCursos) {
+                if (cursos.length === 0) {
+                    elCursos.innerHTML = '<div style="text-align:center;color:#94a3b8;padding:30px;">Aún no hay cursos cargados.</div>';
+                } else {
+                    elCursos.innerHTML = cursos.map(c => {
+                        const tieneLeccionesPubl = c.lecciones && c.lecciones.some(l => l.status === 'published');
+                        const estadoBadge = tieneLeccionesPubl
+                            ? '<span style="background:#dcfce7;color:#166534;font-size:9px;font-weight:800;padding:2px 7px;border-radius:100px;letter-spacing:0.04em;text-transform:uppercase;">Disponible</span>'
+                            : '<span style="background:#fef3c7;color:#92400e;font-size:9px;font-weight:800;padding:2px 7px;border-radius:100px;letter-spacing:0.04em;text-transform:uppercase;">Próximamente</span>';
+                        const tiempo = c.tiempoEstimadoMin ? `${Math.round(c.tiempoEstimadoMin/60*10)/10}h` : '—';
+                        return `
+                            <div style="background:white;border:1px solid #e2e8f0;border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px;">
+                                <div style="width:30px;height:30px;background:${escHtml(t.paletaIconBg || '#dbeafe')};color:${escHtml(t.paletaIconFg || '#1e40af')};border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;">${String(c.orden).padStart(2,'0')}</div>
+                                <div style="flex:1;min-width:0;">
+                                    <div style="font-size:13px;font-weight:700;color:var(--pmi-blue);">${escHtml(c.titulo)}</div>
+                                    <div style="font-size:11px;color:#64748b;margin-top:1px;">${c.lecciones_total || 0} lecciones · ${tiempo}</div>
+                                </div>
+                                ${estadoBadge}
+                            </div>
+                        `;
+                    }).join('');
+                }
+            }
+
+            // Simulador (solo si el track tiene preguntasCollection asociada)
+            if (elSim) {
+                if (t.simuladorPreguntasCollection) {
+                    elSim.style.display = 'flex';
+                    elSim.innerHTML = `
+                        <div style="width:36px;height:36px;background:rgba(255,255,255,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+                        </div>
+                        <div style="flex:1;min-width:0;">
+                            <div style="font-size:10px;opacity:0.7;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px;">Simulador del track</div>
+                            <div style="font-size:14px;font-weight:700;">Simulacro tipo examen</div>
+                            <div style="font-size:12px;opacity:0.7;margin-top:1px;">Configura desde 20 hasta ${t.simuladorTamanoExamenCompleto || 180} preguntas. Análisis por dominio y enfoque al terminar.</div>
+                        </div>
+                        <button onclick="navigate('screen-instructions')" style="background:var(--accent);color:white;border:none;padding:10px 18px;border-radius:100px;font-weight:700;cursor:pointer;font-size:13px;font-family:'Inter',sans-serif;">Ir al simulador →</button>
+                    `;
+                } else {
+                    elSim.style.display = 'none';
+                }
+            }
+
+            if (elMarcas) {
+                const marca = t.siglas === 'PMP'
+                    ? 'PMP y PMI son marcas registradas del Project Management Institute, Inc.'
+                    : `${escHtml(t.siglas || '')} y ${escHtml(t.entidad || '')} son marcas de sus respectivos titulares.`;
+                elMarcas.textContent = `${marca} Certifica Academy es una plataforma independiente de material de apoyo educativo y no está afiliada al ${escHtml(t.entidad || 'organismo certificador')}.`;
+            }
+
+            if (elLoading) elLoading.style.display = 'none';
+            if (elContent) elContent.style.display = 'block';
+        } catch (e) {
+            console.error('TrackDetail:', e);
+            if (elLoading) elLoading.innerHTML = `<div style="color:#991b1b;">No pudimos cargar la ruta: ${escHtml(e.message || 'desconocido')}</div>`;
+        }
+    }
+    window.cargarTrackDetail = cargarTrackDetail;
+
+    // ══════════════════════════════════════════════════
+    // USER INFO BAR
+    // ══════════════════════════════════════════════════
     // Pinta nombre + rol + meta en la barra superior de cada pantalla.
     // El rol se calcula desde los flags globales (isProfesor / isAdmin)
     // que ya están seteados por onAuthStateChanged a partir de los custom
@@ -3485,6 +3964,8 @@
         const nombreHtml = `${escHtml(nombre)} <span style="display:inline-block;margin-left:6px;padding:2px 9px;border-radius:100px;background:${rolBg};color:${rolColor};font-size:0.65rem;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;vertical-align:middle;">${rolLabel}</span>`;
 
         const barIds = [
+            ['ubar-name-dash', 'ubar-meta-dash'],
+            ['ubar-name-track','ubar-meta-track'],
             ['ubar-name-instr','ubar-meta-instr'],
             ['ubar-name-sel',  'ubar-meta-sel'],
             ['ubar-name-hist', 'ubar-meta-hist'],
