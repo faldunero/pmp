@@ -751,35 +751,40 @@
  </div>
 
  <!-- ═══════════════════════════════════════════════════════════════════
-      LECTOR DE LECCIONES — pantalla donde el alumno consume el contenido.
-      Layout simple, una columna, estilo Coursera/Udemy.
+      LECTOR DE LECCIONES — diseño rico estilo Preply en paleta azul.
+      Hero grande, progress bar del curso, tipografía editorial, callouts
+      con iconos SVG, navegación con preview de próxima lección.
       ═══════════════════════════════════════════════════════════════════ -->
  <div id="screen-leccion-reader" class="screen">
 
    <div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 0 18px; border-bottom: 1px solid #f3f4f6;">
      <div style="display: flex; align-items: center; gap: 8px;">
-       <div style="width: 26px; height: 26px; background: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+       <div style="width: 28px; height: 28px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(37,99,235,0.25);">
          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
        </div>
-       <div style="font-size: 17px; font-weight: 700; color: #111827; letter-spacing: -0.02em;">Certifica</div>
+       <div style="font-size: 17px; font-weight: 700; color: #1e3a8a; letter-spacing: -0.02em;">Certifica</div>
      </div>
      <div style="display: flex; gap: 14px; align-items: center;">
-       <div style="text-align: right;"><div style="font-size: 13px; color: #4b5563; font-weight: 500;" id="ubar-name-leccion">—</div><div style="font-size: 11px; color: #9ca3af;" id="ubar-meta-leccion"></div></div>
-       <button onclick="cerrarSesion()" style="background: white; border: 1px solid #d1d5db; padding: 7px 14px; border-radius: 6px; font-weight: 500; cursor: pointer; color: #4b5563; font-size: 13px; font-family: 'Inter', sans-serif;">Cerrar sesión</button>
+       <div style="text-align: right;"><div style="font-size: 13px; color: #1e40af; font-weight: 600;" id="ubar-name-leccion">—</div><div style="font-size: 11px; color: #6b7280;" id="ubar-meta-leccion"></div></div>
+       <button onclick="cerrarSesion()" style="background: white; border: 1px solid #dbeafe; padding: 7px 14px; border-radius: 8px; font-weight: 500; cursor: pointer; color: #1e40af; font-size: 13px; font-family: 'Inter', sans-serif;">Cerrar sesión</button>
      </div>
    </div>
 
-   <div style="padding: 18px 0 14px;" id="leccion-breadcrumb"></div>
+   <div id="leccion-progress" style="display:none;padding:14px 0 4px;"></div>
 
-   <div id="leccion-loading" style="text-align: center; color: #9ca3af; padding: 80px 20px; font-size: 14px;">Cargando lección...</div>
+   <div style="padding: 14px 0 0;" id="leccion-breadcrumb"></div>
+
+   <div id="leccion-loading" style="text-align: center; color: #6b7280; padding: 100px 20px; font-size: 14px;">
+     <div style="display:inline-block;width:40px;height:40px;border:3px solid #dbeafe;border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:16px;"></div>
+     <div>Cargando lección...</div>
+     <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+   </div>
 
    <div id="leccion-content" style="display: none;">
-     <div style="margin-bottom: 28px;" id="leccion-header"></div>
-     <div id="leccion-cuerpo" style="line-height: 1.7; color: #1f2937; font-size: 15px;"></div>
-
-     <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 24px 0 12px; margin-top: 32px; border-top: 1px solid #f3f4f6; flex-wrap: wrap;" id="leccion-nav"></div>
-
-     <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #f3f4f6; font-size: 11px; color: #9ca3af; line-height: 1.6; text-align: center;">Material de apoyo independiente. PMP y PMI son marcas registradas del Project Management Institute, Inc.</div>
+     <div id="leccion-hero" style="margin-bottom: 32px;"></div>
+     <div id="leccion-cuerpo" style="line-height: 1.85; color: #1e293b; font-size: 16px; max-width: 720px; margin: 0 auto;"></div>
+     <div id="leccion-nav" style="margin-top: 48px;"></div>
+     <div style="margin-top: 24px; padding: 18px 0 4px; border-top: 1px solid #eff6ff; font-size: 11px; color: #94a3b8; line-height: 1.6; text-align: center;">Material de apoyo independiente. PMP y PMI son marcas registradas del Project Management Institute, Inc.</div>
    </div>
  </div>
 
@@ -3965,7 +3970,7 @@
         if (elLoading) elLoading.style.display = 'block';
         if (elContent) elContent.style.display = 'none';
 
-        // User bar minimalista
+        // User bar
         try {
             const u = auth.currentUser;
             if (u) {
@@ -3978,8 +3983,7 @@
             }
         } catch(_) {}
 
-        // Necesitamos getTrackDetail para armar la navegación entre lecciones.
-        // Si ya lo tenemos en cache (mismo track), reusar.
+        // Necesitamos getTrackDetail para armar la navegación + progress bar
         let trackData = trackDetailParaLector;
         if (!trackData || trackData.track?.id !== trackId) {
             try {
@@ -3991,10 +3995,11 @@
             }
         }
 
-        // Construir lista ordenada de lecciones publicadas del curso actual
+        // Lecciones publicadas del curso actual
+        let cursoActual = null;
         leccionesDelCurso = [];
         if (trackData) {
-            const cursoActual = (trackData.cursos || []).find(c => c.id === cursoId);
+            cursoActual = (trackData.cursos || []).find(c => c.id === cursoId);
             if (cursoActual) {
                 leccionesDelCurso = (cursoActual.lecciones || [])
                     .filter(l => l.status === 'published')
@@ -4002,49 +4007,81 @@
             }
         }
 
-        // Cargar contenido de la lección
         try {
             const callable = functions.httpsCallable('getLeccion');
             const resp = await callable(conSessionId({ trackId, cursoId, leccionId }));
             const leccion = resp.data || {};
             leccionActual = { trackId, cursoId, leccionId, ...leccion };
 
-            // Breadcrumb
             const trackTit = trackData?.track?.titulo || trackId;
-            const cursoTit = (trackData?.cursos || []).find(c => c.id === cursoId)?.titulo || cursoId;
-            const elBread = document.getElementById('leccion-breadcrumb');
-            if (elBread) {
-                elBread.innerHTML = `
-                    <div style="font-size: 12px; color: #6b7280;">
-                        <span onclick="navigate('screen-dashboard-alumno')" style="cursor:pointer;color:var(--accent);">Mi panel</span>
-                        <span style="margin: 0 6px;">›</span>
-                        <span onclick="abrirTrack('${escHtml(trackId)}')" style="cursor:pointer;color:var(--accent);">${escHtml(trackTit)}</span>
-                        <span style="margin: 0 6px;">›</span>
-                        <span style="color:#9ca3af;">${escHtml(cursoTit)}</span>
+            const cursoTit = cursoActual?.titulo || cursoId;
+            const idx = leccionesDelCurso.findIndex(l => l.id === leccionId);
+            const posicion = idx >= 0 ? idx + 1 : 1;
+            const totalCurso = leccionesDelCurso.length || 1;
+            const pctProgreso = Math.round((posicion / totalCurso) * 100);
+
+            // Progress bar del curso (sticky-ish arriba)
+            const elProgress = document.getElementById('leccion-progress');
+            if (elProgress) {
+                elProgress.style.display = 'block';
+                elProgress.innerHTML = `
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
+                        <div style="font-size:12px;color:#6b7280;font-weight:500;">${escHtml(cursoTit)}</div>
+                        <div style="font-size:12px;color:#1e40af;font-weight:600;">${posicion} de ${totalCurso} · ${pctProgreso}%</div>
+                    </div>
+                    <div style="height:4px;background:#eff6ff;border-radius:100px;overflow:hidden;">
+                        <div style="height:100%;width:${pctProgreso}%;background:linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);border-radius:100px;transition:width 0.3s ease;"></div>
                     </div>
                 `;
             }
 
-            // Header de la lección
-            const elHeader = document.getElementById('leccion-header');
-            if (elHeader) {
-                elHeader.innerHTML = `
-                    <div style="font-size: 11px; font-weight: 600; color: var(--accent); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 6px;">Lección ${leccion.orden || ''}</div>
-                    <h1 style="font-size: 1.7rem; font-weight: 700; color: #111827; margin: 0 0 8px; letter-spacing: -0.025em; line-height: 1.25;">${escHtml(leccion.titulo || '')}</h1>
-                    <div style="font-size: 13px; color: #6b7280;">${leccion.tiempoEstimadoMin ? leccion.tiempoEstimadoMin + ' min de lectura' : ''}</div>
+            // Breadcrumb
+            const elBread = document.getElementById('leccion-breadcrumb');
+            if (elBread) {
+                elBread.innerHTML = `
+                    <div style="font-size: 12px; color: #94a3b8;">
+                        <span onclick="navigate('screen-dashboard-alumno')" style="cursor:pointer;color:var(--accent);font-weight:500;">Mi panel</span>
+                        <span style="margin: 0 8px;">›</span>
+                        <span onclick="abrirTrack('${escHtml(trackId)}')" style="cursor:pointer;color:var(--accent);font-weight:500;">${escHtml(trackTit)}</span>
+                        <span style="margin: 0 8px;">›</span>
+                        <span style="color:#64748b;">${escHtml(cursoTit)}</span>
+                    </div>
                 `;
             }
 
-            // Cuerpo: renderizar las secciones del contenido estructurado
+            // Hero rico de la lección
+            const elHero = document.getElementById('leccion-hero');
+            if (elHero) {
+                const tiempoTxt = leccion.tiempoEstimadoMin ? `${leccion.tiempoEstimadoMin} min de lectura` : '';
+                const palabrasTxt = leccion.palabras ? `${leccion.palabras} palabras` : '';
+                const meta = [tiempoTxt, palabrasTxt].filter(Boolean).join(' · ');
+
+                elHero.innerHTML = `
+                    <div style="background:linear-gradient(135deg, #f0f9ff 0%, #eff6ff 100%);border:1px solid #dbeafe;border-radius:20px;padding:36px 32px;margin-top:20px;position:relative;overflow:hidden;">
+                        <div style="position:absolute;right:-40px;top:-40px;width:200px;height:200px;background:radial-gradient(circle, rgba(37,99,235,0.08) 0%, transparent 70%);pointer-events:none;"></div>
+                        <div style="display:inline-flex;align-items:center;gap:6px;background:white;color:var(--accent);font-size:11px;font-weight:700;padding:5px 12px;border-radius:100px;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:14px;box-shadow:0 1px 2px rgba(37,99,235,0.06);">
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2zM22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+                            Lección ${leccion.orden || posicion} de ${totalCurso}
+                        </div>
+                        <h1 style="font-size: 2rem; font-weight: 700; color: #1e3a8a; margin: 0 0 12px; letter-spacing: -0.03em; line-height: 1.2; max-width: 600px;">${escHtml(leccion.titulo || '')}</h1>
+                        ${meta ? `
+                        <div style="display:flex;align-items:center;gap:14px;font-size:13px;color:#475569;flex-wrap:wrap;">
+                            ${tiempoTxt ? `<div style="display:inline-flex;align-items:center;gap:5px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1e40af" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l2.5 2.5"/></svg>${escHtml(tiempoTxt)}</div>` : ''}
+                            ${palabrasTxt ? `<div style="display:inline-flex;align-items:center;gap:5px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1e40af" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>${escHtml(palabrasTxt)}</div>` : ''}
+                        </div>
+                        ` : ''}
+                    </div>
+                `;
+            }
+
             const elCuerpo = document.getElementById('leccion-cuerpo');
             if (elCuerpo) {
                 elCuerpo.innerHTML = renderContenidoLeccion(leccion.contenido);
             }
 
-            // Navegación inferior
             renderNavegacionLeccion(trackId, cursoId, leccionId);
 
-            // Marcar visita / progreso (best-effort, no bloquea UX si falla)
+            // Marcar visita (best-effort)
             try {
                 const callMarcar = functions.httpsCallable('marcarLeccionCompletada');
                 await callMarcar(conSessionId({ trackId, cursoId, leccionId, completada: false, tiempoLeidoSeg: 0 }));
@@ -4060,49 +4097,92 @@
     }
     window.abrirLeccion = abrirLeccion;
 
-    // Convierte el contenido estructurado (secciones tipadas) en HTML.
-    // Cada tipo tiene un componente visual propio en estilo limpio Coursera.
+    // Renderiza el contenido estructurado con estilo editorial premium en azul.
     function renderContenidoLeccion(contenido) {
         const secciones = (contenido && Array.isArray(contenido.secciones)) ? contenido.secciones : [];
         if (secciones.length === 0) {
-            return '<div style="color:#9ca3af;font-style:italic;padding:20px 0;">Esta lección aún no tiene contenido.</div>';
+            return '<div style="color:#94a3b8;font-style:italic;padding:30px 0;text-align:center;">Esta lección aún no tiene contenido.</div>';
         }
+
+        // SVG icons inline para cada variante de callout
+        const iconos = {
+            tip_examen: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 00-4 12.745V17a1 1 0 001 1h6a1 1 0 001-1v-2.255A7 7 0 0012 2z"/></svg>',
+            nota: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>',
+            ejemplo: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>',
+        };
+
         return secciones.map(s => {
             switch (s.tipo) {
                 case 'parrafo':
-                    return `<p style="margin: 0 0 18px; line-height: 1.75; color: #1f2937;">${escHtml(s.texto || '')}</p>`;
+                    return `<p style="margin: 0 0 22px; line-height: 1.85; color: #1e293b; font-size: 16px;">${escHtml(s.texto || '')}</p>`;
+
                 case 'titulo':
-                    return `<h2 style="font-size: 1.2rem; font-weight: 700; color: #111827; margin: 32px 0 14px; letter-spacing: -0.015em; line-height: 1.3;">${escHtml(s.texto || '')}</h2>`;
+                    return `<h2 style="font-size: 1.4rem; font-weight: 700; color: #1e3a8a; margin: 36px 0 16px; letter-spacing: -0.02em; line-height: 1.3; padding-left: 14px; border-left: 3px solid var(--accent);">${escHtml(s.texto || '')}</h2>`;
+
                 case 'lista':
                     if (!Array.isArray(s.items)) return '';
-                    return `<ul style="margin: 0 0 18px; padding-left: 22px; line-height: 1.75; color: #1f2937;">${
-                        s.items.map(it => `<li style="margin-bottom: 6px;">${escHtml(it)}</li>`).join('')
+                    return `<ul style="margin: 0 0 24px; padding: 0; list-style: none;">${
+                        s.items.map(it => `
+                            <li style="position:relative;padding-left:28px;margin-bottom:10px;line-height:1.7;color:#1e293b;font-size:15.5px;">
+                                <span style="position:absolute;left:0;top:9px;width:8px;height:8px;background:var(--accent);border-radius:50%;box-shadow:0 0 0 4px #dbeafe;"></span>
+                                ${escHtml(it)}
+                            </li>`
+                        ).join('')
                     }</ul>`;
+
                 case 'callout': {
                     const variantes = {
-                        tip_examen: { bg: '#fefce8', border: '#fde68a', textHeader: '#854d0e', textBody: '#422006', label: 'Tip de examen' },
-                        nota:       { bg: '#eff6ff', border: '#bfdbfe', textHeader: '#1e40af', textBody: '#172554', label: 'Nota' },
-                        ejemplo:    { bg: '#f0fdf4', border: '#bbf7d0', textHeader: '#166534', textBody: '#14532d', label: 'Ejemplo' },
+                        tip_examen: {
+                            bg: 'linear-gradient(135deg, #fef3c7 0%, #fef9c3 100%)',
+                            border: '#fcd34d',
+                            iconBg: '#f59e0b',
+                            textHeader: '#78350f',
+                            textBody: '#422006',
+                            label: 'Tip de examen'
+                        },
+                        nota: {
+                            bg: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)',
+                            border: '#93c5fd',
+                            iconBg: '#2563eb',
+                            textHeader: '#1e3a8a',
+                            textBody: '#1e293b',
+                            label: 'Nota'
+                        },
+                        ejemplo: {
+                            bg: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+                            border: '#86efac',
+                            iconBg: '#16a34a',
+                            textHeader: '#14532d',
+                            textBody: '#1e293b',
+                            label: 'Ejemplo'
+                        },
                     };
                     const v = variantes[s.variante] || variantes.nota;
-                    return `<div style="background:${v.bg};border:1px solid ${v.border};border-radius:8px;padding:14px 18px;margin:18px 0;">
-                        <div style="font-size:11px;font-weight:700;letter-spacing:0.06em;color:${v.textHeader};text-transform:uppercase;margin-bottom:6px;">${v.label}</div>
-                        <div style="font-size:14px;color:${v.textBody};line-height:1.65;">${escHtml(s.texto || '')}</div>
+                    return `<div style="background:${v.bg};border:1px solid ${v.border};border-radius:14px;padding:18px 20px 18px 18px;margin:24px 0;display:flex;gap:14px;align-items:flex-start;">
+                        <div style="flex-shrink:0;width:32px;height:32px;background:${v.iconBg};color:white;border-radius:10px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px ${v.iconBg}40;">
+                            ${iconos[s.variante] || iconos.nota}
+                        </div>
+                        <div style="flex:1;min-width:0;">
+                            <div style="font-size:11px;font-weight:700;letter-spacing:0.06em;color:${v.textHeader};text-transform:uppercase;margin-bottom:4px;">${v.label}</div>
+                            <div style="font-size:14.5px;color:${v.textBody};line-height:1.65;">${escHtml(s.texto || '')}</div>
+                        </div>
                     </div>`;
                 }
+
                 case 'tabla': {
                     if (!Array.isArray(s.headers) || !Array.isArray(s.filas)) return '';
-                    const headersHtml = s.headers.map(h => `<th style="text-align:left;padding:10px 12px;font-size:12px;font-weight:600;color:#374151;border-bottom:1px solid #e5e7eb;background:#f9fafb;">${escHtml(h)}</th>`).join('');
-                    const filasHtml = s.filas.map(fila =>
-                        `<tr>${fila.map(c => `<td style="padding:10px 12px;font-size:13px;color:#1f2937;border-bottom:1px solid #f3f4f6;">${escHtml(c)}</td>`).join('')}</tr>`
+                    const headersHtml = s.headers.map(h => `<th style="text-align:left;padding:12px 16px;font-size:12px;font-weight:700;color:#1e3a8a;border-bottom:2px solid #dbeafe;background:#eff6ff;letter-spacing:0.02em;">${escHtml(h)}</th>`).join('');
+                    const filasHtml = s.filas.map((fila, i) =>
+                        `<tr style="background:${i % 2 === 0 ? 'white' : '#f8fafc'};">${fila.map(c => `<td style="padding:12px 16px;font-size:14px;color:#1e293b;border-bottom:1px solid #f1f5f9;line-height:1.55;">${escHtml(c)}</td>`).join('')}</tr>`
                     ).join('');
-                    return `<div style="margin: 18px 0; overflow-x: auto;">
-                        <table style="width:100%;border-collapse:collapse;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;">
+                    return `<div style="margin: 24px 0; overflow: hidden; border-radius: 12px; border: 1px solid #dbeafe; box-shadow: 0 1px 2px rgba(37,99,235,0.04);">
+                        <table style="width:100%;border-collapse:collapse;">
                             <thead><tr>${headersHtml}</tr></thead>
                             <tbody>${filasHtml}</tbody>
                         </table>
                     </div>`;
                 }
+
                 default:
                     return '';
             }
@@ -4110,7 +4190,7 @@
     }
     window.renderContenidoLeccion = renderContenidoLeccion;
 
-    // Renderiza los botones de navegación inferior: anterior, completar, siguiente.
+    // Renderiza la navegación inferior con preview de la próxima lección.
     function renderNavegacionLeccion(trackId, cursoId, leccionId) {
         const elNav = document.getElementById('leccion-nav');
         if (!elNav) return;
@@ -4119,21 +4199,49 @@
         const anterior = idx > 0 ? leccionesDelCurso[idx - 1] : null;
         const siguiente = idx >= 0 && idx < leccionesDelCurso.length - 1 ? leccionesDelCurso[idx + 1] : null;
 
+        // Preview de la próxima lección (si existe)
+        const previewSiguiente = siguiente
+            ? `<div style="background:linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);border-radius:16px;padding:24px;margin-bottom:20px;color:white;cursor:pointer;box-shadow:0 8px 24px rgba(37,99,235,0.18);transition:transform 0.15s,box-shadow 0.15s;"
+                onclick="abrirLeccion('${escHtml(trackId)}','${escHtml(cursoId)}','${escHtml(siguiente.id)}')"
+                onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 32px rgba(37,99,235,0.25)';"
+                onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 8px 24px rgba(37,99,235,0.18)';">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;">
+                    <div style="flex:1;min-width:240px;">
+                        <div style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;opacity:0.75;font-weight:600;margin-bottom:6px;">Próxima lección</div>
+                        <div style="font-size:1.1rem;font-weight:700;letter-spacing:-0.01em;line-height:1.3;">${escHtml(siguiente.titulo)}</div>
+                        <div style="font-size:12px;opacity:0.7;margin-top:4px;">Lección ${siguiente.orden}${siguiente.tiempoEstimadoMin ? ' · ' + siguiente.tiempoEstimadoMin + ' min' : ''}</div>
+                    </div>
+                    <div style="background:white;color:var(--accent);width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+                    </div>
+                </div>
+            </div>`
+            : `<div style="background:linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);border:1px solid #86efac;border-radius:16px;padding:24px;margin-bottom:20px;text-align:center;">
+                <div style="display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;background:#16a34a;color:white;border-radius:50%;margin-bottom:12px;box-shadow:0 4px 12px rgba(22,163,74,0.25);">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+                </div>
+                <div style="font-size:1.1rem;font-weight:700;color:#14532d;margin-bottom:4px;letter-spacing:-0.01em;">¡Última lección del curso!</div>
+                <div style="font-size:13px;color:#15803d;">Cuando la termines, vuelve al curso para repasar.</div>
+            </div>`;
+
+        // Botones inferiores compactos
         const btnAnterior = anterior
-            ? `<button onclick="abrirLeccion('${escHtml(trackId)}','${escHtml(cursoId)}','${escHtml(anterior.id)}')" style="background:white;border:1px solid #d1d5db;padding:10px 18px;border-radius:6px;font-weight:500;cursor:pointer;color:#4b5563;font-size:13px;font-family:'Inter',sans-serif;display:inline-flex;align-items:center;gap:6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>Anterior</button>`
-            : `<button onclick="abrirTrack('${escHtml(trackId)}')" style="background:white;border:1px solid #d1d5db;padding:10px 18px;border-radius:6px;font-weight:500;cursor:pointer;color:#4b5563;font-size:13px;font-family:'Inter',sans-serif;">← Volver al curso</button>`;
+            ? `<button onclick="abrirLeccion('${escHtml(trackId)}','${escHtml(cursoId)}','${escHtml(anterior.id)}')" style="background:white;border:1px solid #dbeafe;padding:11px 18px;border-radius:10px;font-weight:600;cursor:pointer;color:#1e40af;font-size:13px;font-family:'Inter',sans-serif;display:inline-flex;align-items:center;gap:6px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+                Anterior
+            </button>`
+            : `<button onclick="abrirTrack('${escHtml(trackId)}')" style="background:white;border:1px solid #dbeafe;padding:11px 18px;border-radius:10px;font-weight:600;cursor:pointer;color:#1e40af;font-size:13px;font-family:'Inter',sans-serif;">← Volver al curso</button>`;
 
-        const btnCompletar = `<button onclick="marcarLeccionListaYAvanzar()" style="background:white;border:1px solid #bfdbfe;color:var(--accent);padding:10px 18px;border-radius:6px;font-weight:600;cursor:pointer;font-size:13px;font-family:'Inter',sans-serif;">Marcar como completada</button>`;
-
-        const btnSiguiente = siguiente
-            ? `<button onclick="abrirLeccion('${escHtml(trackId)}','${escHtml(cursoId)}','${escHtml(siguiente.id)}')" style="background:#111827;border:none;color:white;padding:11px 22px;border-radius:6px;font-weight:600;cursor:pointer;font-size:13px;font-family:'Inter',sans-serif;display:inline-flex;align-items:center;gap:6px;">Siguiente lección<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>`
-            : `<button onclick="abrirTrack('${escHtml(trackId)}')" style="background:#111827;border:none;color:white;padding:11px 22px;border-radius:6px;font-weight:600;cursor:pointer;font-size:13px;font-family:'Inter',sans-serif;">Volver al curso →</button>`;
+        const btnCompletar = `<button onclick="marcarLeccionListaYAvanzar()" style="background:var(--accent);border:none;color:white;padding:11px 22px;border-radius:10px;font-weight:600;cursor:pointer;font-size:13px;font-family:'Inter',sans-serif;display:inline-flex;align-items:center;gap:7px;box-shadow:0 4px 12px rgba(37,99,235,0.25);transition:transform 0.1s;" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+            ${siguiente ? 'Completar y continuar' : 'Marcar como completada'}
+        </button>`;
 
         elNav.innerHTML = `
-            <div>${btnAnterior}</div>
-            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            ${previewSiguiente}
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+                ${btnAnterior}
                 ${btnCompletar}
-                ${btnSiguiente}
             </div>
         `;
     }
