@@ -1,0 +1,59 @@
+{
+  "_META_titulo": "El PMBOK: estructura y enfoque del estándar",
+  "_META_curso": "01-fundamentos-pmbok",
+  "_META_orden": 2,
+  "_META_tiempo_min": 12,
+  "_META_INSTRUCCIONES": "Contenido basado en la estructura y los 12 principios del PMBOK 7.",
+  "publicar": true,
+  "secciones": [
+    {
+      "tipo": "parrafo",
+      "texto": "Para conquistar el examen PMP, no basta con memorizar procesos; tenés que entender el ADN del PMBOK 7. Esta lección te explica cómo pasamos de un manual de 'recetas rígidas' a un marco flexible diseñado para entregar valor en entornos de alta incertidumbre."
+    },
+    {
+      "tipo": "titulo",
+      "texto": "¿Qué es el PMBOK y por qué cambió?"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "El PMBOK no es una metodología obligatoria, sino un estándar de buenas prácticas que se adapta a cualquier industria. El cambio a la séptima edición ocurrió porque el mundo ya no es puramente predictivo; la transformación digital y la agilidad obligaron al PMI a priorizar los principios y el valor sobre los cronogramas estáticos."
+    },
+    {
+      "tipo": "lista",
+      "items": [
+        "Adaptación (Tailoring): No gestionás igual un hospital que una App; el estándar te pide ajustar las herramientas al contexto.",
+        "De Procesos a Principios: Ya no se trata de 'qué proceso sigue', sino de 'qué decisión es la mejor' para el proyecto.",
+        "Entrega de Valor: El éxito se mide por el impacto en el negocio y la satisfacción de los stakeholders, no solo por cumplir el presupuesto."
+      ]
+    },
+    {
+      "tipo": "titulo",
+      "texto": "Los 12 Principios: Tu brújula de comportamiento"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Los principios son ideas rectoras que guían tus decisiones cuando no hay un procedimiento escrito. Van desde ser un administrador responsable y ético hasta facilitar el cambio organizacional, asegurando que el equipo colabore y piense de forma sistémica para resolver problemas complejos."
+    },
+    {
+      "tipo": "lista",
+      "items": [
+        "Enfoque en Stakeholders: Entender y gestionar sus expectativas es crítico para evitar el fracaso estratégico.",
+        "Pensamiento Sistémico: Reconocer que una pequeña decisión técnica puede afectar a toda la operación de la empresa.",
+        "Resiliencia y Adaptabilidad: La capacidad de absorber cambios y recuperarse de crisis sin que el proyecto colapse."
+      ]
+    },
+    {
+      "tipo": "titulo",
+      "texto": "Dominios de Desempeño: Lograr resultados efectivos"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Los 8 dominios reemplazan a las antiguas áreas de conocimiento. Mientras antes te preguntabas si habías ejecutado bien un proceso, ahora el foco está en si el área (como el equipo, la planificación o la incertidumbre) está funcionando efectivamente para lograr resultados reales."
+    },
+    {
+      "tipo": "callout",
+      "variante": "tip_examen",
+      "texto": "TIP DE EXAMEN: Si el enunciado menciona un entorno con requisitos cambiantes o alta innovación, buscá respuestas que hablen de 'Adaptación (Tailoring)' o 'Ciclos de vida iterativos'. El examen penaliza la rigidez; la respuesta correcta siempre será la que demuestre flexibilidad para maximizar el valor."
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "_META_titulo": "Qué es y qué no es la dirección de proyectos",
+  "_META_curso": "01-fundamentos-pmbok",
+  "_META_orden": 1,
+  "_META_tiempo_min": 14,
+  "_META_INSTRUCCIONES": "Contenido actualizado basado en PMBOK 7ma Edición.",
+  "publicar": true,
+  "secciones": [
+    {
+      "tipo": "parrafo",
+      "texto": "Olvidate de las recetas rígidas: el PMBOK 7 cambió el juego para enfocarse en la estrategia. Entender esta diferencia es vital para el examen, porque las preguntas ya no buscan que recites procesos, sino que demuestres cómo generás valor real."
+    },
+    {
+      "tipo": "titulo",
+      "texto": "¿Qué ES la dirección de proyectos hoy?"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Es mucho más que mover fechas en un Excel; es la capacidad de transformar una idea en resultados concretos. Dirigir implica liderar personas, integrar áreas que suelen trabajar aisladas y navegar la incertidumbre para que el negocio obtenga un beneficio real."
+    },
+    {
+      "tipo": "lista",
+      "items": [
+        "Un sistema para la entrega de valor, no solo una lista de tareas.",
+        "El rol del Director como líder, integrador y gestor de incertidumbre.",
+        "Un esfuerzo único y temporal orientado a generar un cambio."
+      ]
+    },
+    {
+      "tipo": "titulo",
+      "texto": "El concepto de Valor: El fin del Triángulo de Hierro"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Antes, terminar a tiempo y en presupuesto era el éxito total, pero hoy eso no basta. Un proyecto puede cumplir todas las métricas técnicas y aun así fracasar si el cliente no adopta la solución o si el impacto en el negocio es nulo."
+    },
+    {
+      "tipo": "titulo",
+      "texto": "¿Qué NO es dirección de proyectos?"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Es fundamental no confundirla con las operaciones del día a día, que son repetitivas y permanentes. Tampoco es sinónimo de burocracia documental ni de aplicar una metodología como si fuera una receta de cocina sin considerar el contexto."
+    },
+    {
+      "tipo": "lista",
+      "items": [
+        "No es Operación: Si la actividad es continua (como soporte TI o pagos), no es un proyecto.",
+        "No es Burocracia: El PMBOK 7 huye del 'llenar documentos porque sí' y prioriza lo que aporta valor.",
+        "No es seguir estados: Perseguir tareas y pedir porcentajes es administración táctica, no dirección estratégica."
+      ]
+    },
+    {
+      "tipo": "titulo",
+      "texto": "De PMBOK 6 a PMBOK 7: El gran salto"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Pasamos de un enfoque centrado en procesos y control (versión 6) a uno basado en principios y adaptabilidad (versión 7). El foco ya no está en el 'qué proceso ejecutar', sino en cómo obtener los mejores resultados (outcomes) según el entorno."
+    },
+    {
+      "tipo": "callout",
+      "variante": "tip_examen",
+      "texto": "Si en el examen te preguntan por el éxito de un proyecto y las opciones mezclan 'tiempo/costo' con 'satisfacción de beneficios o valor', recuerda que el PMBOK 7 siempre prioriza el impacto estratégico. Buscá palabras clave como 'valor', 'outcomes' o 'alineación con el negocio' en las respuestas correctas."
+    }
+  ]
+}

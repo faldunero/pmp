@@ -6,6 +6,9 @@ node_modules/
 # Scripts de admin local (bootstrap_admin.js, etc.)
 scripts/
 
+# Contenido fuente de las lecciones — vive solo en Firestore, no en el hosting estático
+contenido_pmp/
+
 # Service account de Firebase Admin SDK — NUNCA debe llegar a un host público.
 llave.json
 *.json.local

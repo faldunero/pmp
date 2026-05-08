@@ -1,0 +1,43 @@
+{
+  "_META_titulo": "Reconocimiento y celebración de logros",
+  "_META_curso": "02-dominio-personas",
+  "_META_orden": 14,
+  "_META_tiempo_min": 12,
+  "_META_INSTRUCCIONES": "Reemplazá el texto entre [CORCHETES] con tu contenido real. Borrá secciones que no uses. Agregá las que necesites. Cuando esté listo, cambia 'publicar' a true.",
+  "publicar": false,
+  "secciones": [
+    {
+      "tipo": "parrafo",
+      "texto": "[INTRODUCCIÓN: 2-3 oraciones que enganchen al lector y expliquen por qué esta lección importa para el examen.]"
+    },
+    {
+      "tipo": "titulo",
+      "texto": "[PRIMER SUBTÍTULO: el primer concepto importante]"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "[DESARROLLO: 2-4 oraciones explicando el primer concepto. Sé conversacional, no académico. Reformulá con tus palabras, no copies del PMBOK.]"
+    },
+    {
+      "tipo": "lista",
+      "items": [
+        "[Primer punto clave]",
+        "[Segundo punto clave]",
+        "[Tercer punto clave]"
+      ]
+    },
+    {
+      "tipo": "titulo",
+      "texto": "[SEGUNDO SUBTÍTULO: el segundo concepto o aplicación]"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "[DESARROLLO: explicación del segundo concepto, 2-4 oraciones.]"
+    },
+    {
+      "tipo": "callout",
+      "variante": "tip_examen",
+      "texto": "[TIP DE EXAMEN: cómo identificar este tema en el enunciado de una pregunta del examen real. Sé específico.]"
+    }
+  ]
+}
