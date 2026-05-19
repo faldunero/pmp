@@ -331,55 +331,84 @@
       Los CTA llevan a screen-login y screen-register.
       ═══════════════════════════════════════════════════════════════════ -->
  <div id="screen-portal-landing" class="screen">
-   <div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 0 18px; border-bottom: 1px solid #f3f4f6; margin-bottom: 0;">
-     <div style="display: flex; align-items: center; gap: 28px;">
-       <div style="display: flex; align-items: center; gap: 8px;">
-         <div style="width: 26px; height: 26px; background: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center;">
-           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-         </div>
-         <div style="font-size: 17px; font-weight: 700; color: #111827; letter-spacing: -0.02em;">Certifica</div>
+   <div style="display: flex; align-items: center; justify-content: space-between; padding: 16px 0 20px; border-bottom: 1px solid #f3f4f6; margin-bottom: 0;">
+     <div style="display: flex; align-items: center; gap: 8px;">
+       <div style="width: 28px; height: 28px; background: var(--accent); border-radius: 7px; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 10px rgba(37,99,235,0.35);">
+         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
        </div>
+       <div style="font-size: 18px; font-weight: 800; color: #0f172a; letter-spacing: -0.03em;">Certifica</div>
      </div>
      <div style="display: flex; gap: 10px; align-items: center;">
-       <span onclick="navigate('screen-login')" style="font-size: 14px; color: #4b5563; cursor: pointer; padding: 8px 12px; font-weight: 500;">Iniciar sesión</span>
-       <button onclick="navigate('screen-register')" style="background: var(--accent); color: white; border: none; padding: 9px 18px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; font-family: 'Inter', sans-serif;">Crear cuenta</button>
+       <span onclick="navigate('screen-login')" style="font-size: 14px; color: #4b5563; cursor: pointer; padding: 8px 14px; font-weight: 500; border-radius: 7px; transition: background 0.15s;" onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='transparent'">Iniciar sesión</span>
+       <button onclick="navigate('screen-register')" style="background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 14px; font-family: 'Inter', sans-serif; box-shadow: 0 2px 8px rgba(37,99,235,0.35); letter-spacing: -0.01em;">Crear cuenta gratis</button>
      </div>
    </div>
 
-   <!-- Banner header: imagen full-width decorativa -->
-   <div style="margin: 24px 0 0; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(37,99,235,0.08);">
-     <img src="imagenes/header.png" alt="Profesionales preparándose para certificaciones" style="width: 100%; display: block; height: auto;">
-   </div>
+   <!-- HERO: texto superpuesto sobre imagen con overlay legible -->
+   <div style="position: relative; margin: 24px 0 0; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 40px rgba(15,23,42,0.18);">
 
-   <div style="text-align: center; padding: 56px 20px 48px;">
-     <div style="display: inline-block; background: #eff6ff; color: #1e40af; font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 100px; margin-bottom: 22px; letter-spacing: 0.02em;">Acceso gratuito por tiempo limitado</div>
-     <h1 style="font-size: 2.4rem; font-weight: 700; color: #111827; margin: 0 0 16px; line-height: 1.15; letter-spacing: -0.03em; max-width: 720px; margin-left: auto; margin-right: auto;">Cursos de preparación para tu examen profesional</h1>
-     <p style="font-size: 1.05rem; color: #6b7280; margin: 0 auto 28px; max-width: 540px; line-height: 1.6;">Material de estudio independiente y simuladores diseñados para que llegues al examen oficial sabiendo qué te espera.</p>
-     <div style="display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
-       <button onclick="navigate('screen-register')" style="background: var(--accent); color: white; border: none; padding: 13px 28px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 15px; font-family: 'Inter', sans-serif;">Explorar el catálogo</button>
-       <button onclick="navigate('screen-login')" style="background: white; color: #111827; border: 1px solid #d1d5db; padding: 13px 28px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 15px; font-family: 'Inter', sans-serif;">Iniciar sesión</button>
-     </div>
-     <div style="display: flex; align-items: center; justify-content: center; gap: 36px; margin-top: 44px; font-size: 13px; color: #6b7280; flex-wrap: wrap;">
-       <div><span style="font-weight: 700; color: #111827; font-size: 15px;">5</span> cursos</div>
-       <div style="width: 1px; height: 14px; background: #e5e7eb;"></div>
-       <div><span style="font-weight: 700; color: #111827; font-size: 15px;">100%</span> en línea</div>
-       <div style="width: 1px; height: 14px; background: #e5e7eb;"></div>
-       <div><span style="font-weight: 700; color: #111827; font-size: 15px;">Material</span> no oficial</div>
-     </div>
-   </div>
+     <!-- Imagen de fondo -->
+     <img src="imagenes/header.png" alt="Profesionales preparándose para certificaciones" style="width: 100%; display: block; height: auto; min-height: 300px; object-fit: cover;">
 
-   <div style="margin: 0 0 8px;">
-     <div style="background: #fefce8; border: 1px solid #fde68a; border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #713f12; line-height: 1.5;">
-       <strong style="font-weight: 600;">Aviso:</strong> Certifica es una plataforma independiente de material de apoyo. No estamos afiliados ni patrocinados por las entidades certificadoras. La certificación oficial se obtiene rindiendo el examen ante el organismo correspondiente.
-     </div>
-   </div>
+     <!-- Overlay degradado: transparente arriba, oscuro abajo para texto legible -->
+     <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(10,20,45,0.18) 0%, rgba(10,20,45,0.55) 45%, rgba(10,20,45,0.82) 100%); border-radius: 20px;"></div>
 
-   <div style="padding: 48px 0 16px;">
-     <div style="display: flex; align-items: end; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 8px;">
-       <div>
-         <h2 style="font-size: 1.45rem; font-weight: 700; color: #111827; margin: 0 0 4px; letter-spacing: -0.02em;">Cursos disponibles</h2>
-         <p style="font-size: 14px; color: #6b7280; margin: 0;">Empieza a estudiar gratis hoy</p>
+     <!-- Contenido superpuesto -->
+     <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 40px 28px 44px; text-align: center;">
+
+       <!-- Badge pegado al inicio del texto, justo sobre el título -->
+       <div style="display: inline-flex; align-items: center; gap: 7px; background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.35); color: #ffffff; font-size: 11.5px; font-weight: 700; padding: 6px 16px; border-radius: 100px; margin-bottom: 18px; letter-spacing: 0.06em; text-transform: uppercase;">
+         <span style="display: inline-block; width: 7px; height: 7px; background: #34d399; border-radius: 50%;"></span>
+         Acceso gratuito por tiempo limitado
        </div>
+
+       <!-- Título principal -->
+       <h1 style="font-size: clamp(1.7rem, 4vw, 2.6rem); font-weight: 800; color: #ffffff; margin: 0 0 14px; line-height: 1.12; letter-spacing: -0.035em; max-width: 680px; text-shadow: 0 2px 16px rgba(0,0,0,0.45);">Cursos de preparación para tu examen profesional</h1>
+
+       <!-- Subtítulo -->
+       <p style="font-size: 1.05rem; color: rgba(255,255,255,0.88); margin: 0 auto 28px; max-width: 520px; line-height: 1.65; text-shadow: 0 1px 8px rgba(0,0,0,0.4);">Material de estudio independiente y simuladores diseñados para que llegues al examen oficial sabiendo qué te espera.</p>
+
+       <!-- CTAs -->
+       <div style="display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-bottom: 32px;">
+         <button onclick="navigate('screen-register')" style="background: #2563eb; color: white; border: none; padding: 14px 30px; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 15px; font-family: 'Inter', sans-serif; letter-spacing: -0.01em; box-shadow: 0 4px 18px rgba(37,99,235,0.5);">Explorar el catálogo</button>
+         <button onclick="navigate('screen-login')" style="background: rgba(255,255,255,0.12); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: white; border: 1.5px solid rgba(255,255,255,0.45); padding: 14px 30px; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 15px; font-family: 'Inter', sans-serif;">Iniciar sesión</button>
+       </div>
+
+       <!-- Stats strip -->
+       <div style="display: flex; align-items: center; justify-content: center; gap: 0; flex-wrap: wrap;">
+         <div style="padding: 0 20px; text-align: center; border-right: 1px solid rgba(255,255,255,0.25);">
+           <div style="font-size: 19px; font-weight: 800; color: #ffffff; line-height: 1;">5</div>
+           <div style="font-size: 11px; color: rgba(255,255,255,0.7); margin-top: 3px; letter-spacing: 0.02em;">cursos</div>
+         </div>
+         <div style="padding: 0 20px; text-align: center; border-right: 1px solid rgba(255,255,255,0.25);">
+           <div style="font-size: 19px; font-weight: 800; color: #ffffff; line-height: 1;">100%</div>
+           <div style="font-size: 11px; color: rgba(255,255,255,0.7); margin-top: 3px; letter-spacing: 0.02em;">en línea</div>
+         </div>
+         <div style="padding: 0 20px; text-align: center;">
+           <div style="font-size: 19px; font-weight: 800; color: #ffffff; line-height: 1;">Gratis</div>
+           <div style="font-size: 11px; color: rgba(255,255,255,0.7); margin-top: 3px; letter-spacing: 0.02em;">acceso inicial</div>
+         </div>
+       </div>
+
+     </div>
+   </div>
+
+   <div style="margin: 28px 0 0;">
+     <div style="background: linear-gradient(135deg, #fffbeb 0%, #fefce8 100%); border: 1px solid #fde68a; border-radius: 12px; padding: 14px 20px; font-size: 13px; color: #713f12; line-height: 1.6; display: flex; align-items: flex-start; gap: 10px;">
+       <svg style="flex-shrink:0;margin-top:1px;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+       <span><strong style="font-weight: 700;">Aviso:</strong> Certifica es una plataforma independiente de material de apoyo. No estamos afiliados ni patrocinados por las entidades certificadoras. La certificación oficial se obtiene rindiendo el examen ante el organismo correspondiente.</span>
+     </div>
+   </div>
+
+   <div style="padding: 52px 0 16px;">
+     <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 6px;">
+       <div style="height: 1px; flex: 1; background: linear-gradient(90deg, #e5e7eb 0%, transparent 100%);"></div>
+       <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: #9ca3af; text-transform: uppercase; white-space: nowrap;">Catálogo de cursos</span>
+       <div style="height: 1px; flex: 1; background: linear-gradient(90deg, transparent 0%, #e5e7eb 100%);"></div>
+     </div>
+     <div style="text-align: center; margin-bottom: 32px;">
+       <h2 style="font-size: 1.65rem; font-weight: 800; color: #111827; margin: 0 0 6px; letter-spacing: -0.03em;">Cursos disponibles</h2>
+       <p style="font-size: 14.5px; color: #6b7280; margin: 0;">Empieza a estudiar gratis hoy · Sin tarjeta de crédito</p>
      </div>
 
      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
@@ -490,45 +519,65 @@
      </div>
    </div>
 
-   <div style="padding: 56px 0;">
-     <div style="text-align: center; margin-bottom: 36px;">
-       <h2 style="font-size: 1.45rem; font-weight: 700; color: #111827; margin: 0 0 8px; letter-spacing: -0.02em;">Cómo funciona</h2>
-       <p style="font-size: 14px; color: #6b7280; margin: 0;">Tres pasos para empezar</p>
+   <div style="padding: 60px 0 8px;">
+     <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 6px;">
+       <div style="height: 1px; flex: 1; background: linear-gradient(90deg, #e5e7eb 0%, transparent 100%);"></div>
+       <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: #9ca3af; text-transform: uppercase; white-space: nowrap;">Cómo funciona</span>
+       <div style="height: 1px; flex: 1; background: linear-gradient(90deg, transparent 0%, #e5e7eb 100%);"></div>
      </div>
-     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 28px; max-width: 720px; margin: 0 auto;">
-       <div style="text-align: center;">
-         <div style="width: 48px; height: 48px; background: #eff6ff; color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; font-size: 18px; font-weight: 700;">1</div>
-         <div style="font-size: 15px; font-weight: 600; color: #111827; margin-bottom: 6px;">Crea tu cuenta</div>
-         <div style="font-size: 13px; color: #6b7280; line-height: 1.55;">Sin tarjeta de crédito. Acceso libre por tiempo limitado.</div>
+     <div style="text-align: center; margin-bottom: 36px;">
+       <h2 style="font-size: 1.65rem; font-weight: 800; color: #111827; margin: 0 0 6px; letter-spacing: -0.03em;">Tres pasos para empezar</h2>
+       <p style="font-size: 14.5px; color: #6b7280; margin: 0;">Simple, rápido, sin fricciones</p>
+     </div>
+     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; max-width: 780px; margin: 0 auto;">
+       <div style="background: white; border: 1px solid #e5e7eb; border-radius: 16px; padding: 28px 22px; position: relative; overflow: hidden;">
+         <div style="position: absolute; top: -18px; right: -12px; font-size: 72px; font-weight: 900; color: #f3f4f6; line-height: 1; user-select: none;">1</div>
+         <div style="width: 46px; height: 46px; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border: 1.5px solid #bfdbfe; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+         </div>
+         <div style="font-size: 15.5px; font-weight: 700; color: #111827; margin-bottom: 8px; letter-spacing: -0.01em;">Crea tu cuenta</div>
+         <div style="font-size: 13px; color: #6b7280; line-height: 1.6;">Sin tarjeta de crédito. Acceso libre por tiempo limitado.</div>
        </div>
-       <div style="text-align: center;">
-         <div style="width: 48px; height: 48px; background: #eff6ff; color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; font-size: 18px; font-weight: 700;">2</div>
-         <div style="font-size: 15px; font-weight: 600; color: #111827; margin-bottom: 6px;">Estudia y practica</div>
-         <div style="font-size: 13px; color: #6b7280; line-height: 1.55;">Simuladores con análisis por dominio y enfoque.</div>
+       <div style="background: white; border: 1px solid #e5e7eb; border-radius: 16px; padding: 28px 22px; position: relative; overflow: hidden;">
+         <div style="position: absolute; top: -18px; right: -12px; font-size: 72px; font-weight: 900; color: #f3f4f6; line-height: 1; user-select: none;">2</div>
+         <div style="width: 46px; height: 46px; background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 1.5px solid #86efac; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2zM22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+         </div>
+         <div style="font-size: 15.5px; font-weight: 700; color: #111827; margin-bottom: 8px; letter-spacing: -0.01em;">Estudia y practica</div>
+         <div style="font-size: 13px; color: #6b7280; line-height: 1.6;">Simuladores con análisis por dominio, enfoque y justificación técnica.</div>
        </div>
-       <div style="text-align: center;">
-         <div style="width: 48px; height: 48px; background: #eff6ff; color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; font-size: 18px; font-weight: 700;">3</div>
-         <div style="font-size: 15px; font-weight: 600; color: #111827; margin-bottom: 6px;">Presenta tu examen</div>
-         <div style="font-size: 13px; color: #6b7280; line-height: 1.55;">Inscríbete ante el organismo certificador correspondiente.</div>
+       <div style="background: white; border: 1px solid #e5e7eb; border-radius: 16px; padding: 28px 22px; position: relative; overflow: hidden;">
+         <div style="position: absolute; top: -18px; right: -12px; font-size: 72px; font-weight: 900; color: #f3f4f6; line-height: 1; user-select: none;">3</div>
+         <div style="width: 46px; height: 46px; background: linear-gradient(135deg, #faf5ff 0%, #ede9fe 100%); border: 1.5px solid #c4b5fd; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+         </div>
+         <div style="font-size: 15.5px; font-weight: 700; color: #111827; margin-bottom: 8px; letter-spacing: -0.01em;">Presenta tu examen</div>
+         <div style="font-size: 13px; color: #6b7280; line-height: 1.6;">Inscríbete ante el organismo certificador correspondiente y da el salto.</div>
        </div>
      </div>
    </div>
 
    <!-- Banner footer: imagen full-width decorativa -->
-   <div style="margin: 24px 0 0; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(37,99,235,0.08);">
+   <div style="margin: 48px 0 0; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 32px rgba(15,23,42,0.10);">
      <img src="imagenes/footer.png" loading="lazy" alt="Datos y dashboards de preparación profesional" style="width: 100%; display: block; height: auto;">
    </div>
 
-   <div style="padding-top: 24px; margin-top: 8px; border-top: 1px solid #f3f4f6;">
+   <div style="padding-top: 32px; margin-top: 8px; border-top: 1px solid #f3f4f6;">
      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: 14px;">
-       <div style="font-size: 13px; color: #6b7280;">© 2026 Certifica · Plataforma independiente de material de apoyo</div>
+       <div style="display: flex; align-items: center; gap: 8px;">
+         <div style="width: 22px; height: 22px; background: var(--accent); border-radius: 5px; display: flex; align-items: center; justify-content: center;">
+           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+         </div>
+         <span style="font-size: 13px; font-weight: 700; color: #374151; letter-spacing: -0.01em;">Certifica</span>
+         <span style="font-size: 13px; color: #9ca3af;">· Plataforma independiente de material de apoyo</span>
+       </div>
        <div style="display: flex; gap: 22px; font-size: 13px; color: #6b7280;">
-         <span>Términos</span>
-         <span>Privacidad</span>
-         <span>Soporte</span>
+         <span style="cursor: pointer;">Términos</span>
+         <span style="cursor: pointer;">Privacidad</span>
+         <span style="cursor: pointer;">Soporte</span>
        </div>
      </div>
-     <div style="font-size: 11px; color: #9ca3af; line-height: 1.6; padding-top: 14px; border-top: 1px solid #e5e7eb;">PMP y PMI son marcas registradas del Project Management Institute, Inc. PRINCE2 e ITIL son marcas de Axelos Limited. Scrum Master y Product Owner se preparan para exámenes de Scrum.org y Scrum Alliance. Todas las marcas pertenecen a sus respectivos titulares.</div>
+     <div style="font-size: 11px; color: #9ca3af; line-height: 1.7; padding-top: 14px; border-top: 1px solid #f3f4f6;">PMP y PMI son marcas registradas del Project Management Institute, Inc. PRINCE2 e ITIL son marcas de Axelos Limited. Scrum Master y Product Owner se preparan para exámenes de Scrum.org y Scrum Alliance. Todas las marcas pertenecen a sus respectivos titulares.</div>
    </div>
  </div>
 
