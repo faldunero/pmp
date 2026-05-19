@@ -599,28 +599,73 @@
  </div>
 
  <div id="screen-login" class="screen">
- <h1>PMP Simulator Pro</h1>
- <p class="subtitle">Simulador de práctica basado en estándares PMI</p>
- <div class="disclaimer-elegant">
- Este simulador NO corresponde a un examen oficial del PMI®. Es una herramienta de entrenamiento diseñada para reforzar conocimientos y familiarizarte con el formato del examen PMP®.
- </div>
- <div class="auth-form">
- <button class="btn-google" onclick="handleGoogleLogin()">
-   <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.35-8.16 2.35-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/><path fill="none" d="M0 0h48v48H0z"/></svg>
-   Continuar con Google
- </button>
- <div class="auth-divider">o ingresa con tu cuenta</div>
- <input type="email" id="login-email" class="auth-input" placeholder="Correo electrónico" autocomplete="username" autocapitalize="none" spellcheck="false">
- <input type="password" id="login-pass" class="auth-input" placeholder="Contraseña" autocomplete="current-password">
- <button class="btn-featured" onclick="handleLogin()">Acceder</button>
- <div class="auth-links">
- <a onclick="navigate('screen-register')">Crear cuenta</a> |
- <a onclick="handleResetPassword()">Recuperar contraseña</a>
- </div>
- <div style="text-align: center; margin-top: 18px;">
-   <a onclick="navigate('screen-portal-landing')" style="color: #94a3b8; text-decoration: none; font-size: 0.85rem; cursor: pointer;">← Volver al catálogo</a>
- </div>
- </div>
+
+   <!-- HEADER: imagen con texto superpuesto -->
+   <div style="position: relative; margin: 0 0 24px; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 40px rgba(15,23,42,0.18);">
+     <img src="imagenes/imagen_login.png" alt="Bienvenido a tu plataforma de estudio" style="width: 100%; display: block; height: auto;">
+     <div style="position: absolute; inset: 0; background: rgba(10,20,45,0.55); border-radius: 20px;"></div>
+     <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(10,20,45,0.10) 0%, rgba(10,20,45,0.65) 100%); border-radius: 20px;"></div>
+     <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 24px; text-align: center;">
+       <div style="display: flex; align-items: center; gap: 9px; margin-bottom: 14px;">
+         <div style="width: 28px; height: 28px; background: #2563eb; border-radius: 7px; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 10px rgba(37,99,235,0.5);">
+           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+         </div>
+         <span style="font-size: 18px; font-weight: 800; color: #ffffff; letter-spacing: -0.02em;">Certifica</span>
+       </div>
+       <h1 style="font-size: clamp(1.3rem, 3vw, 2rem); font-weight: 800; color: #ffffff; margin: 0 0 8px; line-height: 1.15; letter-spacing: -0.03em; text-shadow: 0 2px 20px rgba(0,0,0,0.7);">Bienvenido a tu Plataforma de Estudio</h1>
+       <p style="font-size: 0.9rem; color: rgba(255,255,255,0.85); margin: 0; text-shadow: 0 1px 8px rgba(0,0,0,0.6); max-width: 420px; line-height: 1.55;">Ingresa con tu cuenta para continuar preparándote para tu certificación profesional.</p>
+     </div>
+   </div>
+
+   <!-- DISCLAIMER -->
+   <div style="margin: 0 0 22px;">
+     <div style="background: linear-gradient(135deg, #fffbeb 0%, #fefce8 100%); border: 1px solid #fde68a; border-radius: 12px; padding: 14px 20px; font-size: 13px; color: #713f12; line-height: 1.6; display: flex; align-items: flex-start; gap: 10px;">
+       <svg style="flex-shrink:0;margin-top:1px;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+       <span><strong style="font-weight: 700;">Aviso:</strong> Certifica es una plataforma independiente de material de apoyo. No estamos afiliados ni patrocinados por las entidades certificadoras. La certificación oficial se obtiene rindiendo el examen ante el organismo correspondiente.</span>
+     </div>
+   </div>
+
+   <!-- FORMULARIO -->
+   <div class="auth-form">
+     <button class="btn-google" onclick="handleGoogleLogin()">
+       <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.35-8.16 2.35-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/><path fill="none" d="M0 0h48v48H0z"/></svg>
+       Continuar con Google
+     </button>
+     <div class="auth-divider">o ingresa con tu cuenta</div>
+     <input type="email" id="login-email" class="auth-input" placeholder="Correo electrónico" autocomplete="username" autocapitalize="none" spellcheck="false">
+     <input type="password" id="login-pass" class="auth-input" placeholder="Contraseña" autocomplete="current-password">
+     <button class="btn-featured" onclick="handleLogin()">Acceder</button>
+     <div class="auth-links">
+       <a onclick="navigate('screen-register')">Crear cuenta</a> |
+       <a onclick="handleResetPassword()">Recuperar contraseña</a>
+     </div>
+     <div style="text-align: center; margin-top: 18px;">
+       <a onclick="navigate('screen-portal-landing')" style="color: #94a3b8; text-decoration: none; font-size: 0.85rem; cursor: pointer;">← Volver al catálogo</a>
+     </div>
+   </div>
+
+   <!-- FOOTER igual al index -->
+   <div style="position: relative; margin: 36px 0 0; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 32px rgba(15,23,42,0.12);">
+     <img src="imagenes/footer.png" loading="lazy" alt="Footer" style="width: 100%; display: block; height: auto; min-height: 200px; object-fit: cover;">
+     <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(10,20,45,0.55) 0%, rgba(10,20,45,0.78) 60%, rgba(10,20,45,0.92) 100%); border-radius: 20px;"></div>
+     <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 36px 32px; text-align: center;">
+       <div style="display: flex; align-items: center; gap: 9px; margin-bottom: 10px;">
+         <div style="width: 26px; height: 26px; background: #2563eb; border-radius: 7px; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 10px rgba(37,99,235,0.5);">
+           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+         </div>
+         <span style="font-size: 17px; font-weight: 800; color: #ffffff; letter-spacing: -0.02em;">Certifica</span>
+         <span style="font-size: 13px; color: rgba(255,255,255,0.6); font-weight: 400;">· Plataforma independiente de material de apoyo</span>
+       </div>
+       <div style="width: 40px; height: 1px; background: rgba(255,255,255,0.25); margin: 14px 0;"></div>
+       <div style="display: flex; gap: 28px; margin-bottom: 18px; flex-wrap: wrap; justify-content: center;">
+         <span style="font-size: 13px; color: rgba(255,255,255,0.75); cursor: pointer; font-weight: 500;">Términos</span>
+         <span style="font-size: 13px; color: rgba(255,255,255,0.75); cursor: pointer; font-weight: 500;">Privacidad</span>
+         <span style="font-size: 13px; color: rgba(255,255,255,0.75); cursor: pointer; font-weight: 500;">Soporte</span>
+       </div>
+       <p style="font-size: 11px; color: rgba(255,255,255,0.45); line-height: 1.75; max-width: 620px; margin: 0;">PMP y PMI son marcas registradas del Project Management Institute, Inc. PRINCE2 e ITIL son marcas de Axelos Limited. Scrum Master y Product Owner se preparan para exámenes de Scrum.org y Scrum Alliance. Todas las marcas pertenecen a sus respectivos titulares.</p>
+     </div>
+   </div>
+
  </div>
 
  <div id="screen-register" class="screen">
