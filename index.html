@@ -350,8 +350,9 @@
      <!-- Imagen de fondo -->
      <img src="imagenes/header.png" alt="Profesionales preparándose para certificaciones" style="width: 100%; display: block; height: auto; min-height: 300px; object-fit: cover;">
 
-     <!-- Overlay degradado: transparente arriba, oscuro abajo para texto legible -->
-     <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(10,20,45,0.18) 0%, rgba(10,20,45,0.55) 45%, rgba(10,20,45,0.82) 100%); border-radius: 20px;"></div>
+     <!-- Overlay: capa base uniforme + degradado para profundidad -->
+     <div style="position: absolute; inset: 0; background: rgba(10,20,45,0.55); border-radius: 20px;"></div>
+     <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(10,20,45,0.10) 0%, rgba(10,20,45,0.30) 40%, rgba(10,20,45,0.65) 100%); border-radius: 20px;"></div>
 
      <!-- Contenido superpuesto -->
      <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 28px; text-align: center;">
@@ -363,10 +364,10 @@
        </div>
 
        <!-- Título principal -->
-       <h1 style="font-size: clamp(1.7rem, 4vw, 2.6rem); font-weight: 800; color: #ffffff; margin: 0 0 14px; line-height: 1.12; letter-spacing: -0.035em; max-width: 680px; text-shadow: 0 2px 16px rgba(0,0,0,0.45);">Cursos de Preparación para tu Examen Profesional</h1>
+       <h1 style="font-size: clamp(1.7rem, 4vw, 2.6rem); font-weight: 800; color: #ffffff; margin: 0 0 14px; line-height: 1.12; letter-spacing: -0.035em; max-width: 680px; text-shadow: 0 2px 20px rgba(0,0,0,0.7), 0 1px 4px rgba(0,0,0,0.5);">Cursos de Preparación para tu Examen Profesional</h1>
 
        <!-- Subtítulo -->
-       <p style="font-size: 1.05rem; color: rgba(255,255,255,0.88); margin: 0 auto 28px; max-width: 520px; line-height: 1.65; text-shadow: 0 1px 8px rgba(0,0,0,0.4);">Material de estudio independiente y simuladores diseñados para que llegues al examen oficial sabiendo qué te espera.</p>
+       <p style="font-size: 1.05rem; color: rgba(255,255,255,0.95); margin: 0 auto 28px; max-width: 520px; line-height: 1.65; text-shadow: 0 1px 12px rgba(0,0,0,0.7);">Material de estudio independiente y simuladores diseñados para que llegues al examen oficial sabiendo qué te espera.</p>
 
        <!-- CTAs -->
        <div style="display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-bottom: 32px;">
@@ -375,18 +376,18 @@
        </div>
 
        <!-- Stats strip -->
-       <div style="display: flex; align-items: center; justify-content: center; gap: 0; flex-wrap: wrap;">
-         <div style="padding: 0 20px; text-align: center; border-right: 1px solid rgba(255,255,255,0.25);">
-           <div style="font-size: 19px; font-weight: 800; color: #ffffff; line-height: 1;">5</div>
-           <div style="font-size: 11px; color: rgba(255,255,255,0.7); margin-top: 3px; letter-spacing: 0.02em;">cursos</div>
+       <div style="display: flex; align-items: center; justify-content: center; gap: 0; flex-wrap: wrap; background: rgba(0,0,0,0.35); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.15); border-radius: 100px; padding: 12px 8px;">
+         <div style="padding: 0 22px; text-align: center; border-right: 1px solid rgba(255,255,255,0.2);">
+           <div style="font-size: 20px; font-weight: 800; color: #ffffff; line-height: 1; text-shadow: 0 1px 6px rgba(0,0,0,0.6);">5</div>
+           <div style="font-size: 11px; color: rgba(255,255,255,0.85); margin-top: 4px; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 600;">cursos</div>
          </div>
-         <div style="padding: 0 20px; text-align: center; border-right: 1px solid rgba(255,255,255,0.25);">
-           <div style="font-size: 19px; font-weight: 800; color: #ffffff; line-height: 1;">100%</div>
-           <div style="font-size: 11px; color: rgba(255,255,255,0.7); margin-top: 3px; letter-spacing: 0.02em;">en línea</div>
+         <div style="padding: 0 22px; text-align: center; border-right: 1px solid rgba(255,255,255,0.2);">
+           <div style="font-size: 20px; font-weight: 800; color: #ffffff; line-height: 1; text-shadow: 0 1px 6px rgba(0,0,0,0.6);">100%</div>
+           <div style="font-size: 11px; color: rgba(255,255,255,0.85); margin-top: 4px; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 600;">en línea</div>
          </div>
-         <div style="padding: 0 20px; text-align: center;">
-           <div style="font-size: 19px; font-weight: 800; color: #ffffff; line-height: 1;">Gratis</div>
-           <div style="font-size: 11px; color: rgba(255,255,255,0.7); margin-top: 3px; letter-spacing: 0.02em;">acceso inicial</div>
+         <div style="padding: 0 22px; text-align: center;">
+           <div style="font-size: 20px; font-weight: 800; color: #34d399; line-height: 1; text-shadow: 0 1px 6px rgba(0,0,0,0.6);">Gratis</div>
+           <div style="font-size: 11px; color: rgba(255,255,255,0.85); margin-top: 4px; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 600;">acceso inicial</div>
          </div>
        </div>
 
