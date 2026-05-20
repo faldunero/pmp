@@ -41,15 +41,13 @@ const MAX_FILE_BYTES = 8 * 1024 * 1024; // 8 MB
 const MAX_FILAS = 5000;
 const BATCH_SIZE = 400; // Firestore batch límite es 500 ops, dejamos margen
 
-// Cupos de rate limiting (por hora). Si los alumnos legítimos los exceden,
-// subir acá. Para alumnos pagos se podría diferenciar el cupo.
+// Cupos de rate limiting (por hora).
 const RATE_LIMIT_GET_QUESTIONS = 60;
 const RATE_LIMIT_GRADE_ATTEMPT = 120;
 
 // ----------------------------------------------------------------------------
 // stripCorrectAnswers — saca el campo respuesta_correcta de cada pregunta
-// antes de mandarla al alumno. NO mutamos los docs originales (Firestore
-// snapshots son inmutables igual, pero por claridad armamos copias nuevas).
+// antes de mandarla al alumno.
 // ----------------------------------------------------------------------------
 function stripCorrectAnswers(questions) {
     return questions.map((q) => {
@@ -60,12 +58,6 @@ function stripCorrectAnswers(questions) {
 
 // ----------------------------------------------------------------------------
 // getQuestions
-// Devuelve el banco de preguntas. Para alumnos:
-//   • valida email_verified y rate limit
-//   • valida y consume el gating del free trial / acceso pago
-//   • retorna preguntas SIN respuesta_correcta (eso solo lo maneja gradeAttempt)
-// Para profesor/admin: retorna las preguntas completas (las necesitan para
-// la UI de gestión y el dashboard).
 // ----------------------------------------------------------------------------
 exports.getQuestions = onCall(
     { region: "us-central1", maxInstances: 20 },
@@ -76,8 +68,6 @@ exports.getQuestions = onCall(
         const claims = request.auth.token || {};
         const isProfesor = claims.profesor === true || claims.admin === true;
 
-        // Para alumnos: validación de sesión única + email verificado + rate
-        // limit + gating de acceso. Profesor/admin están exentos de single-session.
         if (!isProfesor) {
             await validateSession(request.auth.uid, request.data?.sessionId, claims);
             assertEmailVerified(request);
@@ -88,7 +78,6 @@ exports.getQuestions = onCall(
             );
         }
 
-        // Gating: profesor/admin pasan sin chequeo dentro de checkAndConsumeAccess.
         await checkAndConsumeAccess(request.auth.uid, claims, requestedSize);
 
         const db = admin.firestore();
@@ -102,10 +91,6 @@ exports.getQuestions = onCall(
 
 // ----------------------------------------------------------------------------
 // gradeAttempt
-// Único lugar donde el cliente puede enterarse de cuáles son las respuestas
-// correctas, y solo DESPUÉS de haberlas elegido. El cliente manda
-// { answers: { [questionId]: 'A' | 'B' | 'C' | 'D' } } y el server devuelve
-// el detalle por pregunta.
 // ----------------------------------------------------------------------------
 exports.gradeAttempt = onCall(
     { region: "us-central1", maxInstances: 20 },
@@ -129,13 +114,12 @@ exports.gradeAttempt = onCall(
             throw new HttpsError("invalid-argument", "answers requerido.");
         }
 
-        const ids = Object.keys(answers).slice(0, 500); // tope defensivo
+        const ids = Object.keys(answers).slice(0, 500);
         if (ids.length === 0) {
             return { score: 0, total: 0, details: [] };
         }
 
         const db = admin.firestore();
-        // Firestore límite de 30 docs por getAll en algunos contextos: chunk.
         const CHUNK = 30;
         const details = [];
         let correct = 0;
@@ -147,7 +131,6 @@ exports.gradeAttempt = onCall(
             docs.forEach((doc) => {
                 if (!doc.exists) return;
                 const data = doc.data();
-                // Tolerar variantes de nombre del campo en datos viejos.
                 const correctAnswer =
                     data.respuesta_correcta ||
                     data.Respuesta_correcta ||
@@ -170,9 +153,56 @@ exports.gradeAttempt = onCall(
 );
 
 // ----------------------------------------------------------------------------
+// getQuestionsByIds
+// Recibe { ids: ["pregunta_001", "pregunta_002", ...] }
+// Se usa para reconstruir el reporte de una sesión histórica. El alumno ya
+// respondió y el test ya fue calificado — no hay bypass posible.
+// Devuelve preguntas CON respuesta_correcta para poder mostrar el detalle.
+// Máximo 200 IDs por llamada (un simulacro completo cabe en una sola llamada).
+// ----------------------------------------------------------------------------
+exports.getQuestionsByIds = onCall(
+    { region: "us-central1", maxInstances: 20 },
+    async (request) => {
+        assertAuth(request);
+        const claims = request.auth.token || {};
+        const isProfesor = claims.profesor === true || claims.admin === true;
+
+        if (!isProfesor) {
+            assertEmailVerified(request);
+            await checkAndConsumeRateLimit(
+                request.auth.uid,
+                "getQuestionsByIds",
+                120 // 120 por hora — suficiente para revisar historial
+            );
+        }
+
+        const ids = request.data?.ids;
+        if (!Array.isArray(ids) || ids.length === 0) {
+            throw new HttpsError("invalid-argument", "ids requerido (array).");
+        }
+        if (ids.length > 200) {
+            throw new HttpsError("invalid-argument", "Máximo 200 ids por llamada.");
+        }
+
+        const db = admin.firestore();
+        const CHUNK = 30;
+        const questions = [];
+
+        for (let i = 0; i < ids.length; i += CHUNK) {
+            const chunk = ids.slice(i, i + CHUNK);
+            const refs = chunk.map((id) => db.collection(COLECCION).doc(id));
+            const docs = await db.getAll(...refs);
+            docs.forEach((doc) => {
+                if (doc.exists) questions.push({ id: doc.id, ...doc.data() });
+            });
+        }
+
+        return { questions };
+    }
+);
+
+// ----------------------------------------------------------------------------
 // uploadQuestions
-// Recibe { fileBase64, filename, mode }
-//   mode: 'append' (default) | 'replace' (borra todo y vuelve a cargar)
 // ----------------------------------------------------------------------------
 exports.uploadQuestions = onCall(
     {
@@ -236,14 +266,13 @@ exports.uploadQuestions = onCall(
             );
         }
 
-        // Normalización + validación
         const validated = [];
         const errors = [];
         rows.forEach((raw, i) => {
             const pregunta = normalizeRow(raw);
             const { valid, errors: fieldErrors } = validateQuestion(
                 pregunta,
-                i + 2 // +2 porque el header es la fila 1 en la planilla
+                i + 2
             );
             if (valid) {
                 validated.push(pregunta);
@@ -261,12 +290,10 @@ exports.uploadQuestions = onCall(
         const db = admin.firestore();
         const replace = mode === "replace";
 
-        // Si modo replace, borrar la colección actual en chunks.
         if (replace) {
             await deleteCollection(db, COLECCION, BATCH_SIZE);
         }
 
-        // Escribir en batches.
         const now = admin.firestore.FieldValue.serverTimestamp();
         let written = 0;
         for (let i = 0; i < validated.length; i += BATCH_SIZE) {
@@ -312,8 +339,7 @@ exports.uploadQuestions = onCall(
 // ----------------------------------------------------------------------------
 
 function parseCsvBuffer(buffer) {
-    // Detectamos separador (la planilla original usa ; pero podría venir con ,)
-    const text = buffer.toString("utf8").replace(/^\uFEFF/, ""); // strip BOM
+    const text = buffer.toString("utf8").replace(/^\uFEFF/, "");
     const firstLine = text.split(/\r?\n/)[0] || "";
     const delim = firstLine.split(";").length > firstLine.split(",").length
         ? ";"
@@ -331,8 +357,6 @@ function parseCsvBuffer(buffer) {
 }
 
 function parseXlsxBuffer(buffer) {
-    // xlsx maneja XLSX sin parsear DTD/XXE: usa fast-xml internamente y
-    // no resuelve external entities, así que es seguro contra XXE.
     const wb = xlsx.read(buffer, { type: "buffer", cellDates: false });
     const sheetName = wb.SheetNames[0];
     if (!sheetName) throw new Error("XLSX sin hojas");
@@ -340,11 +364,6 @@ function parseXlsxBuffer(buffer) {
     return xlsx.utils.sheet_to_json(sheet, { defval: "", raw: false });
 }
 
-// ----------------------------------------------------------------------------
-// Mapeo de fila cruda al modelo de pregunta.
-// Acepta los nombres definitivos de la planilla (mayúsculas con tildes
-// y la variante con \n en "Respuesta Correcta") y un par de fallbacks.
-// ----------------------------------------------------------------------------
 function normalizeRow(row) {
     const get = (...keys) => {
         for (const k of keys) {

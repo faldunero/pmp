@@ -642,28 +642,6 @@
      </div>
    </div>
 
-   <!-- FOOTER igual al index -->
-   <div style="position: relative; margin: 36px 0 0; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 32px rgba(15,23,42,0.12);">
-     <img src="imagenes/footer.png" loading="lazy" alt="Footer" style="width: 100%; display: block; height: auto; min-height: 200px; object-fit: cover;">
-     <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(10,20,45,0.55) 0%, rgba(10,20,45,0.78) 60%, rgba(10,20,45,0.92) 100%); border-radius: 20px;"></div>
-     <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 36px 32px; text-align: center;">
-       <div style="display: flex; align-items: center; gap: 9px; margin-bottom: 10px;">
-         <div style="width: 26px; height: 26px; background: #2563eb; border-radius: 7px; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 10px rgba(37,99,235,0.5);">
-           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-         </div>
-         <span style="font-size: 17px; font-weight: 800; color: #ffffff; letter-spacing: -0.02em;">Certifica</span>
-         <span style="font-size: 13px; color: rgba(255,255,255,0.6); font-weight: 400;">· Plataforma independiente de material de apoyo</span>
-       </div>
-       <div style="width: 40px; height: 1px; background: rgba(255,255,255,0.25); margin: 14px 0;"></div>
-       <div style="display: flex; gap: 28px; margin-bottom: 18px; flex-wrap: wrap; justify-content: center;">
-         <span style="font-size: 13px; color: rgba(255,255,255,0.75); cursor: pointer; font-weight: 500;">Términos</span>
-         <span style="font-size: 13px; color: rgba(255,255,255,0.75); cursor: pointer; font-weight: 500;">Privacidad</span>
-         <span style="font-size: 13px; color: rgba(255,255,255,0.75); cursor: pointer; font-weight: 500;">Soporte</span>
-       </div>
-       <p style="font-size: 11px; color: rgba(255,255,255,0.45); line-height: 1.75; max-width: 620px; margin: 0;">PMP y PMI son marcas registradas del Project Management Institute, Inc. PRINCE2 e ITIL son marcas de Axelos Limited. Scrum Master y Product Owner se preparan para exámenes de Scrum.org y Scrum Alliance. Todas las marcas pertenecen a sus respectivos titulares.</p>
-     </div>
-   </div>
-
  </div>
 
  <div id="screen-register" class="screen">
@@ -1438,9 +1416,26 @@
  </div>
 
 
- <footer class="app-footer">
- realizado por : Felipe Aldunate - faldunate@gmail.com
- </footer>
+ <div style="position: relative; margin: 36px 0 0; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 32px rgba(15,23,42,0.12);">
+   <img src="imagenes/footer.png" loading="lazy" alt="Footer Certifica" style="width: 100%; display: block; height: auto; min-height: 200px; object-fit: cover;">
+   <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(10,20,45,0.55) 0%, rgba(10,20,45,0.78) 60%, rgba(10,20,45,0.92) 100%); border-radius: 20px;"></div>
+   <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 36px 32px; text-align: center;">
+     <div style="display: flex; align-items: center; gap: 9px; margin-bottom: 10px;">
+       <div style="width: 26px; height: 26px; background: #2563eb; border-radius: 7px; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 10px rgba(37,99,235,0.5);">
+         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+       </div>
+       <span style="font-size: 17px; font-weight: 800; color: #ffffff; letter-spacing: -0.02em;">Certifica</span>
+       <span style="font-size: 13px; color: rgba(255,255,255,0.6); font-weight: 400;">· Plataforma independiente de material de apoyo</span>
+     </div>
+     <div style="width: 40px; height: 1px; background: rgba(255,255,255,0.25); margin: 14px 0;"></div>
+     <div style="display: flex; gap: 28px; margin-bottom: 18px; flex-wrap: wrap; justify-content: center;">
+       <span style="font-size: 13px; color: rgba(255,255,255,0.75); cursor: pointer; font-weight: 500;">Términos</span>
+       <span style="font-size: 13px; color: rgba(255,255,255,0.75); cursor: pointer; font-weight: 500;">Privacidad</span>
+       <span style="font-size: 13px; color: rgba(255,255,255,0.75); cursor: pointer; font-weight: 500;">Soporte</span>
+     </div>
+     <p style="font-size: 11px; color: rgba(255,255,255,0.45); line-height: 1.75; max-width: 620px; margin: 0;">PMP y PMI son marcas registradas del Project Management Institute, Inc. PRINCE2 e ITIL son marcas de Axelos Limited. Scrum Master y Product Owner se preparan para exámenes de Scrum.org y Scrum Alliance. Todas las marcas pertenecen a sus respectivos titulares.</p>
+   </div>
+ </div>
 
 </div>
 
@@ -2366,6 +2361,13 @@
  });
  const total = qSet.length;
  const pct = Math.round((correctas / total) * 100);
+
+ // Guardamos solo los IDs de las preguntas y las respuestas del alumno
+ // indexadas por ID (no por posición). Esto reduce el documento de ~200KB a ~4KB.
+ const questionIds = qSet.map(q => q.id);
+ const answersByIds = {};
+ qSet.forEach((q, i) => { if (userChoices[i]) answersByIds[q.id] = userChoices[i]; });
+
  const sesion = {
  fecha: new Date().toISOString(),
  total,
@@ -2377,8 +2379,9 @@
  segs,
  dominios,
  enfoques,
- qSet: JSON.stringify(qSet),
- userChoices: JSON.stringify(userChoices)
+ questionIds,        // ← IDs de las preguntas (~3KB)
+ answersByIds,       // ← respuestas por ID (~1KB)
+ // qSet y userChoices ya NO se guardan (~200KB ahorrados por sesión)
  };
  await db.collection('usuarios').doc(user.uid)
  .collection('historial').add(sesion);
@@ -2543,15 +2546,37 @@
  .collection('historial').doc(docId).get();
  if (!doc.exists) return alert('Sesión no encontrada.');
  const data = doc.data();
- // Restore session state and render report
- qSet = JSON.parse(data.qSet);
- userChoices = JSON.parse(data.userChoices);
+
+ // Soporte para sesiones nuevas (questionIds/answersByIds)
+ // y sesiones antiguas (qSet/userChoices) para retrocompatibilidad.
+ if (data.questionIds && data.answersByIds) {
+   // Formato nuevo: pedimos las preguntas por ID a la Cloud Function.
+   const callable = functions.httpsCallable('getQuestionsByIds');
+   const resp = await callable({ ids: data.questionIds });
+   const preguntas = (resp.data && resp.data.questions) || [];
+
+   // Reordenamos para que coincidan con el orden original del simulacro.
+   const porId = new Map(preguntas.map(q => [q.id, q]));
+   qSet = data.questionIds.map(id => porId.get(id)).filter(Boolean);
+
+   // Convertimos answersByIds (por ID) a userChoices (por posición).
+   userChoices = {};
+   qSet.forEach((q, i) => {
+     if (data.answersByIds[q.id]) userChoices[i] = data.answersByIds[q.id];
+   });
+ } else if (data.qSet) {
+   // Formato antiguo: usamos el qSet guardado directamente.
+   qSet = JSON.parse(data.qSet);
+   userChoices = JSON.parse(data.userChoices || '{}');
+ } else {
+   return alert('Formato de sesión no reconocido.');
+ }
+
  segs = data.segs || 0;
- // Temporarily set clock display
  document.getElementById('reloj-digital').innerText = data.tiempo || '00:00:00';
- // Mark as historical so we don't re-save
  finalizado(true);
- // Add back-to-history button
+
+ // Botón para volver al historial
  setTimeout(() => {
  const backBtn = document.getElementById('hist-back-btn');
  if (!backBtn) {
@@ -2567,7 +2592,7 @@
  }
  }, 100);
  } catch(e) {
- alert('Error al cargar la sesión.');
+ alert('Error al cargar la sesión: ' + (e.message || 'desconocido'));
  console.error(e);
  }
  }
