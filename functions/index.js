@@ -33,6 +33,7 @@ const questions = require("./questions");
 exports.getQuestions = questions.getQuestions;
 exports.gradeAttempt = questions.gradeAttempt;
 exports.uploadQuestions = questions.uploadQuestions;
+exports.getQuestionsByIds = questions.getQuestionsByIds;
 
 // Acceso (gating freemium)
 const access = require("./access");

@@ -1,43 +1,61 @@
 {
-  "_META_titulo": "Glosario clave del PMBOK",
+  "_META_titulo": "Estructuras organizacionales y factores ambientales",
   "_META_curso": "01-fundamentos-pmbok",
-  "_META_orden": 12,
-  "_META_tiempo_min": 14,
+  "_META_orden": 13,
+  "_META_tiempo_min": 18,
   "_META_INSTRUCCIONES": "Reemplazá el texto entre [CORCHETES] con tu contenido real. Borrá secciones que no uses. Agregá las que necesites. Cuando esté listo, cambia 'publicar' a true.",
-  "publicar": false,
+  "publicar": true,
   "secciones": [
     {
       "tipo": "parrafo",
-      "texto": "[INTRODUCCIÓN: 2-3 oraciones que enganchen al lector y expliquen por qué esta lección importa para el examen.]"
+      "texto": "Para liderar con éxito cualquier iniciativa, un director de proyectos debe decodificar el ecosistema donde opera, ya que las reglas invisibles de la organización determinan su verdadero margen de maniobra. En el examen PMP, las preguntas de corte situacional evaluarán con rigor si comprendes cómo el diseño institucional y las variables del entorno restringen o potencian tu autoridad sobre el presupuesto y los recursos. No gestionar el proyecto considerando la estructura de la empresa es una receta segura para el conflicto jerárquico y el bloqueo operativo."
     },
     {
       "tipo": "titulo",
-      "texto": "[PRIMER SUBTÍTULO: el primer concepto importante]"
+      "texto": "Estructuras Organizacionales: El mapa de la autoridad y los recursos"
     },
     {
       "tipo": "parrafo",
-      "texto": "[DESARROLLO: 2-4 oraciones explicando el primer concepto. Sé conversacional, no académico. Reformulá con tus palabras, no copies del PMBOK.]"
+      "texto": "Las organizaciones se estructuran de diversas maneras para balancear la eficiencia operativa diaria con la capacidad de ejecutar proyectos de cambio. El PMBOK clasifica estos diseños en un espectro continuo que va desde la rigidez funcional hasta la autonomía total por proyectos. Comprender en qué punto de este espectro te encuentras es vital para saber si debes negociar cada recurso con un gerente de línea o si tienes la facultad de asignar el presupuesto de manera unilateral."
     },
     {
       "tipo": "lista",
       "items": [
-        "[Primer punto clave]",
-        "[Segundo punto clave]",
-        "[Tercer punto clave]"
+        "Estructura Funcional Tradicional: La organización se divide por especialidades o departamentos (Finanzas, TI, Operaciones). El Director de Proyecto actúa meramente como un coordinador o expedidor con autoridad prácticamente nula, y los miembros del equipo técnico reportan de forma exclusiva a sus respectivos gerentes funcionales.",
+        "Estructuras Matriciales (Débil, Balanceada, Fuerte): Los recursos se comparten de forma dual entre la operación y los proyectos. En la matricial débil, el PM sigue siendo un coordinador; en la balanceada, comparte el poder con el gerente funcional; y en la matricial fuerte, el PM tiene una autoridad predominante sobre el personal técnico y los plazos.",
+        "Estructura Orientada a Proyectos (Proyectizada): El equipo está asignado por completo a la iniciativa de forma dedicada. El Director de Proyecto tiene control absoluto sobre los recursos y el presupuesto, y los colaboradores dejan de tener un hogar funcional fijo al concluir el esfuerzo.",
+        "Estructuras Orgánicas o Virtuales: Diseños modernos y planos basados en redes de colaboración interna, donde los roles son dinámicos, la autoorganización es alta y la autoridad se distribuye de forma líquida según la necesidad del sprint técnico.",
+        "Ejemplo Práctico de Impacto: Si lideras el desarrollo de una API de nómina en una empresa Funcional, el Gerente de Finanzas puede retirar a tu analista clave sin previo aviso para atender el cierre contable mensual. En una organización Proyectizada, ese analista te reporta exclusivamente a ti, asegurando la continuidad del desarrollo."
       ]
     },
     {
       "tipo": "titulo",
-      "texto": "[SEGUNDO SUBTÍTULO: el segundo concepto o aplicación]"
+      "texto": "Factores Ambientales de la Empresa (EEFs) vs. Activos de los Procesos de la Organización (OPAs)"
     },
     {
       "tipo": "parrafo",
-      "texto": "[DESARROLLO: explicación del segundo concepto, 2-4 oraciones.]"
+      "texto": "Toda acción de gestión se ve influenciada por dos grandes variables del entorno organizacional: las restricciones que debes aceptar de forma obligatoria y las herramientas que puedes heredar para acelerar el trabajo. El examen PMP pondrá a prueba tu capacidad para diferenciar con precisión milimétrica entre un Factor Ambiental de la Empresa (EEF), que actúa como una condición externa o interna que restringe tus opciones, y un Activo de los Procesos de la Organización (OPA), que representa el capital intelectual y metodológico disponible para tu beneficio."
+    },
+    {
+      "tipo": "lista",
+      "items": [
+        "Factores Ambientales (EEFs - Las Restricciones): Son las reglas del juego que no puedes cambiar a corto plazo. Pueden ser internos (la cultura corporativa, la infraestructura tecnológica actual, la distribución geográfica de los servidores) o externos (regulaciones gubernamentales, condiciones macroeconómicas del mercado, estándares de ciberseguridad bancaria del país).",
+        "Activos de los Procesos (OPAs - Las Ayudas): Son los recursos tangibles e intangibles de los que te puedes servir. Se dividen en procesos, políticas y procedimientos (plantillas formales de planes, guías de control de cambios) y la base de conocimientos históricos (repositorios de lecciones aprendidas de proyectos pasados, datos de estimaciones de horas de desarrollo).",
+        "El Criterio de Diferenciación Operativa: Una forma analítica de distinguirlos es recordar que los EEFs son condiciones que te imponen límites y te obligan a adaptarte, mientras que las OPAs son herramientas y aprendizajes que tú decides consultar y utilizar para optimizar los procesos de gestión."
+      ]
+    },
+    {
+      "tipo": "titulo",
+      "texto": "Aplicación Sistémica en el Análisis de Riesgos Técnicos"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Los directores de proyecto de alto desempeño no ven estas variables de forma teórica, sino como insumos críticos para la toma de decisiones estratégicas. Al iniciar el desarrollo de un módulo técnico complejo, el PM debe auditar el entorno: consulta las OPAs para rescatar la plantilla del registro de riesgos y revisar qué falló en iniciativas similares en el pasado, y analiza los EEFs para evaluar si las capacidades de la red actual o las leyes vigentes de protección de datos personales limitarán el diseño de la arquitectura del software."
     },
     {
       "tipo": "callout",
       "variante": "tip_examen",
-      "texto": "[TIP DE EXAMEN: cómo identificar este tema en el enunciado de una pregunta del examen real. Sé específico.]"
+      "texto": "TIP DE EXAMEN: El examen PMP te presentará crisis donde la solución depende del tipo de estructura organizacional mencionada sutilmente en el texto. Si la pregunta indica que 'te encuentras en una organización MATRICIAL DÉBIL y un miembro del equipo no está cumpliendo con sus entregables', la respuesta correcta NUNCA será amonestarlo directamente, ya que careces de autoridad lineal; la acción correcta será reunirte con su Gerente Funcional para resolver el conflicto de prioridades. Por otro lado, ante problemas con normativas, si el enunciado dice que 'el gobierno aprueba una ley de impuestos de emergencia que afecta los costos del proyecto', la pregunta evalúa un Factor Ambiental Externo (EEF), por lo que debes procesar un análisis de impacto inmediato en la reserva de gestión antes de intentar negociar con el proveedor."
     }
   ]
 }

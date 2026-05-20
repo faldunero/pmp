@@ -2,42 +2,77 @@
   "_META_titulo": "Roles del director de proyectos",
   "_META_curso": "01-fundamentos-pmbok",
   "_META_orden": 10,
-  "_META_tiempo_min": 12,
+  "_META_tiempo_min": 15,
   "_META_INSTRUCCIONES": "Reemplazá el texto entre [CORCHETES] con tu contenido real. Borrá secciones que no uses. Agregá las que necesites. Cuando esté listo, cambia 'publicar' a true.",
-  "publicar": false,
+  "publicar": true,
   "secciones": [
     {
       "tipo": "parrafo",
-      "texto": "[INTRODUCCIÓN: 2-3 oraciones que enganchen al lector y expliquen por qué esta lección importa para el examen.]"
+      "texto": "El rol del director de proyectos ha evolucionado drásticamente, pasando de ser un mero supervisor de tareas técnicas a convertirse en un líder estratégico e integrador fundamental dentro de la organización. En el examen PMP, comprender el alcance de tus responsabilidades, el nivel de liderazgo que debes ejercer y cómo equilibrar tus competencias es clave para resolver los escenarios de los tres dominios: Personas, Procesos y Entorno de Negocio. El PMI evaluará con rigor si actúas como un facilitador de valor o simplemente como un gestor de comandos, por lo que dominar esta perspectiva es vital para tu certificación."
     },
     {
       "tipo": "titulo",
-      "texto": "[PRIMER SUBTÍTULO: el primer concepto importante]"
+      "texto": "La Esfera de Influencia: El alcance de la interacción del Project Manager"
     },
     {
       "tipo": "parrafo",
-      "texto": "[DESARROLLO: 2-4 oraciones explicando el primer concepto. Sé conversacional, no académico. Reformulá con tus palabras, no copies del PMBOK.]"
+      "texto": "Un director de proyectos no opera en una isla; su liderazgo se expande a través de círculos concéntricos conocidos como la esfera de influencia. Esta estructura metodológica describe cómo el Project Manager debe articular relaciones e integrar objetivos en múltiples niveles institucionales y externos. El rol principal aquí no es técnico, sino relacional y de comunicación, actuando como el nexo que traduce las necesidades estratégicas en entregables tangibles mientras mitiga los conflictos de intereses entre las partes."
     },
     {
       "tipo": "lista",
       "items": [
-        "[Primer punto clave]",
-        "[Segundo punto clave]",
-        "[Tercer punto clave]"
+        "1. El Proyecto y el Equipo: Es el núcleo inmediato. El director guía al equipo de proyecto para cumplir con los objetivos y alcances, gestionando los recursos, la motivación, los conflictos internos y la remoción de impedimentos operativos.",
+        "2. La Organización y los Gerentes de Línea: El segundo nivel exige interactuar dinámicamente con otros directores de proyectos (para coordinar recursos compartidos), con la PMO y con gerentes funcionales o jefes de área para asegurar el alineamiento operacional.",
+        "3. La Industria y el Entorno Externo: En la capa exterior, el Project Manager analiza las tendencias del mercado, los avances tecnológicos de punta, las normativas regulatorias vigentes y los estándares que puedan impactar el desarrollo de la iniciativa.",
+        "Ejemplo Práctico de Influencia: En un proyecto de automatización de nóminas (payroll) mediante APIs bancarias, el PM ejerce influencia interna al liderar los sprints de los desarrolladores. Al mismo tiempo, ejerce influencia organizacional al negociar la disponibilidad de los analistas con el Gerente de Finanzas corporativo, e influencia de industria al vigilar que la pasarela de pagos cumpla con las normas de ciberseguridad bancaria del país."
       ]
     },
     {
       "tipo": "titulo",
-      "texto": "[SEGUNDO SUBTÍTULO: el segundo concepto o aplicación]"
+      "texto": "El Triángulo de Talentos del PMI: Las tres competencias críticas"
     },
     {
       "tipo": "parrafo",
-      "texto": "[DESARROLLO: explicación del segundo concepto, 2-4 oraciones.]"
+      "texto": "Para liderar con éxito en entornos complejos, el PMI define el Triángulo de Talentos, un marco que consolida las tres dimensiones de competencias clave que todo profesional de la gestión debe desarrollar. El examen PMP no se enfoca únicamente en procesos metodológicos rígidos; distribuye sus preguntas situacionales para evaluar si el candidato sabe cuándo aplicar rigor técnico, cuándo inspirar al equipo a través de habilidades blandas y cuándo priorizar la viabilidad financiera y los objetivos macro de la compañía."
+    },
+    {
+      "tipo": "lista",
+      "items": [
+        "1. Dirección Técnica de Proyectos (Ways of Working): Representa los conocimientos técnicos y metodológicos para gestionar iniciativas de forma efectiva. Incluye dominar diagramas de Gantt, estimaciones ágiles, control de valor ganado (EVM), recolección de requisitos y gestión de riesgos.",
+        "2. Liderazgo (Power Skills): Engloba las habilidades interpersonales y de comportamiento necesarias para motivar, guiar e inspirar a los equipos de trabajo. Incluye comunicación asertiva, empatía, inteligencia emocional, negociación, resolución de conflictos y coaching.",
+        "3. Gestión Estratégica y de Negocios (Business Acumen): Es la visión de alto nivel que conecta el proyecto con los resultados del negocio. Implica entender el caso de negocio, el retorno de inversión (ROI), la cadena de valor, los modelos de gobernanza y las estrategias competitivas de la empresa.",
+        "Ejemplo Práctico del Triángulo: Un Project Manager a cargo de la modernización de los cajeros automáticos de un banco aplica 'Ways of Working' al estructurar la ruta crítica del despliegue técnico. Utiliza 'Power Skills' para calmar la frustración del equipo ante un retraso en las pruebas de software, y demuestra 'Business Acumen' al recomendar posponer una fase secundaria porque el mercado financiero cambió y el banco necesita redirigir el flujo de capital a canales web."
+      ]
+    },
+    {
+      "tipo": "titulo",
+      "texto": "Estilos de Liderazgo según el Enfoque Metodológico"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "El director de proyectos debe adaptar su estilo de liderazgo según la madurez del equipo, la cultura de la organización y el ciclo de vida de la iniciativa. El PMBOK destaca múltiples estilos, que van desde el Directivo (Laissez-faire o Autocrático) hasta enfoques modernos y colaborativos. En los proyectos predictivos tradicionales, el estilo puede inclinarse hacia la gestión transaccional o transformacional orientada a hitos fijos; sin embargo, en los entornos ágiles y adaptativos, se exige la adopción absoluta del Liderazgo Servicial (Servant Leadership)."
+    },
+    {
+      "tipo": "lista",
+      "items": [
+        "Liderazgo Servicial (Servant Leadership): Es el estándar de oro en enfoques ágiles. El líder no da órdenes ni asigna tareas verticalmente; se enfoca en servir al equipo eliminando bloqueos, protegiéndolos de interrupciones externas, facilitando la colaboración y empoderando a los miembros para que se autoorganicen.",
+        "Liderazgo Transformacional: Se basa en la motivación inspiradora. El líder estimula la innovación, fomenta el crecimiento personal de los colaboradores y comunica una visión poderosa del futuro para lograr un compromiso profundo con las metas del proyecto.",
+        "Liderazgo Transaccional: Enfocado en metas, premios y castigos. Es un estilo muy estructurado y orientado a la gestión por excepción, útil en entornos operativos de alta predictibilidad o fases de cumplimiento normativo estricto.",
+        "Ejemplo Práctico de Liderazgo Servicial: Durante un sprint crítico de desarrollo técnico de una app, el equipo reporta que no puede avanzar porque el área de infraestructura de servidores no ha aprobado los accesos de red. En lugar de presionar o sancionar al equipo, el líder servicial asume la tarea, se reúne con el jefe de infraestructura para destrabar los permisos y asegura que los desarrolladores continúen trabajando sin distracciones."
+      ]
+    },
+    {
+      "tipo": "titulo",
+      "texto": "La Responsabilidad Principal: Integración"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "En última instancia, la razón de ser del director de proyectos es la integración. Mientras los especialistas técnicos se concentran en sus componentes específicos (código, redes, finanzas, legal), el PM es la única persona que mantiene la visión holística de la iniciativa. Integrar significa balancear las restricciones contrapuestas, unificar los planes de las distintas áreas de conocimiento, gestionar las transiciones de fases y asegurar que cada esfuerzo individual se sume para maximizar el valor entregado al cliente."
     },
     {
       "tipo": "callout",
       "variante": "tip_examen",
-      "texto": "[TIP DE EXAMEN: cómo identificar este tema en el enunciado de una pregunta del examen real. Sé específico.]"
+      "texto": "TIP DE EXAMEN: El examen PMP te evaluará fuertemente bajo la mentalidad de un LÍDER SERVICIAL y un INTEGRADOR ESTRATÉGICO. Si una pregunta describe que 'un miembro del equipo cometió un error técnico grave en el código y el proyecto está retrasado', descarta de inmediato cualquier opción que implique sancionar, reportar a recursos humanos o reasignar las tareas unilateralmente; la respuesta correcta siempre se orientará a reunirse con el equipo, analizar la causa raíz de forma colaborativa y capacitar o dar soporte al colaborador. Si el enunciado te plantea que 'el patrocinador quiere cancelar el proyecto porque afirma que ya no es rentable debido a cambios macroeconómicos', la acción correcta del PM basada en Business Acumen es revisar el Caso de Negocio y los beneficios estratégicos antes de cerrar o continuar ciegamente con el alcance técnico original. Recuerda: el Project Manager moderno facilita, empodera e integra; nunca impone soluciones por la fuerza ni actúa de forma puramente administrativa."
     }
   ]
 }

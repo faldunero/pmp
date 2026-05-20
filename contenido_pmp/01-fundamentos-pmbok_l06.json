@@ -4,40 +4,67 @@
   "_META_orden": 6,
   "_META_tiempo_min": 18,
   "_META_INSTRUCCIONES": "Reemplazá el texto entre [CORCHETES] con tu contenido real. Borrá secciones que no uses. Agregá las que necesites. Cuando esté listo, cambia 'publicar' a true.",
-  "publicar": false,
+  "publicar": true,
   "secciones": [
     {
       "tipo": "parrafo",
-      "texto": "[INTRODUCCIÓN: 2-3 oraciones que enganchen al lector y expliquen por qué esta lección importa para el examen.]"
+      "texto": "Dominar los Grupos de Procesos y la lógica de los ITTOs (Entradas, Herramientas, Técnicas y Salidas) es el verdadero factor diferenciador para superar el examen PMP. El PMI no busca que memorices tablas infinitas, sino que entiendas el flujo dinámico de la información y las herramientas idóneas para resolver crisis en escenarios reales. Esta lección te enseñará a pensar como un Project Manager en acción, decodificando la estructura operativa detrás de cada fase del proyecto."
     },
     {
       "tipo": "titulo",
-      "texto": "[PRIMER SUBTÍTULO: el primer concepto importante]"
+      "texto": "Los 5 Grupos de Procesos: El ciclo vital de la gestión"
     },
     {
       "tipo": "parrafo",
-      "texto": "[DESARROLLO: 2-4 oraciones explicando el primer concepto. Sé conversacional, no académico. Reformulá con tus palabras, no copies del PMBOK.]"
+      "texto": "A diferencia de las fases del ciclo de vida (que son cronológicas y específicas de cada industria), los Grupos de Procesos son categorías lógicas de gestión que ocurren en cualquier proyecto, sin importar si es predictivo, ágil o híbrido. Estas cinco categorías estructuran las actividades del director de proyectos desde la primera autorización formal hasta el archivo definitivo de las lecciones aprendidas, interactuando de forma iterativa y superpuesta a lo largo de toda la iniciativa."
     },
     {
       "tipo": "lista",
       "items": [
-        "[Primer punto clave]",
-        "[Segundo punto clave]",
-        "[Tercer punto clave]"
+        "Inicio: Define y autoriza formalmente el proyecto o una nueva fase. Su objetivo principal es alinear las expectativas de los interesados con el propósito del negocio y otorgar autoridad al Project Manager mediante el Acta de Constitución (Project Charter).",
+        "Planificación: Establece el alcance total del esfuerzo, define los objetivos y desarrolla la línea base y el camino de acción necesario para alcanzarlos. Es un proceso iterativo que se refina constantemente (elaboración progresiva).",
+        "Ejecución: Integra a las personas y los recursos para realizar el trabajo detallado en el plan de gestión del proyecto. Aquí es donde se consume la mayor parte del presupuesto y se construyen los entregables reales.",
+        "Monitoreo y Control: El sistema de navegación del proyecto. Mide, revisa y regula el avance y el desempeño, identificando variaciones frente al plan original para iniciar las acciones correctivas o preventivas de manera oportuna.",
+        "Cierre: Formaliza la aceptación del producto o fase, transfiere el resultado final a operaciones, libera los recursos del equipo y documenta las lecciones aprendidas para enriquecer los activos de los procesos de la organización."
       ]
     },
     {
       "tipo": "titulo",
-      "texto": "[SEGUNDO SUBTÍTULO: el segundo concepto o aplicación]"
+      "texto": "La Lógica de los ITTO: Entradas, Herramientas, Técnicas y Salidas"
     },
     {
       "tipo": "parrafo",
-      "texto": "[DESARROLLO: explicación del segundo concepto, 2-4 oraciones.]"
+      "texto": "Para que un proceso funcione, necesita materia prima, herramientas para transformarla y un resultado concreto; esa es la esencia de los ITTO (Inputs, Tools, Techniques, Outputs). Una Entrada (Input) es cualquier documento o elemento que inicia el proceso. Las Herramientas y Técnicas (Tools & Techniques) son los métodos, softwares, habilidades interpersonales o análisis que aplicas sobre las entradas. Finalmente, la Salida (Output) es el producto, servicio o documento resultante que, muy frecuentemente, se convierte en la entrada del siguiente proceso."
+    },
+    {
+      "tipo": "lista",
+      "items": [
+        "Entradas Clave (Materia Prima): Ejemplos típicos incluyen los documentos de negocio (caso de negocio), los factores ambientales de la empresa (cultura corporativa, herramientas de software) y los activos de los procesos de la organización (plantillas, bases de datos históricas).",
+        "Herramientas y Técnicas (El 'Cómo'): Incluyen desde el juicio de expertos y el análisis de datos (análisis de alternativas o costo-beneficio) hasta habilidades blandas como la facilitación de reuniones, la resolución de conflictos y la negociación.",
+        "Salidas Clave (El 'Resultado'): El resultado puede ser un documento de gestión (Plan de Dirección), una actualización a un registro (Registro de Riesgos) o un elemento físico/digital verificable (Entregables).",
+        "El Flujo Práctico: Imagina el proceso 'Identificar a los Interesados'. Su Entrada principal es el Acta de Constitución. La Herramienta es el análisis de interesados (clasificación). La Salida es el Registro de Interesados, el cual se transformará de inmediato en una Entrada para planificar las comunicaciones del proyecto."
+      ]
+    },
+    {
+      "tipo": "titulo",
+      "texto": "Dinámica del Flujo de Datos de Desempeño: Datos, Información e Informes"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Uno de los flujos de ITTO más críticos para el examen es el de los datos de desempeño, el cual atraviesa transversalmente los grupos de procesos. Este circuito transforma la realidad del proyecto en decisiones estratégicas y sigue un orden lógico estricto: los datos brutos se extraen de la realidad, se analizan sistemáticamente en el control, y se empaquetan de forma ejecutiva para los tomadores de decisiones."
+    },
+    {
+      "tipo": "lista",
+      "items": [
+        "1. Datos de Desempeño del Trabajo (Salida de Ejecución): Son las observaciones y mediciones directas y primarias recogidas durante las actividades del proyecto (por ejemplo: costo real gastado, número de días de retraso, o porcentaje de avance de una tarea técnica).",
+        "2. Información de Desempeño del Trabajo (Salida de Monitoreo y Control): Los datos brutos no sirven aislados; se envían a los procesos de control de cada área donde se comparan contra la línea base para calcular variaciones (por ejemplo: saber que un retraso de 3 días significa un desvío del 15% frente al cronograma planificado).",
+        "3. Informes de Desempeño del Trabajo (Salida de Integración): La información analizada se unifica y se transforma en representaciones físicas o electrónicas (gráficos de valor ganado, reportes de estado, dashboards) diseñadas para generar decisiones, priorizaciones o solicitudes de cambio de alto nivel."
+      ]
     },
     {
       "tipo": "callout",
       "variante": "tip_examen",
-      "texto": "[TIP DE EXAMEN: cómo identificar este tema en el enunciado de una pregunta del examen real. Sé específico.]"
+      "texto": "TIP DE EXAMEN: El examen PMP evaluará si entiendes la secuencia de tus acciones como líder del proyecto. Si una pregunta te plantea que 'el proyecto sufre un retraso debido a un problema técnico imprevisto y te preguntan qué debes hacer PRIMERO', la respuesta correcta NUNCA será aplicar el cambio directamente; la lógica de ITTO dicta que primero debes ANALIZAR el impacto (Herramienta de Control), luego GENERAR una solicitud de cambio formal (Salida) y finalmente pasar por el proceso de Control Integrado de Cambios antes de actualizar los planes. Recuerda el orden sagrado del flujo de control: Datos (Ejecución) -> Información (Control) -> Informes (Integración) -> Solicitud de Cambio formal."
     }
   ]
 }

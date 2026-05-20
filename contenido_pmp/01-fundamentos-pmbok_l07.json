@@ -4,40 +4,69 @@
   "_META_orden": 7,
   "_META_tiempo_min": 14,
   "_META_INSTRUCCIONES": "Reemplazá el texto entre [CORCHETES] con tu contenido real. Borrá secciones que no uses. Agregá las que necesites. Cuando esté listo, cambia 'publicar' a true.",
-  "publicar": false,
+  "publicar": true,
   "secciones": [
     {
       "tipo": "parrafo",
-      "texto": "[INTRODUCCIÓN: 2-3 oraciones que enganchen al lector y expliquen por qué esta lección importa para el examen.]"
+      "texto": "Gestionar con éxito un proyecto no depende únicamente de cumplir con el cronograma y el presupuesto, sino de entender y equilibrar las expectativas de las personas que interactúan con él. En el examen PMP, el dominio de los interesados (stakeholders) es uno de los pilares más críticos y evaluados de manera transversal en los dominios de Personas y Procesos. No identificar a un actor clave a tiempo o clasificar erróneamente su nivel de influencia puede arruinar una iniciativa por completo, por lo que saber cómo gestionar su impacto determinará tu éxito en la certificación."
     },
     {
       "tipo": "titulo",
-      "texto": "[PRIMER SUBTÍTULO: el primer concepto importante]"
+      "texto": "Identificación de Interesados: El registro continuo de expectativas"
     },
     {
       "tipo": "parrafo",
-      "texto": "[DESARROLLO: 2-4 oraciones explicando el primer concepto. Sé conversacional, no académico. Reformulá con tus palabras, no copies del PMBOK.]"
+      "texto": "La identificación de interesados es un proceso iterativo que comienza en la fase de inicio, justo al redactar el Acta de Constitución, pero que debe ejecutarse de forma continua a lo largo de todo el ciclo de vida del proyecto. Un interesado es cualquier individuo, grupo u organización que pueda afectar, verse afectado o percibirse a sí mismo como afectado por una decisión, actividad o resultado del proyecto. Toda la información recopilada se consolida en el Registro de Interesados, un documento vivo que contiene datos de identificación, evaluación de expectativas y clasificaciones estratégicas."
     },
     {
       "tipo": "lista",
       "items": [
-        "[Primer punto clave]",
-        "[Segundo punto clave]",
-        "[Tercer punto clave]"
+        "Naturaleza Dinámica: Los interesados no son estáticos; nuevos actores ingresan en diferentes fases (por ejemplo, los usuarios finales cobran más relevancia en las pruebas funcionales) y otros modifican sus intereses o se retiran de la organización.",
+        "El Registro de Interesados como Entrada: Este artefacto es confidencial pero sumamente operativo, y sirve de insumo directo para diseñar las estrategias de comunicación, los planes de gestión de riesgos y el alcance técnico.",
+        "Juicio de Expertos y Lluvia de Ideas: Son las herramientas principales para garantizar que no se omitan reguladores, proveedores ocultos, sindicatos o directores de áreas de soporte que puedan bloquear el avance del proyecto.",
+        "Ejemplo Práctico de Identificación: En la implementación de una nueva API de nómina para conectar un sistema interno con un banco comercial, los interesados obvios son el equipo de desarrollo y el gerente de finanzas. Sin embargo, un análisis riguroso identificará también como interesados críticos al equipo de ciberseguridad del banco, los auditores internos de la empresa y los colaboradores que recibirán sus sueldos mediante este canal."
       ]
     },
     {
       "tipo": "titulo",
-      "texto": "[SEGUNDO SUBTÍTULO: el segundo concepto o aplicación]"
+      "texto": "Modelos de Clasificación: Matriz de Poder e Interés y Modelo de Prominencia"
     },
     {
       "tipo": "parrafo",
-      "texto": "[DESARROLLO: explicación del segundo concepto, 2-4 oraciones.]"
+      "texto": "Una vez identificados, es imposible y poco eficiente tratar a todos los interesados con la misma intensidad de gestión; es obligatorio clasificarlos para optimizar los esfuerzos y recursos del líder de proyecto. La herramienta más tradicional es la Matriz de Poder e Interés, que agrupa a los actores en cuadrantes específicos para determinar el nivel de comunicación y compromiso requerido. Para entornos de alta complejidad, la Guía del PMBOK introduce el Modelo de Prominencia (Salience Model), el cual clasifica a los interesados analizando tres variables dinámicas esenciales: su poder de influencia, la legitimidad de su reclamo y la urgencia de su atención."
+    },
+    {
+      "tipo": "lista",
+      "items": [
+        "Estrategias de la Matriz de Poder e Interés: 1) Alto Poder / Alto Interés: Gestionar de cerca (socios clave); 2) Alto Poder / Bajo Interés: Mantener satisfecho (por ejemplo, directores financieros o entes reguladores); 3) Bajo Poder / Alto Interés: Mantener informado (usuarios finales); 4) Bajo Poder / Bajo Interés: Monitorear con esfuerzo mínimo.",
+        "Modelo de Prominencia (Interesados Latentes y Expectantes): Permite identificar de inmediato a los interesados 'definitivos' (que poseen las tres características simultáneamente) y a los interesados 'peligrosos' (tienen poder y urgencia, pero carecen de legitimidad formal, requiriendo un manejo político cuidadoso).",
+        "Evolución hacia la Agilidad: En enfoques ágiles, la clasificación promueve una interacción directa y transparente mediante la participación de los interesados en las demostraciones de sprint (Sprint Reviews) y sesiones de priorización conjunta, mitigando los riesgos de desalineación.",
+        "Ejemplo Práctico de Clasificación: En un proyecto de transformación digital aeroportuaria, el Director General de Aeronáutica Civil tiene Alto Poder y Bajo Interés inmediato en el software, pero debe mantenerse estrictamente 'Satisfecho' para evitar multas. En contraposición, las tripulaciones de vuelo tienen Bajo Poder individual pero Alto Interés; a ellos se les debe 'Mantener Informados' y capacitar constantemente para asegurar la adopción de la herramienta."
+      ]
+    },
+    {
+      "tipo": "titulo",
+      "texto": "Matriz de Evaluación del Involucramiento de los Interesados"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Para diseñar una estrategia analítica de compromiso, el Project Manager debe mapear la brecha entre la postura actual de un interesado y la postura deseada que se necesita para asegurar el éxito del proyecto:"
+    },
+    {
+      "tipo": "lista",
+      "items": [
+        "Inconsciente (Unaware): No conoce el proyecto ni sus impactos potenciales en el negocio.",
+        "Reticiente / Resistente (Resistant): Conoce el proyecto pero se opone al cambio por temor a perder estatus, control o por inconformidad con los objetivos.",
+        "Neutral: Conoce la iniciativa pero no la apoya ni se opone a ella.",
+        "Partidario / De Apoyo (Supportive): Conoce el proyecto y apoya activamente los entregables y el trabajo del equipo.",
+        "Líder (Leading): Conoce el proyecto y está comprometido activamente en asegurar que la iniciativa sea exitosa, guiando a otros hacia el cambio.",
+        "Mapeo de Brecha (C vs. D): En la matriz se marca el estado Actual (C) y el Deseado (D). El plan de participación describirá las acciones específicas de comunicación y negociación para mover a un interesado del estado Resistente (C) al estado Partidario (D)."
+      ]
     },
     {
       "tipo": "callout",
       "variante": "tip_examen",
-      "texto": "[TIP DE EXAMEN: cómo identificar este tema en el enunciado de una pregunta del examen real. Sé específico.]"
+      "texto": "TIP DE EXAMEN: En el examen PMP, las preguntas de stakeholders se centrarán en conflictos y omisiones. Si la pregunta te plantea que 'un director de área bloquea el despliegue del software porque afirma que la herramienta afecta sus procesos internos y nunca fue consultado', el error raíz del Project Manager fue no haber realizado una IDENTIFICACIÓN temprana ni haber incluido al director en el Registro de Interesados. Si el enunciado describe que 'un interesado clave está inundando tu bandeja de correo exigiendo reportes técnicos detallados cada hora', la estrategia de la Matriz de Poder/Interés falló: estás tratando a alguien de bajo interés como si requiriera una gestión exhaustiva, o no alineaste las expectativas de comunicación en la fase de planificación. Ante cualquier conflicto con interesados, la respuesta correcta siempre se orientará a revisar el registro de interesados, reunirse directamente con ellos para entender sus necesidades, o consultar el Plan de Involucramiento antes de escalar la situación."
     }
   ]
 }

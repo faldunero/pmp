@@ -4,40 +4,69 @@
   "_META_orden": 4,
   "_META_tiempo_min": 14,
   "_META_INSTRUCCIONES": "Reemplazá el texto entre [CORCHETES] con tu contenido real. Borrá secciones que no uses. Agregá las que necesites. Cuando esté listo, cambia 'publicar' a true.",
-  "publicar": false,
+  "publicar": true,
   "secciones": [
     {
       "tipo": "parrafo",
-      "texto": "[INTRODUCCIÓN: 2-3 oraciones que enganchen al lector y expliquen por qué esta lección importa para el examen.]"
+      "texto": "El ciclo de vida de un proyecto es el mapa de ruta fundamental que define las fases desde el inicio hasta el cierre de cualquier iniciativa. En el examen PMP, dominar los diferentes enfoques de ciclos de vida no es opcional, ya que la mayoría de las preguntas situacionales te exigirán identificar qué ciclo se adapta mejor a un escenario de incertidumbre, cambios en el alcance o requisitos rígidos. Elegir la estrategia equivocada puede destruir el presupuesto de un proyecto o impedir la entrega de valor, y el PMI evaluará a fondo tu capacidad para discernir el camino correcto."
     },
     {
       "tipo": "titulo",
-      "texto": "[PRIMER SUBTÍTULO: el primer concepto importante]"
+      "texto": "Ciclos de vida Predictivos o Cascada (Waterfall)"
     },
     {
       "tipo": "parrafo",
-      "texto": "[DESARROLLO: 2-4 oraciones explicando el primer concepto. Sé conversacional, no académico. Reformulá con tus palabras, no copies del PMBOK.]"
+      "texto": "Este enfoque tradicional se basa en la premisa de que el alcance, el tiempo y el costo del proyecto se pueden planificar de manera detallada y precisa al inicio de la iniciativa. En los ciclos predictivos, cada fase del proyecto se ejecuta de forma secuencial: no se avanza a la siguiente etapa hasta que la anterior esté completamente terminada y aprobada. El objetivo principal aquí es reducir la incertidumbre inicial y mantener un control riguroso sobre las desviaciones mediante un proceso formal de control de cambios."
     },
     {
       "tipo": "lista",
       "items": [
-        "[Primer punto clave]",
-        "[Segundo punto clave]",
-        "[Tercer punto clave]"
+        "Planificación Temprana y Detallada: Todo el esfuerzo inicial se concentra en levantar requisitos exhaustivos, diseñar planos técnicos y estructurar un cronograma fijo, asumiendo que las variables macro no cambiarán drásticamente.",
+        "Gestión del Cambio Restrictiva: Cualquier modificación posterior al alcance inicial requiere pasar por un Comité de Control de Cambios (CCB), evaluando el impacto en el costo y en los tiempos antes de ser aprobada.",
+        "Entrega Única al Final: El cliente no recibe un producto funcional de manera parcial; el valor total se transfiere en una sola gran entrega al cierre definitivo del proyecto.",
+        "Ejemplo Práctico: La construcción de un puente vial de concreto o un edificio corporativo. Los requisitos de ingeniería, suelos y normativas deben estar totalmente claros antes de verter el primer metro de hormigón, y un cambio de diseño a mitad de camino sería extremadamente costoso."
       ]
     },
     {
       "tipo": "titulo",
-      "texto": "[SEGUNDO SUBTÍTULO: el segundo concepto o aplicación]"
+      "texto": "Ciclos de vida Adaptativos: Ágiles, Incrementales e Híbridos"
     },
     {
       "tipo": "parrafo",
-      "texto": "[DESARROLLO: explicación del segundo concepto, 2-4 oraciones.]"
+      "texto": "Cuando el entorno es altamente volátil o los requisitos son difusos al comienzo, los enfoques tradicionales fallan, abriendo paso a los ciclos adaptativos. Los enfoques ágiles e iterativos asumen que el cambio es inevitable y deseable, estructurando el trabajo en periodos cortos de tiempo (sprints o iteraciones) donde el alcance se refina de forma constante basándose en el feedback del cliente. Por otro lado, los enfoques híbridos combinan lo mejor de ambos mundos: utilizan la predictibilidad para componentes estables y la agilidad para los elementos de software o alta incertidumbre."
+    },
+    {
+      "tipo": "lista",
+      "items": [
+        "Enfoque Iterativo e Incremental: Las iteraciones repiten actividades para refinar los conceptos del producto, mientras que los incrementos aseguran que se añada una funcionalidad operativa y utilizable en cada entrega periódica.",
+        "Priorización Dinámica basada en Valor: En lugar de un plan rígido, se gestiona una lista priorizada de trabajo (Backlog). El dueño del producto (Product Owner) puede reordenar las prioridades al final de cada ciclo según las necesidades del mercado.",
+        "Enfoques Híbridos como Solución Corporativa: Permiten estructurar contratos o compras de hardware bajo un esquema predictivo fijo, mientras que el diseño de la experiencia de usuario y el desarrollo lógico se ejecutan con metodologías ágiles.",
+        "Ejemplo Práctico Adaptativo: El desarrollo de una nueva plataforma de comercio electrónico de moda. Se lanza una versión mínima viable (MVP) en cuatro semanas para evaluar la recepción del usuario y se agregan pasarelas de pago y funciones de inteligencia artificial en las siguientes iteraciones basados en el comportamiento real de compra.",
+        "Ejemplo Práctico Híbrido: La modernización tecnológica de una red de cajeros automáticos bancarios. La adquisición e instalación física de las máquinas se gestiona con un cronograma predictivo por su logística, pero el software de la interfaz de usuario se desarrolla e implementa usando metodologías ágiles en sprints de dos semanas."
+      ]
+    },
+    {
+      "tipo": "titulo",
+      "texto": "Matriz de Selección de Ciclos de Vida según la Variabilidad"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Para consolidar los conceptos clave antes de enfrentarte al examen, analiza cómo se comportan las restricciones principales en cada uno de los grandes enfoques metodológicos definidos por el PMI:"
+    },
+    {
+      "tipo": "lista",
+      "items": [
+        "Predictivo: Requisitos fijos y conocidos; Actividades ejecutadas en fases secuenciales; Cambios estrictamente controlados; Entrega única al final del ciclo de vida.",
+        "Iterativo: Requisitos dinámicos y evolutivos; Actividades repetidas en ciclos para mejorar el producto; Enfoque en la corrección y el refinamiento técnico del diseño.",
+        "Incremental: Requisitos que progresan a lo largo del tiempo; Entregas frecuentes y utilizables a intervalos regulares; Enfoque en la velocidad de salida al mercado (Time-to-market).",
+        "Ágil (Adaptativo): Requisitos muy cambiantes o desconocidos; Ejecución iterativa e incremental simultáneamente; El cambio se abraza en cada sprint; Entrega constante de valor al negocio.",
+        "Híbrido: Requisitos mixtos (algunos estables, otros de alta incertidumbre); Combinación de fases secuenciales con sprints de desarrollo; Flexibilidad adaptada a la gobernanza corporativa."
+      ]
     },
     {
       "tipo": "callout",
       "variante": "tip_examen",
-      "texto": "[TIP DE EXAMEN: cómo identificar este tema en el enunciado de una pregunta del examen real. Sé específico.]"
+      "texto": "TIP DE EXAMEN: Las preguntas situacionales del PMP te darán pistas sutiles pero determinantes en sus enunciados. Si el texto menciona 'el cliente necesita ver avances rápidos para asegurar el financiamiento', descarta lo predictivo y busca opciones orientadas a INCREMENTAL o ÁGIL. Si el escenario indica que 'los requisitos regulatorios gubernamentales están completamente definidos y no se permiten desviaciones', la respuesta correcta apuntará a un enfoque PREDICTIVO. Finalmente, si te describen un entorno corporativo tradicional que está intentando adoptar prácticas ágiles por primera vez en un proyecto específico, busca siempre respuestas que promuevan soluciones HÍBRIDAS como la transición ideal."
     }
   ]
 }

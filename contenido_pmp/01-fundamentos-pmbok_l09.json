@@ -2,42 +2,70 @@
   "_META_titulo": "Gobernanza de proyectos y oficina PMO",
   "_META_curso": "01-fundamentos-pmbok",
   "_META_orden": 9,
-  "_META_tiempo_min": 12,
+  "_META_tiempo_min": 15,
   "_META_INSTRUCCIONES": "Reemplazá el texto entre [CORCHETES] con tu contenido real. Borrá secciones que no uses. Agregá las que necesites. Cuando esté listo, cambia 'publicar' a true.",
-  "publicar": false,
+  "publicar": true,
   "secciones": [
     {
       "tipo": "parrafo",
-      "texto": "[INTRODUCCIÓN: 2-3 oraciones que enganchen al lector y expliquen por qué esta lección importa para el examen.]"
+      "texto": "La gobernanza y la Oficina de Gestión de Proyectos (PMO) constituyen la infraestructura institucional que define las reglas del juego, los límites de autoridad y el soporte estratégico para cualquier iniciativa. En el examen PMP, comprender cómo interactúan estas estructuras con el Director del Proyecto es vital, ya que el PMI evalúa con rigurosidad tu capacidad para identificar el nivel de autonomía que posees y a quién debes recurrir ante conflictos de prioridades o escalamientos de alto nivel. Una mala interpretación del marco de gobernanza u omitir el tipo de PMO con el que trabajas puede llevarte a elegir respuestas incorrectas en escenarios corporativos simulados."
     },
     {
       "tipo": "titulo",
-      "texto": "[PRIMER SUBTÍTULO: el primer concepto importante]"
+      "texto": "Gobernanza del Proyecto: El marco de alineación institucional"
     },
     {
       "tipo": "parrafo",
-      "texto": "[DESARROLLO: 2-4 oraciones explicando el primer concepto. Sé conversacional, no académico. Reformulá con tus palabras, no copies del PMBOK.]"
+      "texto": "La gobernanza del proyecto es el marco, las funciones y los procesos que guían las actividades de gestión con el fin de crear un producto, servicio o resultado único que cumpla con las metas organizacionales. No es una metodología de trabajo, sino un sistema de supervisión y control que define quién toma las decisiones clave, cómo se gestiona el riesgo corporativo y bajo qué criterios se evalúa la viabilidad continua del proyecto. Este marco proporciona al equipo una estructura clara para el escalamiento de problemas que superan los límites de tolerancia del Director del Proyecto."
     },
     {
       "tipo": "lista",
       "items": [
-        "[Primer punto clave]",
-        "[Segundo punto clave]",
-        "[Tercer punto clave]"
+        "Límites de Autoridad Claros: Define las fronteras de decisión respecto a incrementos presupuestarios, extensiones de cronograma y modificaciones mayores al alcance.",
+        "El Comité de Dirección (Steering Committee): Es el máximo órgano de gobernanza dentro del proyecto, compuesto por patrocinadores y ejecutivos clave, responsable de validar los hitos principales y resolver conflictos interdepartamentales.",
+        "Alineación con la Gobernanza Corporativa: Asegura que las políticas de cumplimiento legal, seguridad de la información, sostenibilidad y ética de la empresa se repliquen de manera estricta dentro del ciclo de vida de la iniciativa.",
+        "Ejemplo Práctico de Gobernanza: En la integración automatizada de plataformas de pago con entidades bancarias externas, el marco de gobernanza establece que el Director del Proyecto puede autorizar variaciones de costos de hasta un 5%. Si una auditoría de ciberseguridad exige un control extra que eleva el costo en un 12%, el protocolo de gobernanza obliga a derivar el caso formalmente al Comité de Dirección para su aprobación presupuestaria."
       ]
     },
     {
       "tipo": "titulo",
-      "texto": "[SEGUNDO SUBTÍTULO: el segundo concepto o aplicación]"
+      "texto": "Tipos de Oficina de Gestión de Proyectos (PMO)"
     },
     {
       "tipo": "parrafo",
-      "texto": "[DESARROLLO: explicación del segundo concepto, 2-4 oraciones.]"
+      "texto": "La Oficina de Gestión de Proyectos (PMO) es una estructura de gestión que estandariza los procesos de gobernanza relacionados con el proyecto y facilita el intercambio de recursos, metodologías, herramientas y técnicas. El PMBOK clasifica a las PMO en tres tipos fundamentales según el grado de control e influencia que ejercen sobre los proyectos de la organización. Identificar correctamente esta tipología determina de inmediato el nivel de control operativo y la dependencia metodológica del líder de la iniciativa."
+    },
+    {
+      "tipo": "lista",
+      "items": [
+        "1. PMO de Apoyo (Supportive): Ejerce un grado de control BAJO. Funciona principalmente como un centro de consultoría para los proyectos, proporcionando plantillas, mejores prácticas, acceso a lecciones aprendidas y capacitación especializada. Los Directores de Proyecto operan con total autonomía.",
+        "2. PMO de Control (Controlling): Ejerce un grado de control MODERADO. No solo provee soporte, sino que exige el cumplimiento normativo de marcos de trabajo institucionales. Esto incluye adoptar plantillas específicas, apegarse a herramientas concretas de reportería y responder de manera obligatoria a auditorías periódicas de desempeño.",
+        "3. PMO de Directiva (Directive): Ejerce un grado de control ALTO. Esta oficina asume la dirección directa de las iniciativas. Los Directores de Proyecto pertenecen formalmente a la PMO, son asignados por ella y le reportan directamente a su estructura, garantizando una uniformidad absoluta en la ejecución corporativa.",
+        "Ejemplo Práctico de PMO de Apoyo: Una startup tecnológica en crecimiento donde la PMO pone a disposición de los líderes técnicos tableros Kanban genéricos en la nube y repositorios históricos de estimaciones de software, pero deja a criterio de cada equipo la adopción de estas herramientas según el ritmo de sus sprints.",
+        "Ejemplo Práctico de PMO de Control: Una gran corporación financiera que exige a todos sus jefes de proyecto registrar las minutas de reuniones semanales en un software corporativo unificado y someter el estado de la ruta crítica a revisiones mensuales obligatorias bajo apercibimiento de congelar los fondos del proyecto.",
+        "Ejemplo Práctico de PMO de Directiva: Una empresa multinacional de telecomunicaciones que abre un portafolio de infraestructura 5G y designa desde su staff central a los Project Managers seniors, quienes controlan el presupuesto global y toman decisiones sobre la contratación de proveedores externos de forma centralizada."
+      ]
+    },
+    {
+      "tipo": "titulo",
+      "texto": "Ejes Comparativos de Operación de las PMO"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Para consolidar los conceptos clave antes de revisar las recomendaciones del examen, analicemos cómo varían las responsabilidades operativas según el tipo de PMO:"
+    },
+    {
+      "tipo": "lista",
+      "items": [
+        "PMO de Apoyo: Nivel de Control Mínimo; Rol puramente consultivo y de repositorio; El Project Manager mantiene la propiedad total del proyecto; Suministra plantillas y capacitación voluntaria.",
+        "PMO de Control: Nivel de Control Moderado; Rol de verificación y cumplimiento; El Project Manager coordina bajo pautas institucionales rígidas; Exige auditorías y gobernanza formal de procesos.",
+        "PMO de Directiva: Nivel de Control Máximo; Rol de ejecución e instrucciones directas; La PMO asigna y gestiona a los Project Managers directamente; Controla el presupuesto y los recursos de manera centralizada."
+      ]
     },
     {
       "tipo": "callout",
       "variante": "tip_examen",
-      "texto": "[TIP DE EXAMEN: cómo identificar este tema en el enunciado de una pregunta del examen real. Sé específico.]"
+      "texto": "TIP DE EXAMEN: En las preguntas del examen PMP, los escenarios sobre gobernanza y PMO evaluarán tu capacidad de reacción ante desvíos y estructuras jerárquicas. Si el enunciado describe que 'el proyecto ha superado el umbral de costos de contingencia permitido y el equipo técnico no encuentra soluciones internas', la respuesta correcta siempre implicará seguir los canales lógicos de GOBERNANZA, escalando la situación al Patrocinador (Sponsor) o al Comité de Dirección mediante un informe analítico. Si el escenario detalla que 'un Director de Proyecto es sancionado porque decidió usar plantillas de gestión propias en lugar del estándar corporativo de la empresa', el problema raíz es que no reconoció que operaba bajo una PMO de CONTROL. Recuerda: el Project Manager nunca toma decisiones unilaterales que violen el marco de gobernanza, y ante conflictos de recursos compartidos entre proyectos que no guardan relación entre sí, la PMO (especialmente en niveles de Control o Directiva) es el organismo de soporte diseñado para resolver la priorización."
     }
   ]
 }

@@ -2,42 +2,68 @@
   "_META_titulo": "Triple restricción: alcance, tiempo, costo",
   "_META_curso": "01-fundamentos-pmbok",
   "_META_orden": 8,
-  "_META_tiempo_min": 12,
+  "_META_tiempo_min": 15,
   "_META_INSTRUCCIONES": "Reemplazá el texto entre [CORCHETES] con tu contenido real. Borrá secciones que no uses. Agregá las que necesites. Cuando esté listo, cambia 'publicar' a true.",
-  "publicar": false,
+  "publicar": true,
   "secciones": [
     {
       "tipo": "parrafo",
-      "texto": "[INTRODUCCIÓN: 2-3 oraciones que enganchen al lector y expliquen por qué esta lección importa para el examen.]"
+      "texto": "La triple restricción es el concepto fundamental que rige el equilibrio operativo de cualquier proyecto y una de las fuentes más ricas de preguntas situacionales en el examen PMP. Tradicionalmente representada como el triángulo de la gestión de proyectos, esta teoría demuestra que es imposible alterar una de sus dimensiones sin generar un impacto inmediato en las otras dos. Dominar la interacción entre estas fuerzas te permitirá tomar decisiones acertadas ante las solicitudes de cambio y resolver dilemas complejos de asignación de recursos durante la certificación."
     },
     {
       "tipo": "titulo",
-      "texto": "[PRIMER SUBTÍTULO: el primer concepto importante]"
+      "texto": "El Triángulo Tradicional: Alcance, Tiempo y Costo"
     },
     {
       "tipo": "parrafo",
-      "texto": "[DESARROLLO: 2-4 oraciones explicando el primer concepto. Sé conversacional, no académico. Reformulá con tus palabras, no copies del PMBOK.]"
+      "texto": "La gestión tradicional de proyectos define la triple restricción como una relación simbiótica entre tres variables críticas: el Alcance (el trabajo requerido para entregar el producto), el Tiempo (el cronograma establecido para llegar a la meta) y el Costo (el presupuesto financiero y los recursos asignados). La premisa central es que el Director de Proyecto actúa como un administrador de este equilibrio dinámico. Si el cliente solicita expandir las características del entregable, el triángulo se deforma de manera natural, obligando a incrementar el presupuesto, extender los plazos de entrega, o ambas opciones, para no sacrificar la calidad final."
     },
     {
       "tipo": "lista",
       "items": [
-        "[Primer punto clave]",
-        "[Segundo punto clave]",
-        "[Tercer punto clave]"
+        "Alcance (Scope): Representa las fronteras técnicas y funcionales de la iniciativa. Controlar esta variable evita el desvío silencioso del alcance (Scope Creep), donde se añade trabajo no aprobado que desestabiliza las otras aristas.",
+        "Tiempo (Schedule): Administra la secuencia de actividades y la ruta crítica necesaria para alcanzar los hitos. Es una restricción rígida que suele verse afectada por estimaciones de esfuerzo demasiado optimistas.",
+        "Costo (Budget): Engloba los recursos económicos, materiales y humanos requeridos. Un recorte presupuestario drástico sin una reducción proporcional del alcance forzará al equipo a acelerar procesos, poniendo en riesgo la estabilidad del proyecto.",
+        "Ejemplo Práctico Tradicional: La construcción de un centro de distribución logística. Si el patrocinador exige adelantar la fecha de inauguración tres meses (restricción de Tiempo), el Project Manager deberá autorizar horas extras o contratar más subcontratistas, lo que elevará los Costos de inmediato. Si el presupuesto está congelado, la única alternativa viable será reducir el Alcance del proyecto, dejando la pavimentación de los estacionamientos secundarios para una fase posterior."
       ]
     },
     {
       "tipo": "titulo",
-      "texto": "[SEGUNDO SUBTÍTULO: el segundo concepto o aplicación]"
+      "texto": "La Evolución del Concepto: Restricciones Compuestas y Enfoques Ágiles"
     },
     {
       "tipo": "parrafo",
-      "texto": "[DESARROLLO: explicación del segundo concepto, 2-4 oraciones.]"
+      "texto": "En las versiones modernas del PMBOK, el triángulo tradicional evolucionó hacia un modelo de restricciones múltiples e interconectadas que añade variables clave como los Riesgos, los Recursos y, en el centro de todo, la Calidad. Además, la forma en que se gestiona este equilibrio cambia radicalmente según el ciclo de vida elegido. Mientras que en los proyectos predictivos el alcance es fijo y el tiempo y el costo se estiman para adaptarse a él, en los entornos ágiles el enfoque se invierte por completo: el tiempo (los sprints) y los costos (el tamaño del equipo) son variables fijas, y es el alcance el que se ajusta de manera flexible para entregar el máximo valor posible al negocio."
+    },
+    {
+      "tipo": "lista",
+      "items": [
+        "El Triángulo Invertido Ágil: El alcance se convierte en la variable de ajuste continuo. Si el equipo técnico descubre una complejidad imprevista durante el sprint, no se extienden los días de la iteración ni se contrata más personal; en su lugar, se negocia con el Product Owner para recortar los requisitos menos críticos del backlog.",
+        "Calidad como Eje No Negociable: La calidad ya no se considera una arista variable que se pueda sacrificar para ahorrar dinero o tiempo; se ubica en el centro del modelo como un estándar absoluto que debe protegerse mediante la Definición de Terminado (DoD).",
+        "Variables Compuestas: La gestión moderna evalúa cómo el movimiento de la triple restricción afecta los Riesgos (un cronograma muy ajustado eleva la probabilidad de fallas técnicas) y la satisfacción de los Interesados.",
+        "Ejemplo Práctico Ágil: En el desarrollo de una plataforma web de servicios financieros usando Scrum, el equipo trabaja en sprints fijos de dos semanas con un presupuesto estable para seis desarrolladores. Si al octavo día se identifica que la integración del motor de autenticación tomará más tiempo del planeado, el alcance se adapta de inmediato: se asegura el funcionamiento seguro del login básico y se posterga la función de reconocimiento biométrico para el siguiente sprint."
+      ]
+    },
+    {
+      "tipo": "titulo",
+      "texto": "Estrategias de Optimización frente a Impactos en las Restricciones"
+    },
+    {
+      "tipo": "parrafo",
+      "texto": "Cuando una de las restricciones se ve comprometida por imprevistos o cambios de estrategia, el Director de Proyecto debe aplicar técnicas analíticas específicas basadas en el PMBOK para restablecer el equilibrio del sistema sin destruir el valor del negocio:"
+    },
+    {
+      "tipo": "lista",
+      "items": [
+        "Compresión del Cronograma (Crashing): Consiste en agregar recursos adicionales a las actividades de la ruta crítica para acortar la duración total del proyecto. Esta técnica impacta directamente la restricción de Costo, incrementando el presupuesto y elevando los riesgos de coordinación.",
+        "Ejecución Rápida (Fast-Tracking): Consiste en realizar en paralelo actividades de la ruta crítica que originalmente se planificaron para ejecutarse en secuencia de fases de forma consecutiva. Esta técnica no altera el Costo de forma directa, pero incrementa exponencialmente el Riesgo de retrabajo por falta de información madura.",
+        "Descoping (Reducción de Alcance): Es la estrategia de negociación directa donde se eliminan formalmente entregables o características secundarias del plan base para mantener el proyecto dentro de los límites estrictos de presupuesto y plazos originales."
+      ]
     },
     {
       "tipo": "callout",
       "variante": "tip_examen",
-      "texto": "[TIP DE EXAMEN: cómo identificar este tema en el enunciado de una pregunta del examen real. Sé específico.]"
+      "texto": "TIP DE EXAMEN: El examen PMP te presentará escenarios donde un patrocinador presiona para modificar una variable y te evaluará la secuencia correcta de tus acciones. Si el enunciado dice que 'un cliente de un proyecto predictivo exige añadir una nueva funcionalidad sin alterar la fecha de entrega', la respuesta correcta siempre implicará que debes analizar primero el impacto en el COSTO y los RIESGOS, y luego presentar opciones formales antes de procesar una solicitud de cambio; nunca aceptes un cambio de alcance asumiendo que el equipo trabajará más rápido gratis. Si la pregunta se sitúa en un entorno ÁGIL y el presupuesto se reduce a la mitad, la respuesta correcta se orientará a trabajar con el Product Owner para REPRIORIZAR el Backlog de Producto y ajustar el ALCANCE de los próximos incrementos, manteniendo fijos la calidad y el ritmo de los sprints."
     }
   ]
 }
