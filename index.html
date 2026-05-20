@@ -172,19 +172,6 @@
  margin-top: 32px;
  padding-top: 20px;
  border-top: 1px solid #f1f5f9;
- text-align: center;
- color: #64748b;
- font-size: 0.95rem;
- }
-
- .app-footer a {
- color: var(--accent);
- text-decoration: none;
- font-weight: 600;
- }
-
- .app-footer a:hover {
- text-decoration: underline;
  }
 
  @media (max-width: 768px) {
@@ -346,26 +333,30 @@
      </div>
    </div>
 
-   <!-- Banner header: imagen full-width decorativa -->
-   <div style="margin: 24px 0 0; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(37,99,235,0.08);">
+   <!-- Banner hero: imagen con texto superpuesto -->
+   <div style="margin: 24px 0 0; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(37,99,235,0.08); position: relative;">
      <img src="imagenes/header.png" alt="Profesionales preparándose para certificaciones" style="width: 100%; display: block; height: auto;">
+     <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,23,42,0.72) 0%, rgba(15,23,42,0.45) 60%, rgba(15,23,42,0.10) 100%);"></div>
+     <div style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 40px 48px;">
+       <h1 style="font-size: 2.2rem; font-weight: 700; color: white; margin: 0 0 14px; line-height: 1.15; letter-spacing: -0.03em; max-width: 520px; text-shadow: 0 2px 8px rgba(0,0,0,0.3);">Cursos de preparación para tu examen profesional</h1>
+       <p style="font-size: 1rem; color: rgba(255,255,255,0.85); margin: 0 0 24px; max-width: 440px; line-height: 1.6;">Material de estudio independiente y simuladores diseñados para que llegues al examen oficial sabiendo qué te espera.</p>
+       <div style="display: inline-flex; gap: 12px; flex-wrap: wrap;">
+         <button onclick="navigate('screen-register')" style="background: var(--accent); color: white; border: none; padding: 12px 26px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; font-family: 'Inter', sans-serif; box-shadow: 0 4px 12px rgba(37,99,235,0.4);">Explorar el catálogo</button>
+         <button onclick="navigate('screen-login')" style="background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.4); padding: 12px 26px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; font-family: 'Inter', sans-serif;">Iniciar sesión</button>
+       </div>
+       <div style="display: flex; align-items: center; gap: 28px; margin-top: 28px; font-size: 13px; color: rgba(255,255,255,0.7); flex-wrap: wrap;">
+         <div><span style="font-weight: 700; color: white; font-size: 15px;">5</span> cursos</div>
+         <div style="width: 1px; height: 14px; background: rgba(255,255,255,0.3);"></div>
+         <div><span style="font-weight: 700; color: white; font-size: 15px;">100%</span> en línea</div>
+         <div style="width: 1px; height: 14px; background: rgba(255,255,255,0.3);"></div>
+         <div><span style="font-weight: 700; color: white; font-size: 15px;">Material</span> no oficial</div>
+       </div>
+     </div>
    </div>
 
-   <div style="text-align: center; padding: 56px 20px 48px;">
-     <div style="display: inline-block; background: #eff6ff; color: #1e40af; font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 100px; margin-bottom: 22px; letter-spacing: 0.02em;">Acceso gratuito por tiempo limitado</div>
-     <h1 style="font-size: 2.4rem; font-weight: 700; color: #111827; margin: 0 0 16px; line-height: 1.15; letter-spacing: -0.03em; max-width: 720px; margin-left: auto; margin-right: auto;">Cursos de preparación para tu examen profesional</h1>
-     <p style="font-size: 1.05rem; color: #6b7280; margin: 0 auto 28px; max-width: 540px; line-height: 1.6;">Material de estudio independiente y simuladores diseñados para que llegues al examen oficial sabiendo qué te espera.</p>
-     <div style="display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
-       <button onclick="navigate('screen-register')" style="background: var(--accent); color: white; border: none; padding: 13px 28px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 15px; font-family: 'Inter', sans-serif;">Explorar el catálogo</button>
-       <button onclick="navigate('screen-login')" style="background: white; color: #111827; border: 1px solid #d1d5db; padding: 13px 28px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 15px; font-family: 'Inter', sans-serif;">Iniciar sesión</button>
-     </div>
-     <div style="display: flex; align-items: center; justify-content: center; gap: 36px; margin-top: 44px; font-size: 13px; color: #6b7280; flex-wrap: wrap;">
-       <div><span style="font-weight: 700; color: #111827; font-size: 15px;">5</span> cursos</div>
-       <div style="width: 1px; height: 14px; background: #e5e7eb;"></div>
-       <div><span style="font-weight: 700; color: #111827; font-size: 15px;">100%</span> en línea</div>
-       <div style="width: 1px; height: 14px; background: #e5e7eb;"></div>
-       <div><span style="font-weight: 700; color: #111827; font-size: 15px;">Material</span> no oficial</div>
-     </div>
+   <!-- Badge debajo del hero -->
+   <div style="text-align: center; padding: 28px 20px 8px;">
+     <div style="display: inline-block; background: #eff6ff; color: #1e40af; font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 100px; letter-spacing: 0.02em;">Acceso gratuito por tiempo limitado</div>
    </div>
 
    <div style="margin: 0 0 8px;">
@@ -519,17 +510,6 @@
      <img src="imagenes/footer.png" loading="lazy" alt="Datos y dashboards de preparación profesional" style="width: 100%; display: block; height: auto;">
    </div>
 
-   <div style="padding-top: 24px; margin-top: 8px; border-top: 1px solid #f3f4f6;">
-     <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: 14px;">
-       <div style="font-size: 13px; color: #6b7280;">© 2026 Certifica · Plataforma independiente de material de apoyo</div>
-       <div style="display: flex; gap: 22px; font-size: 13px; color: #6b7280;">
-         <span>Términos</span>
-         <span>Privacidad</span>
-         <span>Soporte</span>
-       </div>
-     </div>
-     <div style="font-size: 11px; color: #9ca3af; line-height: 1.6; padding-top: 14px; border-top: 1px solid #e5e7eb;">PMP y PMI son marcas registradas del Project Management Institute, Inc. PRINCE2 e ITIL son marcas de Axelos Limited. Scrum Master y Product Owner se preparan para exámenes de Scrum.org y Scrum Alliance. Todas las marcas pertenecen a sus respectivos titulares.</div>
-   </div>
  </div>
 
  <div id="screen-login" class="screen">
@@ -1330,7 +1310,16 @@
 
 
  <footer class="app-footer" id="global-footer">
- realizado por : Felipe Aldunate - faldunate@gmail.com
+   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: 14px;">
+     <div style="font-size: 13px; color: #6b7280;">© 2026 Certifica · Plataforma independiente de material de apoyo</div>
+     <div style="display: flex; gap: 22px; font-size: 13px; color: #6b7280;">
+       <span>Términos</span>
+       <span>Privacidad</span>
+       <span>Soporte</span>
+     </div>
+   </div>
+   <div style="font-size: 11px; color: #9ca3af; line-height: 1.6; padding-top: 14px; border-top: 1px solid #e5e7eb;">PMP y PMI son marcas registradas del Project Management Institute, Inc. PRINCE2 e ITIL son marcas de Axelos Limited. Scrum Master y Product Owner se preparan para exámenes de Scrum.org y Scrum Alliance. Todas las marcas pertenecen a sus respectivos titulares.</div>
+   <div style="margin-top: 12px; font-size: 12px; color: #94a3b8; text-align: center;">realizado por: <a href="mailto:faldunate@gmail.com" style="color: var(--accent); text-decoration: none;">Felipe Aldunate</a></div>
  </footer>
 
 </div>
@@ -1469,9 +1458,6 @@
  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
  document.getElementById(id).classList.add('active');
  window.scrollTo({ top: 0, behavior: 'smooth' });
- // Ocultar el footer global en la landing (tiene su propio pie de página)
- const gf = document.getElementById('global-footer');
- if (gf) gf.style.display = (id === 'screen-portal-landing') ? 'none' : '';
  if (id === 'screen-login') {
  document.getElementById('login-email').value = '';
  document.getElementById('login-pass').value = '';
