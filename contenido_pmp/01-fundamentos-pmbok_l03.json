@@ -3,70 +3,40 @@
   "_META_curso": "01-fundamentos-pmbok",
   "_META_orden": 3,
   "_META_tiempo_min": 15,
-  "_META_INSTRUCCIONES": "Reemplazá el texto entre [CORCHETES] con tu contenido real. Borrá secciones que no uses. Agregá las que necesites. Cuando esté listo, cambia 'publicar' a true.",
   "publicar": true,
   "secciones": [
     {
       "tipo": "parrafo",
-      "texto": "Comprender cómo se estructuran las iniciativas en una organización es clave para el éxito empresarial y un pilar fundamental que el examen PMP evalúa con rigor. No todas las metas se alcanzan de la misma manera: algunas requieren un esfuerzo único, otras demandan coordinar varios proyectos a la vez, y las más estratégicas necesitan una visión global de inversión. Dominar la diferencia exacta entre proyectos, programas, portafolios y operaciones te permitirá responder con total seguridad las preguntas situacionales de la certificación."
+      "texto": "Comprender la jerarquía y las diferencias operativas entre proyectos, programas, portafolios y operaciones es un pilar fundamental para el examen PMP. El PMI evalúa con rigurosidad si eres capaz de identificar el nivel de la estructura organizacional en el que se sitúa un problema para determinar el alcance de tu autoridad y las herramientas idóneas para resolverlo."
     },
     {
       "tipo": "titulo",
-      "texto": "Proyectos y Operaciones: La diferencia entre el cambio y la continuidad"
+      "texto": "Estructuras Orientadas al Cambio: Proyectos, Programas y Portafolios"
     },
     {
       "tipo": "parrafo",
-      "texto": "Para entender el ecosistema de una organización, primero debemos separar lo que genera transformación de lo que mantiene el negocio funcionando día a día. Un proyecto es un esfuerzo temporal que busca crear un producto, servicio o resultado único, lo que significa que tiene un inicio y un final claramente definidos. Por el contrario, las operaciones son continuas, repetitivas y buscan sostener el negocio en el tiempo de manera eficiente. Mientras el proyecto introduce el cambio, la operación lo adopta y lo ejecuta de forma estandarizada."
+      "texto": "En el corazón de la estrategia corporativa coexisten tres estructuras diseñadas para materializar el cambio y generar valor, ordenadas de menor a mayor nivel de abstracción:"
     },
     {
       "tipo": "lista",
       "items": [
-        "Temporalidad vs. Continuidad: Los proyectos cierran al alcanzar sus objetivos o al demostrarse inviables; las operaciones no tienen un fin predefinido y buscan la sostenibilidad institucional.",
-        "Unicidad vs. Estandarización: Cada proyecto entrega un resultado único que no existía antes; las operaciones repiten procesos idénticos para garantizar la calidad y el ritmo del negocio.",
-        "Intersección clave: Al final de su ciclo de vida, un proyecto suele transferir sus entregables a la operación mediante una etapa de transición y transferencia de conocimientos.",
-        "Ejemplo Práctico de Proyecto: El desarrollo, diseño e implementación desde cero de una nueva aplicación móvil de banca digital para un banco comercial. Tiene una fecha de lanzamiento fija y un alcance definido.",
-        "Ejemplo Práctico de Operación: El mantenimiento diario de la aplicación móvil, la atención a clientes por problemas de transferencias y la actualización mensual de parches de seguridad del sistema."
+        "Proyectos (La Célula de Entrega): Se enfocan en el cumplimiento técnico de objetivos específicos y entregables tangibles dentro de restricciones rígidas de alcance, tiempo y costo.",
+        "Programas (Sinergia de Componentes): Agrupaciones de iniciativas interdependientes cuyo fin es optimizar recursos compartidos, mitigar riesgos comunes y obtener beneficios coordinados a nivel de negocio.",
+        "Portafolios (Dirección Estratégica): Maximizan el valor de las inversiones de la organización priorizando, financiando y autorizando los programas y proyectos adecuados, incluso si no tienen ninguna relación técnica entre sí."
       ]
     },
     {
       "tipo": "titulo",
-      "texto": "Programas y Portafolios: Estructuras estratégicas para maximizar el valor"
+      "texto": "Operaciones vs. Proyectos"
     },
     {
       "tipo": "parrafo",
-      "texto": "Cuando las organizaciones crecen, gestionar iniciativas de forma aislada se vuelve ineficiente, dando paso a los programas y portafolios. Un programa es un conjunto de proyectos relacionados que se gestionan de manera coordinada para obtener beneficios y control que no se lograrían si se manejaran de forma individual. Por su parte, el portafolio se sitúa en el nivel más alto de la estrategia: es una colección de proyectos, programas y operaciones agrupados para alcanzar los objetivos estratégicos globales de la empresa, priorizando las inversiones según el presupuesto y la visión del negocio."
-    },
-    {
-      "tipo": "lista",
-      "items": [
-        "Enfoque del Programa: Se centra en las interdependencias entre proyectos y en la entrega óptima de beneficios colectivos que optimizan recursos compartidos.",
-        "Enfoque del Portafolio: Se orienta al alineamiento estratégico global, decidiendo qué iniciativas se financian, cuáles se pausan y cuáles se cancelan para maximizar el retorno de inversión.",
-        "Jerarquía del Valor: Las operaciones mantienen el negocio, los proyectos y programas construyen las capacidades futuras, y el portafolio asegura que todo lo anterior apunte a la dirección correcta.",
-        "Ejemplo Práctico de Programa: Un 'Programa de Transformación Digital' en una aerolínea que incluye tres proyectos interdependientes: 1) Modernización del sistema de reservas de tickets, 2) Implementación de tótems de auto-check-in en aeropuertos, y 3) Capacitación del personal de tripulación. La coordinación conjunta evita que los proyectos choquen entre sí y asegura que el cliente viva una experiencia unificada.",
-        "Ejemplo Práctico de Portafolio: El portafolio global de una corporación de telecomunicaciones que decide destinar el 60% de su presupuesto anual a programas de expansión de red 5G, el 25% a proyectos de ciberseguridad interna, y el 15% a la operación continua de sus tiendas físicas. El objetivo es balancear el riesgo y garantizar el crecimiento a largo plazo."
-      ]
-    },
-    {
-      "tipo": "titulo",
-      "texto": "Matriz Comparativa: Resumen para el Examen"
-    },
-    {
-      "tipo": "parrafo",
-      "texto": "Para consolidar los conceptos antes de revisar el tip de examen, observemos cómo interactúan estas variables según sus características críticas de gestión:"
-    },
-    {
-      "tipo": "lista",
-      "items": [
-        "Proyecto: Alcance definido y evolutivo; Éxito medido por la calidad del entregable, tiempo y costo; Gestión directa de tareas y entregables.",
-        "Programa: Alcance más amplio que abarca los beneficios del conjunto; Éxito medido por el logro de beneficios y eficiencia compartida; Gestión de interdependencias.",
-        "Portafolio: Alcance vinculado estrictamente a las metas estratégicas del negocio; Éxito medido por el rendimiento de la inversión global; Gestión de gobernanza y priorización.",
-        "Operaciones: Alcance continuo e institucional; Éxito medido por la eficiencia de los procesos y la estabilidad del negocio; Gestión de procesos repetitivos."
-      ]
+      "texto": "A diferencia de las tres estructuras anteriores, las operaciones no están orientadas a la transformación ni tienen un final predeterminado. Se encargan de la ejecución continua de actividades repetitivas necesarias para asegurar el funcionamiento diario del negocio."
     },
     {
       "tipo": "callout",
       "variante": "tip_examen",
-      "texto": "TIP DE EXAMEN: En las preguntas del examen PMP, identifica estas palabras clave: si el enunciado menciona 'maximizar el retorno de inversión', 'priorizar recursos entre iniciativas no relacionadas' o 'alineación con el plan estratégico de la empresa', la respuesta correcta estará vinculada a la gestión de PORTAFOLIOS. Si el texto habla de 'coordinar interdependencias', 'gestión de recursos compartidos entre proyectos similares' u 'obtención de beneficios comunes', busca la opción relacionada con PROGRAMAS. Si se enfoca en 'mantener el negocio (business as usual)' o 'procesos repetitivos', apunta a OPERACIONES."
+      "texto": "TIP DE EXAMEN: Si la pregunta describe que dos proyectos técnicos independientes están compitiendo agresivamente por un recurso, la solución radica en recurrir al Director del PORTAFOLIO para priorizar según la estrategia. Si un entregable está listo pero soporte se niega a recibirlo, es una falla en la transición hacia OPERACIONES."
     }
   ]
 }

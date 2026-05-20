@@ -2,66 +2,29 @@
   "_META_titulo": "El Talent Triangle del PMI",
   "_META_curso": "01-fundamentos-pmbok",
   "_META_orden": 11,
-  "_META_tiempo_min": 15,
-  "_META_INSTRUCCIONES": "Reemplazá el texto entre [CORCHETES] con tu contenido real. Borrá secciones que no uses. Agregá las que necesites. Cuando esté listo, cambia 'publicar' a true.",
+  "_META_tiempo_min": 10,
   "publicar": true,
   "secciones": [
     {
       "tipo": "parrafo",
-      "texto": "El Triángulo de Talentos del PMI representa el marco de competencias definitivo que todo director de proyectos debe desarrollar para mantenerse competitivo en un mercado laboral en constante evolución. Para superar el examen PMP, ya no basta con conocer a la perfección las fórmulas matemáticas o las plantillas metodológicas tradicionales; el PMI evalúa con rigor tu capacidad de equilibrar la excelencia operativa con habilidades de liderazgo interpersonal y una profunda visión de negocio. Comprender la sinergia de estos tres pilares te proporcionará la mentalidad necesaria para resolver con éxito las preguntas de los dominios de Personas, Procesos y Entorno de Negocio."
+      "texto": "Para mantenerse relevante en una economía impulsada por el cambio tecnológico constante, los profesionales de gestión de proyectos deben cultivar un perfil equilibrado. El Triángulo de Talentos del PMI redefine las habilidades clave en tres dimensiones esenciales de desarrollo."
     },
     {
       "tipo": "titulo",
-      "texto": "Evolución de las Competencias: Del rigor técnico al valor integral"
-    },
-    {
-      "tipo": "parrafo",
-      "texto": "Históricamente, la gestión de proyectos se consideraba una disciplina puramente técnica centrada de manera casi exclusiva en el control de cronogramas y la asignación lineal de recursos. Sin embargo, los entornos actuales de alta incertidumbre obligaron al PMI a redefinir el perfil del Project Manager hacia un modelo tridimensional. El Triángulo de Talentos no invalida las prácticas operativas tradicionales, sino que las complementa, exigiendo que el líder sea capaz de inspirar a su equipo y de justificar de qué manera cada entregable técnico contribuye de forma directa a la rentabilidad y estrategia global de la corporación."
+      "texto": "Las Tres Aristas del Triángulo de Talentos"
     },
     {
       "tipo": "lista",
       "items": [
-        "Formas de Trabajar (Ways of Working): Sustituye al antiguo pilar técnico. Representa el dominio de los diferentes marcos metodológicos y enfoques de entrega, empoderando al líder para aplicar de manera experta prácticas predictivas, ágiles o híbridas según los desafíos de cada proyecto.",
-        "Habilidades de Poder (Power Skills): Reemplaza al concepto clásico de liderazgo. Engloba las competencias interpersonales de alto impacto indispensables para influir en los interesados, motivar a los colaboradores y resolver conflictos complejos mediante la empatía y la comunicación asertiva.",
-        "Perspicacia Empresarial (Business Acumen): Evoluciona desde la gestión estratégica formal. Se define como la capacidad de entender el funcionamiento macro de la organización y del mercado, garantizando que el proyecto no solo se complete a tiempo, sino que genere valor real para el negocio.",
-        "Ejemplo Práctico de Evolución: Un director de proyectos asignado a la implementación de un nuevo core bancario aplica 'Ways of Working' al coordinar un enfoque híbrido que mezcla la instalación física estricta con sprints de desarrollo ágil. Al mismo tiempo, despliega sus 'Power Skills' para negociar y alinear las expectativas de las áreas operativas que se resisten al cambio del sistema, y demuestra un sólido 'Business Acumen' al vigilar que la arquitectura lógica elegida maximice el retorno de inversión (ROI) a largo plazo."
-      ]
-    },
-    {
-      "tipo": "titulo",
-      "texto": "Análisis Detallado de los Tres Pilares del Triángulo de Talentos"
-    },
-    {
-      "tipo": "parrafo",
-      "texto": "Para dominar los escenarios de la certificación, es fundamental desglosar las capacidades operativas asociadas a cada una de estas tres dimensiones fundamentales, comprendiendo exactamente qué herramientas metodológicas y de comportamiento debes activar frente a las diferentes situaciones de gestión:"
-    },
-    {
-      "tipo": "lista",
-      "items": [
-        "1. Formas de Trabajar (Ways of Working): Implica saber seleccionar y adaptar la metodología idónea para cada iniciativa. Sus competencias clave incluyen el levantamiento analítico de requisitos, el control de la ruta crítica, el análisis de valor ganado (EVM), el refinamiento continuo del Backlog de producto, la gestión de la calidad y la planificación de respuestas ante riesgos técnicos.",
-        "2. Habilidades de Poder (Power Skills): Se concentran en el comportamiento humano y el liderazgo servicial. Incluyen la inteligencia emocional para manejar la frustración del equipo, las técnicas de negociación colaborativa, el coaching para el desarrollo del talento, la facilitación de reuniones complejas y la capacidad de guiar a la organización a través del proceso de gestión del cambio.",
-        "3. Perspicacia Empresarial (Business Acumen): Representa la visión ejecutiva y comercial. Sus elementos clave son el análisis del Caso de Negocio (Business Case), la evaluación de beneficios económicos, el entendimiento del modelo de gobernanza, el análisis de la competencia, el cumplimiento regulatorio legal y el alineamiento con los objetivos estratégicos corporativos de alto nivel."
-      ]
-    },
-    {
-      "tipo": "titulo",
-      "texto": "Sinergia en la Toma de Decisiones del Project Manager"
-    },
-    {
-      "tipo": "parrafo",
-      "texto": "Ninguna de estas competencias opera en silos cerrados; de hecho, los problemas más complejos que plantea el examen PMP exigen activar las tres dimensiones de forma simultánea para alcanzar una solución óptima. Cuando un proyecto sufre un desvío financiero crítico por fluctuaciones imprevistas del mercado, la perspicacia empresarial te permite evaluar la viabilidad del caso de negocio; las habilidades de poder te otorgan la capacidad política para proponer soluciones transparentes al patrocinador, y tus formas de trabajar te guiarán para reestructurar la línea base del proyecto de manera técnica."
-    },
-    {
-      "tipo": "lista",
-      "items": [
-        "Resolución de Crisis Integrada: Ante un recorte de presupuesto, el Business Acumen te ayuda a identificar cuáles entregables aportan menos valor comercial; las Power Skills te permiten comunicarlo con asertividad al equipo para evitar la desmotivación, y las Ways of Working te facilitan la ejecución técnica de la compresión del cronograma o descoping.",
-        "El Balance en Enfoques Ágiles: El líder servicial debe dominar las ceremonias técnicas de Scrum (Ways of Working), potenciar la autoorganización y empoderamiento del equipo técnico frente a bloqueos (Power Skills), y asegurar que el incremento de cada sprint responda al valor comercial exigido por el Product Owner (Business Acumen)."
+        "Formas de Trabajar (Ways of Working): El dominio técnico de la gestión, abarcando prácticas predictivas, ágiles, híbridas y marcos de diseño como Design Thinking.",
+        "Poder de las Personas (Power Skills): Habilidades interpersonales críticas que incluyen el liderazgo sirviente, la comunicación asertiva, la empatía, la resolución analítica de conflictos y la negociación política.",
+        "Perspicacia Empresarial (Business Acumen): La capacidad de comprender el contexto macro de la organización y el mercado, asegurando que cada entregable de software genere valor real al negocio y se alinee con la estrategia de la compañía."
       ]
     },
     {
       "tipo": "callout",
       "variante": "tip_examen",
-      "texto": "TIP DE EXAMEN: Las preguntas situacionales del PMP te evaluarán si eres capaz de identificar qué pilar del Triángulo de Talentos está fallando en un escenario específico. Si el enunciado describe que 'el proyecto se entregó exactamente a tiempo y bajo el presupuesto planificado, pero el Director Comercial afirma que el software ya no sirve porque el mercado adoptó otra tecnología', la falla raíz radica en la falta de Perspicacia Empresarial (BUSINESS ACUMEN) del PM por no monitorear el entorno del negocio. Si la pregunta plantea que 'el Project Manager pasa el 80% de su tiempo recalculando fórmulas en Excel mientras el equipo técnico sufre de conflictos internos destructivos que retrasan las entregas', la solución pasa por potenciar las Habilidades de Poder (POWER SKILLS) mediante un enfoque de liderazgo servicial. Recuerda: ante cualquier escenario de crisis con personas o estrategia, descarta las respuestas que ofrezcan soluciones puramente administrativas o autoritarias y prioriza aquellas que equilibren el liderazgo interpersonal con el valor para el negocio."
+      "texto": "TIP DE EXAMEN: El examen PMP evalúa fuertemente las 'Power Skills' en el dominio de Personas. Si un escenario describe que un patrocinador ha perdido el interés en la iniciativa por cambios en el mercado, debes aplicar tu 'Business Acumen' para evaluar si el caso de negocio sigue siendo válido o si se requiere una reorientación estratégica del backlog técnico."
     }
   ]
 }

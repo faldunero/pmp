@@ -3,55 +3,35 @@
   "_META_curso": "01-fundamentos-pmbok",
   "_META_orden": 5,
   "_META_tiempo_min": 16,
-  "_META_INSTRUCCIONES": "Reemplazá el texto entre [CORCHETES] con tu contenido real. Borrá secciones que no uses. Agregá las que necesites. Cuando esté listo, cambia 'publicar' a true.",
   "publicar": true,
   "secciones": [
     {
       "tipo": "parrafo",
-      "texto": "Las áreas de conocimiento representan la especialización técnica y operativa que todo director de proyectos debe dominar para articular un plan sólido y sin fisuras. En el examen PMP, comprender qué se hace en cada una de estas dimensiones te permitirá diagnosticar de inmediato el origen de cualquier problema planteado en los escenarios situacionales. No se trata de memorizar procesos de forma aislada, sino de entender cómo interactúan estas diez disciplinas para equilibrar las restricciones del proyecto y garantizar la entrega de valor."
+      "texto": "Dominar las 10 Áreas de Conocimiento tradicionales del PMBOK es indispensable para estructurar tu pensamiento bajo los estándares globales del PMI. El examen PMP evalúa con rigor tu capacidad para entender qué tipo de problema estás enfrentando y qué herramientas debes activar."
     },
     {
       "tipo": "titulo",
-      "texto": "Las 10 Áreas de Conocimiento: El motor de la gestión de proyectos"
-    },
-    {
-      "tipo": "parrafo",
-      "texto": "Para estructurar el trabajo de manera eficiente, el PMBOK divide la gestión de proyectos en diez áreas especializadas. Cada una aborda un aspecto crítico del ciclo de vida, desde la definición de los límites del producto hasta la protección del presupuesto o la mitigación de eventos imprevistos. La clave para dominar esta estructura es verlas como disciplinas interconectadas: un cambio en el alcance impactará directamente el cronograma, el costo, la calidad y los riesgos asociados, exigiendo una respuesta coordinada en todo el ecosistema."
+      "texto": "Las 10 Dimensiones de la Gestión de Proyectos"
     },
     {
       "tipo": "lista",
       "items": [
-        "Gestión de la Integración: Es el pegamento del proyecto. Su función es unificar, consolidar y coordinar todos los planes, procesos y actividades de las demás áreas para asegurar que el proyecto avance como un todo armonizado.",
-        "Gestión del Alcance: Define las fronteras de la iniciativa. Se encarga de garantizar que el proyecto incluya todo el trabajo requerido, y únicamente el trabajo requerido, para completar el proyecto con éxito, evitando el desvío de objetivos (Scope Creep).",
-        "Gestión del Cronograma: Administra la variable tiempo. Implica secuenciar las actividades, estimar las duraciones de las tareas y desarrollar el calendario del proyecto para asegurar el cumplimiento de la fecha de entrega acordada.",
-        "Gestión de los Costos: Cuida la salud financiera. Se enfoca en planificar, estimar, presupuestar, financiar y controlar los costos para que el proyecto se complete dentro del presupuesto aprobado por los patrocinadores.",
-        "Gestión de la Calidad: Asegura el cumplimiento de las expectativas. Incorpora las políticas y estándares de calidad de la organización tanto para los procesos de gestión como para los entregables finales del proyecto.",
-        "Gestión de los Recursos: Coordina el capital humano y físico. Se encarga de identificar, adquirir y gestionar los miembros del equipo, las instalaciones, las herramientas, los equipos de computo y los materiales necesarios.",
-        "Gestión de las Comunicaciones: Garantiza el flujo óptimo de la información. Se ocupa de que la recopilación, distribución, almacenamiento y disposición final de los mensajes del proyecto sean oportunos, claros y lleguen a la persona adecuada.",
-        "Gestión de los Riesgos: El escudo proactivo del proyecto. Se enfoca en identificar, analizar y planificar respuestas tanto para las amenazas (riesgos negativos) como para las oportunidades (riesgos positivos) que puedan afectar los objetivos.",
-        "Gestión de las Adquisiciones: Administra las relaciones comerciales. Incluye los procesos necesarios para comprar o adquirir productos, servicios o resultados fuera del equipo del proyecto, gestionando contratos y subcontratistas.",
-        "Gestión de los Interesados (Stakeholders): Gestiona las expectativas y el compromiso. Se enfoca en identificar a las personas, grupos u organizaciones que pueden afectar o verse afectados por el proyecto, diseñando estrategias para involucrarlos de manera positiva."
-    ]
-    },
-    {
-      "tipo": "titulo",
-      "texto": "Aplicación Práctica: Interconexión en el mundo real"
-    },
-    {
-      "tipo": "parrafo",
-      "texto": "Ninguna de estas áreas opera en el vacío; un error común en la práctica y evaluado con rigor en el examen es gestionarlas como silos independientes. Por ejemplo, cuando un cliente solicita un cambio de última hora, la Gestión del Alcance lo evalúa, pero la decisión final pasa por la Gestión de la Integración. Esta última coordinará el impacto en cascada: la Gestión del Cronograma reajustará las fechas, la Gestión de Costos recalculará el presupuesto, la Gestión de Riesgos evaluará nuevas amenazas y la Gestión de Comunicaciones informará de manera clara a todos los Interesados clave."
-    },
-    {
-      "tipo": "lista",
-      "items": [
-        "Caso de Negocio: Imaginemos el desarrollo de un nuevo sistema de software bancario. Si la Gestión de los Recursos identifica que falta un arquitecto Cloud experto, se debe activar la Gestión de Adquisiciones para contratar un proveedor externo, lo que inmediatamente altera el presupuesto (Costos) y genera una nueva línea base en el plan de Integración.",
-        "Sinergia metodológica: En entornos ágiles, estas diez áreas siguen existiendo pero se diluyen en ceremonias y roles dinámicos; por ejemplo, el alcance y el cronograma se gestionan visualmente a través del Backlog y los sprints, mientras que la calidad se asegura con la Definición de Listo (DoD) en cada iteración."
+        "1. Integración: Unifica y coordina todos los planes subsidiarios.",
+        "2. Alcance: Define con precisión qué trabajo se incluye y qué queda excluido.",
+        "3. Cronograma: Estructura la secuencia analítica de actividades y la ruta crítica.",
+        "4. Costos: Determina la planificación presupuestaria y el control mediante EVM.",
+        "5. Calidad: Establece los estándares normativos y criterios de aceptación técnicos.",
+        "6. Recursos: Coordina la adquisición y desarrollo del talento y la infraestructura.",
+        "7. Comunicaciones: Diseña los canales, frecuencias y formatos de información.",
+        "8. Riesgos: Identifica las incertidumbres y planifica las reservas de contingencia.",
+        "9. Adquisiciones: Administra los contratos de proveedores externos y SLAs.",
+        "10. Interesados: Analiza las expectativas y diseña estrategias de involucramiento."
       ]
     },
     {
       "tipo": "callout",
       "variante": "tip_examen",
-      "texto": "TIP DE EXAMEN: El examen PMP te pondrá a prueba con escenarios donde un área falla debido a la negligencia en otra. Si la pregunta describe que 'el equipo técnico está construyendo características adicionales que el cliente no pidió', el problema raíz radica en una mala Gestión del ALCANCE (falta de control de cambios). Si el enunciado menciona que 'los líderes de área no sabían que el proyecto ya había terminado la fase de diseño', la falla está en la Gestión de las COMUNICACIONES. Finalmente, si te plantean que 'un miembro clave renunció y no hay un plan para reemplazarlo rápidamente', debes buscar opciones de respuesta orientadas a fallas en la Gestión de los RIESGOS (falta de un plan de contingencia) o de RECURSOS."
+      "texto": "TIP DE EXAMEN: Si el sistema cumple con las funciones pero falla bajo estrés de red, el problema raíz es de CALIDAD, no de Alcance. Ante cualquier desvío que afecte múltiples dimensiones, la respuesta correcta involucra evaluar el impacto a través del control integrado de cambios."
     }
   ]
 }
