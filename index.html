@@ -524,7 +524,7 @@
      <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(15,23,42,0) 20%, rgba(15,23,42,0.75) 100%);"></div>
      <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-align: center; padding: 0 24px 24px; gap: 8px;">
        <div style="display: flex; gap: 22px; font-size: 13px; color: rgba(255,255,255,0.75);">
-         <span>Términos</span><span>Privacidad</span><span>Soporte</span>
+         <span onclick="abrirModalLegal('terminos')" style="cursor:pointer;text-decoration:underline;text-underline-offset:3px;">Términos</span><span onclick="abrirModalLegal('privacidad')" style="cursor:pointer;text-decoration:underline;text-underline-offset:3px;">Privacidad</span><span onclick="abrirModalLegal('soporte')" style="cursor:pointer;text-decoration:underline;text-underline-offset:3px;">Soporte</span>
        </div>
        <div style="font-size: 11px; color: rgba(255,255,255,0.55); line-height: 1.7; max-width: 680px;">PMP y PMI son marcas registradas del Project Management Institute, Inc. PRINCE2 e ITIL son marcas de Axelos Limited. Scrum Master y Product Owner se preparan para exámenes de Scrum.org y Scrum Alliance. Todas las marcas pertenecen a sus respectivos titulares.</div>
        <div style="font-size: 13px; color: rgba(255,255,255,0.9); font-weight: 600;">© 2026 Certifica · Plataforma independiente de material de apoyo</div>
@@ -4480,5 +4480,88 @@
     window.actualizarUserBar = actualizarUserBar;
 
 </script>
+<!-- ═══════════════════════════════════════════════════
+     MODAL LEGAL — Términos, Privacidad, Soporte
+     ═══════════════════════════════════════════════════ -->
+<div id="modal-legal-overlay" onclick="cerrarModalLegal(event)" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,0.75);z-index:99999;padding:20px;overflow-y:auto;backdrop-filter:blur(4px);">
+  <div style="background:white;border-radius:20px;max-width:700px;margin:40px auto;overflow:hidden;box-shadow:0 25px 60px rgba(0,0,0,0.3);">
+    <div style="padding:28px 32px 20px;border-bottom:1px solid #f1f5f9;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;">
+      <div>
+        <div id="ml-badge" style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;"></div>
+        <h2 id="ml-titulo" style="font-size:1.4rem;font-weight:800;color:#0f172a;margin:0;letter-spacing:-0.02em;"></h2>
+      </div>
+      <button onclick="document.getElementById('modal-legal-overlay').style.display='none';document.body.style.overflow='';" style="background:#f1f5f9;border:none;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1rem;color:#475569;flex-shrink:0;display:flex;align-items:center;justify-content:center;">✕</button>
+    </div>
+    <div id="ml-body" style="padding:28px 32px 36px;font-size:0.92rem;line-height:1.75;color:#475569;max-height:72vh;overflow-y:auto;"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var H = function(t,c){ return '<h3 style="color:#0f172a;font-size:1rem;font-weight:700;margin:22px 0 8px;">'+t+'</h3><p style="margin:0 0 4px;">'+c+'</p>'; };
+  var CONTENIDO = {
+    terminos:{
+      badge:'📋 Documento legal', badgeColor:'#1e40af',
+      titulo:'Términos y Condiciones de Uso',
+      html:
+        '<div style="background:#eff6ff;border-left:4px solid #2563eb;padding:12px 16px;border-radius:0 8px 8px 0;margin:0 0 20px;font-size:0.88rem;color:#1e40af;"><strong>Última actualización:</strong> Mayo 2026. El uso de esta plataforma implica la aceptación expresa de los presentes términos.</div>'+
+        H('1. Identificación del responsable','Certifica es una plataforma de preparación académica independiente, operada por Felipe Aldunate (en adelante, "el Operador"), con domicilio en Chile. Contacto: <a href="mailto:faldunate@gmail.com" style="color:#2563eb;">faldunate@gmail.com</a>.')+
+        H('2. Naturaleza del servicio','Certifica es una plataforma de <strong>material de apoyo académico independiente</strong>. Los simuladores, lecciones y contenidos disponibles <strong>no constituyen</strong> exámenes oficiales, ni están afiliados, patrocinados ni avalados por el Project Management Institute (PMI®), Axelos Limited, Scrum.org, Scrum Alliance ni ninguna otra entidad certificadora. La obtención de cualquier certificación requiere cumplir los requisitos y rendir el examen ante el organismo oficial correspondiente.')+
+        H('3. Acceso y cuenta de usuario','El acceso requiere registro de una cuenta personal. El usuario es responsable de mantener la confidencialidad de sus credenciales. Cada cuenta es personal e intransferible. Certifica implementa sesión única: no se permite el uso simultáneo desde múltiples dispositivos. El Operador puede suspender o eliminar cuentas que violen estos términos sin previo aviso ni derecho a reembolso.')+
+        H('4. Planes de acceso y pagos','Los planes son <strong>por tiempo determinado</strong> (30, 90, 180 o 365 días) <strong>sin renovación automática</strong>. El pago se procesa mediante PayPal. Una vez activado el acceso, <strong>no se realizan reembolsos</strong>, salvo fallas técnicas graves imputables al Operador y debidamente verificadas. El free trial está sujeto a condiciones vigentes al momento del registro, modificables sin previo aviso.')+
+        H('5. Propiedad intelectual','Todo el contenido de Certifica —textos, preguntas, simulacros, diseño y código— es propiedad del Operador. Queda prohibida la reproducción, distribución, scraping o explotación comercial del contenido sin autorización escrita. Las marcas PMP®, PMI®, PRINCE2®, ITIL®, Scrum Master y Product Owner pertenecen a sus titulares y se usan solo con fines descriptivos y educativos.')+
+        H('6. Limitación de responsabilidad','Certifica no garantiza la aprobación del examen oficial. El Operador no se hace responsable por decisiones laborales o académicas basadas en los resultados obtenidos en la plataforma. La responsabilidad máxima se limita al monto pagado en los 12 meses anteriores al hecho que origina el reclamo.')+
+        H('7. Modificaciones','El Operador puede modificar estos términos en cualquier momento notificando mediante aviso en la plataforma. El uso continuado constituye aceptación tácita de los nuevos términos.')+
+        H('8. Ley aplicable y jurisdicción','Estos términos se rigen por la legislación de la República de Chile. Cualquier controversia se someterá a los tribunales ordinarios de Santiago de Chile.')
+    },
+    privacidad:{
+      badge:'🔒 Protección de datos', badgeColor:'#059669',
+      titulo:'Política de Privacidad y Protección de Datos',
+      html:
+        '<div style="background:#f0fdf4;border-left:4px solid #10b981;padding:12px 16px;border-radius:0 8px 8px 0;margin:0 0 20px;font-size:0.88rem;color:#065f46;"><strong>Cumplimiento:</strong> Esta política cumple con la <strong>Ley N° 21.719</strong> sobre Protección de Datos Personales (Chile, vigente 2026) y adopta estándares del GDPR europeo.</div>'+
+        H('1. Responsable del tratamiento','Felipe Aldunate, operador de Certifica, con domicilio en Chile. Contacto: <a href="mailto:faldunate@gmail.com" style="color:#2563eb;">faldunate@gmail.com</a>.')+
+        H('2. Datos que recopilamos','<strong>Registro:</strong> nombre, apellido, correo, país, género (opcional), edad. <strong>Uso:</strong> resultados de simulacros, lecciones completadas, tiempo de sesión, historial de progreso. <strong>Técnicos:</strong> IP, navegador, dispositivo. <strong>Pago:</strong> procesados exclusivamente por PayPal; Certifica no almacena datos de tarjetas.')+
+        H('3. Finalidades','(a) Prestar el servicio; (b) gestionar cuenta y acceso; (c) procesar pagos vía PayPal; (d) generar estadísticas de progreso; (e) enviar comunicaciones del servicio; (f) cumplir obligaciones legales; (g) prevenir fraude y abuso.')+
+        H('4. Base legal','Ejecución del contrato aceptado al registrarse; consentimiento expreso del usuario; interés legítimo en la seguridad y mejora del servicio; cumplimiento de obligaciones legales.')+
+        H('5. Terceros','No vendemos ni comercializamos datos. Compartimos con: <strong>Google Firebase</strong> (base de datos y autenticación); <strong>PayPal</strong> (pagos); <strong>Google reCAPTCHA</strong> (seguridad). Todos bajo contratos de procesamiento con garantías adecuadas.')+
+        H('6. Transferencias internacionales','Datos almacenados en servidores de Google Firebase en EE.UU., bajo cláusulas contractuales tipo aprobadas por autoridades de protección de datos.')+
+        H('7. Tus derechos (Ley 21.719)','Tienes derecho a <strong>Acceso, Rectificación, Supresión, Oposición y Portabilidad</strong> de tus datos. Para ejercerlos escribe a <a href="mailto:faldunate@gmail.com" style="color:#2563eb;">faldunate@gmail.com</a> con tu identificación. Respondemos en 30 días hábiles.')+
+        H('8. Conservación','Datos activos mientras la cuenta esté vigente. Tras eliminación de cuenta, se borran en 90 días salvo exigencia legal. Datos de facturación: 6 años.')+
+        H('9. Seguridad','HTTPS/TLS, autenticación Firebase, control de acceso por roles, App Check anti-abuso, sesión única por dispositivo, validación server-side de operaciones críticas.')+
+        H('10. Menores de edad','Servicio exclusivo para mayores de 18 años. Si detectamos registro de un menor, eliminamos la cuenta de inmediato.')
+    },
+    soporte:{
+      badge:'💬 Ayuda y contacto', badgeColor:'#7c3aed',
+      titulo:'Centro de Soporte',
+      html:
+        '<div style="background:#f5f3ff;border-left:4px solid #7c3aed;padding:12px 16px;border-radius:0 8px 8px 0;margin:0 0 20px;font-size:0.88rem;color:#4c1d95;">Respondemos en <strong>48 horas hábiles</strong>. Consultas de pago: <strong>24 horas hábiles</strong>. Escríbenos a <a href="mailto:faldunate@gmail.com" style="color:#7c3aed;font-weight:600;">faldunate@gmail.com</a></div>'+
+        H('🔑 Problemas de acceso','<strong>Olvidé mi contraseña:</strong> En login, haz clic en "Recuperar contraseña". Revisa también spam.<br><strong>No puedo ingresar:</strong> Verifica que tu correo esté confirmado. Si usaste Google, ingresa con el botón Google.<br><strong>Sesión cerrada inesperadamente:</strong> Certifica permite una sola sesión activa por cuenta.')+
+        H('💳 Pagos','<strong>Pagué pero no se activó el acceso:</strong> Escríbenos con tu Order ID de PayPal; lo resolvemos en 24 h.<br><strong>Reembolso:</strong> Solo aplica ante fallas técnicas graves imputables a la plataforma. Envía el detalle y el Order ID.<br><strong>Plan venció antes:</strong> Contáctanos con tu email y Order ID para revisarlo.')+
+        H('📚 Contenido y simulacros','<strong>Error en pregunta:</strong> Indícanos el número y el simulacro; lo corregimos en la próxima actualización.<br><strong>Lección no carga:</strong> Refresca la página. Si persiste, escríbenos con el nombre del curso y la lección.<br><strong>Historial desapareció:</strong> Puede deberse a dos cuentas distintas (email vs Google). Contáctanos para verificarlo.')+
+        H('🗑️ Eliminar mi cuenta','Escríbenos desde el email de tu cuenta con asunto "Solicitud de eliminación de cuenta". Procesamos en 10 días hábiles y confirmamos por email.')+
+        H('⚖️ Reclamos formales','Escríbenos con asunto "Reclamo formal". Respondemos en 5 días hábiles con resolución o plan de acción concreto.')
+    }
+  };
+
+  window.abrirModalLegal = function(tipo){
+    var d = CONTENIDO[tipo];
+    if(!d) return;
+    document.getElementById('ml-badge').textContent = d.badge;
+    document.getElementById('ml-badge').style.color = d.badgeColor;
+    document.getElementById('ml-titulo').textContent = d.titulo;
+    document.getElementById('ml-body').innerHTML = d.html;
+    document.getElementById('modal-legal-overlay').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.cerrarModalLegal = function(e){
+    if(e.target.id === 'modal-legal-overlay'){
+      document.getElementById('modal-legal-overlay').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  };
+})();
+</script>
+
 </body>
 </html>
