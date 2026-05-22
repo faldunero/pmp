@@ -353,10 +353,6 @@
      <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 32px 24px;">
        <h1 style="font-size: 2.3rem; font-weight: 700; color: white; margin: 0 0 14px; line-height: 1.2; letter-spacing: -0.03em; max-width: 580px; text-shadow: 0 2px 8px rgba(0,0,0,0.4);">Cursos de preparación para tu examen profesional</h1>
        <p style="font-size: 1rem; color: rgba(255,255,255,0.88); margin: 0 0 24px; max-width: 460px; line-height: 1.6;">Material de estudio independiente y simuladores diseñados para que llegues al examen oficial sabiendo qué te espera.</p>
-       <div style="display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-bottom: 24px;">
-         <button onclick="navigate('screen-register')" style="background: var(--accent); color: white; border: none; padding: 13px 28px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 15px; font-family: 'Inter', sans-serif;">Explorar el catálogo</button>
-         <button onclick="navigate('screen-login')" style="background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.5); padding: 13px 28px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 15px; font-family: 'Inter', sans-serif;">Iniciar sesión</button>
-       </div>
        <div style="display: flex; align-items: center; justify-content: center; gap: 28px; font-size: 13px; color: rgba(255,255,255,0.75); flex-wrap: wrap;">
          <div><span style="font-weight: 700; color: white; font-size: 15px;">5</span> cursos</div>
          <div style="width: 1px; height: 14px; background: rgba(255,255,255,0.3);"></div>
@@ -367,9 +363,13 @@
      </div>
    </div>
 
-   <!-- Badge debajo del hero -->
+   <!-- Badge + botones debajo del hero -->
    <div style="text-align: center; padding: 24px 20px 8px;">
-     <div style="display: inline-block; background: #eff6ff; color: #1e40af; font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 100px; letter-spacing: 0.02em;">Acceso gratuito por tiempo limitado</div>
+     <div style="display: inline-block; background: #eff6ff; color: #1e40af; font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 100px; letter-spacing: 0.02em; margin-bottom: 20px;">Acceso gratuito por tiempo limitado</div>
+     <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
+       <button onclick="navigate('screen-register')" style="background: var(--accent); color: white; border: none; padding: 13px 28px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 15px; font-family: 'Inter', sans-serif;">Explorar el catálogo</button>
+       <button onclick="navigate('screen-login')" style="background: white; color: #111827; border: 1px solid #d1d5db; padding: 13px 28px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 15px; font-family: 'Inter', sans-serif;">Iniciar sesión</button>
+     </div>
    </div>
 
    <div style="margin: 0 0 8px;">
