@@ -1174,6 +1174,21 @@
    </div>
  </div>
 
+ <!-- Modal: elegir bajo qué admin queda un profesor nuevo (setProfesorClaim
+      ahora requiere adminUid explícito — jerarquía admin -> profesor -> alumno). -->
+ <div id="modal-elegir-admin" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,0.55);z-index:9999;align-items:center;justify-content:center;">
+   <div style="background:white;border-radius:14px;padding:24px;width:90%;max-width:400px;box-shadow:0 20px 50px rgba(0,0,0,0.25);">
+     <h3 style="margin:0 0 6px;font-size:1.1rem;font-weight:800;color:var(--pmi-blue);">Promover a profesor</h3>
+     <p style="margin:0 0 16px;font-size:0.85rem;color:#64748b;" id="modal-elegir-admin-target">—</p>
+     <label style="display:block;font-size:0.78rem;font-weight:700;color:#475569;margin-bottom:6px;">Bajo qué admin queda este profesor</label>
+     <select id="modal-elegir-admin-select" style="width:100%;padding:10px 12px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:0.9rem;margin-bottom:18px;"></select>
+     <div style="display:flex;gap:10px;justify-content:flex-end;">
+       <button onclick="cerrarModalElegirAdmin()" style="background:#f1f5f9;border:1.5px solid #e2e8f0;padding:9px 16px;border-radius:8px;font-weight:600;cursor:pointer;font-size:0.85rem;">Cancelar</button>
+       <button onclick="confirmarPromoverProfesor()" style="background:var(--accent);color:white;border:none;padding:9px 18px;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.85rem;">Confirmar</button>
+     </div>
+   </div>
+ </div>
+
  <!-- ADMIN: CONFIGURACIÓN DE FREE TRIAL -->
  <div id="screen-admin-trial" class="screen">
    <div class="prof-detail-back">
@@ -3390,21 +3405,67 @@
         }).join('');
     }
 
+    // Estado temporal mientras el modal de "elegir admin" está abierto.
+    let pendingPromoverProfesorUid = null;
+
     async function cambiarRolProfesor(targetUid, profesor) {
         const u = allUsersAdmin.find(x => x.uid === targetUid);
         const label = u ? (u.email || u.uid) : targetUid;
-        const verbo = profesor ? 'promover a profesor' : 'quitar el rol de profesor';
-        if (!confirm(`¿Seguro que querés ${verbo} a ${label}?`)) return;
+
+        // Despromover sigue siendo directo, sin adminUid (la function lo limpia sola).
+        if (!profesor) {
+            if (!confirm(`¿Seguro que querés quitar el rol de profesor a ${label}?`)) return;
+            try {
+                const callable = functions.httpsCallable('setProfesorClaim');
+                const resp = await callable({ targetUid, profesor: false });
+                alert(`OK. ${resp.data.note}`);
+                cargarGestionUsuarios();
+            } catch (e) {
+                alert('Error: ' + (e.message || 'desconocido'));
+            }
+            return;
+        }
+
+        // Promover a profesor: setProfesorClaim ahora requiere adminUid
+        // explícito (jerarquía admin -> profesor -> alumno). Mostramos un
+        // modal para elegir bajo qué admin queda, en vez de confirm() directo.
+        const admins = allUsersAdmin.filter(x => x.admin);
+        if (!admins.length) {
+            alert('No hay ningún admin disponible para asignar. Esto no debería pasar — revisá listUsersWithRoles.');
+            return;
+        }
+        pendingPromoverProfesorUid = targetUid;
+        document.getElementById('modal-elegir-admin-target').textContent = `Profesor: ${label}`;
+        const select = document.getElementById('modal-elegir-admin-select');
+        select.innerHTML = admins.map(a => {
+            const adminLabel = `${a.nombre || ''} ${a.apellido || ''}`.trim() || a.email || a.uid;
+            return `<option value="${escHtml(a.uid)}">${escHtml(adminLabel)} (${escHtml(a.email || '')})</option>`;
+        }).join('');
+        document.getElementById('modal-elegir-admin').style.display = 'flex';
+    }
+    window.cambiarRolProfesor = cambiarRolProfesor;
+
+    function cerrarModalElegirAdmin() {
+        document.getElementById('modal-elegir-admin').style.display = 'none';
+        pendingPromoverProfesorUid = null;
+    }
+    window.cerrarModalElegirAdmin = cerrarModalElegirAdmin;
+
+    async function confirmarPromoverProfesor() {
+        const targetUid = pendingPromoverProfesorUid;
+        const adminUid = document.getElementById('modal-elegir-admin-select').value;
+        if (!targetUid || !adminUid) return;
+        cerrarModalElegirAdmin();
         try {
             const callable = functions.httpsCallable('setProfesorClaim');
-            const resp = await callable({ targetUid, profesor });
-            alert(`OK. ${resp.data.note}`);
+            const resp = await callable({ targetUid, profesor: true, adminUid });
+            alert(`OK. ${resp.data.note}${resp.data.codigoInvitacion ? `\n\nCódigo de invitación: ${resp.data.codigoInvitacion}` : ''}`);
             cargarGestionUsuarios();
         } catch (e) {
             alert('Error: ' + (e.message || 'desconocido'));
         }
     }
-    window.cambiarRolProfesor = cambiarRolProfesor;
+    window.confirmarPromoverProfesor = confirmarPromoverProfesor;
 
     async function cambiarRolAdmin(targetUid, makeAdmin) {
         const u = allUsersAdmin.find(x => x.uid === targetUid);
