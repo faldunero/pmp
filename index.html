@@ -1137,15 +1137,9 @@
    <div class="prof-detail-back">
      <button onclick="navigate('screen-teacher')">← Volver al dashboard</button>
    </div>
-   <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:24px;">
-     <div>
-       <div style="font-size:0.7rem;font-weight:800;letter-spacing:0.08em;color:#64748b;text-transform:uppercase;">Panel Admin</div>
-       <h2 style="margin:4px 0 0 0;font-size:1.7rem;font-weight:800;color:var(--pmi-blue);">Gestión de usuarios</h2>
-     </div>
-     <div style="display:flex;gap:10px;align-items:center;">
-       <input id="admin-users-search" oninput="filtrarUsuarios()" placeholder="Buscar por email o nombre..." style="padding:10px 14px;border:1.5px solid #e2e8f0;border-radius:100px;font-size:0.88rem;width:280px;outline:none;">
-       <button onclick="cargarGestionUsuarios()" style="background:#f1f5f9;border:1.5px solid #e2e8f0;padding:9px 16px;border-radius:100px;font-weight:600;cursor:pointer;font-size:0.82rem;">Refrescar</button>
-     </div>
+   <div style="margin-bottom:24px;">
+     <div style="font-size:0.7rem;font-weight:800;letter-spacing:0.08em;color:#64748b;text-transform:uppercase;">Panel Admin</div>
+     <h2 style="margin:4px 0 0 0;font-size:1.7rem;font-weight:800;color:var(--pmi-blue);">Gestión de usuarios</h2>
    </div>
 
    <div id="admin-users-summary" style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px;font-size:0.82rem;color:#475569;"></div>
@@ -1154,19 +1148,27 @@
      <strong>Atención:</strong> los cambios de rol se aplican cuando el usuario afectado <em>cierra sesión y vuelve a entrar</em>. Su token actual sigue siendo válido hasta que expire.
    </div>
 
+   <div style="display:flex;gap:4px;margin-bottom:16px;border-bottom:1.5px solid #e2e8f0;">
+     <button id="tab-alumnos" onclick="cambiarTabUsuarios('alumnos')" class="admin-users-tab admin-users-tab-active">Alumnos <span id="tab-count-alumnos" style="color:#94a3b8;font-weight:600;"></span></button>
+     <button id="tab-profesores" onclick="cambiarTabUsuarios('profesores')" class="admin-users-tab">Profesores <span id="tab-count-profesores" style="color:#94a3b8;font-weight:600;"></span></button>
+     <button id="tab-admins" onclick="cambiarTabUsuarios('admins')" class="admin-users-tab">Admins <span id="tab-count-admins" style="color:#94a3b8;font-weight:600;"></span></button>
+   </div>
+
+   <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+     <input id="admin-users-search" oninput="filtrarUsuarios()" placeholder="Buscar por email o nombre..." style="padding:10px 14px;border:1.5px solid #e2e8f0;border-radius:100px;font-size:0.88rem;width:280px;outline:none;">
+     <div style="display:flex;gap:10px;align-items:center;">
+       <div id="admin-users-filtro-asignacion" style="display:none;gap:6px;">
+         <button id="filtro-todos" onclick="cambiarFiltroAsignacion('todos')" class="admin-users-filtro admin-users-filtro-activo">Todos</button>
+         <button id="filtro-sin-asignar" onclick="cambiarFiltroAsignacion('sin_asignar')" class="admin-users-filtro" style="color:#92400e;border-color:#fcd34d;background:#fffbeb;">Sin asignar <span id="filtro-sin-asignar-count" style="font-weight:800;"></span></button>
+         <button id="filtro-asignados" onclick="cambiarFiltroAsignacion('asignados')" class="admin-users-filtro">Asignados</button>
+       </div>
+       <button onclick="cargarGestionUsuarios()" style="background:#f1f5f9;border:1.5px solid #e2e8f0;padding:9px 16px;border-radius:100px;font-weight:600;cursor:pointer;font-size:0.82rem;">Refrescar</button>
+     </div>
+   </div>
+
    <div style="overflow-x:auto;">
      <table class="prof-table" id="admin-users-table">
-       <thead>
-         <tr>
-           <th>Usuario</th>
-           <th>Email</th>
-           <th>País</th>
-           <th>Rol</th>
-           <th>Verificado</th>
-           <th>Creado</th>
-           <th style="text-align:right;">Acciones</th>
-         </tr>
-       </thead>
+       <thead id="admin-users-thead"></thead>
        <tbody id="admin-users-tbody">
          <tr><td colspan="7" class="prof-loading">Cargando usuarios...</td></tr>
        </tbody>
@@ -1188,6 +1190,35 @@
      </div>
    </div>
  </div>
+
+ <!-- Modal: asignar un alumno a un profesor (jerarquía admin -> profesor -> alumno). -->
+ <div id="modal-asignar-profesor" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,0.55);z-index:9999;align-items:center;justify-content:center;">
+   <div style="background:white;border-radius:14px;padding:24px;width:90%;max-width:400px;box-shadow:0 20px 50px rgba(0,0,0,0.25);">
+     <h3 style="margin:0 0 6px;font-size:1.1rem;font-weight:800;color:var(--pmi-blue);">Asignar profesor</h3>
+     <p style="margin:0 0 16px;font-size:0.85rem;color:#64748b;" id="modal-asignar-profesor-target">—</p>
+     <label style="display:block;font-size:0.78rem;font-weight:700;color:#475569;margin-bottom:6px;">Profesor</label>
+     <select id="modal-asignar-profesor-select" style="width:100%;padding:10px 12px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:0.9rem;margin-bottom:18px;"></select>
+     <div style="display:flex;gap:10px;justify-content:flex-end;">
+       <button onclick="cerrarModalAsignarProfesor()" style="background:#f1f5f9;border:1.5px solid #e2e8f0;padding:9px 16px;border-radius:8px;font-weight:600;cursor:pointer;font-size:0.85rem;">Cancelar</button>
+       <button onclick="confirmarAsignarProfesor()" style="background:var(--accent);color:white;border:none;padding:9px 18px;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.85rem;">Confirmar</button>
+     </div>
+   </div>
+ </div>
+
+ <style>
+   .admin-users-tab {
+     background: none; border: none; border-bottom: 2.5px solid transparent;
+     padding: 10px 16px; font-size: 0.85rem; font-weight: 700; color: #64748b;
+     cursor: pointer; margin-bottom: -1.5px;
+   }
+   .admin-users-tab-active { color: var(--pmi-blue); border-bottom-color: var(--accent); }
+   .admin-users-filtro {
+     background: #fff; border: 1.5px solid #e2e8f0; color: #475569;
+     padding: 6px 12px; border-radius: 100px; font-size: 0.78rem; font-weight: 700;
+     cursor: pointer;
+   }
+   .admin-users-filtro-activo { background: #f1f5f9; border-color: #cbd5e1; }
+ </style>
 
  <!-- ADMIN: CONFIGURACIÓN DE FREE TRIAL -->
  <div id="screen-admin-trial" class="screen">
@@ -3308,6 +3339,8 @@
     // Solo se invoca si isAdmin === true. Llama a la callable
     // listUsersWithRoles, que internamente valida assertAdmin.
     let allUsersAdmin = []; // cache para filtrado client-side
+    let adminUsersTab = 'alumnos';        // 'alumnos' | 'profesores' | 'admins'
+    let adminUsersFiltroAsignacion = 'todos'; // 'todos' | 'sin_asignar' | 'asignados' (solo aplica a alumnos)
 
     function abrirGestionUsuarios() {
         if (!isAdmin) {
@@ -3315,6 +3348,10 @@
             return;
         }
         navigate('screen-admin-users');
+        adminUsersTab = 'alumnos';
+        adminUsersFiltroAsignacion = 'todos';
+        const filtroBox = document.getElementById('admin-users-filtro-asignacion');
+        if (filtroBox) filtroBox.style.display = 'flex';
         cargarGestionUsuarios();
     }
     window.abrirGestionUsuarios = abrirGestionUsuarios;
@@ -3338,7 +3375,8 @@
                 <span style="background:#f1f5f9;color:#475569;padding:6px 12px;border-radius:100px;font-weight:600;">${totalAlumnos} alumno${totalAlumnos===1?'':'s'}</span>
                 <span style="background:#f0fdf4;color:#166534;padding:6px 12px;border-radius:100px;font-weight:600;">${allUsersAdmin.length} total</span>
             `;
-            renderUsuarios(allUsersAdmin);
+            actualizarContadoresTabs();
+            renderUsuariosTab();
         } catch (e) {
             console.error(e);
             tbody.innerHTML = `<tr><td colspan="7" style="color:#ef4444;padding:14px;">Error al cargar: ${escHtml(e.message || 'desconocido')}</td></tr>`;
@@ -3346,18 +3384,74 @@
     }
     window.cargarGestionUsuarios = cargarGestionUsuarios;
 
+    function actualizarContadoresTabs() {
+        const alumnos = allUsersAdmin.filter(u => !u.profesor && !u.admin);
+        const sinAsignar = alumnos.filter(u => !u.profesorUid).length;
+        document.getElementById('tab-count-alumnos').textContent = alumnos.length;
+        document.getElementById('tab-count-profesores').textContent = allUsersAdmin.filter(u => u.profesor && !u.admin).length;
+        document.getElementById('tab-count-admins').textContent = allUsersAdmin.filter(u => u.admin).length;
+        const elSinAsignar = document.getElementById('filtro-sin-asignar-count');
+        if (elSinAsignar) elSinAsignar.textContent = sinAsignar;
+    }
+
+    function cambiarTabUsuarios(tab) {
+        adminUsersTab = tab;
+        adminUsersFiltroAsignacion = 'todos';
+        ['alumnos', 'profesores', 'admins'].forEach(t => {
+            document.getElementById('tab-' + t).classList.toggle('admin-users-tab-active', t === tab);
+        });
+        const filtroBox = document.getElementById('admin-users-filtro-asignacion');
+        filtroBox.style.display = (tab === 'alumnos') ? 'flex' : 'none';
+        ['todos', 'sin_asignar', 'asignados'].forEach(f => {
+            document.getElementById('filtro-' + f.replace('_', '-')).classList.toggle('admin-users-filtro-activo', f === 'todos');
+        });
+        filtrarUsuarios();
+    }
+    window.cambiarTabUsuarios = cambiarTabUsuarios;
+
+    function cambiarFiltroAsignacion(filtro) {
+        adminUsersFiltroAsignacion = filtro;
+        ['todos', 'sin_asignar', 'asignados'].forEach(f => {
+            document.getElementById('filtro-' + f.replace('_', '-')).classList.toggle('admin-users-filtro-activo', f === filtro);
+        });
+        filtrarUsuarios();
+    }
+    window.cambiarFiltroAsignacion = cambiarFiltroAsignacion;
+
     function filtrarUsuarios() {
         const q = (document.getElementById('admin-users-search').value || '').toLowerCase().trim();
-        if (!q) return renderUsuarios(allUsersAdmin);
-        const filtered = allUsersAdmin.filter(u =>
-            (u.email || '').toLowerCase().includes(q) ||
-            (u.nombre || '').toLowerCase().includes(q) ||
-            (u.apellido || '').toLowerCase().includes(q) ||
-            (u.uid || '').toLowerCase().includes(q)
-        );
-        renderUsuarios(filtered);
+
+        let base = allUsersAdmin.filter(u => {
+            if (adminUsersTab === 'admins') return u.admin;
+            if (adminUsersTab === 'profesores') return u.profesor && !u.admin;
+            return !u.profesor && !u.admin; // alumnos
+        });
+
+        if (adminUsersTab === 'alumnos' && adminUsersFiltroAsignacion !== 'todos') {
+            base = base.filter(u => adminUsersFiltroAsignacion === 'sin_asignar' ? !u.profesorUid : !!u.profesorUid);
+        }
+
+        if (q) {
+            base = base.filter(u =>
+                (u.email || '').toLowerCase().includes(q) ||
+                (u.nombre || '').toLowerCase().includes(q) ||
+                (u.apellido || '').toLowerCase().includes(q) ||
+                (u.uid || '').toLowerCase().includes(q)
+            );
+        }
+
+        renderUsuariosTab(base);
     }
     window.filtrarUsuarios = filtrarUsuarios;
+
+    function renderUsuariosTab(filtered) {
+        const base = filtered || allUsersAdmin.filter(u => {
+            if (adminUsersTab === 'admins') return u.admin;
+            if (adminUsersTab === 'profesores') return u.profesor && !u.admin;
+            return !u.profesor && !u.admin;
+        });
+        renderUsuarios(base);
+    }
 
     function rolPill(u) {
         if (u.admin) return '<span style="background:#eff6ff;color:#1d4ed8;padding:3px 10px;border-radius:6px;font-size:0.72rem;font-weight:800;">ADMIN</span>';
@@ -3365,19 +3459,61 @@
         return '<span style="background:#f1f5f9;color:#475569;padding:3px 10px;border-radius:6px;font-size:0.72rem;font-weight:800;">ALUMNO</span>';
     }
 
+    // Avatar circular con iniciales — usado en la celda "Profesor" de un alumno asignado.
+    function avatarIniciales(nombreCompleto) {
+        const partes = (nombreCompleto || '').trim().split(/\s+/);
+        const iniciales = ((partes[0]?.[0] || '') + (partes[1]?.[0] || '')).toUpperCase() || '?';
+        return `<span style="width:20px;height:20px;border-radius:50%;background:#eff6ff;color:#1d4ed8;font-size:0.62rem;font-weight:800;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;">${escHtml(iniciales)}</span>`;
+    }
+
     function renderUsuarios(users) {
+        const thead = document.getElementById('admin-users-thead');
         const tbody = document.getElementById('admin-users-tbody');
+        const myUid = (auth.currentUser || {}).uid;
+
+        // Encabezado de columnas según pestaña activa.
+        if (adminUsersTab === 'alumnos') {
+            thead.innerHTML = `<tr><th>Usuario</th><th>Email</th><th>Verificado</th><th>Profesor</th><th style="text-align:right;">Acciones</th></tr>`;
+        } else {
+            thead.innerHTML = `<tr><th>Usuario</th><th>Email</th><th>País</th><th>Rol</th><th>Verificado</th><th>Creado</th><th style="text-align:right;">Acciones</th></tr>`;
+        }
+
+        const colspan = (adminUsersTab === 'alumnos') ? 5 : 7;
         if (!users.length) {
-            tbody.innerHTML = '<tr><td colspan="7" class="prof-empty">Sin resultados.</td></tr>';
+            tbody.innerHTML = `<tr><td colspan="${colspan}" class="prof-empty">Sin resultados.</td></tr>`;
             return;
         }
-        const myUid = (auth.currentUser || {}).uid;
+
+        if (adminUsersTab === 'alumnos') {
+            tbody.innerHTML = users.map(u => {
+                const nombre = `${u.nombre || ''} ${u.apellido || ''}`.trim() || (u.displayName || '—');
+                const sinAsignar = !u.profesorUid;
+                const profesorInfo = sinAsignar ? null : allUsersAdmin.find(x => x.uid === u.profesorUid);
+                const profesorNombre = profesorInfo ? (`${profesorInfo.nombre || ''} ${profesorInfo.apellido || ''}`.trim() || profesorInfo.email) : null;
+
+                const celdaProfesor = sinAsignar
+                    ? `<span style="background:#fffbeb;color:#92400e;border:1px solid #fcd34d;font-size:0.74rem;padding:3px 9px;border-radius:100px;display:inline-flex;align-items:center;gap:5px;font-weight:700;">⚠ Sin asignar</span>`
+                    : `<span style="display:inline-flex;align-items:center;gap:6px;font-size:0.82rem;">${avatarIniciales(profesorNombre)}${escHtml(profesorNombre || '—')}</span>`;
+
+                return `<tr style="${sinAsignar ? 'background:#fffbeb;' : ''}">
+                    <td><strong>${escHtml(nombre)}</strong></td>
+                    <td style="font-size:0.85rem;">${escHtml(u.email)}</td>
+                    <td>${u.emailVerified ? '<span style="color:#10b981;">✓</span>' : '<span style="color:#94a3b8;">—</span>'}</td>
+                    <td>${celdaProfesor}</td>
+                    <td style="text-align:right;white-space:nowrap;">
+                        <button onclick="abrirModalAsignarProfesor('${escHtml(u.uid)}')" style="background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;padding:5px 10px;border-radius:6px;font-size:0.72rem;font-weight:700;cursor:pointer;">${sinAsignar ? 'Asignar' : 'Cambiar'}</button>
+                    </td>
+                </tr>`;
+            }).join('');
+            return;
+        }
+
+        // Pestañas Profesores / Admins: tabla completa, igual estilo que antes.
         tbody.innerHTML = users.map(u => {
             const nombre = `${u.nombre || ''} ${u.apellido || ''}`.trim() || (u.displayName || '—');
             const created = u.creationTime ? new Date(u.creationTime).toLocaleDateString('es-CL') : '—';
             const isSelf = u.uid === myUid;
 
-            // Botones de acción según el rol actual
             const acciones = [];
             if (!u.profesor && !u.admin) {
                 acciones.push(`<button onclick="cambiarRolProfesor('${escHtml(u.uid)}', true)" style="background:#f5f3ff;color:#6d28d9;border:1px solid #ddd6fe;padding:5px 10px;border-radius:6px;font-size:0.72rem;font-weight:700;cursor:pointer;margin-left:4px;">Hacer profesor</button>`);
@@ -3404,6 +3540,51 @@
             </tr>`;
         }).join('');
     }
+
+    // Estado temporal mientras el modal de "asignar profesor" (alumno) está abierto.
+    let pendingAsignarAlumnoUid = null;
+
+    function abrirModalAsignarProfesor(alumnoUid) {
+        const alumno = allUsersAdmin.find(x => x.uid === alumnoUid);
+        if (!alumno) return;
+        const profesores = allUsersAdmin.filter(x => x.profesor);
+        if (!profesores.length) {
+            alert('No hay ningún profesor disponible para asignar. Primero promové a alguien a profesor.');
+            return;
+        }
+        pendingAsignarAlumnoUid = alumnoUid;
+        const nombre = `${alumno.nombre || ''} ${alumno.apellido || ''}`.trim() || alumno.email;
+        document.getElementById('modal-asignar-profesor-target').textContent = `Alumno: ${nombre}`;
+        const select = document.getElementById('modal-asignar-profesor-select');
+        select.innerHTML = profesores.map(p => {
+            const label = `${p.nombre || ''} ${p.apellido || ''}`.trim() || p.email || p.uid;
+            const selected = p.uid === alumno.profesorUid ? 'selected' : '';
+            return `<option value="${escHtml(p.uid)}" ${selected}>${escHtml(label)} (${escHtml(p.email || '')})</option>`;
+        }).join('');
+        document.getElementById('modal-asignar-profesor').style.display = 'flex';
+    }
+    window.abrirModalAsignarProfesor = abrirModalAsignarProfesor;
+
+    function cerrarModalAsignarProfesor() {
+        document.getElementById('modal-asignar-profesor').style.display = 'none';
+        pendingAsignarAlumnoUid = null;
+    }
+    window.cerrarModalAsignarProfesor = cerrarModalAsignarProfesor;
+
+    async function confirmarAsignarProfesor() {
+        const alumnoUid = pendingAsignarAlumnoUid;
+        const profesorUid = document.getElementById('modal-asignar-profesor-select').value;
+        if (!alumnoUid || !profesorUid) return;
+        cerrarModalAsignarProfesor();
+        try {
+            const callable = functions.httpsCallable('asignarAlumnoAProfesor');
+            await callable({ alumnoUid, profesorUid });
+            cargarGestionUsuarios();
+        } catch (e) {
+            alert('Error: ' + (e.message || 'desconocido'));
+        }
+    }
+    window.confirmarAsignarProfesor = confirmarAsignarProfesor;
 
     // Estado temporal mientras el modal de "elegir admin" está abierto.
     let pendingPromoverProfesorUid = null;
